@@ -15,25 +15,25 @@ class CreateTvShowsTable extends Migration
     {
         Schema::create('tv_shows', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('imdb_id', 9);
+            $table->string('imdb_id', 9)->unique();
             $table->string('name');
-            $table->enum('status', ['Continuing', 'Completed']);
+            $table->enum('status', ['Continuing', 'Planned', 'In Production', 'Ended', 'Canceled', 'Pilot']);
             $table->date('first_aired');
             $table->string('network')->nullable();
             $table->integer('runtime')->nullable();
-            $table->enum('rating', ['TV-MA', 'TV-14', 'TV-PG', 'TV-G'])->nullable();
-            $table->string('director')->nullable();
-            $table->string('writer')->nullable();
-            $table->string('actors')->nullable();
+            $table->enum('rating', ['TV-MA', 'TV-14', 'TV-PG', 'TV-G', 'TV-Y', 'TV-Y7'])->nullable();
             $table->text('summary')->nullable();
             $table->text('plot')->nullable();
             $table->string('country')->nullable();
             $table->string('poster')->nullable();
             $table->string('banner')->nullable();
             $table->float('imdb_score');
-            $table->float('imdb_votes');
-            $table->enum('air_day', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])->nullable();
+            $table->bigInteger('imdb_votes')->unsigned();
+            $table->enum('air_day', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Daily'])->nullable();
             $table->string('air_time')->nullable();
+            $table->bigInteger('tvdb_id')->unsigned()->nullable();
+            $table->bigInteger('tmdb_id')->unsigned()->nullable();
+            $table->string('homepage')->nullable();
             $table->timestamps();
         });
     }

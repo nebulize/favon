@@ -19,6 +19,7 @@ class CreateTvEpisodesTable extends Migration
             $table->string('name')->nullable();
             $table->date('first_aired')->nullable();
             $table->text('plot')->nullable();
+            $table->bigInteger('tmdb_id')->unsigned();
             $table->integer('tv_season_id')->unsigned();
             $table->foreign('tv_season_id')->references('id')->on('tv_seasons')->onDelete('cascade');
             $table->timestamps();
