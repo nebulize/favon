@@ -3,7 +3,61 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * App\Models\TVShow
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TVEpisode[] $episodes
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Genre[] $genres
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Language[] $languages
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TVSeason[] $tvSeason
+ * @mixin \Eloquent
+ * @property int $id
+ * @property string $imdb_id
+ * @property string $name
+ * @property string $status
+ * @property \Carbon\Carbon $first_aired
+ * @property string|null $network
+ * @property int|null $runtime
+ * @property string|null $rating
+ * @property string|null $director
+ * @property string|null $writer
+ * @property string|null $actors
+ * @property string|null $summary
+ * @property string|null $plot
+ * @property string|null $country
+ * @property string|null $poster
+ * @property string|null $banner
+ * @property float $imdb_score
+ * @property float $imdb_votes
+ * @property string|null $air_day
+ * @property string|null $air_time
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereActors($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereAirDay($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereAirTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereBanner($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereCountry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereDirector($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereFirstAired($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereImdbId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereImdbScore($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereImdbVotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereNetwork($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow wherePlot($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow wherePoster($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereRating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereRuntime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereSummary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereWriter($value)
+ */
 class TVShow extends Model
 {
     /**
@@ -18,7 +72,7 @@ class TVShow extends Model
      */
     protected $fillable = ['imdb_id', 'name', 'status', 'first_aired', 'network', 'runtime', 'rating', 'director',
         'writer', 'actors', 'summary', 'plot', 'country', 'poster', 'banner', 'imdb_score', 'imdb_votes',
-        'air_day', 'air_time'];
+        'air_day', 'air_time', 'tvdb_id', 'tmdb_id'];
 
     /**
      * Fields that are dates and casted to Carbon instances
@@ -51,7 +105,7 @@ class TVShow extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function languages()
+    public function languages() : BelongsToMany
     {
         return $this->belongsToMany(Language::class, 'language_tv_show', 'tv_show_id', 'language_id');
     }

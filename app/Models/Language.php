@@ -4,6 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Language
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TVShow[] $tvShows
+ * @mixin \Eloquent
+ * @property int $id
+ * @property string $name
+ * @property string $code
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Language whereCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Language whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Language whereName($value)
+ */
 class Language extends Model
 {
     /**
@@ -11,6 +23,12 @@ class Language extends Model
      * @var string
      */
     protected $table = 'languages';
+
+    /**
+     * Model has timestamp fields or not
+     * @var bool
+     */
+    public $timestamps = false;
 
     /**
      * Fields that should be mass assignable

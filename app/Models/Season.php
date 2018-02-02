@@ -4,6 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Season
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TVSeason[] $tvSeasons
+ * @mixin \Eloquent
+ * @property int $id
+ * @property string $name
+ * @property \Carbon\Carbon $start_date
+ * @property \Carbon\Carbon $end_date
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Season whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Season whereEndDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Season whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Season whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Season whereStartDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Season whereUpdatedAt($value)
+ */
 class Season extends Model
 {
     /**

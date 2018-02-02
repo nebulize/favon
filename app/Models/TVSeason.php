@@ -5,6 +5,27 @@ namespace App\Models;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\TVSeason
+ *
+ * @property-read \App\Models\Season $season
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TVEpisode[] $tvEpisodes
+ * @property-read \App\Models\TVShow $tvShow
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
+ * @mixin \Eloquent
+ * @property int $id
+ * @property \Carbon\Carbon $first_aired
+ * @property int $tv_show_id
+ * @property int $season_id
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVSeason whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVSeason whereFirstAired($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVSeason whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVSeason whereSeasonId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVSeason whereTvShowId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVSeason whereUpdatedAt($value)
+ */
 class TVSeason extends Model
 {
     /**
@@ -17,7 +38,7 @@ class TVSeason extends Model
      * Fields that should be mass assignable
      * @var array
      */
-    protected $fillable = ['first_aired', 'tv_show_id', 'season_id'];
+    protected $fillable = ['first_aired', 'tv_show_id', 'season_id', 'number'];
 
     /**
      * Fields that are dates and casted to Carbon instances
