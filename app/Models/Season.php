@@ -34,7 +34,7 @@ class Season extends Model
      * Fields that should be mass assignable
      * @var array
      */
-    protected $fillable = ['name', 'year', 'start_date', 'end_date'];
+    protected $fillable = ['name', 'start_date', 'end_date'];
 
     /**
      * Fields that are dates and casted to Carbon instances
@@ -47,7 +47,7 @@ class Season extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function tvSeasons()
+    public function tvSeasons() : \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(TVSeason::class,'season_id');
     }

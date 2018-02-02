@@ -25,6 +25,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVSeason whereSeasonId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVSeason whereTvShowId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVSeason whereUpdatedAt($value)
+ * @property int $number
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Person[] $persons
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Video[] $videos
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVSeason whereNumber($value)
+ * @property string|null $summary
+ * @property string|null $poster
+ * @property int $tmdb_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVSeason wherePoster($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVSeason whereSummary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVSeason whereTmdbId($value)
  */
 class TVSeason extends Model
 {
@@ -38,7 +48,7 @@ class TVSeason extends Model
      * Fields that should be mass assignable
      * @var array
      */
-    protected $fillable = ['first_aired', 'tv_show_id', 'season_id', 'number'];
+    protected $fillable = ['first_aired', 'summary', 'poster', 'tmdb_id', 'tv_show_id', 'season_id', 'number'];
 
     /**
      * Fields that are dates and casted to Carbon instances
@@ -51,7 +61,7 @@ class TVSeason extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function tvEpisodes()
+    public function tvEpisodes() : \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(TVEpisode::class, 'tv_season_id');
     }
@@ -61,7 +71,7 @@ class TVSeason extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function tvShow()
+    public function tvShow() : \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(TVShow::class, 'tv_show_id');
     }
@@ -71,7 +81,7 @@ class TVSeason extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function season()
+    public function season() : \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Season::class, 'season_id');
     }
@@ -81,8 +91,26 @@ class TVSeason extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function users()
+    public function users() : \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_tv_season', 'tv_season_id', 'user_id');
+    }
+
+    /**
+     * One-To-Many: one tv season has many videos
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function videos() : \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Video::class, 'tv_season_id');
+    }
+
+    /**
+     * Many-To-Many: one tv season has many persons in it
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function persons() : \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Person::class, 'person_tv_season', 'tv_season_id', 'person_id');
     }
 }

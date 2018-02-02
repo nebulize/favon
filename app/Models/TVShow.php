@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * App\Models\TVShow
@@ -57,6 +56,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereSummary($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereWriter($value)
+ * @property int|null $tvdb_id
+ * @property int|null $tmdb_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereTmdbId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereTvdbId($value)
+ * @property string|null $homepage
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereHomepage($value)
  */
 class TVShow extends Model
 {
@@ -70,9 +75,9 @@ class TVShow extends Model
      * Fields that should be mass assignable
      * @var array
      */
-    protected $fillable = ['imdb_id', 'name', 'status', 'first_aired', 'network', 'runtime', 'rating', 'director',
-        'writer', 'actors', 'summary', 'plot', 'country', 'poster', 'banner', 'imdb_score', 'imdb_votes',
-        'air_day', 'air_time', 'tvdb_id', 'tmdb_id'];
+    protected $fillable = ['imdb_id', 'name', 'status', 'first_aired', 'network', 'runtime', 'rating',
+        'summary', 'plot', 'country', 'poster', 'banner', 'imdb_score', 'imdb_votes', 'air_day', 'air_time',
+        'tvdb_id', 'tmdb_id', 'homepage'];
 
     /**
      * Fields that are dates and casted to Carbon instances
@@ -85,7 +90,7 @@ class TVShow extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function tvSeason()
+    public function tvSeason() : \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(TVSeason::class, 'tv_show_id');
     }
@@ -95,7 +100,7 @@ class TVShow extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function genres()
+    public function genres() : \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Genre::class, 'genre_tv_show', 'tv_show_id', 'genre_id');
     }
@@ -105,7 +110,7 @@ class TVShow extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function languages() : BelongsToMany
+    public function languages() : \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Language::class, 'language_tv_show', 'tv_show_id', 'language_id');
     }
@@ -115,7 +120,7 @@ class TVShow extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
-    public function episodes()
+    public function episodes() : \Illuminate\Database\Eloquent\Relations\HasManyThrough
     {
         return $this->hasManyThrough(TVEpisode::class, TVSeason::class, 'tv_show_id', 'tv_season_id');
     }

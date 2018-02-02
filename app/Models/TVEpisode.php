@@ -27,6 +27,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVEpisode wherePlot($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVEpisode whereTvSeasonId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVEpisode whereUpdatedAt($value)
+ * @property int|null $tvdb_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVEpisode whereTvdbId($value)
+ * @property int $tmdb_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVEpisode whereTmdbId($value)
  */
 class TVEpisode extends Model
 {
@@ -40,7 +44,7 @@ class TVEpisode extends Model
      * Fields that should be mass assignable
      * @var array
      */
-    protected $fillable = ['number', 'name', 'first_aired', 'plot', 'tvdb_id', 'tv_season_id'];
+    protected $fillable = ['number', 'name', 'first_aired', 'plot', 'tmdb_id', 'tv_season_id'];
 
     /**
      * Fields that are dates and casted to Carbon instances
@@ -53,7 +57,7 @@ class TVEpisode extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function tvSeason()
+    public function tvSeason() : \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(TVSeason::class, 'tv_season_id');
     }
@@ -63,7 +67,7 @@ class TVEpisode extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function users()
+    public function users() : \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_tv_episode', 'tv_episode_id', 'user_id');
     }
