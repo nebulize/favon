@@ -61,7 +61,7 @@ class APIAdapter
     {
         $this->consumer->consume(1);
         \Log::info('API Request: ' . $request->getRequestTarget());
-        return $this->client->send($request);
+        return $this->client->send($request, ['http_errors' => false]);
     }
 
     /**

@@ -13,3 +13,4 @@
 
 Route::get('/', 'BaseController@scrape');
 Route::get('/tv', 'BaseController@tv');
+Route::get('/languages', 'BaseController@languages');
