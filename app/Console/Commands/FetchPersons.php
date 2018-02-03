@@ -2,10 +2,12 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\FetchPerson;
+use App\Jobs\FetchPersonsJob;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
 
-class FetchPersonsCaller extends Command
+class FetchPersons extends Command
 {
     /**
      * The name and signature of the console command.
@@ -38,7 +40,73 @@ class FetchPersonsCaller extends Command
      */
     public function handle()
     {
-        $this->line('Fetching persons. This will take around 100 hours to complete');
-        Artisan::queue('favon:persons-fetch');
+        $this->line('Fetching latest person export from TMDB...');
+        $this->fetchFile();
+        $this->line('Extracting...');
+        $this->extract();
+        $this->info('Successfully extracted the person list.');
+        $this->line('Queueing fetching jobs...');
+        $this->fetchPersons();
+        $this->deleteFiles();
+        $this->info('Deleted downloaded files. The fetching of persons is queued and will take around 100 hours to complete');
+        return true;
+    }
+
+    /**
+     * Fetch daily export files from TMDB
+     */
+    protected function fetchFile()
+    {
+        $date = Carbon::now();
+        $url = 'http://files.tmdb.org/p/exports/person_ids_'.$date->format('m_d_Y').'.json.gz';
+        set_time_limit(0);
+        $fp = fopen(storage_path('api/person_ids.json.gz'), 'wb+');
+        $curlCh = curl_init($url);
+        curl_setopt($curlCh, CURLOPT_TIMEOUT, 50);
+        curl_setopt($curlCh, CURLOPT_FILE, $fp);
+        curl_setopt($curlCh, CURLOPT_FOLLOWLOCATION, true);
+        curl_exec($curlCh);
+        curl_close ($curlCh);
+        fclose($fp);
+    }
+
+    /**
+     * Extract the gzipped file
+     */
+    protected function extract()
+    {
+        $sfp = gzopen(storage_path('api/person_ids.json.gz'), 'rb');
+        $fp = fopen(storage_path('api/person_ids.json'), 'wb');
+        while (!gzeof($sfp)) {
+            $string = gzread($sfp, 4096);
+            fwrite($fp, $string, \strlen($string));
+        }
+        gzclose($sfp);
+        fclose($fp);
+    }
+
+    /**
+     * Go line by line through the extracted file and dispatch a fetch job for each entry
+     */
+    protected function fetchPersons()
+    {
+        $handle = fopen(storage_path('api/person_ids.json'), 'rb');
+        $count = 0;
+        $limit = 10;
+        while($count < $limit && !feof($handle)) {
+            $entry = json_decode(trim(fgets($handle)));
+            FetchPerson::dispatch($entry->id);
+            $count++;
+        }
+        fclose($handle);
+    }
+
+    /**
+     * Delete downloaded files
+     */
+    protected function deleteFiles()
+    {
+        unlink(storage_path('api/person_ids.json.gz'));
+        unlink(storage_path('api/person_ids.json'));
     }
 }
