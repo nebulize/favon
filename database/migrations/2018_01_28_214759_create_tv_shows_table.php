@@ -20,15 +20,15 @@ class CreateTvShowsTable extends Migration
             $table->enum('status', ['Continuing', 'Planned', 'In Production', 'Ended', 'Canceled', 'Pilot']);
             $table->date('first_aired');
             $table->string('network')->nullable();
-            $table->integer('runtime')->nullable();
+            $table->string('runtime')->nullable();
             $table->enum('rating', ['TV-MA', 'TV-14', 'TV-PG', 'TV-G', 'TV-Y', 'TV-Y7'])->nullable();
             $table->text('summary')->nullable();
             $table->text('plot')->nullable();
             $table->string('country')->nullable();
             $table->string('poster')->nullable();
             $table->string('banner')->nullable();
-            $table->float('imdb_score');
-            $table->bigInteger('imdb_votes')->unsigned();
+            $table->float('imdb_score')->nullable();
+            $table->bigInteger('imdb_votes')->unsigned()->nullable();
             $table->enum('air_day', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Daily'])->nullable();
             $table->string('air_time')->nullable();
             $table->bigInteger('tvdb_id')->unsigned()->nullable();
