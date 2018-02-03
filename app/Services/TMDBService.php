@@ -7,6 +7,7 @@ use App\Exceptions\NoAPIResultsFoundException;
 use App\Http\Clients\TMDBClient;
 use Carbon\Carbon;
 use Illuminate\Contracts\Logging\Log;
+use Intervention\Image\Facades\Image;
 
 class TMDBService
 {
@@ -75,7 +76,13 @@ class TMDBService
         if (empty($response->getResponse()->gender)) {
             $gender = null;
         } else {
-            $gender = $response->getResponse()->gender === 2 ? 'Male' : 'Female';
+            if ($response->getResponse()->gender === 2) {
+                $gender = 'Male';
+            } elseif ($response->getResponse()->gender === 1) {
+                $gender = 'Female';
+            } else {
+                $gender = null;
+            }
         }
 
         return [
@@ -83,9 +90,9 @@ class TMDBService
             'deathday' => empty($response->getResponse()->deathday) ? null : Carbon::parse($response->getResponse()->deathday),
             'name' => $response->getResponse()->name,
             'gender' => $gender,
-            'biography' => $response->getResponse()->biography,
-            'place_of_birth' => $response->getResponse()->place_of_birth,
-            'photo' => $response->getResponse()->profile_path,
+            'biography' => property_exists($response->getResponse(), 'biography') ? $response->getResponse()->biography : null,
+            'place_of_birth' => property_exists($response->getResponse(), 'place_of_birth') ? $response->getResponse()->place_of_birth : null,
+            'photo' => property_exists($response->getResponse(), 'profile_path') ? $response->getResponse()->profile_path : null,
             'tmdb_id' => $response->getResponse()->id,
         ];
     }
@@ -221,6 +228,21 @@ class TMDBService
             'episodes' => $episodes,
             'credits' => $credits
         ];
+    }
+
+    /**
+     * Fetch images from TMDB and store locally
+     *
+     * @param string $type
+     * @param string $path
+     */
+    public function fetchImages(string $type, string $path) : void
+    {
+        $sizes = config('media.'.$type.'_sizes');
+        $base_path = config('media.image_base_path');
+        foreach ($sizes as $size) {
+            Image::make($base_path . '/' . $size . $path)->save(public_path('images/'.$type.'/'.$size.'/'.basename($path)));
+        }
     }
 
 }
