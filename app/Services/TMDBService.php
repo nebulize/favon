@@ -224,7 +224,7 @@ class TMDBService
             'summary' => $response->getResponse()->overview,
             'poster' => $response->getResponse()->poster_path,
             'tmdb_id' => (int)$response->getResponse()->id,
-            'videos' => $responseVideos->getResponse(),
+            'videos' => $videos,
             'episodes' => $episodes,
             'credits' => $credits
         ];
