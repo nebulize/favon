@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Jobs\FetchPerson;
-use App\Jobs\FetchPersonsJob;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
@@ -14,7 +13,7 @@ class FetchPersons extends Command
      *
      * @var string
      */
-    protected $signature = 'favon:persons';
+    protected $signature = 'favon:persons:fetch';
 
     /**
      * The console command description.
@@ -24,9 +23,7 @@ class FetchPersons extends Command
     protected $description = 'Fetch all persons from the TMDB API and store them in database (~100h!)';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
+     * FetchPersons constructor.
      */
     public function __construct()
     {
