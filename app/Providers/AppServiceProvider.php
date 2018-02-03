@@ -28,13 +28,13 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(TMDBAdapter::class, function ($app) {
-            return new TMDBAdapter(1, Rate::MINUTE);
+            return new TMDBAdapter(4, Rate::SECOND);
         });
         $this->app->singleton(OMDBAdapter::class, function ($app) {
-            return new OMDBAdapter(1, Rate::SECOND);
+            return new OMDBAdapter(2, Rate::SECOND);
         });
         $this->app->singleton(TVDBAdapter::class, function ($app) {
-            return new TVDBAdapter(1, Rate::SECOND);
+            return new TVDBAdapter(2, Rate::SECOND);
         });
     }
 }
