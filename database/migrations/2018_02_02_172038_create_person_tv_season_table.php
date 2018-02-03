@@ -18,7 +18,7 @@ class CreatePersonTvSeasonTable extends Migration
             $table->integer('person_id')->unsigned();
             $table->integer('tv_season_id')->unsigned();
             $table->enum('role', ['cast', 'crew']);
-            $table->string('character');
+            $table->string('character')->nullable();
             $table->string('job')->nullable();
             $table->foreign('person_id')->references('id')->on('persons')->onDelete('cascade');
             $table->foreign('tv_season_id')->references('id')->on('tv_seasons')->onDelete('cascade');
