@@ -93,7 +93,9 @@ class FetchPersons extends Command
         $handle = fopen(storage_path('api/person_ids.json'), 'rb');
         while(!feof($handle)) {
             $entry = json_decode(trim(fgets($handle)));
-            FetchPerson::dispatch($entry->id);
+            if (\is_object($entry) && property_exists($entry, 'id')) {
+                FetchPerson::dispatch($entry->id);
+            }
         }
         fclose($handle);
     }
