@@ -86,7 +86,7 @@ class TMDBService
         }
 
         return [
-            'birthday' => !property_exists($response->getResponse(), 'deatbirthdayhday') || empty($response->getResponse()->birthday) ? null : Carbon::parse($response->getResponse()->birthday),
+            'birthday' => !property_exists($response->getResponse(), 'birthday') || empty($response->getResponse()->birthday) ? null : Carbon::parse($response->getResponse()->birthday),
             'deathday' => !property_exists($response->getResponse(), 'deathday') || empty($response->getResponse()->deathday) ? null : Carbon::parse($response->getResponse()->deathday),
             'name' => property_exists($response->getResponse(), 'name') ? $response->getResponse()->name : '',
             'gender' => $gender,
