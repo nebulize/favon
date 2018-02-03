@@ -10,8 +10,6 @@ use GuzzleHttp\Psr7\Request;
 
 class TMDBClient
 {
-    protected const IDENTIFIER = 'tmdb';
-
     /**
      * @var APIAdapter
      */
@@ -62,6 +60,34 @@ class TMDBClient
             default:
                 throw new GenericAPIException($response->getBody(), $response->getStatusCode());
         }
+        return $result;
+    }
+
+    /**
+     * Get the response object for a list of changed person entries
+     *
+     * @param string|null $start_date
+     * @param string|null $end_date
+     * @return Response
+     * @throws GenericAPIException
+     */
+    public function getChangedPersons(string $start_date = null, string $end_date = null) : Response
+    {
+        $url = $this->url . '/person/changes?api_key=' . $this->key . '&language=en-US';
+        if ($start_date) {
+            $url .= '&start_date='.$start_date;
+        }
+        if ($end_date) {
+            $url .= '&end_date='.$end_date;
+        }
+        $request = new Request('GET', $url);
+        $response = $this->adapter->request($request);
+        $result = new Response((int)$response->getStatusCode());
+        if (!$result->getHttpStatusCode() === 200) {
+            throw new GenericAPIException($response->getBody(), $response->getStatusCode());
+        }
+        $result->setSuccessful();
+        $result->setResponse(json_decode($response->getBody()));
         return $result;
     }
 

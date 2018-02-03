@@ -245,4 +245,22 @@ class TMDBService
         }
     }
 
+    /**
+     * Fetch all recently changed persons
+     *
+     * @param string|null $start
+     * @param string|null $end
+     * @return array
+     */
+    public function getChangedPersons(string $start = null, string $end = null) : array
+    {
+        try {
+            $response = $this->client->getChangedPersons($start, $end);
+        } catch (GenericAPIException $e) {
+            $this->logger->error($e->getCode() . ': ' . $e->getMessage());
+            return null;
+        }
+        return $response->getResponse();
+    }
+
 }
