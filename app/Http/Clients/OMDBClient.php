@@ -5,7 +5,7 @@ namespace App\Http\Clients;
 use App\Exceptions\GenericAPIException;
 use App\Exceptions\NoAPIResultsFoundException;
 use App\Http\Adapters\APIAdapter;
-use bandwidthThrottle\tokenBucket\Rate;
+use App\Http\Adapters\OMDBAdapter;
 use GuzzleHttp\Psr7\Request;
 
 class OMDBClient
@@ -25,10 +25,11 @@ class OMDBClient
 
     /**
      * OMDBClient constructor.
+     * @param OMDBAdapter $adapter
      */
-    public function __construct()
+    public function __construct(OMDBAdapter $adapter)
     {
-        $this->adapter = new APIAdapter(2, Rate::SECOND, self::IDENTIFIER);
+        $this->adapter = $adapter;
         $this->url = config('media.omdb_url') . '/?apikey=' . config('media.omdb_api_key');
     }
 

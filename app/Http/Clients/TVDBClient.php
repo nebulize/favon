@@ -5,7 +5,7 @@ namespace App\Http\Clients;
 use App\Exceptions\GenericAPIException;
 use App\Exceptions\NoAPIResultsFoundException;
 use App\Http\Adapters\APIAdapter;
-use bandwidthThrottle\tokenBucket\Rate;
+use App\Http\Adapters\TVDBAdapter;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
@@ -33,10 +33,11 @@ class TVDBClient
 
     /**
      * TVDBClient constructor.
+     * @param TVDBAdapter $adapter
      */
-    public function __construct()
+    public function __construct(TVDBAdapter $adapter)
     {
-        $this->adapter = new APIAdapter(1, Rate::SECOND, self::IDENTIFIER);
+        $this->adapter = $adapter;
         $this->url = config('media.tvdb_url');
         $this->authenticate();
     }

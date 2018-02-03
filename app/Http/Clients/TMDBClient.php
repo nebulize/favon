@@ -5,7 +5,7 @@ namespace App\Http\Clients;
 use App\Exceptions\GenericAPIException;
 use App\Exceptions\NoAPIResultsFoundException;
 use App\Http\Adapters\APIAdapter;
-use bandwidthThrottle\tokenBucket\Rate;
+use App\Http\Adapters\TMDBAdapter;
 use GuzzleHttp\Psr7\Request;
 
 class TMDBClient
@@ -29,10 +29,11 @@ class TMDBClient
 
     /**
      * TMDBClient constructor.
+     * @param TMDBAdapter $adapter
      */
-    public function __construct()
+    public function __construct(TMDBAdapter $adapter)
     {
-        $this->adapter = new APIAdapter(3, Rate::SECOND, self::IDENTIFIER);
+        $this->adapter = $adapter;
         $this->url = config('media.tmdb_url');
         $this->key = config('media.tmdb_api_key');
     }
