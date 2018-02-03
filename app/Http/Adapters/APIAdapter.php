@@ -55,7 +55,7 @@ abstract class APIAdapter
     public function request(Request $request)
     {
         $this->consumer->consume(1);
-        \Log::info('API CALL: ' . $request->getUri());
+//        \Log::info('API CALL: ' . $request->getUri());
         return $this->client->send($request, ['http_errors' => false]);
     }
 

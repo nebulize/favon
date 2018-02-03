@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(TMDBAdapter::class, function ($app) {
-            return new TMDBAdapter(4, Rate::SECOND);
+            return new TMDBAdapter(3, Rate::SECOND);
         });
         $this->app->singleton(OMDBAdapter::class, function ($app) {
             return new OMDBAdapter(2, Rate::SECOND);
