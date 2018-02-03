@@ -47,6 +47,12 @@ class Person extends Model
     protected $fillable = ['birthday', 'deathday', 'name', 'gender', 'biography', 'place_of_birth', 'photo', 'tmdb_id'];
 
     /**
+     * Fields that are dates and casted to Carbon instances
+     * @var array
+     */
+    protected $dates = ['created_at', 'updated_at', 'birthday', 'deathday'];
+
+    /**
      * Many-To-Many: one person can star in many tv seasons
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
