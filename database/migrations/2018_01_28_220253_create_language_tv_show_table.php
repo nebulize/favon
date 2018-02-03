@@ -16,11 +16,10 @@ class CreateLanguageTvShowTable extends Migration
         Schema::create('language_tv_show', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('tv_show_id')->unsigned();
-            $table->integer('language_id')->unsigned();
+            $table->string('language_code', 2);
             $table->foreign('tv_show_id')->references('id')->on('tv_shows')->onDelete('cascade');
-            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
-            $table->unique(['tv_show_id', 'language_id']);
-            $table->timestamps();
+            $table->foreign('language_code')->references('code')->on('languages')->onDelete('cascade');
+            $table->unique(['tv_show_id', 'language_code']);
         });
     }
 
