@@ -91,12 +91,9 @@ class FetchPersons extends Command
     protected function fetchPersons()
     {
         $handle = fopen(storage_path('api/person_ids.json'), 'rb');
-        $count = 0;
-        $limit = 10;
-        while($count < $limit && !feof($handle)) {
+        while(!feof($handle)) {
             $entry = json_decode(trim(fgets($handle)));
             FetchPerson::dispatch($entry->id);
-            $count++;
         }
         fclose($handle);
     }
