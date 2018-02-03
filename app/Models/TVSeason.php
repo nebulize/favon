@@ -48,7 +48,7 @@ class TVSeason extends Model
      * Fields that should be mass assignable
      * @var array
      */
-    protected $fillable = ['first_aired', 'summary', 'poster', 'tmdb_id', 'tv_show_id', 'season_id', 'number'];
+    protected $fillable = ['first_aired', 'summary', 'poster', 'tmdb_id', 'tv_show_id', 'season_id', 'number', 'name'];
 
     /**
      * Fields that are dates and casted to Carbon instances
