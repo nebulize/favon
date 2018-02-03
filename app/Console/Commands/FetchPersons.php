@@ -103,7 +103,8 @@ class FetchPersons extends Command
     {
         $handle = fopen(storage_path('api/person_ids.json'), 'rb');
         $count = 0;
-        while(!feof($handle)) {
+        $limit = 10;
+        while($count < $limit && !feof($handle)) {
             $entry = json_decode(trim(fgets($handle)));
             $person = $this->tmdbService->getPerson($entry->id);
             $this->personRepository->create($person);
@@ -113,6 +114,7 @@ class FetchPersons extends Command
             if ($count%100 === 0) {
                 $this->logger->info('Fetched '.$count.' persons from TMDB API.');
             }
+            $count++;
         }
         fclose($handle);
     }

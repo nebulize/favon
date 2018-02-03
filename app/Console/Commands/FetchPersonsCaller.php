@@ -39,6 +39,6 @@ class FetchPersonsCaller extends Command
     public function handle()
     {
         $this->line('Fetching persons. This will take around 100 hours to complete');
-        Artisan::queue('favon:fetch-persons');
+        Artisan::queue('favon:persons-fetch');
     }
 }
