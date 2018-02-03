@@ -16,8 +16,10 @@ use GuzzleHttp\Psr7\Request;
  * Class APIAdapter
  * @package App\Http\Adapters
  */
-class APIAdapter
+abstract class APIAdapter
 {
+    public const IDENTIFIER = 'general';
+
     /**
      * @var BlockingConsumer
      */
@@ -29,20 +31,13 @@ class APIAdapter
     protected $client;
 
     /**
-     * @var string
-     */
-    protected $type;
-
-    /**
      * APIAdapter constructor.
      * @param int $limit
      * @param string $unit
-     * @param string $type
      */
-    public function __construct(int $limit, string $unit, string $type)
+    public function __construct(int $limit, string $unit)
     {
-        $this->type = $type;
-        $storage = new FileStorage(storage_path() . '/api/' . $type . '.bucket');
+        $storage = new FileStorage(storage_path() . '/api/' . self::IDENTIFIER . '.bucket');
         $rate = new Rate($limit, $unit);
         $bucket = new TokenBucket($limit, $rate, $storage);
         $this->consumer = new BlockingConsumer($bucket);
@@ -60,7 +55,7 @@ class APIAdapter
     public function request(Request $request)
     {
         $this->consumer->consume(1);
-        \Log::info('API Request: ' . $request->getRequestTarget());
+        \Log::info('API CALL: ' . $request->getUri());
         return $this->client->send($request, ['http_errors' => false]);
     }
 
@@ -69,7 +64,7 @@ class APIAdapter
      */
     public function close() : void
     {
-        unlink(storage_path() . '/api/' . $this->type . '.bucket');
+        unlink(storage_path() . '/api/' . self::IDENTIFIER . '.bucket');
     }
 
 }
