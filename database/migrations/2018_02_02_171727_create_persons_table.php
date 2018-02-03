@@ -24,6 +24,7 @@ class CreatePersonsTable extends Migration
             $table->string('photo')->nullable();
             $table->bigInteger('tmdb_id')->unsigned();
             $table->timestamps();
+            $table->index('tmdb_id');
         });
     }
 
