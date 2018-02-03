@@ -10,7 +10,3 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', 'BaseController@scrape');
-Route::get('/tv', 'BaseController@tv');
-Route::get('/languages', 'BaseController@languages');
