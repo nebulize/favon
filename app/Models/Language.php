@@ -31,6 +31,12 @@ class Language extends Model
     public $timestamps = false;
 
     /**
+     * The primary key for the model.
+     * @var string
+     */
+    protected $primaryKey = 'code';
+
+    /**
      * Fields that should be mass assignable
      * @var array
      */
@@ -43,7 +49,7 @@ class Language extends Model
      */
     public function tvShows()
     {
-        return $this->belongsToMany(TVShow::class, 'language_tv_show', 'language_id', 'tv_show_id');
+        return $this->belongsToMany(TVShow::class, 'language_tv_show', 'language_code', 'tv_show_id');
     }
 
 }

@@ -112,7 +112,7 @@ class TVShow extends Model
      */
     public function languages() : \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Language::class, 'language_tv_show', 'tv_show_id', 'language_id');
+        return $this->belongsToMany(Language::class, 'language_tv_show', 'tv_show_id', 'language_code');
     }
 
     /**
