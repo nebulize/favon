@@ -6,6 +6,7 @@ use App\Repositories\PersonRepository;
 use App\Services\TMDBService;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Logging\Log;
 
 class FetchPersons extends Command
 {
@@ -14,7 +15,7 @@ class FetchPersons extends Command
      *
      * @var string
      */
-    protected $signature = 'favon:persons';
+    protected $signature = 'favon:persons-fetch';
 
     /**
      * The console command description.
@@ -33,15 +34,18 @@ class FetchPersons extends Command
      */
     protected $personRepository;
 
+    protected $logger;
+
     /**
      * FetchPersons constructor.
      * @param TMDBService $tmdbService
      * @param PersonRepository $personRepository
      */
-    public function __construct(TMDBService $tmdbService, PersonRepository $personRepository)
+    public function __construct(TMDBService $tmdbService, PersonRepository $personRepository, Log $logger)
     {
         $this->tmdbService = $tmdbService;
         $this->personRepository = $personRepository;
+        $this->logger = $logger;
         parent::__construct();
     }
 
@@ -52,14 +56,9 @@ class FetchPersons extends Command
      */
     public function handle()
     {
-        $this->line('Fetching newest export from TMDB...');
         $this->fetchFile();
-        $this->line('Extracting...');
         $this->extract();
-        $this->info('Successfully extracted JSON');
-        $this->line('Fetching persons. This will take around 100 hours to complete');
         $this->fetchPersons();
-        $this->info('Success! Fetched and stored all person data and images');
         $this->deleteFiles();
         return true;
     }
@@ -103,12 +102,16 @@ class FetchPersons extends Command
     protected function fetchPersons()
     {
         $handle = fopen(storage_path('api/person_ids.json'), 'rb');
+        $count = 0;
         while(!feof($handle)) {
             $entry = json_decode(trim(fgets($handle)));
             $person = $this->tmdbService->getPerson($entry->id);
             $this->personRepository->create($person);
             if (!empty($person['photo'])) {
                 $this->tmdbService->fetchImages('profile', $person['photo']);
+            }
+            if ($count%100 === 0) {
+                $this->logger->info('Fetched '.$count.' persons from TMDB API.');
             }
         }
         fclose($handle);
