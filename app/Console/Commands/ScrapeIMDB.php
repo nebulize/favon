@@ -40,11 +40,13 @@ class ScrapeIMDB extends Command
 
     /**
      * Execute the console command.
+     * @return null
      */
     public function handle()
     {
         $ids = $this->imdbScraper->scrape($this->argument('url'));
         $this->info('Scraping IMDB IDs...');
         $this->line(json_encode($ids));
+        return null;
     }
 }
