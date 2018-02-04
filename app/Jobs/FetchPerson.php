@@ -39,8 +39,8 @@ class FetchPerson implements ShouldQueue
             return;
         }
         $personRepository->create($person);
-        if (!empty($person['photo'])) {
-            $tmdbService->fetchImages('profile', $person['photo']);
-        }
+//        if (!empty($person['photo'])) {
+//            $tmdbService->fetchImages('profile', $person['photo']);
+//        }
     }
 }
