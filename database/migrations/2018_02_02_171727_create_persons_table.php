@@ -22,7 +22,7 @@ class CreatePersonsTable extends Migration
             $table->text('biography')->nullable();
             $table->string('place_of_birth')->nullable();
             $table->string('photo')->nullable();
-            $table->bigInteger('tmdb_id')->unsigned();
+            $table->bigInteger('tmdb_id')->unsigned()->unique();
             $table->timestamps();
             $table->index('tmdb_id');
         });
