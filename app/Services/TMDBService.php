@@ -35,9 +35,9 @@ class TMDBService
     /**
      * Get all languages from TMDB in the format used by the application
      *
-     * @return array
+     * @return array|null
      */
-    public function getLanguages() : array
+    public function getLanguages() : ?array
     {
         try {
             $response = $this->client->getLanguages();
@@ -56,12 +56,10 @@ class TMDBService
     }
 
     /**
-     * Get all application relevant data from a TMDB person entry by id
-     *
      * @param int $id
-     * @return array
+     * @return array|null
      */
-    public function getPerson(int $id) : array
+    public function getPerson(int $id) : ?array
     {
         try {
             $response = $this->client->getPerson($id);
@@ -85,9 +83,31 @@ class TMDBService
             }
         }
 
+        if (empty($response->getResponse()->birthday) || !property_exists($response->getResponse(), 'birthday')) {
+            $birthday = null;
+        } else {
+            try {
+                $birthday = Carbon::parse($response->getResponse()->birthday);
+            } catch (\Exception $e) {
+                \Log::warning('Could not parse birthday for TMDB'.$id);
+                $birthday = null;
+            }
+        }
+
+        if (empty($response->getResponse()->deathday) || !property_exists($response->getResponse(), 'deathday')) {
+            $deathday = null;
+        } else {
+            try {
+                $deathday = Carbon::parse($response->getResponse()->deathday);
+            } catch (\Exception $e) {
+                \Log::warning('Could not parse deathday for TMDB'.$id);
+                $deathday = null;
+            }
+        }
+
         return [
-            'birthday' => !property_exists($response->getResponse(), 'birthday') || empty($response->getResponse()->birthday) ? null : Carbon::parse($response->getResponse()->birthday),
-            'deathday' => !property_exists($response->getResponse(), 'deathday') || empty($response->getResponse()->deathday) ? null : Carbon::parse($response->getResponse()->deathday),
+            'birthday' => $birthday,
+            'deathday' => $deathday,
             'name' => property_exists($response->getResponse(), 'name') ? $response->getResponse()->name : '',
             'gender' => $gender,
             'biography' => property_exists($response->getResponse(), 'biography') ? $response->getResponse()->biography : null,
@@ -101,9 +121,9 @@ class TMDBService
      * Get all application relevant data from a TMDB tv show entry by id
      *
      * @param int $id
-     * @return array
+     * @return array|null
      */
-    public function getTvShow(int $id) : array
+    public function getTvShow(int $id) : ?array
     {
         try {
             $response = $this->client->getTvShow($id);
@@ -149,9 +169,9 @@ class TMDBService
      *
      * @param int $id
      * @param int $number
-     * @return array
+     * @return array|null
      */
-    public function getTvSeason(int $id, int $number) : array
+    public function getTvSeason(int $id, int $number) : ?array
     {
         try {
             $response = $this->client->getTvSeason($id, $number);
@@ -241,7 +261,7 @@ class TMDBService
         $sizes = config('media.'.$type.'_sizes');
         $base_path = config('media.image_base_path');
         foreach ($sizes as $size) {
-            Image::make($base_path . '/' . $size . $path)->save(public_path('images/'.$type.'/'.$size.'/'.basename($path)));
+            $this->fetchImage($base_path . '/' . $size . $path, public_path('images/'.$type.'/'.$size.'/'.basename($path)), 0);
         }
     }
 
@@ -250,9 +270,9 @@ class TMDBService
      *
      * @param string|null $start
      * @param string|null $end
-     * @return array
+     * @return array|null
      */
-    public function getChangedPersons(string $start = null, string $end = null) : array
+    public function getChangedPersons(string $start = null, string $end = null) : ?array
     {
         try {
             $response = $this->client->getChangedPersons($start, $end);
@@ -261,6 +281,27 @@ class TMDBService
             return null;
         }
         return $response->getResponse();
+    }
+
+    /**
+     * Fetch a single image, with a maximum of 10 tries
+     *
+     * @param $from
+     * @param $to
+     * @param $tries
+     * @return bool
+     */
+    public function fetchImage($from, $to, $tries) : bool
+    {
+        if ($tries > 10) {
+            return false;
+        }
+        try {
+            Image::make($from)->save($to);
+        } catch (\Exception $e) {
+            return $this->fetchImage($from, $to, $tries + 1);
+        }
+        return true;
     }
 
 }

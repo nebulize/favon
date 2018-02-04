@@ -35,6 +35,9 @@ class FetchPerson implements ShouldQueue
     public function handle(TMDBService $tmdbService, PersonRepository $personRepository)
     {
         $person = $tmdbService->getPerson($this->id);
+        if ($person === null) {
+            return;
+        }
         $personRepository->create($person);
         if (!empty($person['photo'])) {
             $tmdbService->fetchImages('profile', $person['photo']);
