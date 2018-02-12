@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Exceptions\GenericAPIException;
-use App\Exceptions\NoAPIResultsFoundException;
 use App\Http\Clients\TVDBClient;
 use Illuminate\Contracts\Logging\Log;
+use App\Exceptions\GenericAPIException;
+use App\Exceptions\NoAPIResultsFoundException;
 
 class TVDBService
 {
@@ -31,7 +31,7 @@ class TVDBService
     }
 
     /**
-     * Get all application relevant data from a TVDB entry by TVDB id
+     * Get all application relevant data from a TVDB entry by TVDB id.
      *
      * @param int $id
      * @return array
@@ -41,11 +41,13 @@ class TVDBService
         try {
             $response = $this->client->get($id);
         } catch (NoAPIResultsFoundException $e) {
-            $this->logger->warning('Skipped ' . $id . "\n" . $e->getMessage());
-            return null;
+            $this->logger->warning('Skipped '.$id."\n".$e->getMessage());
+
+            return;
         } catch (GenericAPIException $e) {
-            $this->logger->error($e->getCode() . ': ' . $e->getMessage());
-            return null;
+            $this->logger->error($e->getCode().': '.$e->getMessage());
+
+            return;
         }
 
         return [
@@ -53,5 +55,4 @@ class TVDBService
             'air_time' => $response->getResponse()->airsTime !== '' ? $response->getResponse()->airsTime : null,
         ];
     }
-
 }

@@ -2,11 +2,11 @@
 
 namespace App\Http\Clients;
 
-use App\Exceptions\GenericAPIException;
-use App\Exceptions\NoAPIResultsFoundException;
+use GuzzleHttp\Psr7\Request;
 use App\Http\Adapters\APIAdapter;
 use App\Http\Adapters\OMDBAdapter;
-use GuzzleHttp\Psr7\Request;
+use App\Exceptions\GenericAPIException;
+use App\Exceptions\NoAPIResultsFoundException;
 
 class OMDBClient
 {

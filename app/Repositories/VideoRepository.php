@@ -2,16 +2,15 @@
 
 namespace App\Repositories;
 
-
 use App\Models\Video;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class VideoRepository implements RepositoryContract
 {
     /**
-     * Video ORM
+     * Video ORM.
      * @var Video
      */
     protected $video;
@@ -26,50 +25,53 @@ class VideoRepository implements RepositoryContract
     }
 
     /**
-     * Get a video by its ID
+     * Get a video by its ID.
      *
      * @param int $id
      * @param array $parameters
      * @return Video
      * @throws ModelNotFoundException
      */
-    public function get(int $id, array $parameters = array()) : Video
+    public function get(int $id, array $parameters = []) : Video
     {
         $query = $this->video->where('id', $id);
+
         return $query->firstOrFail();
     }
 
     /**
-     * Find a video by parameters
+     * Find a video by parameters.
      *
      * @param array $parameters
      * @return Video
      * @throws ModelNotFoundException
      */
-    public function find(array $parameters = array()) : Video
+    public function find(array $parameters = []) : Video
     {
         $query = $this->video;
+
         return $query->firstOrFail();
     }
 
     /**
-     * Get a list of all videos, filtered by parameters
+     * Get a list of all videos, filtered by parameters.
      *
      * @param array $parameters
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function index(array $parameters = array()) : Collection
+    public function index(array $parameters = []) : Collection
     {
         $query = $this->video;
         // Filter by tv season
         if (isset($parameters['tv_season_id'])) {
             $query = $query->where('tv_season_id', $parameters['tv_season_id']);
         }
+
         return $query->get();
     }
 
     /**
-     * Create a new Video
+     * Create a new Video.
      *
      * @param array $attributes
      * @return Video
@@ -80,7 +82,7 @@ class VideoRepository implements RepositoryContract
     }
 
     /**
-     * Delete a Video
+     * Delete a Video.
      *
      * @param Model $model
      */
@@ -90,7 +92,7 @@ class VideoRepository implements RepositoryContract
     }
 
     /**
-     * Update an existing Video
+     * Update an existing Video.
      *
      * @param Model $model
      * @param array $attributes
@@ -100,6 +102,7 @@ class VideoRepository implements RepositoryContract
     {
         $model->fill($attributes);
         $model->save();
+
         return $model;
     }
 }

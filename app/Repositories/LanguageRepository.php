@@ -3,14 +3,14 @@
 namespace App\Repositories;
 
 use App\Models\Language;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class LanguageRepository implements RepositoryContract
 {
     /**
-     * Language ORM
+     * Language ORM.
      * @var Language
      */
     protected $language;
@@ -25,50 +25,53 @@ class LanguageRepository implements RepositoryContract
     }
 
     /**
-     * Fetch a language by its ID
+     * Fetch a language by its ID.
      *
      * @param int $id
      * @param array $parameters
      * @return Language
      * @throws ModelNotFoundException
      */
-    public function get(int $id, array $parameters = array()) : Language
+    public function get(int $id, array $parameters = []) : Language
     {
         $query = $this->language->where('id', $id);
+
         return $query->firstOrFail();
     }
 
     /**
-     * Find a language by parameters
+     * Find a language by parameters.
      *
      * @param $parameters
      * @return Language
      * @throws ModelNotFoundException
      */
-    public function find(array $parameters = array()) : Language
+    public function find(array $parameters = []) : Language
     {
         $query = $this->language;
         // Filter by name
         if (isset($parameters['name'])) {
             $query = $query->where('name', $parameters['name']);
         }
+
         return $query->firstOrFail();
     }
 
     /**
-     * Get a list of all languages
+     * Get a list of all languages.
      *
      * @param array $parameters
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function index(array $parameters = array()) : Collection
+    public function index(array $parameters = []) : Collection
     {
         $query = $this->language;
+
         return $query->get();
     }
 
     /**
-     * Create a new language
+     * Create a new language.
      *
      * @param $attributes
      * @return Language
@@ -79,7 +82,7 @@ class LanguageRepository implements RepositoryContract
     }
 
     /**
-     * Delete an existing language
+     * Delete an existing language.
      *
      * @param Model $model
      */
@@ -89,7 +92,7 @@ class LanguageRepository implements RepositoryContract
     }
 
     /**
-     * Update an existing language
+     * Update an existing language.
      *
      * @param Model $model
      * @param array $attributes
@@ -99,6 +102,7 @@ class LanguageRepository implements RepositoryContract
     {
         $model->fill($attributes);
         $model->save();
+
         return $model;
     }
 }

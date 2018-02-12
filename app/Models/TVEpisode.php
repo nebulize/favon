@@ -6,7 +6,7 @@ use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\TVEpisode
+ * App\Models\TVEpisode.
  *
  * @property-read \App\Models\TVSeason $tvSeason
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
@@ -35,25 +35,25 @@ use Illuminate\Database\Eloquent\Model;
 class TVEpisode extends Model
 {
     /**
-     * Table name
+     * Table name.
      * @var string
      */
     protected $table = 'tv_episodes';
 
     /**
-     * Fields that should be mass assignable
+     * Fields that should be mass assignable.
      * @var array
      */
     protected $fillable = ['number', 'name', 'first_aired', 'plot', 'tmdb_id', 'tv_season_id'];
 
     /**
-     * Fields that are dates and casted to Carbon instances
+     * Fields that are dates and casted to Carbon instances.
      * @var array
      */
     protected $dates = ['created_at', 'updated_at', 'first_aired'];
 
     /**
-     * One-to-Many: one tv episode belongs to one tv season
+     * One-to-Many: one tv episode belongs to one tv season.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -63,7 +63,7 @@ class TVEpisode extends Model
     }
 
     /**
-     * Many-to-Many: one tv show can have many users
+     * Many-to-Many: one tv show can have many users.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -71,5 +71,4 @@ class TVEpisode extends Model
     {
         return $this->belongsToMany(User::class, 'user_tv_episode', 'tv_episode_id', 'user_id');
     }
-
 }

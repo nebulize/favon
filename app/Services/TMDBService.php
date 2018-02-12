@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
-use App\Exceptions\GenericAPIException;
-use App\Exceptions\NoAPIResultsFoundException;
-use App\Http\Clients\TMDBClient;
 use Carbon\Carbon;
+use App\Http\Clients\TMDBClient;
 use Illuminate\Contracts\Logging\Log;
 use Intervention\Image\Facades\Image;
+use App\Exceptions\GenericAPIException;
+use App\Exceptions\NoAPIResultsFoundException;
 
 class TMDBService
 {
@@ -33,7 +33,7 @@ class TMDBService
     }
 
     /**
-     * Get all languages from TMDB in the format used by the application
+     * Get all languages from TMDB in the format used by the application.
      *
      * @return array|null
      */
@@ -42,16 +42,18 @@ class TMDBService
         try {
             $response = $this->client->getLanguages();
         } catch (GenericAPIException $e) {
-            $this->logger->error($e->getCode() . ': ' . $e->getMessage());
+            $this->logger->error($e->getCode().': '.$e->getMessage());
+
             return null;
         }
-        $languages = array();
+        $languages = [];
         foreach ($response->getResponse() as $language) {
-            $languages[] = array(
+            $languages[] = [
                 'code' => $language->iso_639_1,
-                'name' => $language->english_name
-            );
+                'name' => $language->english_name,
+            ];
         }
+
         return $languages;
     }
 
@@ -65,9 +67,11 @@ class TMDBService
             $response = $this->client->getPerson($id);
         } catch (NoAPIResultsFoundException $e) {
             $this->logger->warning($e->getMessage());
+
             return null;
         } catch (GenericAPIException $e) {
-            $this->logger->error($e->getCode() . ': ' . $e->getMessage());
+            $this->logger->error($e->getCode().': '.$e->getMessage());
+
             return null;
         }
 
@@ -83,7 +87,7 @@ class TMDBService
             }
         }
 
-        if (empty($response->getResponse()->birthday) || !property_exists($response->getResponse(), 'birthday')) {
+        if (empty($response->getResponse()->birthday) || ! property_exists($response->getResponse(), 'birthday')) {
             $birthday = null;
         } else {
             try {
@@ -94,7 +98,7 @@ class TMDBService
             }
         }
 
-        if (empty($response->getResponse()->deathday) || !property_exists($response->getResponse(), 'deathday')) {
+        if (empty($response->getResponse()->deathday) || ! property_exists($response->getResponse(), 'deathday')) {
             $deathday = null;
         } else {
             try {
@@ -118,7 +122,7 @@ class TMDBService
     }
 
     /**
-     * Get all application relevant data from a TMDB tv show entry by id
+     * Get all application relevant data from a TMDB tv show entry by id.
      *
      * @param int $id
      * @return array|null
@@ -130,9 +134,11 @@ class TMDBService
             $responseIds = $this->client->getTvShowIds($id);
         } catch (NoAPIResultsFoundException $e) {
             $this->logger->warning($e->getMessage());
+
             return null;
         } catch (GenericAPIException $e) {
-            $this->logger->error($e->getCode() . ': ' . $e->getMessage());
+            $this->logger->error($e->getCode().': '.$e->getMessage());
+
             return null;
         }
 
@@ -140,7 +146,8 @@ class TMDBService
             $network = null;
         } else {
             $network = array_reduce($response->getResponse()->networks, function ($acc, $item) {
-                $acc .= $item->name . ', ';
+                $acc .= $item->name.', ';
+
                 return $acc;
             });
             $network = rtrim($network, ', ');
@@ -151,21 +158,21 @@ class TMDBService
             'status' => $response->getResponse()->status === 'Returning Series' ? 'Continuing' : $response->getResponse()->status,
             'first_aired' => empty($response->getResponse()->first_air_date) ? null : Carbon::parse($response->getResponse()->first_air_date),
             'network' => $network,
-            'runtime' => empty($response->getResponse()->episode_run_time) ? null : implode('m, ', $response->getResponse()->episode_run_time) . 'm',
+            'runtime' => empty($response->getResponse()->episode_run_time) ? null : implode('m, ', $response->getResponse()->episode_run_time).'m',
             'plot' => $response->getResponse()->overview,
             'poster' => $response->getResponse()->poster_path,
             'banner' => $response->getResponse()->backdrop_path,
             'homepage' => $response->getResponse()->homepage,
-            'tmdb_id' => empty($response->getResponse()->id) ? null : (int)$response->getResponse()->id,
-            'tvdb_id' => empty($responseIds->getResponse()->tvdb_id) ? null : (int)$responseIds->getResponse()->tvdb_id,
+            'tmdb_id' => empty($response->getResponse()->id) ? null : (int) $response->getResponse()->id,
+            'tvdb_id' => empty($responseIds->getResponse()->tvdb_id) ? null : (int) $responseIds->getResponse()->tvdb_id,
             'imdb_id' => $responseIds->getResponse()->imdb_id,
             'languages' => $response->getResponse()->languages,
-            'seasons' => $response->getResponse()->seasons
+            'seasons' => $response->getResponse()->seasons,
         ];
     }
 
     /**
-     * Get all application relevant data from a TMDB tv season entry by id and number
+     * Get all application relevant data from a TMDB tv season entry by id and number.
      *
      * @param int $id
      * @param int $number
@@ -179,13 +186,15 @@ class TMDBService
             $responseCredits = $this->client->getTvSeasonCredits($id, $number);
         } catch (NoAPIResultsFoundException $e) {
             $this->logger->warning($e->getMessage());
+
             return null;
         } catch (GenericAPIException $e) {
-            $this->logger->error($e->getCode() . ': ' . $e->getMessage());
+            $this->logger->error($e->getCode().': '.$e->getMessage());
+
             return null;
         }
 
-        $videos = array();
+        $videos = [];
         foreach ($responseVideos->getResponse() as $video) {
             $videos[] = [
                 'name' => $video->name,
@@ -194,7 +203,7 @@ class TMDBService
             ];
         }
 
-        $credits = array();
+        $credits = [];
         foreach ($responseCredits->getResponse()->crew as $person) {
             if (isset($credits[$person->id])) {
                 continue;
@@ -216,7 +225,7 @@ class TMDBService
             ];
         }
         $episodesResponse = $response->getResponse()->episodes;
-        $episodes = array();
+        $episodes = [];
         foreach ($episodesResponse as $episode) {
             $episodes[] = [
                 'number' => $episode->episode_number,
@@ -239,19 +248,19 @@ class TMDBService
 
         return [
             'first_aired' => empty($response->getResponse()->air_date) ? null : Carbon::parse($response->getResponse()->air_date),
-            'number' => (int)$response->getResponse()->season_number,
+            'number' => (int) $response->getResponse()->season_number,
             'name' => $response->getResponse()->name,
             'summary' => $response->getResponse()->overview,
             'poster' => $response->getResponse()->poster_path,
-            'tmdb_id' => (int)$response->getResponse()->id,
+            'tmdb_id' => (int) $response->getResponse()->id,
             'videos' => $videos,
             'episodes' => $episodes,
-            'credits' => $credits
+            'credits' => $credits,
         ];
     }
 
     /**
-     * Fetch images from TMDB and store locally
+     * Fetch images from TMDB and store locally.
      *
      * @param string $type
      * @param string $path
@@ -261,12 +270,12 @@ class TMDBService
         $sizes = config('media.'.$type.'_sizes');
         $base_path = config('media.image_base_path');
         foreach ($sizes as $size) {
-            $this->fetchImage($base_path . '/' . $size . $path, public_path('images/'.$type.'/'.$size.'/'.basename($path)), 0);
+            $this->fetchImage($base_path.'/'.$size.$path, public_path('images/'.$type.'/'.$size.'/'.basename($path)), 0);
         }
     }
 
     /**
-     * Fetch all recently changed persons
+     * Fetch all recently changed persons.
      *
      * @param string|null $start
      * @param string|null $end
@@ -278,14 +287,16 @@ class TMDBService
         try {
             $response = $this->client->getChangedPersons($start, $end, $page);
         } catch (GenericAPIException $e) {
-            $this->logger->error($e->getCode() . ': ' . $e->getMessage());
+            $this->logger->error($e->getCode().': '.$e->getMessage());
+
             return null;
         }
+
         return $response->getResponse();
     }
 
     /**
-     * Fetch a single image, with a maximum of 10 tries
+     * Fetch a single image, with a maximum of 10 tries.
      *
      * @param $from
      * @param $to
@@ -302,7 +313,7 @@ class TMDBService
         } catch (\Exception $e) {
             return $this->fetchImage($from, $to, $tries + 1);
         }
+
         return true;
     }
-
 }

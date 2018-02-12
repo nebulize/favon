@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * App\Models\Genre
+ * App\Models\Genre.
  *
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TVShow[] $tvShows
  * @mixin \Eloquent
@@ -18,25 +18,25 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Genre extends Model
 {
     /**
-     * Table name
+     * Table name.
      * @var string
      */
     protected $table = 'genres';
 
     /**
-     * Model has timestamp fields or not
+     * Model has timestamp fields or not.
      * @var bool
      */
     public $timestamps = false;
 
     /**
-     * Fields that should be mass assignable
+     * Fields that should be mass assignable.
      * @var array
      */
     protected $fillable = ['name'];
 
     /**
-     * Many-to-Many: one genre can have many tv shows
+     * Many-to-Many: one genre can have many tv shows.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -44,5 +44,4 @@ class Genre extends Model
     {
         return $this->belongsToMany(TVShow::class, 'genre_tv_show', 'genre_id', 'tv_show_id');
     }
-
 }

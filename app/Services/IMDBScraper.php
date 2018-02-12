@@ -2,20 +2,19 @@
 
 namespace App\Services;
 
-
 use Goutte\Client;
 use Symfony\Component\DomCrawler\Crawler;
 
 class IMDBScraper
 {
     /**
-     * HTTP client
+     * HTTP client.
      * @var Client
      */
     protected $client;
 
     /**
-     * Array with all resulting ids
+     * Array with all resulting ids.
      * @var array
      */
     protected $results;
@@ -27,12 +26,12 @@ class IMDBScraper
     public function __construct(Client $client)
     {
         $this->client = $client;
-        $this->results = array();
+        $this->results = [];
     }
 
     /**
      * Recursive function to scrape a list of IMDB entries until no `next` page is found
-     * Get IMDB id for each entry
+     * Get IMDB id for each entry.
      *
      * @param string $url
      * @return array
@@ -51,5 +50,4 @@ class IMDBScraper
             return $this->results;
         }
     }
-
 }

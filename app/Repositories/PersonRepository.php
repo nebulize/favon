@@ -3,14 +3,14 @@
 namespace App\Repositories;
 
 use App\Models\Person;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PersonRepository implements RepositoryContract
 {
     /**
-     * Person ORM
+     * Person ORM.
      * @var Person
      */
     protected $person;
@@ -25,49 +25,52 @@ class PersonRepository implements RepositoryContract
     }
 
     /**
-     * Fetch a person by its ID
+     * Fetch a person by its ID.
      *
      * @param int $id
      * @param array $parameters
      * @return Person
      * @throws ModelNotFoundException
      */
-    public function get(int $id, array $parameters = array()) : Person
+    public function get(int $id, array $parameters = []) : Person
     {
         $query = $this->person->where('id', $id);
+
         return $query->firstOrFail();
     }
 
     /**
-     * Find a person by parameters
+     * Find a person by parameters.
      *
      * @param array $parameters
      * @return Person
      * @throws ModelNotFoundException
      */
-    public function find(array $parameters = array()) : Person
+    public function find(array $parameters = []) : Person
     {
         $query = $this->person;
         if ($parameters['tmdb_id']) {
             $query = $query->where('tmdb_id', $parameters['tmdb_id']);
         }
+
         return $query->firstOrFail();
     }
 
     /**
-     * Get a list of all persons, filtered by parameters
+     * Get a list of all persons, filtered by parameters.
      *
      * @param array $parameters
      * @return Collection
      */
-    public function index(array $parameters = array()) : Collection
+    public function index(array $parameters = []) : Collection
     {
         $query = $this->person;
+
         return $query->get();
     }
 
     /**
-     * Create and save a new person
+     * Create and save a new person.
      *
      * @param array $attributes
      * @return Person
@@ -78,7 +81,7 @@ class PersonRepository implements RepositoryContract
     }
 
     /**
-     * Delete an existing person
+     * Delete an existing person.
      *
      * @param Model $model
      */
@@ -88,7 +91,7 @@ class PersonRepository implements RepositoryContract
     }
 
     /**
-     * Update an existing person
+     * Update an existing person.
      *
      * @param Model $model
      * @param array $attributes
@@ -98,6 +101,7 @@ class PersonRepository implements RepositoryContract
     {
         $model->fill($attributes);
         $model->save();
+
         return $model;
     }
 }

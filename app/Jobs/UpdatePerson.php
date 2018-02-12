@@ -2,15 +2,15 @@
 
 namespace App\Jobs;
 
-use App\Repositories\PersonRepository;
 use App\Services\TMDBService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Logging\Log;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Repositories\PersonRepository;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UpdatePerson implements ShouldQueue
 {
@@ -47,16 +47,16 @@ class UpdatePerson implements ShouldQueue
         }
         try {
             $oldPerson = $personRepository->find([
-                'tmdb_id' => $this->id
+                'tmdb_id' => $this->id,
             ]);
 //            if ($oldPerson->photo !== null) {
 //                unlink(public_path('images/profile/w185/'.$oldPerson->photo));
 //            }
             $personRepository->update($oldPerson, $newPerson);
-            $logger->info('Updated person: ' . $this->id);
+            $logger->info('Updated person: '.$this->id);
         } catch (ModelNotFoundException $e) {
             $personRepository->create($newPerson);
-            $logger->info('Created new person: ' . $this->id);
+            $logger->info('Created new person: '.$this->id);
         }
 //        if (!empty($newPerson['photo'])) {
 //            $tmdbService->fetchImages('profile', $newPerson['photo']);

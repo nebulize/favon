@@ -2,17 +2,17 @@
 
 namespace App\Http\Adapters;
 
-use bandwidthThrottle\tokenBucket\BlockingConsumer;
-use bandwidthThrottle\tokenBucket\Rate;
-use bandwidthThrottle\tokenBucket\storage\FileStorage;
-use bandwidthThrottle\tokenBucket\TokenBucket;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
+use bandwidthThrottle\tokenBucket\Rate;
+use GuzzleHttp\Exception\ClientException;
+use bandwidthThrottle\tokenBucket\TokenBucket;
+use bandwidthThrottle\tokenBucket\BlockingConsumer;
+use bandwidthThrottle\tokenBucket\storage\FileStorage;
 
 /**
  * API adapter for limiting outgoing API requests
- * Class APIAdapter
+ * Class APIAdapter.
  */
 abstract class APIAdapter
 {
@@ -56,6 +56,7 @@ abstract class APIAdapter
     public function request(Request $request)
     {
         $this->consumer->consume(1);
+
         return $this->client->send($request, ['http_errors' => false]);
     }
 
@@ -66,5 +67,4 @@ abstract class APIAdapter
     {
         unlink(storage_path().'/api/'.self::IDENTIFIER.'.bucket');
     }
-
 }

@@ -3,14 +3,14 @@
 namespace App\Repositories;
 
 use App\Models\TVEpisode;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class TvEpisodeRepository implements RepositoryContract
 {
     /**
-     * TVEpisode ORM
+     * TVEpisode ORM.
      * @var TVEpisode
      */
     protected $tvEpisode;
@@ -25,50 +25,53 @@ class TvEpisodeRepository implements RepositoryContract
     }
 
     /**
-     * Fetch a tv episode by its ID
+     * Fetch a tv episode by its ID.
      *
      * @param int $id
      * @param array $parameters
      * @return TVEpisode
      * @throws ModelNotFoundException
      */
-    public function get(int $id, array $parameters = array()) : TVEpisode
+    public function get(int $id, array $parameters = []) : TVEpisode
     {
         $query = $this->tvEpisode->where('id', $id);
+
         return $query->firstOrFail();
     }
 
     /**
-     * Find a tv episode by parameters
+     * Find a tv episode by parameters.
      *
      * @param array $parameters
      * @return TVEpisode
      * @throws ModelNotFoundException
      */
-    public function find(array $parameters = array()) : TVEpisode
+    public function find(array $parameters = []) : TVEpisode
     {
         $query = $this->tvEpisode;
+
         return $query->firstOrFail();
     }
 
     /**
-     * Get a list of all tv episodes, filtered by parameters
+     * Get a list of all tv episodes, filtered by parameters.
      *
      * @param array $parameters
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function index(array $parameters = array()) : Collection
+    public function index(array $parameters = []) : Collection
     {
         $query = $this->tvEpisode;
         // Filter by TV Season
         if (isset($parameters['tv_season_id'])) {
             $query = $query->where('tv_season_id', $parameters['tv_season_id']);
         }
+
         return $query->get();
     }
 
     /**
-     * Create a new tv episode
+     * Create a new tv episode.
      *
      * @param array $attributes
      * @return TVEpisode
@@ -79,7 +82,7 @@ class TvEpisodeRepository implements RepositoryContract
     }
 
     /**
-     * Delete a tv episode
+     * Delete a tv episode.
      *
      * @param Model $model
      */
@@ -89,7 +92,7 @@ class TvEpisodeRepository implements RepositoryContract
     }
 
     /**
-     * Update an existing tv episode
+     * Update an existing tv episode.
      *
      * @param Model $model
      * @param array $attributes
@@ -99,6 +102,7 @@ class TvEpisodeRepository implements RepositoryContract
     {
         $model->fill($attributes);
         $model->save();
+
         return $model;
     }
 }

@@ -3,14 +3,14 @@
 namespace App\Repositories;
 
 use App\Models\TVShow;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class TvShowRepository implements RepositoryContract
 {
     /**
-     * TVShow ORM
+     * TVShow ORM.
      * @var TVShow
      */
     protected $tvShow;
@@ -25,46 +25,49 @@ class TvShowRepository implements RepositoryContract
     }
 
     /**
-     * Fetch a tv show by its ID
+     * Fetch a tv show by its ID.
      *
      * @param int $id
      * @param array $parameters
      * @return TVShow
      * @throws ModelNotFoundException
      */
-    public function get(int $id, array $parameters = array()) : TVShow
+    public function get(int $id, array $parameters = []) : TVShow
     {
         $query = $this->tvShow->where('id', $id);
+
         return $query->firstOrFail();
     }
 
     /**
-     * Find a tv show by parameters
+     * Find a tv show by parameters.
      *
      * @param array $parameters
      * @return TVShow
      * @throws ModelNotFoundException
      */
-    public function find(array $parameters = array()) : TVShow
+    public function find(array $parameters = []) : TVShow
     {
         $query = $this->tvShow;
+
         return $query->firstOrFail();
     }
 
     /**
-     * Get a list of all tv shows
+     * Get a list of all tv shows.
      *
      * @param array $parameters
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function index(array $parameters = array()) : Collection
+    public function index(array $parameters = []) : Collection
     {
         $query = $this->tvShow;
+
         return $query->get();
     }
 
     /**
-     * Create and save a new tv show
+     * Create and save a new tv show.
      *
      * @param array $attributes
      * @return TVShow
@@ -75,7 +78,7 @@ class TvShowRepository implements RepositoryContract
     }
 
     /**
-     * Delete an existing tv show
+     * Delete an existing tv show.
      *
      * @param Model $model
      */
@@ -85,7 +88,7 @@ class TvShowRepository implements RepositoryContract
     }
 
     /**
-     * Update an existing tv show
+     * Update an existing tv show.
      *
      * @param Model $model
      * @param array $attributes
@@ -95,11 +98,12 @@ class TvShowRepository implements RepositoryContract
     {
         $model->fill($attributes);
         $model->save();
+
         return $model;
     }
 
     /**
-     * Store a new TVShow instance in database
+     * Store a new TVShow instance in database.
      *
      * @param TVShow $tvShow
      */
@@ -109,7 +113,7 @@ class TvShowRepository implements RepositoryContract
     }
 
     /**
-     * Add genres to tv show
+     * Add genres to tv show.
      *
      * @param TVShow $show
      * @param array $genres
@@ -120,7 +124,7 @@ class TvShowRepository implements RepositoryContract
     }
 
     /**
-     * Add languages to tv show
+     * Add languages to tv show.
      *
      * @param TVShow $show
      * @param array $languages

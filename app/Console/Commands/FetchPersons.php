@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\FetchPerson;
 use Carbon\Carbon;
+use App\Jobs\FetchPerson;
 use Illuminate\Console\Command;
 
 class FetchPersons extends Command
@@ -46,6 +46,7 @@ class FetchPersons extends Command
         $this->fetchPersons();
         $this->deleteFiles();
         $this->info('Deleted downloaded files. The fetching of persons is queued and will take around 100 hours to complete');
+
         return true;
     }
 
@@ -63,7 +64,7 @@ class FetchPersons extends Command
         curl_setopt($curlCh, CURLOPT_FILE, $fp);
         curl_setopt($curlCh, CURLOPT_FOLLOWLOCATION, true);
         curl_exec($curlCh);
-        curl_close ($curlCh);
+        curl_close($curlCh);
         fclose($fp);
     }
 
@@ -74,7 +75,7 @@ class FetchPersons extends Command
     {
         $sfp = gzopen(storage_path('api/person_ids.json.gz'), 'rb');
         $fp = fopen(storage_path('api/person_ids.json'), 'wb');
-        while (!gzeof($sfp)) {
+        while (! gzeof($sfp)) {
             $string = gzread($sfp, 4096);
             fwrite($fp, $string, \strlen($string));
         }
@@ -88,7 +89,7 @@ class FetchPersons extends Command
     protected function fetchPersons()
     {
         $handle = fopen(storage_path('api/person_ids.json'), 'rb');
-        while(!feof($handle)) {
+        while (! feof($handle)) {
             $entry = json_decode(trim(fgets($handle)));
             if (\is_object($entry) && property_exists($entry, 'id')) {
                 FetchPerson::dispatch($entry->id);

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Language
+ * App\Models\Language.
  *
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TVShow[] $tvShows
  * @mixin \Eloquent
@@ -19,13 +19,13 @@ use Illuminate\Database\Eloquent\Model;
 class Language extends Model
 {
     /**
-     * Table name
+     * Table name.
      * @var string
      */
     protected $table = 'languages';
 
     /**
-     * Model has timestamp fields or not
+     * Model has timestamp fields or not.
      * @var bool
      */
     public $timestamps = false;
@@ -37,13 +37,13 @@ class Language extends Model
     protected $primaryKey = 'code';
 
     /**
-     * Fields that should be mass assignable
+     * Fields that should be mass assignable.
      * @var array
      */
     protected $fillable = ['name', 'code'];
 
     /**
-     * Many-to-Many: one language can have many tv shows
+     * Many-to-Many: one language can have many tv shows.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -51,5 +51,4 @@ class Language extends Model
     {
         return $this->belongsToMany(TVShow::class, 'language_tv_show', 'language_code', 'tv_show_id');
     }
-
 }
