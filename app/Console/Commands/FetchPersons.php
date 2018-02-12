@@ -50,7 +50,7 @@ class FetchPersons extends Command
     }
 
     /**
-     * Fetch daily export files from TMDB
+     * Fetch daily export files from TMDB.
      */
     protected function fetchFile()
     {
@@ -68,7 +68,7 @@ class FetchPersons extends Command
     }
 
     /**
-     * Extract the gzipped file
+     * Extract the gzipped file.
      */
     protected function extract()
     {
@@ -83,7 +83,7 @@ class FetchPersons extends Command
     }
 
     /**
-     * Go line by line through the extracted file and dispatch a fetch job for each entry
+     * Go line by line through the extracted file and dispatch a fetch job for each entry.
      */
     protected function fetchPersons()
     {
@@ -98,7 +98,7 @@ class FetchPersons extends Command
     }
 
     /**
-     * Delete downloaded files
+     * Delete downloaded files.
      */
     protected function deleteFiles()
     {

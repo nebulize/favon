@@ -3,8 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Services\IMDBScraper;
-use App\Services\TVAPIService;
-use GuzzleHttp\Exception\ClientException;
 use Illuminate\Console\Command;
 
 class ScrapeIMDB extends Command
@@ -30,6 +28,7 @@ class ScrapeIMDB extends Command
 
     /**
      * ScrapeIMDB constructor.
+     *
      * @param IMDBScraper $scraper
      */
     public function __construct(IMDBScraper $scraper)
@@ -40,13 +39,11 @@ class ScrapeIMDB extends Command
 
     /**
      * Execute the console command.
-     * @return null
      */
-    public function handle()
+    public function handle() : void
     {
         $ids = $this->imdbScraper->scrape($this->argument('url'));
         $this->info('Scraping IMDB IDs...');
         $this->line(json_encode($ids));
-        return null;
     }
 }

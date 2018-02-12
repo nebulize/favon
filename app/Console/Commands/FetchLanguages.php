@@ -35,7 +35,7 @@ class FetchLanguages extends Command
     /**
      * FetchLanguages constructor.
      *
-     * @param TMDBService $tmdbService
+     * @param TMDBService        $tmdbService
      * @param LanguageRepository $languageRepository
      */
     public function __construct(TMDBService $tmdbService, LanguageRepository $languageRepository)

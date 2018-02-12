@@ -10,5 +10,4 @@ class TMDBAdapter extends APIAdapter
     {
         parent::__construct($limit, $unit);
     }
-
 }

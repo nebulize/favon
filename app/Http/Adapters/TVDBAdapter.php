@@ -10,5 +10,4 @@ class TVDBAdapter extends APIAdapter
     {
         parent::__construct($limit, $unit);
     }
-
 }

@@ -29,6 +29,7 @@ class UpdatePersons extends Command
 
     /**
      * UpdatePersons constructor.
+     *
      * @param TMDBService $tmdbService
      */
     public function __construct(TMDBService $tmdbService)
@@ -37,31 +38,32 @@ class UpdatePersons extends Command
         parent::__construct();
     }
 
-
-    public function handle()
+    /**
+     * Execute the command.
+     */
+    public function handle() : void
     {
         $start = $this->argument('start');
         $end = $this->argument('end');
         $this->displayStatus($start, $end);
         $this->fetch();
         $this->info("Successfully queued all jobs. Start the queue worker if it's not working to start processing them.");
-        return null;
     }
 
     /**
-     * Display initial command line status
+     * Display initial command line status.
      *
      * @param string $start
      * @param string $end
      */
-    public function displayStatus($start, $end)
+    public function displayStatus($start, $end) : void
     {
         $line = 'Fetching changed persons from TMDB ';
         if ($start && $start !== '') {
             if ($end && $end !== '') {
-                $line .= 'between ' . $start . ' and ' . $end;
+                $line .= 'between '.$start.' and '.$end;
             } else  {
-                $line .= 'since ' . $start;
+                $line .= 'since '.$start;
             }
         } else {
             $line .= 'for the last 24 hours';
@@ -70,11 +72,17 @@ class UpdatePersons extends Command
         $this->line($line);
     }
 
+    /**
+     * Recursive function to fetch all pages and dispatch jobs.
+     *
+     * @param int $page
+     * @return null
+     */
     public function fetch(int $page = 1)
     {
         $changes = $this->requestPersonChanges($page);
         if ($changes === null) {
-            return null;
+            return;
         }
         $this->line('Fetched '.$page.'/'.$changes->total_pages.' pages of updated persons. Dispatching jobs...');
         $this->updateBatch($changes->results);
@@ -85,7 +93,7 @@ class UpdatePersons extends Command
     }
 
     /**
-     * Request changes persons, paginated
+     * Request changes persons, paginated.
      *
      * @param $page
      * @return null|\stdClass
@@ -96,7 +104,7 @@ class UpdatePersons extends Command
     }
 
     /**
-     * Update an array of persons
+     * Update an array of persons.
      *
      * @param array $persons
      */

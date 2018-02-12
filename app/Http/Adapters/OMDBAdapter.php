@@ -10,5 +10,4 @@ class OMDBAdapter extends APIAdapter
     {
         parent::__construct($limit, $unit);
     }
-
 }
