@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\UpdatePerson;
 use App\Services\TMDBService;
 use Illuminate\Console\Command;
 
@@ -21,12 +22,14 @@ class UpdatePersons extends Command
      */
     protected $description = 'Fetch and store information for all persons changed in the last 24 hours (or time period - max 14 days - defined by start and end date)';
 
+    /**
+     * @var TMDBService
+     */
     protected $tmdbService;
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
+     * UpdatePersons constructor.
+     * @param TMDBService $tmdbService
      */
     public function __construct(TMDBService $tmdbService)
     {
@@ -34,16 +37,75 @@ class UpdatePersons extends Command
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
+
     public function handle()
     {
-        $changes = $this->tmdbService->getChangedPersons($this->argument('start'), $this->argument('end'));
-        foreach ($changes as $change) {
+        $start = $this->argument('start');
+        $end = $this->argument('end');
+        $this->displayStatus($start, $end);
+        $this->fetch();
+        $this->info("Successfully queued all jobs. Start the queue worker if it's not working to start processing them.");
+        return null;
+    }
 
+    /**
+     * Display initial command line status
+     *
+     * @param string $start
+     * @param string $end
+     */
+    public function displayStatus($start, $end)
+    {
+        $line = 'Fetching changed persons from TMDB ';
+        if ($start && $start !== '') {
+            if ($end && $end !== '') {
+                $line .= 'between ' . $start . ' and ' . $end;
+            } else  {
+                $line .= 'since ' . $start;
+            }
+        } else {
+            $line .= 'for the last 24 hours';
+        }
+        $line .= '...';
+        $this->line($line);
+    }
+
+    public function fetch(int $page = 1)
+    {
+        $changes = $this->requestPersonChanges($page);
+        if ($changes === null) {
+            return null;
+        }
+        $this->line('Fetched '.$page.'/'.$changes->total_pages.' pages of updated persons. Dispatching jobs...');
+        $this->updateBatch($changes->results);
+        if ($changes->page < $changes->total_pages) {
+            return $this->fetch($page + 1);
+        }
+        return null;
+    }
+
+    /**
+     * Request changes persons, paginated
+     *
+     * @param $page
+     * @return null|\stdClass
+     */
+    public function requestPersonChanges($page) : ?\stdClass
+    {
+        return $this->tmdbService->getChangedPersons($this->argument('start'), $this->argument('end'), $page);
+    }
+
+    /**
+     * Update an array of persons
+     *
+     * @param array $persons
+     */
+    public function updateBatch(array $persons) : void
+    {
+        foreach ($persons as $person) {
+            if (\is_object($person) && property_exists($person, 'id')) {
+                UpdatePerson::dispatch($person->id);
+            }
         }
     }
 }

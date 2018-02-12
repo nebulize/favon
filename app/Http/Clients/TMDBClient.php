@@ -68,10 +68,11 @@ class TMDBClient
      *
      * @param string|null $start_date
      * @param string|null $end_date
+     * @param int $page
      * @return Response
      * @throws GenericAPIException
      */
-    public function getChangedPersons(string $start_date = null, string $end_date = null) : Response
+    public function getChangedPersons(string $start_date = null, string $end_date = null, int $page = 1) : Response
     {
         $url = $this->url . '/person/changes?api_key=' . $this->key . '&language=en-US';
         if ($start_date) {
@@ -80,6 +81,7 @@ class TMDBClient
         if ($end_date) {
             $url .= '&end_date='.$end_date;
         }
+        $url .= '&page='.$page;
         $request = new Request('GET', $url);
         $response = $this->adapter->request($request);
         $result = new Response((int)$response->getStatusCode());

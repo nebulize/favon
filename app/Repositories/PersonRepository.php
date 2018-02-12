@@ -48,6 +48,9 @@ class PersonRepository implements RepositoryContract
     public function find(array $parameters = array()) : Person
     {
         $query = $this->person;
+        if ($parameters['tmdb_id']) {
+            $query = $query->where('tmdb_id', $parameters['tmdb_id']);
+        }
         return $query->firstOrFail();
     }
 

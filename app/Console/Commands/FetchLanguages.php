@@ -34,6 +34,7 @@ class FetchLanguages extends Command
 
     /**
      * FetchLanguages constructor.
+     *
      * @param TMDBService $tmdbService
      * @param LanguageRepository $languageRepository
      */
@@ -46,6 +47,7 @@ class FetchLanguages extends Command
 
     /**
      * Execute the console command.
+     *
      * @return null
      */
     public function handle()
@@ -59,6 +61,5 @@ class FetchLanguages extends Command
             $this->languageRepository->create($language);
         }
         $this->info('Successfully fetched and stored languages.');
-        return null;
     }
 }

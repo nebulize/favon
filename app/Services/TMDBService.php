@@ -270,12 +270,13 @@ class TMDBService
      *
      * @param string|null $start
      * @param string|null $end
-     * @return array|null
+     * @param int $page
+     * @return \stdClass|null
      */
-    public function getChangedPersons(string $start = null, string $end = null) : ?array
+    public function getChangedPersons(string $start = null, string $end = null, int $page = 1) : ?\stdClass
     {
         try {
-            $response = $this->client->getChangedPersons($start, $end);
+            $response = $this->client->getChangedPersons($start, $end, $page);
         } catch (GenericAPIException $e) {
             $this->logger->error($e->getCode() . ': ' . $e->getMessage());
             return null;
