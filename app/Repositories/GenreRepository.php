@@ -3,14 +3,14 @@
 namespace App\Repositories;
 
 use App\Models\Genre;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class GenreRepository implements RepositoryContract
 {
     /**
-     * Genre ORM
+     * Genre ORM.
      * @var Genre
      */
     protected $genre;
@@ -25,50 +25,53 @@ class GenreRepository implements RepositoryContract
     }
 
     /**
-     * Fetch a genre by its ID
+     * Fetch a genre by its ID.
      *
      * @param int $id
      * @param array $parameters
      * @return Genre
      * @throws ModelNotFoundException
      */
-    public function get(int $id, array $parameters = array()) : Genre
+    public function get(int $id, array $parameters = []) : Genre
     {
         $query = $this->genre->where('id', $id);
+
         return $query->firstOrFail();
     }
 
     /**
-     * Find a genre by parameters
+     * Find a genre by parameters.
      *
      * @param $parameters
      * @return Genre
      * @throws ModelNotFoundException
      */
-    public function find(array $parameters = array()) : Genre
+    public function find(array $parameters = []) : Genre
     {
         $query = $this->genre;
         // Filter by name
         if (isset($parameters['name'])) {
             $query = $query->where('name', $parameters['name']);
         }
+
         return $query->firstOrFail();
     }
 
     /**
-     * Get a list of all genres
+     * Get a list of all genres.
      *
      * @param array $parameters
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function index(array $parameters = array()) : Collection
+    public function index(array $parameters = []) : Collection
     {
         $query = $this->genre;
+
         return $query->get();
     }
 
     /**
-     * Create a new genre
+     * Create a new genre.
      *
      * @param $attributes
      * @return Genre
@@ -79,7 +82,7 @@ class GenreRepository implements RepositoryContract
     }
 
     /**
-     * Delete a genre
+     * Delete a genre.
      *
      * @param Model $model
      */
@@ -89,7 +92,7 @@ class GenreRepository implements RepositoryContract
     }
 
     /**
-     * Update an existing genre
+     * Update an existing genre.
      *
      * @param Model $model
      * @param array $attributes
@@ -99,6 +102,7 @@ class GenreRepository implements RepositoryContract
     {
         $model->fill($attributes);
         $model->save();
+
         return $model;
     }
 }

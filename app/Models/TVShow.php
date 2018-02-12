@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\TVShow
+ * App\Models\TVShow.
  *
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TVEpisode[] $episodes
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Genre[] $genres
@@ -66,27 +66,27 @@ use Illuminate\Database\Eloquent\Model;
 class TVShow extends Model
 {
     /**
-     * Table name
+     * Table name.
      * @var string
      */
     protected $table = 'tv_shows';
 
     /**
-     * Fields that should be mass assignable
+     * Fields that should be mass assignable.
      * @var array
      */
     protected $fillable = ['imdb_id', 'name', 'status', 'first_aired', 'network', 'runtime', 'rating',
         'summary', 'plot', 'country', 'poster', 'banner', 'imdb_score', 'imdb_votes', 'air_day', 'air_time',
-        'tvdb_id', 'tmdb_id', 'homepage'];
+        'tvdb_id', 'tmdb_id', 'homepage', ];
 
     /**
-     * Fields that are dates and casted to Carbon instances
+     * Fields that are dates and casted to Carbon instances.
      * @var array
      */
     protected $dates = ['created_at', 'updated_at', 'first_aired'];
 
     /**
-     * One-to-Many: one tv show can have many tv seasons
+     * One-to-Many: one tv show can have many tv seasons.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -96,7 +96,7 @@ class TVShow extends Model
     }
 
     /**
-     * Many-to-Many: one tv show can have many genres
+     * Many-to-Many: one tv show can have many genres.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -106,7 +106,7 @@ class TVShow extends Model
     }
 
     /**
-     * Many-to-Many: one tv show can have many languages
+     * Many-to-Many: one tv show can have many languages.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -116,7 +116,7 @@ class TVShow extends Model
     }
 
     /**
-     * Helper function: one tv show has many episodes through their respective seasons
+     * Helper function: one tv show has many episodes through their respective seasons.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
@@ -124,5 +124,4 @@ class TVShow extends Model
     {
         return $this->hasManyThrough(TVEpisode::class, TVSeason::class, 'tv_show_id', 'tv_season_id');
     }
-
 }

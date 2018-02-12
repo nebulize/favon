@@ -6,7 +6,7 @@ use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\TVSeason
+ * App\Models\TVSeason.
  *
  * @property-read \App\Models\Season $season
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TVEpisode[] $tvEpisodes
@@ -39,25 +39,25 @@ use Illuminate\Database\Eloquent\Model;
 class TVSeason extends Model
 {
     /**
-     * Table name
+     * Table name.
      * @var string
      */
     protected $table = 'tv_seasons';
 
     /**
-     * Fields that should be mass assignable
+     * Fields that should be mass assignable.
      * @var array
      */
     protected $fillable = ['first_aired', 'summary', 'poster', 'tmdb_id', 'tv_show_id', 'season_id', 'number', 'name'];
 
     /**
-     * Fields that are dates and casted to Carbon instances
+     * Fields that are dates and casted to Carbon instances.
      * @var array
      */
     protected $dates = ['created_at', 'updated_at', 'first_aired'];
 
     /**
-     * One-to-Many: one tv season has many tv episodes
+     * One-to-Many: one tv season has many tv episodes.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -67,7 +67,7 @@ class TVSeason extends Model
     }
 
     /**
-     * One-to-Many: one tv season belongs to one tv show
+     * One-to-Many: one tv season belongs to one tv show.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -77,7 +77,7 @@ class TVSeason extends Model
     }
 
     /**
-     * One-to-Many: one tv season belongs to one season
+     * One-to-Many: one tv season belongs to one season.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -87,7 +87,7 @@ class TVSeason extends Model
     }
 
     /**
-     * Many-to-Many: one tv season can have many users
+     * Many-to-Many: one tv season can have many users.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -97,7 +97,7 @@ class TVSeason extends Model
     }
 
     /**
-     * One-To-Many: one tv season has many videos
+     * One-To-Many: one tv season has many videos.
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function videos() : \Illuminate\Database\Eloquent\Relations\HasMany
@@ -106,7 +106,7 @@ class TVSeason extends Model
     }
 
     /**
-     * Many-To-Many: one tv season has many persons in it
+     * Many-To-Many: one tv season has many persons in it.
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function persons() : \Illuminate\Database\Eloquent\Relations\BelongsToMany

@@ -2,16 +2,16 @@
 
 namespace App\Repositories;
 
-use App\Exceptions\InvalidArgumentException;
 use App\Models\TVSeason;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use App\Exceptions\InvalidArgumentException;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class TvSeasonRepository implements RepositoryContract
 {
     /**
-     * TVSeason ORM
+     * TVSeason ORM.
      * @var TVSeason
      */
     protected $tvSeason;
@@ -26,27 +26,28 @@ class TvSeasonRepository implements RepositoryContract
     }
 
     /**
-     * Fetch a tv season by its ID
+     * Fetch a tv season by its ID.
      *
      * @param int $id
      * @param array $parameters
      * @return TVSeason
      * @throws ModelNotFoundException
      */
-    public function get(int $id, array $parameters = array()) : TVSeason
+    public function get(int $id, array $parameters = []) : TVSeason
     {
         $query = $this->tvSeason->where('id', $id);
+
         return $query->firstOrFail();
     }
 
     /**
-     * Find a tv season by parameters
+     * Find a tv season by parameters.
      *
      * @param array $parameters
      * @return TVSeason
      * @throws ModelNotFoundException
      */
-    public function find(array $parameters = array()) : TVSeason
+    public function find(array $parameters = []) : TVSeason
     {
         $query = $this->tvSeason;
         // Filter by season
@@ -61,26 +62,28 @@ class TvSeasonRepository implements RepositoryContract
         if (isset($parameters['number'])) {
             $query = $query->where('number', $parameters['number']);
         }
+
         return $query->firstOrFail();
     }
 
     /**
-     * Get a list of all tv seasons, filtered by parameters
+     * Get a list of all tv seasons, filtered by parameters.
      *
      * @param array $parameters
      * @return \Illuminate\Database\Eloquent\Collection
      * @throws InvalidArgumentException
      */
-    public function index(array $parameters = array()) : Collection
+    public function index(array $parameters = []) : Collection
     {
         $query = $this->tvSeason;
 
         // Get seasonal index
         if (isset($parameters['seasonal']) && $parameters['seasonal'] === true) {
             $query = $query->join('tv_shows', 'tv_seasons.tv_show_id', 'tv_shows.id');
-            if (!isset($parameters['season_id'])) {
+            if (! isset($parameters['season_id'])) {
                 throw new InvalidArgumentException('Requesting seasonal index, but no season_id specified.');
             }
+
             return $query->where('tv_seasons.season_id', '=', $parameters['season_id'])
                 ->where('tv_shows.imdb_votes', '>=', '5000')
                 ->where('tv_seasons.number', '<>', 0)
@@ -99,11 +102,12 @@ class TvSeasonRepository implements RepositoryContract
         if (isset($parameters['season_id'])) {
             $query = $query->where('season_id', $parameters['season_id']);
         }
+
         return $query->get();
     }
 
     /**
-     * Create a new tv season
+     * Create a new tv season.
      *
      * @param array $attributes
      * @return TVSeason
@@ -114,7 +118,7 @@ class TvSeasonRepository implements RepositoryContract
     }
 
     /**
-     * Delete an existing tv season
+     * Delete an existing tv season.
      *
      * @param Model $model
      */
@@ -124,7 +128,7 @@ class TvSeasonRepository implements RepositoryContract
     }
 
     /**
-     * Update an existing tv season
+     * Update an existing tv season.
      *
      * @param Model $model
      * @param array $attributes
@@ -134,6 +138,7 @@ class TvSeasonRepository implements RepositoryContract
     {
         $model->fill($attributes);
         $model->save();
+
         return $model;
     }
 }

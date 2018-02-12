@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Season
+ * App\Models\Season.
  *
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TVSeason[] $tvSeasons
  * @mixin \Eloquent
@@ -25,31 +25,30 @@ use Illuminate\Database\Eloquent\Model;
 class Season extends Model
 {
     /**
-     * Table name
+     * Table name.
      * @var string
      */
     protected $table = 'seasons';
 
     /**
-     * Fields that should be mass assignable
+     * Fields that should be mass assignable.
      * @var array
      */
     protected $fillable = ['name', 'start_date', 'end_date'];
 
     /**
-     * Fields that are dates and casted to Carbon instances
+     * Fields that are dates and casted to Carbon instances.
      * @var array
      */
     protected $dates = ['created_at', 'updated_at', 'start_date', 'end_date'];
 
     /**
-     * One-to-Many: one season has many tv seasons
+     * One-to-Many: one season has many tv seasons.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function tvSeasons() : \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(TVSeason::class,'season_id');
+        return $this->hasMany(TVSeason::class, 'season_id');
     }
-
 }

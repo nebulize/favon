@@ -2,9 +2,9 @@
 
 namespace App\Jobs;
 
-use App\Repositories\PersonRepository;
 use App\Services\TMDBService;
 use Illuminate\Bus\Queueable;
+use App\Repositories\PersonRepository;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;

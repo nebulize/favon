@@ -2,15 +2,15 @@
 
 namespace App\Http\Clients;
 
-use App\Exceptions\GenericAPIException;
-use App\Exceptions\NoAPIResultsFoundException;
-use App\Http\Adapters\APIAdapter;
-use App\Http\Adapters\TVDBAdapter;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
+use GuzzleHttp\Psr7\Request;
+use App\Http\Adapters\APIAdapter;
+use App\Http\Adapters\TVDBAdapter;
+use App\Exceptions\GenericAPIException;
+use GuzzleHttp\Exception\ClientException;
+use App\Exceptions\NoAPIResultsFoundException;
 
 class TVDBClient
 {
@@ -43,7 +43,7 @@ class TVDBClient
     }
 
     /**
-     * Authenticate with the TVDB API and request API token
+     * Authenticate with the TVDB API and request API token.
      */
     protected function authenticate() : void
     {
@@ -51,13 +51,13 @@ class TVDBClient
         $body = [
             'apikey' => config('media.tvdb_api_key'),
             'userkey' => config('media.tvdb_user_key'),
-            'username' => config('media.tvdb_user_name')
+            'username' => config('media.tvdb_user_name'),
         ];
-        $response = $client->request('POST', $this->url . '/login', [
+        $response = $client->request('POST', $this->url.'/login', [
             'body' => json_encode($body),
             'headers' => [
-                'Content-Type' => 'application/json'
-            ]
+                'Content-Type' => 'application/json',
+            ],
         ]);
         if ($response->getStatusCode() === 200) {
             $responseBody = json_decode($response->getBody());
@@ -66,22 +66,23 @@ class TVDBClient
     }
 
     /**
-     * Get the base request that can be used for all GET API calls
+     * Get the base request that can be used for all GET API calls.
      *
      * @return Request
      */
     protected function getBaseRequest() : Request
     {
-        if (!$this->token) {
+        if (! $this->token) {
             $this->authenticate();
         }
+
         return new Request('GET', $this->url, [
-            'Authorization' => 'Bearer ' . $this->token
+            'Authorization' => 'Bearer '.$this->token,
         ]);
     }
 
     /**
-     * Get the response object for a TV show with the given IMDB ID
+     * Get the response object for a TV show with the given IMDB ID.
      *
      * @param int $id
      * @return Response
@@ -90,9 +91,9 @@ class TVDBClient
      */
     public function get(int $id) : Response
     {
-        $request = $this->getBaseRequest()->withUri(new Uri($this->url . '/series/' . $id));
+        $request = $this->getBaseRequest()->withUri(new Uri($this->url.'/series/'.$id));
         $response = $this->adapter->request($request);
-        $result = new Response((int)$response->getStatusCode());
+        $result = new Response((int) $response->getStatusCode());
         switch ($result->getHttpStatusCode()) {
             case 200:
                 $result->setSuccessful();
@@ -104,6 +105,7 @@ class TVDBClient
             default:
                 throw new GenericAPIException($response->getBody(), $response->getStatusCode());
         }
+
         return $result;
     }
 
@@ -120,7 +122,7 @@ class TVDBClient
 //    }
 
     /**
-     * Fetch all relevant data for a TV show from the TVDB API
+     * Fetch all relevant data for a TV show from the TVDB API.
      *
      * @param int $id
      * @return array
@@ -130,16 +132,17 @@ class TVDBClient
     public function getTVDBData(int $id) : array
     {
         $result = $this->get($id);
-        if (!$result->seriesName) {
-            throw new NoAPIResultsFoundException('TVDB: no localized results found for show with id ' . $imdbId);
+        if (! $result->seriesName) {
+            throw new NoAPIResultsFoundException('TVDB: no localized results found for show with id '.$imdbId);
         }
+
         return [
             'imdb_id' => $result->imdbId,
             'name' => $result->seriesName,
             'status' => $result->status === 'Ended' ? 'Completed' : 'Continuing',
             'first_aired' => Carbon::parse($result->firstAired),
             'network' => $result->network,
-            'runtime' => (int)$result->runtime,
+            'runtime' => (int) $result->runtime,
             'rating' => $result->rating !== '' ? $result->rating : null,
             'plot' => $result->overview,
             'air_day' => $result->airsDayOfWeek !== '' ? $result->airsDayOfWeek : null,
@@ -147,5 +150,4 @@ class TVDBClient
             'tvdb_id' => $result->id,
         ];
     }
-
 }

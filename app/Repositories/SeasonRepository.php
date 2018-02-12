@@ -2,16 +2,16 @@
 
 namespace App\Repositories;
 
-use App\Models\Season;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
+use App\Models\Season;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class SeasonRepository implements RepositoryContract
 {
     /**
-     * Season ORM
+     * Season ORM.
      * @var Season
      */
     protected $season;
@@ -26,27 +26,28 @@ class SeasonRepository implements RepositoryContract
     }
 
     /**
-     * Fetch a Season by its ID
+     * Fetch a Season by its ID.
      *
      * @param int $id
      * @param array $parameters
      * @return Season
      * @throws ModelNotFoundException
      */
-    public function get(int $id, array $parameters = array()) : Season
+    public function get(int $id, array $parameters = []) : Season
     {
         $query = $this->season->where('id', $id);
+
         return $query->firstOrFail();
     }
 
     /**
-     * Find a season by supplied parameters
+     * Find a season by supplied parameters.
      *
      * @param array $parameters
      * @return Season
      * @throws ModelNotFoundException
      */
-    public function find(array $parameters = array()) : Season
+    public function find(array $parameters = []) : Season
     {
         $query = $this->season;
         // Filter by date
@@ -55,23 +56,25 @@ class SeasonRepository implements RepositoryContract
                 ->where('start_date', '<=', $parameters['date'])
                 ->where('end_date', '>=', $parameters['date']);
         }
+
         return $query->firstOrFail();
     }
 
     /**
-     * Get a list of all Seasons
+     * Get a list of all Seasons.
      *
      * @param array $parameters
      * @return Collection
      */
-    public function index(array $parameters = array()) : Collection
+    public function index(array $parameters = []) : Collection
     {
         $query = $this->season;
+
         return $query->get();
     }
 
     /**
-     * Create a season with the supplied attributes
+     * Create a season with the supplied attributes.
      *
      * @param array $attributes
      * @return Season
@@ -86,11 +89,11 @@ class SeasonRepository implements RepositoryContract
                 $start_date = Carbon::create($year, 1, 1);
                 $end_date = $start_date->copy()->addMonth(2)->endOfMonth();
                 $name = 'Winter';
-            } else if (\in_array($month, [4, 5, 6], true)) {
+            } elseif (\in_array($month, [4, 5, 6], true)) {
                 $start_date = Carbon::create($year, 4, 1);
                 $end_date = $start_date->copy()->addMonth(2)->endOfMonth();
                 $name = 'Spring';
-            } else if (\in_array($month, [7, 8, 9], true)) {
+            } elseif (\in_array($month, [7, 8, 9], true)) {
                 $start_date = Carbon::create($year, 7, 1);
                 $end_date = $start_date->copy()->addMonth(2)->endOfMonth();
                 $name = 'Summer';
@@ -108,7 +111,7 @@ class SeasonRepository implements RepositoryContract
     }
 
     /**
-     * Delete an existing season
+     * Delete an existing season.
      *
      * @param Model $model
      */
@@ -118,7 +121,7 @@ class SeasonRepository implements RepositoryContract
     }
 
     /**
-     * Update an existing Season
+     * Update an existing Season.
      *
      * @param Model $model
      * @param array $attributes
@@ -128,6 +131,7 @@ class SeasonRepository implements RepositoryContract
     {
         $model->fill($attributes);
         $model->save();
+
         return $model;
     }
 }

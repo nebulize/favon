@@ -2,9 +2,8 @@
 
 namespace App\Http\Clients;
 
-
-use Illuminate\Contracts\Support\MessageProvider;
 use Illuminate\Support\MessageBag;
+use Illuminate\Contracts\Support\MessageProvider;
 
 class Response implements MessageProvider
 {
@@ -48,6 +47,7 @@ class Response implements MessageProvider
     {
         if ($key === null) {
             $this->errorMessages[] = $message;
+
             return;
         }
         $this->errorMessages[$key] = $message;
@@ -128,5 +128,4 @@ class Response implements MessageProvider
     {
         return $this->httpStatusCode;
     }
-
 }

@@ -62,7 +62,7 @@ class UpdatePersons extends Command
         if ($start && $start !== '') {
             if ($end && $end !== '') {
                 $line .= 'between '.$start.' and '.$end;
-            } else  {
+            } else {
                 $line .= 'since '.$start;
             }
         } else {
@@ -89,7 +89,6 @@ class UpdatePersons extends Command
         if ($changes->page < $changes->total_pages) {
             return $this->fetch($page + 1);
         }
-        return null;
     }
 
     /**
