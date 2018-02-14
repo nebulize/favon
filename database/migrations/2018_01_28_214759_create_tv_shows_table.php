@@ -31,6 +31,7 @@ class CreateTvShowsTable extends Migration
             $table->bigInteger('imdb_votes')->unsigned()->nullable();
             $table->enum('air_day', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Daily'])->nullable();
             $table->string('air_time')->nullable();
+            $table->float('popularity')->nullable();
             $table->bigInteger('tvdb_id')->unsigned()->nullable();
             $table->bigInteger('tmdb_id')->unsigned()->nullable();
             $table->string('homepage')->nullable();
