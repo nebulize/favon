@@ -178,7 +178,10 @@ class TvShowResponse extends BaseResponse
         return $this->seasons;
     }
 
-    public function parseResponse()
+    /**
+     * Parse the response object.
+     */
+    protected function parseResponse(): void
     {
         $this->name = $this->parseProperty('name');
         $this->parseStatus();

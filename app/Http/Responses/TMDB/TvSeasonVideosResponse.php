@@ -23,7 +23,7 @@ class TvSeasonVideosResponse extends BaseResponse
     /**
      * Parse the response object.
      */
-    protected function parseResponse()
+    protected function parseResponse(): void
     {
         foreach ($this->getResponse()->results as $result) {
             if (isset($result->site) && $result->site === 'Youtube') {

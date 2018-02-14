@@ -40,6 +40,8 @@ class REpisode
     {
         if (isset($object->episode_number) && $object->episode_number !== '') {
             $this->number = (int) $object->episode_number;
+        } else {
+            $this->number = 0;
         }
         if (isset($object->air_date) && $object->air_date !== '') {
             $this->parseFirstAired($object->air_date);

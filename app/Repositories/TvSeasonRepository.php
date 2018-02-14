@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Person;
 use App\Models\TVSeason;
 use Illuminate\Database\Eloquent\Model;
 use App\Exceptions\InvalidArgumentException;
@@ -140,5 +141,10 @@ class TvSeasonRepository implements RepositoryContract
         $model->save();
 
         return $model;
+    }
+
+    public function addPerson(TVSeason $tvSeason, Person $person, array $attributes = array()): void
+    {
+        $tvSeason->persons()->attach($person->id, $attributes);
     }
 }

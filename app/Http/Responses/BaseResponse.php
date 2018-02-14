@@ -46,7 +46,7 @@ abstract class BaseResponse implements MessageProvider
      * @param string $message Error message
      * @param null   $key     Key for message
      */
-    public function addErrorMessage($message, $key = null)
+    public function addErrorMessage($message, $key = null): void
     {
         if ($key === null) {
             $this->errorMessages[] = $message;
@@ -61,7 +61,7 @@ abstract class BaseResponse implements MessageProvider
      *
      * @param $messages
      */
-    public function setErrorMessages(array $messages)
+    public function setErrorMessages(array $messages): void
     {
         $this->errorMessages = $messages;
     }
@@ -71,7 +71,7 @@ abstract class BaseResponse implements MessageProvider
      *
      * @param mixed $response Response
      */
-    public function setResponse($response)
+    public function setResponse($response): void
     {
         $this->response = $response;
         if ($this->hasBeenSuccessful()) {
@@ -82,7 +82,7 @@ abstract class BaseResponse implements MessageProvider
     /**
      * Set that response is a positive response.
      */
-    public function setSuccessful()
+    public function setSuccessful(): void
     {
         $this->successful = true;
     }

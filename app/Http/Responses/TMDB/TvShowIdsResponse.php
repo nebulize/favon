@@ -12,7 +12,7 @@ class TvShowIdsResponse extends BaseResponse
     protected $tvdb_id;
 
     /**
-     * @var int
+     * @var string
      */
     protected $imdb_id;
 
@@ -25,9 +25,9 @@ class TvShowIdsResponse extends BaseResponse
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getImdbId(): ?int
+    public function getImdbId(): ?string
     {
         return $this->imdb_id;
     }
@@ -38,7 +38,7 @@ class TvShowIdsResponse extends BaseResponse
     protected function parseResponse(): void
     {
         $this->tvdb_id = $this->parseProperty('tvdb_id', BaseResponse::TYPE_INT);
-        $this->imdb_id = $this->parseProperty('imdb_id', BaseResponse::TYPE_INT);
+        $this->imdb_id = $this->parseProperty('imdb_id');
     }
 
     /**

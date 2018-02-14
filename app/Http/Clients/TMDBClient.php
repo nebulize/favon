@@ -142,7 +142,6 @@ class TMDBClient
             case 200:
                 $result->setSuccessful();
                 $result->setResponse(json_decode($response->getBody()));
-                $result->parseResponse();
                 break;
             case 404:
                 $this->logger->warning('TMDB - TVShow: Could not find entry with ID '.$id);
@@ -222,7 +221,7 @@ class TMDBClient
         switch ($result->getHttpStatusCode()) {
             case 200:
                 $result->setSuccessful();
-                $result->setResponse(json_decode($response->getBody())->results);
+                $result->setResponse(json_decode($response->getBody()));
                 break;
             case 404:
                 $this->logger->warning('TMDB - TV-Season - Videos: Could not find entry with ID '.$id);

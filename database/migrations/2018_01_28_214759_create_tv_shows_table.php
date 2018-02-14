@@ -15,10 +15,10 @@ class CreateTvShowsTable extends Migration
     {
         Schema::create('tv_shows', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('imdb_id', 9)->unique();
+            $table->string('imdb_id', 9)->nullable();
             $table->string('name');
             $table->enum('status', ['Continuing', 'Planned', 'In Production', 'Ended', 'Canceled', 'Pilot']);
-            $table->date('first_aired');
+            $table->date('first_aired')->nullable();
             $table->string('network')->nullable();
             $table->string('runtime')->nullable();
             $table->enum('rating', ['TV-MA', 'TV-14', 'TV-PG', 'TV-G', 'TV-Y', 'TV-Y7'])->nullable();
@@ -33,7 +33,7 @@ class CreateTvShowsTable extends Migration
             $table->string('air_time')->nullable();
             $table->float('popularity')->nullable();
             $table->bigInteger('tvdb_id')->unsigned()->nullable();
-            $table->bigInteger('tmdb_id')->unsigned()->nullable();
+            $table->bigInteger('tmdb_id')->unsigned()->unique();
             $table->string('homepage')->nullable();
             $table->timestamps();
         });

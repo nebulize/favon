@@ -20,7 +20,6 @@ class CreateGenreTvShowTable extends Migration
             $table->foreign('tv_show_id')->references('id')->on('tv_shows')->onDelete('cascade');
             $table->foreign('genre_id')->references('id')->on('genres')->onDelete('cascade');
             $table->unique(['tv_show_id', 'genre_id']);
-            $table->timestamps();
         });
     }
 

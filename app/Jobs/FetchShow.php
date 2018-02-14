@@ -36,5 +36,7 @@ class FetchShow implements ShouldQueue
             return;
         }
 
+
+
     }
 }

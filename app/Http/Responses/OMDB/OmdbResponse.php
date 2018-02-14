@@ -78,8 +78,8 @@ class OmdbResponse extends BaseResponse
     {
         $this->summary = $this->parseProperty('Plot');
         $this->country = $this->parseProperty('Country');
-        $this->imdb_score = $this->parseProperty('imdbRating', 'float');
-        $this->imdb_votes = $this->parseProperty('imdbVotes', 'int');
+        $this->imdb_score = $this->parseProperty('imdbRating', BaseResponse::TYPE_FLOAT);
+        $this->imdb_votes = $this->parseProperty('imdbVotes', BaseResponse::TYPE_INT);
         $this->parseGenres();
     }
 

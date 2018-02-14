@@ -78,7 +78,7 @@ class UpdatePersons extends Command
      */
     public function fetch(int $page = 1): void
     {
-        $changedPersonsResponse = $this->tmdbClient->getChangedPersons($this->argument('start'), $this->argument('end'), $page);
+        $changedPersonsResponse = $this->tmdbClient->getChangedPersons($page, $this->argument('start'), $this->argument('end'));
         if ($changedPersonsResponse->hasBeenSuccessful() === false) {
             return;
         }
