@@ -133,4 +133,14 @@ class TvShowRepository implements RepositoryContract
     {
         $show->languages()->sync($languages);
     }
+
+    /**
+     * Save a tv show object to database
+     *
+     * @param TVShow $tvShow
+     */
+    public function save(TVShow $tvShow): void
+    {
+        $tvShow->save();
+    }
 }

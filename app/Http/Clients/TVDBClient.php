@@ -2,15 +2,15 @@
 
 namespace App\Http\Clients;
 
-use Carbon\Carbon;
+use App\Http\Responses\TVDB\TvdbResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Psr7\Request;
 use App\Http\Adapters\APIAdapter;
 use App\Http\Adapters\TVDBAdapter;
 use App\Exceptions\GenericAPIException;
-use GuzzleHttp\Exception\ClientException;
 use App\Exceptions\NoAPIResultsFoundException;
+use Illuminate\Contracts\Logging\Log;
 
 class TVDBClient
 {
@@ -32,13 +32,21 @@ class TVDBClient
     protected $token;
 
     /**
-     * TVDBClient constructor.
-     * @param TVDBAdapter $adapter
+     * @var Log
      */
-    public function __construct(TVDBAdapter $adapter)
+    protected $logger;
+
+    /**
+     * TVDBClient constructor.
+     *
+     * @param TVDBAdapter $adapter
+     * @param Log $logger
+     */
+    public function __construct(TVDBAdapter $adapter, Log $logger)
     {
         $this->adapter = $adapter;
         $this->url = config('media.tvdb_url');
+        $this->logger = $logger;
         $this->authenticate();
     }
 
@@ -85,69 +93,25 @@ class TVDBClient
      * Get the response object for a TV show with the given IMDB ID.
      *
      * @param int $id
-     * @return Response
-     * @throws GenericAPIException
-     * @throws NoAPIResultsFoundException
+     * @return TvdbResponse
      */
-    public function get(int $id) : Response
+    public function get(int $id) : TvdbResponse
     {
         $request = $this->getBaseRequest()->withUri(new Uri($this->url.'/series/'.$id));
         $response = $this->adapter->request($request);
-        $result = new Response((int) $response->getStatusCode());
+        $result = new TvdbResponse((int) $response->getStatusCode());
         switch ($result->getHttpStatusCode()) {
             case 200:
                 $result->setSuccessful();
                 $result->setResponse(json_decode($response->getBody())->data);
                 break;
             case 404:
-                throw new NoAPIResultsFoundException('TVDB: Could not find entry with ID '.$id);
+                $this->logger->warning('TVDB: Could not find entry with ID '.$id);
                 break;
             default:
-                throw new GenericAPIException($response->getBody(), $response->getStatusCode());
+                $this->logger->error('TVDB '.$response->getStatusCode().': '.$response->getBody());
         }
 
         return $result;
-    }
-
-//    public function getEpisodes(int $id, int $page = 1, array $episodes = array()) : array
-//    {
-//        $request = $this->getBaseRequest()->withUri(new Uri($this->url . '/series/' . $id . '/episodes?page=' . $page));
-//        $response = $this->adapter->request($request);
-//        $response = json_decode($response->getBody());
-//        $episodes = array_merge($episodes, $response->data);
-//        if ($response->links->next === null || $response->links->next === 'null')  {
-//            return $episodes;
-//        }
-//        return $this->getEpisodes($id, $page + 1, $episodes);
-//    }
-
-    /**
-     * Fetch all relevant data for a TV show from the TVDB API.
-     *
-     * @param int $id
-     * @return array
-     * @throws NoAPIResultsFoundException
-     * @throws ClientException
-     */
-    public function getTVDBData(int $id) : array
-    {
-        $result = $this->get($id);
-        if (! $result->seriesName) {
-            throw new NoAPIResultsFoundException('TVDB: no localized results found for show with id '.$imdbId);
-        }
-
-        return [
-            'imdb_id' => $result->imdbId,
-            'name' => $result->seriesName,
-            'status' => $result->status === 'Ended' ? 'Completed' : 'Continuing',
-            'first_aired' => Carbon::parse($result->firstAired),
-            'network' => $result->network,
-            'runtime' => (int) $result->runtime,
-            'rating' => $result->rating !== '' ? $result->rating : null,
-            'plot' => $result->overview,
-            'air_day' => $result->airsDayOfWeek !== '' ? $result->airsDayOfWeek : null,
-            'air_time' => $result->airsTime !== '' ? $result->airsTime : null,
-            'tvdb_id' => $result->id,
-        ];
     }
 }

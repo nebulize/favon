@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Services\TMDBService;
+use App\Http\Clients\TMDBClient;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Logging\Log;
 use App\Repositories\PersonRepository;
@@ -36,26 +36,27 @@ class UpdatePerson implements ShouldQueue
     }
 
     /**
-     * @param TMDBService $tmdbService
+     * @param TMDBClient $tmdbClient
      * @param PersonRepository $personRepository
+     * @param Log $logger
      */
-    public function handle(TMDBService $tmdbService, PersonRepository $personRepository, Log $logger)
+    public function handle(TMDBClient $tmdbClient, PersonRepository $personRepository, Log $logger)
     {
-        $newPerson = $tmdbService->getPerson($this->id);
-        if ($newPerson === null) {
+        $personResponse = $tmdbClient->getPerson($this->id);
+        if ($personResponse->hasBeenSuccessful() === false) {
             return;
         }
         try {
-            $oldPerson = $personRepository->find([
+            $person = $personRepository->find([
                 'tmdb_id' => $this->id,
             ]);
 //            if ($oldPerson->photo !== null) {
 //                unlink(public_path('images/profile/w185/'.$oldPerson->photo));
 //            }
-            $personRepository->update($oldPerson, $newPerson);
+            $personRepository->update($person, $personResponse->toArray());
             $logger->info('Updated person: '.$this->id);
         } catch (ModelNotFoundException $e) {
-            $personRepository->create($newPerson);
+            $personRepository->create($personResponse->toArray());
             $logger->info('Created new person: '.$this->id);
         }
 //        if (!empty($newPerson['photo'])) {

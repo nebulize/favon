@@ -2,14 +2,19 @@
 
 namespace App\Http\Clients;
 
+use App\Http\Responses\OMDB\OmdbResponse;
 use GuzzleHttp\Psr7\Request;
 use App\Http\Adapters\APIAdapter;
 use App\Http\Adapters\OMDBAdapter;
 use App\Exceptions\GenericAPIException;
 use App\Exceptions\NoAPIResultsFoundException;
+use Illuminate\Contracts\Logging\Log;
 
 class OMDBClient
 {
+    /**
+     * API Client Identifier
+     */
     protected const IDENTIFIER = 'omdb';
 
     /**
@@ -25,14 +30,20 @@ class OMDBClient
     protected $url;
 
     /**
-     * OMDBClient constructor.
-     *
-     * @param OMDBAdapter $adapter
+     * @var Log
      */
-    public function __construct(OMDBAdapter $adapter)
+    protected $logger;
+
+    /**
+     * OMDBClient constructor.
+     * @param OMDBAdapter $adapter
+     * @param Log $logger
+     */
+    public function __construct(OMDBAdapter $adapter, Log $logger)
     {
         $this->adapter = $adapter;
         $this->url = config('media.omdb_url').'/?apikey='.config('media.omdb_api_key');
+        $this->logger = $logger;
     }
 
     /**
@@ -40,30 +51,26 @@ class OMDBClient
      *
      * @param string $imdbId
      *
-     * @throws GenericAPIException
-     * @throws NoAPIResultsFoundException
-     *
-     * @return Response
+     * @return OmdbResponse
      */
-    public function get(string $imdbId) : Response
+    public function get(string $imdbId) : OmdbResponse
     {
         $request = new Request('GET', $this->url.'&i='.$imdbId);
         $response = $this->adapter->request($request);
-        $result = new Response((int) $response->getStatusCode());
+        $result = new OmdbResponse((int) $response->getStatusCode());
         switch ($result->getHttpStatusCode()) {
             case 200:
                 $result->setSuccessful();
                 $result->setResponse(json_decode($response->getBody()));
                 break;
             case 404:
-                throw new NoAPIResultsFoundException('OMDB: No results found for '.$imdbId);
+                $this->logger->warning('OMDB: No results found for  '.$imdbId);
                 break;
             case 408:
                 sleep(1);
-
                 return $this->get($imdbId);
             default:
-                throw new GenericAPIException($response->getBody(), $response->getStatusCode());
+                $this->logger->error($response->getStatusCode().': '.$response->getBody());
         }
 
         return $result;

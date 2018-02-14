@@ -23,14 +23,6 @@ class FetchPersons extends Command
     protected $description = 'Fetch all persons from the TMDB API and store them in database (~100h!)';
 
     /**
-     * FetchPersons constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed

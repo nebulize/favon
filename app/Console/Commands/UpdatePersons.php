@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Http\Clients\TMDBClient;
 use App\Jobs\UpdatePerson;
-use App\Services\TMDBService;
 use Illuminate\Console\Command;
 
 class UpdatePersons extends Command
@@ -23,25 +23,24 @@ class UpdatePersons extends Command
     protected $description = 'Fetch and store information for all persons changed in the last 24 hours (or time period - max 14 days - defined by start and end date)';
 
     /**
-     * @var TMDBService
+     * @var TMDBClient
      */
-    protected $tmdbService;
+    protected $tmdbClient;
 
     /**
      * UpdatePersons constructor.
-     *
-     * @param TMDBService $tmdbService
+     * @param TMDBClient $tmdbClient
      */
-    public function __construct(TMDBService $tmdbService)
+    public function __construct(TMDBClient $tmdbClient)
     {
-        $this->tmdbService = $tmdbService;
+        $this->tmdbClient = $tmdbClient;
         parent::__construct();
     }
 
     /**
      * Execute the command.
      */
-    public function handle() : void
+    public function handle(): void
     {
         $start = $this->argument('start');
         $end = $this->argument('end');
@@ -56,7 +55,7 @@ class UpdatePersons extends Command
      * @param string $start
      * @param string $end
      */
-    public function displayStatus($start, $end) : void
+    public function displayStatus($start, $end): void
     {
         $line = 'Fetching changed persons from TMDB ';
         if ($start && $start !== '') {
@@ -76,30 +75,18 @@ class UpdatePersons extends Command
      * Recursive function to fetch all pages and dispatch jobs.
      *
      * @param int $page
-     * @return null
      */
-    public function fetch(int $page = 1)
+    public function fetch(int $page = 1): void
     {
-        $changes = $this->requestPersonChanges($page);
-        if ($changes === null) {
+        $changedPersonsResponse = $this->tmdbClient->getChangedPersons($this->argument('start'), $this->argument('end'), $page);
+        if ($changedPersonsResponse->hasBeenSuccessful() === false) {
             return;
         }
-        $this->line('Fetched '.$page.'/'.$changes->total_pages.' pages of updated persons. Dispatching jobs...');
-        $this->updateBatch($changes->results);
-        if ($changes->page < $changes->total_pages) {
-            return $this->fetch($page + 1);
+        $this->line('Fetched '.$page.'/'.$changedPersonsResponse->getTotalPages().' pages of updated persons. Dispatching jobs...');
+        $this->updateBatch($changedPersonsResponse->getResults());
+        if ($changedPersonsResponse->getPage() < $changedPersonsResponse->getTotalPages()) {
+            $this->fetch($page + 1);
         }
-    }
-
-    /**
-     * Request changes persons, paginated.
-     *
-     * @param $page
-     * @return null|\stdClass
-     */
-    public function requestPersonChanges($page) : ?\stdClass
-    {
-        return $this->tmdbService->getChangedPersons($this->argument('start'), $this->argument('end'), $page);
     }
 
     /**
@@ -107,7 +94,7 @@ class UpdatePersons extends Command
      *
      * @param array $persons
      */
-    public function updateBatch(array $persons) : void
+    public function updateBatch(array $persons): void
     {
         foreach ($persons as $person) {
             if (\is_object($person) && property_exists($person, 'id')) {

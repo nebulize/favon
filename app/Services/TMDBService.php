@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use App\Http\Responses\TMDB\TvShowIdsResponse;
+use App\Http\Responses\TMDB\TvShowResponse;
+use App\Models\TVShow;
 use Carbon\Carbon;
 use App\Http\Clients\TMDBClient;
 use Illuminate\Contracts\Logging\Log;
@@ -30,145 +33,6 @@ class TMDBService
     {
         $this->client = $client;
         $this->logger = $logger;
-    }
-
-    /**
-     * Get all languages from TMDB in the format used by the application.
-     *
-     * @return array|null
-     */
-    public function getLanguages() : ?array
-    {
-        try {
-            $response = $this->client->getLanguages();
-        } catch (GenericAPIException $e) {
-            $this->logger->error($e->getCode().': '.$e->getMessage());
-
-            return null;
-        }
-        $languages = [];
-        foreach ($response->getResponse() as $language) {
-            $languages[] = [
-                'code' => $language->iso_639_1,
-                'name' => $language->english_name,
-            ];
-        }
-
-        return $languages;
-    }
-
-    /**
-     * @param int $id
-     * @return array|null
-     */
-    public function getPerson(int $id) : ?array
-    {
-        try {
-            $response = $this->client->getPerson($id);
-        } catch (NoAPIResultsFoundException $e) {
-            $this->logger->warning($e->getMessage());
-
-            return null;
-        } catch (GenericAPIException $e) {
-            $this->logger->error($e->getCode().': '.$e->getMessage());
-
-            return null;
-        }
-
-        if (empty($response->getResponse()->gender)) {
-            $gender = null;
-        } else {
-            if ($response->getResponse()->gender === 2) {
-                $gender = 'Male';
-            } elseif ($response->getResponse()->gender === 1) {
-                $gender = 'Female';
-            } else {
-                $gender = null;
-            }
-        }
-
-        if (empty($response->getResponse()->birthday) || ! property_exists($response->getResponse(), 'birthday')) {
-            $birthday = null;
-        } else {
-            try {
-                $birthday = Carbon::parse($response->getResponse()->birthday);
-            } catch (\Exception $e) {
-                \Log::warning('Could not parse birthday for TMDB'.$id);
-                $birthday = null;
-            }
-        }
-
-        if (empty($response->getResponse()->deathday) || ! property_exists($response->getResponse(), 'deathday')) {
-            $deathday = null;
-        } else {
-            try {
-                $deathday = Carbon::parse($response->getResponse()->deathday);
-            } catch (\Exception $e) {
-                \Log::warning('Could not parse deathday for TMDB'.$id);
-                $deathday = null;
-            }
-        }
-
-        return [
-            'birthday' => $birthday,
-            'deathday' => $deathday,
-            'name' => property_exists($response->getResponse(), 'name') ? $response->getResponse()->name : '',
-            'gender' => $gender,
-            'biography' => property_exists($response->getResponse(), 'biography') ? $response->getResponse()->biography : null,
-            'place_of_birth' => property_exists($response->getResponse(), 'place_of_birth') ? $response->getResponse()->place_of_birth : null,
-            'photo' => property_exists($response->getResponse(), 'profile_path') ? $response->getResponse()->profile_path : null,
-            'tmdb_id' => $response->getResponse()->id,
-        ];
-    }
-
-    /**
-     * Get all application relevant data from a TMDB tv show entry by id.
-     *
-     * @param int $id
-     * @return array|null
-     */
-    public function getTvShow(int $id) : ?array
-    {
-        try {
-            $response = $this->client->getTvShow($id);
-            $responseIds = $this->client->getTvShowIds($id);
-        } catch (NoAPIResultsFoundException $e) {
-            $this->logger->warning($e->getMessage());
-
-            return null;
-        } catch (GenericAPIException $e) {
-            $this->logger->error($e->getCode().': '.$e->getMessage());
-
-            return null;
-        }
-
-        if (empty($response->getResponse()->networks)) {
-            $network = null;
-        } else {
-            $network = array_reduce($response->getResponse()->networks, function ($acc, $item) {
-                $acc .= $item->name.', ';
-
-                return $acc;
-            });
-            $network = rtrim($network, ', ');
-        }
-
-        return [
-            'name' => $response->getResponse()->name,
-            'status' => $response->getResponse()->status === 'Returning Series' ? 'Continuing' : $response->getResponse()->status,
-            'first_aired' => empty($response->getResponse()->first_air_date) ? null : Carbon::parse($response->getResponse()->first_air_date),
-            'network' => $network,
-            'runtime' => empty($response->getResponse()->episode_run_time) ? null : implode('m, ', $response->getResponse()->episode_run_time).'m',
-            'plot' => $response->getResponse()->overview,
-            'poster' => $response->getResponse()->poster_path,
-            'banner' => $response->getResponse()->backdrop_path,
-            'homepage' => $response->getResponse()->homepage,
-            'tmdb_id' => empty($response->getResponse()->id) ? null : (int) $response->getResponse()->id,
-            'tvdb_id' => empty($responseIds->getResponse()->tvdb_id) ? null : (int) $responseIds->getResponse()->tvdb_id,
-            'imdb_id' => $responseIds->getResponse()->imdb_id,
-            'languages' => $response->getResponse()->languages,
-            'seasons' => $response->getResponse()->seasons,
-        ];
     }
 
     /**
@@ -272,27 +136,6 @@ class TMDBService
         foreach ($sizes as $size) {
             $this->fetchImage($base_path.'/'.$size.$path, public_path('images/'.$type.'/'.$size.'/'.basename($path)), 0);
         }
-    }
-
-    /**
-     * Fetch all recently changed persons.
-     *
-     * @param string|null $start
-     * @param string|null $end
-     * @param int $page
-     * @return \stdClass|null
-     */
-    public function getChangedPersons(string $start = null, string $end = null, int $page = 1) : ?\stdClass
-    {
-        try {
-            $response = $this->client->getChangedPersons($start, $end, $page);
-        } catch (GenericAPIException $e) {
-            $this->logger->error($e->getCode().': '.$e->getMessage());
-
-            return null;
-        }
-
-        return $response->getResponse();
     }
 
     /**

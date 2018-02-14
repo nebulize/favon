@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Services\TMDBService;
+use App\Http\Clients\TMDBClient;
 use Illuminate\Bus\Queueable;
 use App\Repositories\PersonRepository;
 use Illuminate\Queue\SerializesModels;
@@ -29,16 +29,16 @@ class FetchPerson implements ShouldQueue
     }
 
     /**
-     * @param TMDBService $tmdbService
+     * @param TMDBClient $tmdbClient
      * @param PersonRepository $personRepository
      */
-    public function handle(TMDBService $tmdbService, PersonRepository $personRepository)
+    public function handle(TMDBClient $tmdbClient, PersonRepository $personRepository)
     {
-        $person = $tmdbService->getPerson($this->id);
-        if ($person === null) {
+        $personResponse = $tmdbClient->getPerson($this->id);
+        if ($personResponse->hasBeenSuccessful() === false) {
             return;
         }
-        $personRepository->create($person);
+        $personRepository->create($personResponse->toArray());
 //        if (!empty($person['photo'])) {
 //            $tmdbService->fetchImages('profile', $person['photo']);
 //        }

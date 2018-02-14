@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Services\TMDBService;
+use App\Http\Clients\TMDBClient;
 use Illuminate\Console\Command;
 use App\Repositories\LanguageRepository;
 
@@ -23,42 +23,20 @@ class FetchLanguages extends Command
     protected $description = 'Fetches all available languages from the TMDB API and stores them in database';
 
     /**
-     * @var TMDBService
-     */
-    protected $tmdbService;
-
-    /**
-     * @var LanguageRepository
-     */
-    protected $languageRepository;
-
-    /**
-     * FetchLanguages constructor.
+     * Execute the command.
      *
-     * @param TMDBService        $tmdbService
+     * @param TMDBClient $tmdbClient
      * @param LanguageRepository $languageRepository
      */
-    public function __construct(TMDBService $tmdbService, LanguageRepository $languageRepository)
-    {
-        $this->tmdbService = $tmdbService;
-        $this->languageRepository = $languageRepository;
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return null
-     */
-    public function handle()
+    public function handle(TMDBClient $tmdbClient, LanguageRepository $languageRepository)
     {
         $this->line('Fetching languages from TMDB...');
-        $languages = $this->tmdbService->getLanguages();
-        if ($languages === null) {
-            $this->error('Error fetching languages. Check logs.');
+        $languageResponse = $tmdbClient->getLanguages();
+        if ($languageResponse->hasBeenSuccessful() === false) {
+            return;
         }
-        foreach ($languages as $language) {
-            $this->languageRepository->create($language);
+        foreach ($languageResponse->getLanguages() as $language) {
+            $languageRepository->create($language->toArray());
         }
         $this->info('Successfully fetched and stored languages.');
     }
