@@ -17,7 +17,7 @@ class CreateVideosTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('key');
-            $table->string('type');
+            $table->string('type')->nullable();
             $table->integer('tv_season_id')->unsigned();
             $table->foreign('tv_season_id')->references('id')->on('tv_seasons')->onDelete('cascade');
             $table->timestamps();

@@ -16,8 +16,8 @@ class CreateTvSeasonsTable extends Migration
         Schema::create('tv_seasons', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('number');
-            $table->string('name');
-            $table->date('first_aired');
+            $table->string('name')->nullable();
+            $table->date('first_aired')->nullable();
             $table->text('summary')->nullable();
             $table->string('poster')->nullable();
             $table->bigInteger('tmdb_id')->unsigned();
