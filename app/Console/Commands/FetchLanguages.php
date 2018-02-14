@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Clients\TMDBClient;
 use Illuminate\Console\Command;
+use App\Http\Clients\TMDBClient;
 use App\Repositories\LanguageRepository;
 
 class FetchLanguages extends Command

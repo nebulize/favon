@@ -2,10 +2,10 @@
 
 namespace App\Http\Responses\TMDB;
 
-use App\Http\Responses\BaseResponse;
-use App\Http\Responses\TMDB\Models\RSeason;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use App\Http\Responses\BaseResponse;
+use App\Http\Responses\TMDB\Models\RSeason;
 
 class TvShowResponse extends BaseResponse
 {
@@ -67,12 +67,12 @@ class TvShowResponse extends BaseResponse
     /**
      * @var string[]
      */
-    protected $languages = array();
+    protected $languages = [];
 
     /**
      * @var RSeason[]
      */
-    protected $seasons = array();
+    protected $seasons = [];
 
     /**
      * @return string|null
@@ -203,7 +203,7 @@ class TvShowResponse extends BaseResponse
         $status = $this->parseProperty('status');
         if ($status === 'Returning Series') {
             $this->status = 'Continuing';
-        } else if (\in_array($status, ['Planned', 'In Production', 'Ended', 'Canceled', 'Pilot'], true)) {
+        } elseif (\in_array($status, ['Planned', 'In Production', 'Ended', 'Canceled', 'Pilot'], true)) {
             $this->status = $status;
         }
     }
@@ -236,6 +236,7 @@ class TvShowResponse extends BaseResponse
         if (\is_array($this->getResponse()->networks)) {
             $network = array_reduce($this->getResponse()->networks, function ($acc, $item) {
                 $acc .= $item->name.', ';
+
                 return $acc;
             });
             $network = rtrim($network, ', ');

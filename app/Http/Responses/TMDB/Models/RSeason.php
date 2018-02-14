@@ -2,7 +2,6 @@
 
 namespace App\Http\Responses\TMDB\Models;
 
-
 class RSeason
 {
     /**
@@ -28,5 +27,4 @@ class RSeason
     {
         return $this->number;
     }
-
 }

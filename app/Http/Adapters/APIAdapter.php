@@ -5,7 +5,6 @@ namespace App\Http\Adapters;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use bandwidthThrottle\tokenBucket\Rate;
-use GuzzleHttp\Exception\ClientException;
 use bandwidthThrottle\tokenBucket\TokenBucket;
 use bandwidthThrottle\tokenBucket\BlockingConsumer;
 use bandwidthThrottle\tokenBucket\storage\FileStorage;

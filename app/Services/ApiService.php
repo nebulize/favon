@@ -2,13 +2,12 @@
 
 namespace App\Services;
 
-
 use App\Http\Clients\OMDBClient;
 use App\Http\Clients\TMDBClient;
 use App\Http\Clients\TVDBClient;
 use App\Repositories\GenreRepository;
-use App\Repositories\TvSeasonRepository;
 use App\Repositories\TvShowRepository;
+use App\Repositories\TvSeasonRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ApiService
@@ -81,7 +80,7 @@ class ApiService
         }
 
         // Fetch data from OMDB
-        if ($tvShow->imdb_id !== null)  {
+        if ($tvShow->imdb_id !== null) {
             $omdbResponse = $this->omdbClient->get($tvShow->imdb_id);
 
             if ($omdbResponse->hasBeenSuccessful()) {
@@ -91,14 +90,14 @@ class ApiService
                 $tvShow->imdb_votes = $omdbResponse->getImdbVotes();
 
                 // Sync genres
-                $genres = array();
+                $genres = [];
                 foreach ($omdbResponse->getGenres() as $name) {
                     try {
                         $genre = $this->genreRepository->find(['name' => $name]);
                         $genres[] = $genre->id;
                     } catch (ModelNotFoundException $e) {
                         $genre = $this->genreRepository->create([
-                            'name' => $name
+                            'name' => $name,
                         ]);
                         $genres[] = $genre->id;
                     }
@@ -124,8 +123,6 @@ class ApiService
         // Fetch seasons
         foreach ($tvShowResponse->getSeasons() as $season) {
             $response = $this->tmdbClient->getTvSeason($tvShow->tmdb_id, $season->season_number);
-
         }
     }
-
 }

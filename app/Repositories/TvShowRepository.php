@@ -135,7 +135,7 @@ class TvShowRepository implements RepositoryContract
     }
 
     /**
-     * Save a tv show object to database
+     * Save a tv show object to database.
      *
      * @param TVShow $tvShow
      */

@@ -73,5 +73,4 @@ class RVideo
             'type' => $this->getType(),
         ];
     }
-
 }

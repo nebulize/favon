@@ -9,7 +9,7 @@ class ChangedPersonsResponse extends BaseResponse
     /**
      * @var \stdClass[]
      */
-    private $results = array();
+    private $results = [];
 
     /**
      * @var int
