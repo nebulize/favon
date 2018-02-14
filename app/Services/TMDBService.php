@@ -2,9 +2,6 @@
 
 namespace App\Services;
 
-use App\Http\Responses\TMDB\TvShowIdsResponse;
-use App\Http\Responses\TMDB\TvShowResponse;
-use App\Models\TVShow;
 use Carbon\Carbon;
 use App\Http\Clients\TMDBClient;
 use Illuminate\Contracts\Logging\Log;

@@ -33,7 +33,7 @@ class TvdbResponse extends BaseResponse
     }
 
     /**
-     * Parse the response object
+     * Parse the response object.
      */
     public function parseResponse(): void
     {
@@ -42,7 +42,7 @@ class TvdbResponse extends BaseResponse
     }
 
     /**
-     * Get response object as associative array
+     * Get response object as associative array.
      *
      * @return array
      */
@@ -50,7 +50,7 @@ class TvdbResponse extends BaseResponse
     {
         return [
             'air_day' => $this->getAirDay(),
-            'air_time' => $this->getAirTime()
+            'air_time' => $this->getAirTime(),
         ];
     }
 }

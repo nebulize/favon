@@ -2,9 +2,8 @@
 
 namespace App\Http\Responses\TMDB;
 
-
-use App\Http\Responses\BaseResponse;
 use Carbon\Carbon;
+use App\Http\Responses\BaseResponse;
 
 class PersonResponse extends BaseResponse
 {
@@ -167,7 +166,7 @@ class PersonResponse extends BaseResponse
         $gender = $this->parseProperty('gender', BaseResponse::TYPE_INT);
         if ($gender === 1) {
             $this->gender = 'Female';
-        } else if ($gender === 2) {
+        } elseif ($gender === 2) {
             $this->gender = 'Male';
         }
     }
@@ -190,5 +189,4 @@ class PersonResponse extends BaseResponse
             'tmdb_id' => $this->getTmdbId(),
         ];
     }
-
 }

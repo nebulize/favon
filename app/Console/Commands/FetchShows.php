@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\FetchShow;
 use Carbon\Carbon;
+use App\Jobs\FetchShow;
 use Illuminate\Console\Command;
 
 class FetchShows extends Command

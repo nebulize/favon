@@ -2,18 +2,16 @@
 
 namespace App\Http\Clients;
 
-use App\Http\Responses\OMDB\OmdbResponse;
 use GuzzleHttp\Psr7\Request;
 use App\Http\Adapters\APIAdapter;
 use App\Http\Adapters\OMDBAdapter;
-use App\Exceptions\GenericAPIException;
-use App\Exceptions\NoAPIResultsFoundException;
 use Illuminate\Contracts\Logging\Log;
+use App\Http\Responses\OMDB\OmdbResponse;
 
 class OMDBClient
 {
     /**
-     * API Client Identifier
+     * API Client Identifier.
      */
     protected const IDENTIFIER = 'omdb';
 
@@ -68,6 +66,7 @@ class OMDBClient
                 break;
             case 408:
                 sleep(1);
+
                 return $this->get($imdbId);
             default:
                 $this->logger->error($response->getStatusCode().': '.$response->getBody());
