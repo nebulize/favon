@@ -2,19 +2,19 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
+use App\Models\TVShow;
+use App\Models\TVSeason;
 use App\Http\Clients\OMDBClient;
 use App\Http\Clients\TMDBClient;
 use App\Http\Clients\TVDBClient;
-use App\Models\TVSeason;
-use App\Models\TVShow;
 use App\Repositories\GenreRepository;
+use App\Repositories\VideoRepository;
 use App\Repositories\PersonRepository;
 use App\Repositories\SeasonRepository;
-use App\Repositories\TvEpisodeRepository;
-use App\Repositories\TvSeasonRepository;
 use App\Repositories\TvShowRepository;
-use App\Repositories\VideoRepository;
-use Carbon\Carbon;
+use App\Repositories\TvSeasonRepository;
+use App\Repositories\TvEpisodeRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ApiService
@@ -162,6 +162,7 @@ class ApiService
                 $this->fetchTvSeasonCredits($tvShow, $tvSeason);
             }
         }
+
         return $tvShow;
     }
 
@@ -206,7 +207,7 @@ class ApiService
                 'first_aired' => $episode->getFirstAired(),
                 'plot' => $episode->getPlot(),
                 'tmdb_id' => $episode->getTmdbId(),
-                'tv_season_id' => $tvSeason->id
+                'tv_season_id' => $tvSeason->id,
             ]);
         }
 

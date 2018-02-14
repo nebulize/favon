@@ -143,7 +143,7 @@ class TvSeasonRepository implements RepositoryContract
         return $model;
     }
 
-    public function addPerson(TVSeason $tvSeason, Person $person, array $attributes = array()): void
+    public function addPerson(TVSeason $tvSeason, Person $person, array $attributes = []): void
     {
         $tvSeason->persons()->attach($person->id, $attributes);
     }
