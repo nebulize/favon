@@ -28,15 +28,8 @@ class FetchShow implements ShouldQueue
         $this->id = $id;
     }
 
-
-    public function handle(ApiService $apiService)
+    public function handle(ApiService $apiService): void
     {
-        $tvShow = $apiService->fetchTvShow($this->id);
-        if ($tvShow === null) {
-            return;
-        }
-
-
-
+        $apiService->fetchTvShow($this->id);
     }
 }

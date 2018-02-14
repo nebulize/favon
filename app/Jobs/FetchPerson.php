@@ -2,8 +2,8 @@
 
 namespace App\Jobs;
 
-use App\Http\Clients\TMDBClient;
 use Illuminate\Bus\Queueable;
+use App\Http\Clients\TMDBClient;
 use App\Repositories\PersonRepository;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;

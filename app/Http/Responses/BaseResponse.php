@@ -2,8 +2,8 @@
 
 namespace App\Http\Responses;
 
-use Illuminate\Contracts\Support\MessageProvider;
 use Illuminate\Support\MessageBag;
+use Illuminate\Contracts\Support\MessageProvider;
 
 abstract class BaseResponse implements MessageProvider
 {
@@ -136,7 +136,7 @@ abstract class BaseResponse implements MessageProvider
     }
 
     /**
-     * Parse a string, integer or float property, making sure it's set and not an empty string
+     * Parse a string, integer or float property, making sure it's set and not an empty string.
      *
      * @param string $property
      * @param int $cast
@@ -145,7 +145,7 @@ abstract class BaseResponse implements MessageProvider
     protected function parseProperty(string $property, int $cast = null)
     {
         if (isset($this->getResponse()->{$property}) === false || $this->getResponse()->{$property} === '') {
-            return null;
+            return;
         }
         if ($cast === self::TYPE_INT) {
             return (int) $this->getResponse()->{$property};
@@ -153,8 +153,11 @@ abstract class BaseResponse implements MessageProvider
         if ($cast === self::TYPE_FLOAT) {
             return (float) $this->getResponse()->{$property};
         }
+
         return $this->getResponse()->{$property};
     }
 
-    protected function parseResponse() {}
+    protected function parseResponse()
+    {
+    }
 }

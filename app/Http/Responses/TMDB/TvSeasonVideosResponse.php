@@ -10,7 +10,7 @@ class TvSeasonVideosResponse extends BaseResponse
     /**
      * @var RVideo[]
      */
-    private $results = array();
+    private $results = [];
 
     /**
      * @return RVideo[]

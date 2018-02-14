@@ -2,9 +2,9 @@
 
 namespace App\Http\Responses\TMDB;
 
+use Carbon\Carbon;
 use App\Http\Responses\BaseResponse;
 use App\Http\Responses\TMDB\Models\REpisode;
-use Carbon\Carbon;
 
 class TvSeasonResponse extends BaseResponse
 {
@@ -41,7 +41,7 @@ class TvSeasonResponse extends BaseResponse
     /**
      * @var REpisode[]
      */
-    private $episodes = array();
+    private $episodes = [];
 
     /**
      * @return int|null
@@ -157,6 +157,4 @@ class TvSeasonResponse extends BaseResponse
             'tmdb_id' => $this->getTmdbId(),
         ];
     }
-
-
 }

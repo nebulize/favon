@@ -77,7 +77,7 @@ class TVShow extends Model
      */
     protected $fillable = ['imdb_id', 'name', 'status', 'first_aired', 'network', 'runtime', 'rating',
         'summary', 'plot', 'country', 'poster', 'banner', 'imdb_score', 'imdb_votes', 'air_day', 'air_time',
-        'tvdb_id', 'tmdb_id', 'homepage', 'popularity'];
+        'tvdb_id', 'tmdb_id', 'homepage', 'popularity', ];
 
     /**
      * Fields that are dates and casted to Carbon instances.

@@ -10,7 +10,7 @@ class TvSeasonCreditsResponse extends BaseResponse
     /**
      * @var RCredit[]
      */
-    private $results = array();
+    private $results = [];
 
     /**
      * @return RCredit[]

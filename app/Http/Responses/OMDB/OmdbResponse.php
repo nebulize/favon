@@ -29,7 +29,7 @@ class OmdbResponse extends BaseResponse
     /**
      * @var string[]
      */
-    private $genres = array();
+    private $genres = [];
 
     /**
      * @return string|null

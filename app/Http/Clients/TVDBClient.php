@@ -2,15 +2,13 @@
 
 namespace App\Http\Clients;
 
-use App\Http\Responses\TVDB\TvdbResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Psr7\Request;
 use App\Http\Adapters\APIAdapter;
 use App\Http\Adapters\TVDBAdapter;
-use App\Exceptions\GenericAPIException;
-use App\Exceptions\NoAPIResultsFoundException;
 use Illuminate\Contracts\Logging\Log;
+use App\Http\Responses\TVDB\TvdbResponse;
 
 class TVDBClient
 {

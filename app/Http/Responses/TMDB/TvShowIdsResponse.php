@@ -42,7 +42,7 @@ class TvShowIdsResponse extends BaseResponse
     }
 
     /**
-     * Get response object as associative array
+     * Get response object as associative array.
      *
      * @return array
      */

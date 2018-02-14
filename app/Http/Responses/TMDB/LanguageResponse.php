@@ -10,7 +10,7 @@ class LanguageResponse extends BaseResponse
     /**
      * @var RLanguage[]
      */
-    private $languages = array();
+    private $languages = [];
 
     /**
      * @return RLanguage[]
