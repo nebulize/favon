@@ -92,7 +92,7 @@ abstract class BaseResponse implements MessageProvider
      *
      * @return bool
      */
-    public function hasBeenSuccessful() : bool
+    public function hasBeenSuccessful(): bool
     {
         return $this->successful;
     }
@@ -112,7 +112,7 @@ abstract class BaseResponse implements MessageProvider
      *
      * @return array
      */
-    public function getErrorMessages() : array
+    public function getErrorMessages(): array
     {
         return $this->errorMessages;
     }
@@ -120,7 +120,7 @@ abstract class BaseResponse implements MessageProvider
     /**
      * @return MessageBag
      */
-    public function getMessageBag() : MessageBag
+    public function getMessageBag(): MessageBag
     {
         return new MessageBag($this->getErrorMessages());
     }
@@ -130,27 +130,27 @@ abstract class BaseResponse implements MessageProvider
      *
      * @return int
      */
-    public function getHttpStatusCode() : int
+    public function getHttpStatusCode(): int
     {
         return $this->httpStatusCode;
     }
 
     /**
-     * Parse a string or integer property, making sure it's set and not an empty string
+     * Parse a string, integer or float property, making sure it's set and not an empty string
      *
-     * @param $property
-     * @param $cast
-     * @return string|int|null
+     * @param string $property
+     * @param int $cast
+     * @return string|int|float|null
      */
-    protected function parseProperty($property, $cast = null)
+    protected function parseProperty(string $property, int $cast = null)
     {
         if (isset($this->getResponse()->{$property}) === false || $this->getResponse()->{$property} === '') {
             return null;
         }
-        if ($cast === 'int') {
+        if ($cast === self::TYPE_INT) {
             return (int) $this->getResponse()->{$property};
         }
-        if ($cast === 'float') {
+        if ($cast === self::TYPE_FLOAT) {
             return (float) $this->getResponse()->{$property};
         }
         return $this->getResponse()->{$property};

@@ -124,7 +124,7 @@ class PersonResponse extends BaseResponse
         $this->biography = $this->parseProperty('biography');
         $this->place_of_birth = $this->parseProperty('place_of_birth');
         $this->photo = $this->parseProperty('profile_path');
-        $this->tmdb_id = $this->parseProperty('id', 'int');
+        $this->tmdb_id = $this->parseProperty('id', BaseResponse::TYPE_INT);
     }
 
     /**
@@ -164,7 +164,7 @@ class PersonResponse extends BaseResponse
      */
     private function parseGender(): void
     {
-        $gender = $this->parseProperty('gender', 'int');
+        $gender = $this->parseProperty('gender', BaseResponse::TYPE_INT);
         if ($gender === 1) {
             $this->gender = 'Female';
         } else if ($gender === 2) {

@@ -37,8 +37,8 @@ class TvShowIdsResponse extends BaseResponse
      */
     protected function parseResponse(): void
     {
-        $this->tvdb_id = $this->parseProperty('tvdb_id', 'int');
-        $this->imdb_id = $this->parseProperty('imdb_id', 'int');
+        $this->tvdb_id = $this->parseProperty('tvdb_id', BaseResponse::TYPE_INT);
+        $this->imdb_id = $this->parseProperty('imdb_id', BaseResponse::TYPE_INT);
     }
 
     /**

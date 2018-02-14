@@ -189,8 +189,8 @@ class TvShowResponse extends BaseResponse
         $this->poster = $this->parseProperty('poster_path');
         $this->banner = $this->parseProperty('backdrop_path');
         $this->homepage = $this->parseProperty('homepage');
-        $this->tmdb_id = $this->parseProperty('id', 'int');
-        $this->popularity = $this->parseProperty('popularity', 'float');
+        $this->tmdb_id = $this->parseProperty('id', BaseResponse::TYPE_INT);
+        $this->popularity = $this->parseProperty('popularity', BaseResponse::TYPE_FLOAT);
         $this->parseLanguages();
         $this->parseSeasons();
     }
