@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Http\Clients;
+namespace App\Http\Responses;
 
-use Illuminate\Support\MessageBag;
 use Illuminate\Contracts\Support\MessageProvider;
+use Illuminate\Support\MessageBag;
 
-class Response implements MessageProvider
+abstract class BaseResponse implements MessageProvider
 {
+    public const TYPE_INT = 1;
+    public const TYPE_FLOAT = 2;
+
     /**
      * @var bool
      */
@@ -28,11 +31,11 @@ class Response implements MessageProvider
     protected $errorMessages = [];
 
     /**
-     * Construct.
+     * BaseResponse constructor.
      *
-     * @param int $intHttpStatusCode Status code
+     * @param int $intHttpStatusCode
      */
-    public function __construct($intHttpStatusCode)
+    public function __construct(int $intHttpStatusCode)
     {
         $this->httpStatusCode = $intHttpStatusCode;
     }
@@ -71,6 +74,9 @@ class Response implements MessageProvider
     public function setResponse($response)
     {
         $this->response = $response;
+        if ($this->hasBeenSuccessful()) {
+            $this->parseResponse();
+        }
     }
 
     /**
@@ -128,4 +134,27 @@ class Response implements MessageProvider
     {
         return $this->httpStatusCode;
     }
+
+    /**
+     * Parse a string or integer property, making sure it's set and not an empty string
+     *
+     * @param $property
+     * @param $cast
+     * @return string|int|null
+     */
+    protected function parseProperty($property, $cast = null)
+    {
+        if (isset($this->getResponse()->{$property}) === false || $this->getResponse()->{$property} === '') {
+            return null;
+        }
+        if ($cast === 'int') {
+            return (int) $this->getResponse()->{$property};
+        }
+        if ($cast === 'float') {
+            return (float) $this->getResponse()->{$property};
+        }
+        return $this->getResponse()->{$property};
+    }
+
+    protected function parseResponse() {}
 }
