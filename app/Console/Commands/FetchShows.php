@@ -77,13 +77,11 @@ class FetchShows extends Command
     protected function fetchShows() : void
     {
         $handle = fopen(storage_path('api/tv_series_ids.json'), 'rb');
-        $count = 0;
-        while ($count < 10 && ! feof($handle)) {
+        while (! feof($handle)) {
             $entry = json_decode(trim(fgets($handle)));
             if (\is_object($entry) && property_exists($entry, 'id')) {
                 FetchShow::dispatch($entry->id);
             }
-            $count++;
         }
         fclose($handle);
     }
