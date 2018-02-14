@@ -49,8 +49,6 @@ abstract class APIAdapter
      *
      * @param Request $request
      *
-     * @throws ClientException
-     *
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
     public function request(Request $request)
