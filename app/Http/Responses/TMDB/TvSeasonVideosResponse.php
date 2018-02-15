@@ -26,7 +26,7 @@ class TvSeasonVideosResponse extends BaseResponse
     protected function parseResponse(): void
     {
         foreach ($this->getResponse()->results as $result) {
-            if (isset($result->site) && $result->site === 'Youtube') {
+            if (isset($result->site) && $result->site === 'YouTube') {
                 $this->results[] = new RVideo($result);
             }
         }
