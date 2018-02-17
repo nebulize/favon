@@ -148,10 +148,10 @@ abstract class BaseResponse implements MessageProvider
             return;
         }
         if ($cast === self::TYPE_INT) {
-            return (int) $this->getResponse()->{$property};
+            return (int) str_replace(',', '', $this->getResponse()->{$property});
         }
         if ($cast === self::TYPE_FLOAT) {
-            return (float) str_replace(',', '', $this->getResponse()->{$property});
+            return (float) $this->getResponse()->{$property};
         }
 
         return $this->getResponse()->{$property};
