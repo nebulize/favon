@@ -96,7 +96,7 @@ class ApiService
     public function fetchTvShow(int $id): ?TVShow
     {
         $tvShowResponse = $this->tmdbClient->getTvShow($id);
-        if ($tvShowResponse->hasBeenSuccessful() === false) {
+        if ($tvShowResponse->hasBeenSuccessful() === false || $tvShowResponse->getName() === null) {
             return null;
         }
         $tvShow = $this->tvShowRepository->create($tvShowResponse->toArray());
