@@ -51,7 +51,7 @@ class OMDBClient
      *
      * @return OmdbResponse
      */
-    public function get(string $imdbId) : OmdbResponse
+    public function get(string $imdbId, int $tries = 0) : OmdbResponse
     {
         $request = new Request('GET', $this->url.'&i='.$imdbId);
         $response = $this->adapter->request($request);
@@ -65,9 +65,11 @@ class OMDBClient
                 $this->logger->warning('OMDB: No results found for  '.$imdbId);
                 break;
             case 408:
-                sleep(1);
-
-                return $this->get($imdbId);
+                if ($tries < 5) {
+                    sleep(1);
+                    return $this->get($imdbId, $tries + 1);
+                }
+            case 522:
             default:
                 $this->logger->error($response->getStatusCode().': '.$response->getBody());
         }
