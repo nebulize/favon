@@ -56,5 +56,4 @@ class CountryListItem
             'name' => $this->getName(),
         ];
     }
-
 }

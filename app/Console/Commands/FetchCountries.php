@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Console\Command;
 use App\Http\Clients\TMDBClient;
 use App\Repositories\CountryRepository;
-use Illuminate\Console\Command;
 
 class FetchCountries extends Command
 {
