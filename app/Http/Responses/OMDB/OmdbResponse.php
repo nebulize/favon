@@ -88,7 +88,7 @@ class OmdbResponse extends BaseResponse
      */
     private function parseGenres(): void
     {
-        if (isset($this->getResponse()->Genre) === true || $this->getResponse()->Genre !== '') {
+        if (isset($this->getResponse()->Genre) === true && $this->getResponse()->Genre !== '') {
             $this->genres = explode(', ', $this->getResponse()->Genre);
         }
     }
@@ -98,7 +98,7 @@ class OmdbResponse extends BaseResponse
      */
     private function parseCountries(): void
     {
-        if (isset($this->getResponse()->Country) === true || $this->getResponse()->Country !== '') {
+        if (isset($this->getResponse()->Country) === true && $this->getResponse()->Country !== '') {
             $this->countries = explode(', ', $this->getResponse()->Country);
         }
     }
