@@ -3,8 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\Country;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CountryRepository implements RepositoryContract
@@ -36,11 +36,12 @@ class CountryRepository implements RepositoryContract
     public function get(int $id, array $parameters = []): Country
     {
         $query = $this->country->where('code', $id);
+
         return $query->firstOrFail();
     }
 
     /**
-     * Find a country
+     * Find a country.
      *
      * @param array $parameters
      *
@@ -54,6 +55,7 @@ class CountryRepository implements RepositoryContract
         if (isset($parameters['name'])) {
             $query = $query->where('name', $parameters['name']);
         }
+
         return $query->firstOrFail();
     }
 
@@ -66,6 +68,7 @@ class CountryRepository implements RepositoryContract
     public function index(array $parameters = []): Collection
     {
         $query = $this->country;
+
         return $query->get();
     }
 

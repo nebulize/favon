@@ -2,13 +2,13 @@
 
 namespace App\Http\Clients;
 
-use App\Http\Responses\TMDB\CountryResponse;
 use GuzzleHttp\Psr7\Request;
 use App\Http\Adapters\APIAdapter;
 use App\Http\Adapters\TMDBAdapter;
 use Illuminate\Contracts\Logging\Log;
 use App\Http\Responses\TMDB\PersonResponse;
 use App\Http\Responses\TMDB\TvShowResponse;
+use App\Http\Responses\TMDB\CountryResponse;
 use App\Http\Responses\TMDB\LanguageResponse;
 use App\Http\Responses\TMDB\TvSeasonResponse;
 use App\Http\Responses\TMDB\TvShowIdsResponse;
