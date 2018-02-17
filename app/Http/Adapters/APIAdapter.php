@@ -44,17 +44,23 @@ abstract class APIAdapter
     }
 
     /**
-     * Request a resource.
+     * Request an API resource
      *
      * @param Request $request
+     * @param int $tries
      *
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
-    public function request(Request $request)
+    public function request(Request $request, int $tries = 0)
     {
         $this->consumer->consume(1);
 
-        return $this->client->send($request, ['http_errors' => false]);
+        $response = $this->client->send($request, ['http_errors' => false]);
+        if ($tries < 15 && ($response->getStatusCode() === 502 || $response->getStatusCode() === 522 || $response->getStatusCode() === 408)) {
+            sleep(3);
+            return $this->request($request, $tries + 1);
+        }
+        return $response;
     }
 
     /**

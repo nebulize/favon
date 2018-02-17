@@ -64,12 +64,6 @@ class OMDBClient
             case 404:
                 $this->logger->warning('OMDB: No results found for  '.$imdbId);
                 break;
-            case 408:
-                if ($tries < 5) {
-                    sleep(1);
-                    return $this->get($imdbId, $tries + 1);
-                }
-            case 522:
             default:
                 $this->logger->error($response->getStatusCode().': '.$response->getBody());
         }
