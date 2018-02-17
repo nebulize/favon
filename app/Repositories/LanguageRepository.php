@@ -34,7 +34,7 @@ class LanguageRepository implements RepositoryContract
      */
     public function get(int $id, array $parameters = []) : Language
     {
-        $query = $this->language->where('id', $id);
+        $query = $this->language->where('code', $id);
 
         return $query->firstOrFail();
     }
