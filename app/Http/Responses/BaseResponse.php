@@ -145,7 +145,7 @@ abstract class BaseResponse implements MessageProvider
     protected function parseProperty(string $property, int $cast = null)
     {
         if (isset($this->getResponse()->{$property}) === false || $this->getResponse()->{$property} === '') {
-            return null;
+            return;
         }
         if ($cast === self::TYPE_INT) {
             return (int) $this->getResponse()->{$property};
@@ -157,5 +157,7 @@ abstract class BaseResponse implements MessageProvider
         return $this->getResponse()->{$property};
     }
 
-    protected function parseResponse(){}
+    protected function parseResponse()
+    {
+    }
 }
