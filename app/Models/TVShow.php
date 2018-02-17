@@ -116,6 +116,16 @@ class TVShow extends Model
     }
 
     /**
+     * Many-to-Many: one tv show can have many countries.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function countries()
+    {
+        return $this->belongsToMany(Country::class, 'country_tv_show', 'tv_show_id', 'country_code');
+    }
+
+    /**
      * Helper function: one tv show has many episodes through their respective seasons.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough

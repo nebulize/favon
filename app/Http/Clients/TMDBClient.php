@@ -2,6 +2,7 @@
 
 namespace App\Http\Clients;
 
+use App\Http\Responses\TMDB\CountryResponse;
 use GuzzleHttp\Psr7\Request;
 use App\Http\Adapters\APIAdapter;
 use App\Http\Adapters\TMDBAdapter;
@@ -60,6 +61,26 @@ class TMDBClient
         $request = new Request('GET', $this->url.'/configuration/languages'.'?api_key='.$this->key);
         $response = $this->adapter->request($request);
         $result = new LanguageResponse((int) $response->getStatusCode());
+        if ($result->getHttpStatusCode() === 200) {
+            $result->setSuccessful();
+            $result->setResponse(json_decode($response->getBody()));
+        } else {
+            $this->logger->error('TMDB '.$response->getStatusCode().': '.$response->getBody());
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get the response object for all languages from TMDB.
+     *
+     * @return CountryResponse
+     */
+    public function getCountries(): CountryResponse
+    {
+        $request = new Request('GET', $this->url.'/configuration/countries'.'?api_key='.$this->key);
+        $response = $this->adapter->request($request);
+        $result = new CountryResponse((int) $response->getStatusCode());
         if ($result->getHttpStatusCode() === 200) {
             $result->setSuccessful();
             $result->setResponse(json_decode($response->getBody()));

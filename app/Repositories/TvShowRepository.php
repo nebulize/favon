@@ -135,6 +135,17 @@ class TvShowRepository implements RepositoryContract
     }
 
     /**
+     * Add countries to tv show.
+     *
+     * @param TVShow $show
+     * @param array $countries
+     */
+    public function syncCountries(TVShow $show, array $countries): void
+    {
+        $show->countries()->sync($countries);
+    }
+
+    /**
      * Save a tv show object to database.
      *
      * @param TVShow $tvShow

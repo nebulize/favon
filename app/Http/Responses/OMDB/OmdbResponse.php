@@ -14,7 +14,7 @@ class OmdbResponse extends BaseResponse
     /**
      * @var string
      */
-    private $country;
+    private $countries;
 
     /**
      * @var float
@@ -42,9 +42,9 @@ class OmdbResponse extends BaseResponse
     /**
      * @return string|null
      */
-    public function getCountry(): ?string
+    public function getCountries(): ?string
     {
-        return $this->country;
+        return $this->countries;
     }
 
     /**
@@ -74,10 +74,10 @@ class OmdbResponse extends BaseResponse
     /**
      * Parse the response object.
      */
-    protected function parseResponse()
+    protected function parseResponse(): void
     {
         $this->summary = $this->parseProperty('Plot');
-        $this->country = $this->parseProperty('Country');
+        $this->parseCountries();
         $this->imdb_score = $this->parseProperty('imdbRating', BaseResponse::TYPE_FLOAT);
         $this->imdb_votes = $this->parseProperty('imdbVotes', BaseResponse::TYPE_INT);
         $this->parseGenres();
@@ -86,10 +86,20 @@ class OmdbResponse extends BaseResponse
     /**
      * Parse and set genres.
      */
-    private function parseGenres()
+    private function parseGenres(): void
     {
         if (isset($this->getResponse()->Genre) === true || $this->getResponse()->Genre !== '') {
             $this->genres = explode(', ', $this->getResponse()->Genre);
+        }
+    }
+
+    /**
+     * Parse and set countries.
+     */
+    private function parseCountries(): void
+    {
+        if (isset($this->getResponse()->Country) === true || $this->getResponse()->Country !== '') {
+            $this->countries = explode(', ', $this->getResponse()->Country);
         }
     }
 
@@ -102,7 +112,6 @@ class OmdbResponse extends BaseResponse
     {
         return [
             'summary' => $this->getSummary(),
-            'country' => $this->getCountry(),
             'imdb_score' => $this->getImdbScore(),
             'imdb_votes' => $this->getImdbVotes(),
         ];

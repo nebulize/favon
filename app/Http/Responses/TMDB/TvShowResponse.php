@@ -70,6 +70,11 @@ class TvShowResponse extends BaseResponse
     protected $languages = [];
 
     /**
+     * @var string[]
+     */
+    protected $countries = [];
+
+    /**
      * @var RSeason[]
      */
     protected $seasons = [];
@@ -168,6 +173,14 @@ class TvShowResponse extends BaseResponse
     public function getLanguages(): array
     {
         return $this->languages;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getCountries(): array
+    {
+        return $this->countries;
     }
 
     /**
