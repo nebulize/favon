@@ -106,6 +106,11 @@ class ApiService
             $this->tvShowRepository->syncLanguages($tvShow, $tvShowResponse->getLanguages());
         }
 
+        // Sync countries
+        if ($tvShowResponse->getCountries() !== null) {
+            $this->tvShowRepository->syncCountries($tvShow, $tvShowResponse->getCountries());
+        }
+
         // Fetch Ids
         $tvShowIdsResponse = $this->tmdbClient->getTvShowIds($id);
         if ($tvShowIdsResponse->hasBeenSuccessful()) {
@@ -119,13 +124,16 @@ class ApiService
 
             if ($omdbResponse->hasBeenSuccessful()) {
                 $tvShow->summary = $omdbResponse->getSummary();
-                $tvShow->country = $omdbResponse->getCountry();
                 $tvShow->imdb_score = $omdbResponse->getImdbScore();
                 $tvShow->imdb_votes = $omdbResponse->getImdbVotes();
 
                 // Sync genres
                 $genres = [];
                 foreach ($omdbResponse->getGenres() as $name) {
+                    // Set genre to anime if it's animation from Japan
+                    if ($name === 'Animation' && \in_array('JP', $tvShowResponse->getCountries(), true)) {
+                        $name = 'Anime';
+                    }
                     try {
                         $genre = $this->genreRepository->find(['name' => $name]);
                         $genres[] = $genre->id;

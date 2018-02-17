@@ -196,7 +196,7 @@ class TvShowResponse extends BaseResponse
      */
     protected function parseResponse(): void
     {
-        $this->name = $this->parseProperty('name');
+        $this->parseName();
         $this->parseStatus();
         $this->parseFirstAired();
         $this->parseNetwork();
@@ -208,7 +208,21 @@ class TvShowResponse extends BaseResponse
         $this->tmdb_id = $this->parseProperty('id', BaseResponse::TYPE_INT);
         $this->popularity = $this->parseProperty('popularity', BaseResponse::TYPE_FLOAT);
         $this->parseLanguages();
+        $this->parseCountries();
         $this->parseSeasons();
+    }
+
+    /**
+     * Parse and set the name.
+     */
+    private function parseName(): void
+    {
+        $name = $this->parseProperty('name');
+        if ($name === null) {
+            // Fall back to original name in case there is no english one.
+            $name = $this->parseProperty('original_name');
+        }
+        $this->name = $name;
     }
 
     /**
@@ -285,8 +299,24 @@ class TvShowResponse extends BaseResponse
      */
     private function parseLanguages(): void
     {
+        $languages = [];
         if (isset($this->getResponse()->languages) === true && \is_array($this->getResponse()->languages)) {
-            $this->languages = $this->getResponse()->languages;
+            $languages = $this->getResponse()->languages;
+        }
+        if (isset($this->getResponse()->original_language) === true && $this->getResponse()->original_language !== ''
+            && \in_array($this->getResponse()->original_language, $languages, true) === false) {
+            $languages[] = $this->getResponse()->original_language;
+        }
+        $this->languages = $languages;
+    }
+
+    /**
+     * Parse and set the countries.
+     */
+    private function parseCountries(): void
+    {
+        if (isset($this->getResponse()->origin_country) === true && \is_array($this->getResponse()->origin_country)) {
+            $this->countries = $this->getResponse()->origin_country;
         }
     }
 
