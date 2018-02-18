@@ -1,5 +1,13 @@
 @import 'abstracts/variables';
 
-@import '~lumacss';
+@import '../vendor/luma/src/scss/main';
 
+@import 'base/utilities';
 
+@import 'layouts/navigation';
+@import 'layouts/banner';
+@import 'layouts/filters';
+
+@import 'components/card';
+
+@import 'pages/seasonal';

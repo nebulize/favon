@@ -11,8 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/seasonal/{year}/{season}', 'BaseController@index');
 
 Route::any('adminer', '\Miroc\LaravelAdminer\AdminerController@index');

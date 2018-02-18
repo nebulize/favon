@@ -6,5 +6,22 @@
 
 // Colors
 //-------------------------------------
-$color-winter = #82d4f5;
-$color-winter-dark = #42c5d6;
+$color-winter: #82d4f5;
+$color-winter-dark: #42c5d6;
+
+// General
+//-------------------------------------
+$sans-serif: (
+  'Montserrat',
+  -apple-system,
+  system-ui,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  Roboto,
+  Oxygen,
+  Ubuntu,
+  Cantarell,
+  'Open Sans',
+  'Helvetica Neue',
+  sans-serif
+);
