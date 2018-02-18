@@ -11,6 +11,7 @@ const buffer = require('vinyl-buffer');
 const sassLint = require('gulp-sass-lint');
 const eslint = require('gulp-eslint');
 const cleanCSS = require('gulp-clean-css');
+const imagemin = require('gulp-imagemin');
 
 const paths = {
     src: './resources/assets/src',
@@ -18,7 +19,7 @@ const paths = {
     dist: './public',
 };
 const config = {
-    projectName: 'media',
+    projectName: 'favon',
     uglify: {
         src: `${paths.src}/js/*.js`,
         dest: paths.build,
@@ -34,13 +35,14 @@ const config = {
     sass: `${paths.src}/scss/**/*.scss`,
     sass_exclude: `!${paths.src}/scss/base/_normalize.scss, !${paths.src}/vendor/*.scss`,
     scripts: `${paths.src}/js/*.js`,
+    images: './resources/assets/images/**/*.+(png|jpg|jpeg|gif|svg)',
 };
 
 
 /**
  * Run all tasks needed for a build.
  */
-gulp.task('build', ['copy-css', 'copy-js']);
+gulp.task('build', ['copy-css', 'images']);
 
 /**
  * Default task. Run the watch task
@@ -103,7 +105,7 @@ gulp.task('scripts', () => {
  */
 gulp.task('copy-js', ['scripts'], () => {
     return gulp.src(`${paths.build}/${config.projectName}.min.js`)
-        .pipe(gulp.dest(`${paths.docs}/js`));
+        .pipe(gulp.dest(`${paths.dist}/js`));
 });
 
 /**
@@ -115,4 +117,14 @@ gulp.task('scripts:lint', () => {
         .pipe(eslint.format())
         .pipe(eslint.failAfterError());
 });
+
+/**
+ * Optimize images and copy to build/img
+ */
+gulp.task('images', () =>
+    gulp.src(config.images)
+        .pipe(imagemin())
+        .pipe(gulp.dest(`${paths.dist}/images`)));
+
+
 
