@@ -8,12 +8,12 @@ class TvSeasonPresenter extends Presenter
 {
     public function summary()
     {
-        if (strlen($this->summary) > 130)
+        if (strlen($this->entity->summary) > 130)
         {
-            $lastPos = (130 - 3) - strlen($this->summary);
-            return substr($this->summary, 0, strrpos($this->summary, ' ', $lastPos)) . '...';
+            $lastPos = (130 - 3) - strlen($this->entity->summary);
+            return substr($this->entity->summary, 0, strrpos($this->entity->summary, ' ', $lastPos)) . '...';
         }
-        return $this->summary;
+        return $this->entity->summary;
     }
 
 }
