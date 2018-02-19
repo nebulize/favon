@@ -93,7 +93,7 @@ class TvSeasonRepository implements RepositoryContract
                 ->whereNotIn('tv_shows.id', function ($q) {
                     $q->select('tv_show_id')->from('genre_tv_show')->whereIn('genre_id', [11, 13, 22]);
                 })
-                ->orderBy('tv_shows.popularity', 'DESC')
+                ->orderBy('tv_shows.imdb_score', 'DESC')
                 ->with('tvShow.genres')
                 ->select(['tv_seasons.first_aired AS season_first_aired', 'tv_seasons.*', 'tv_shows.*'])
                 ->get();
