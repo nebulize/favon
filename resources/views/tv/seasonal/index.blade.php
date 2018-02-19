@@ -58,7 +58,7 @@
                                         <span class="genre-label">{{ $genre->name }}</span>
                                     @endforeach
                                     @if ($tvSeason->summary)
-                                        <p class="description__plot">{{ $tvSeason->summary }}</p>
+                                        <p class="description__plot">{{ $tvSeason->present()->summary }}</p>
                                     @else
                                         <p class="description__plot">{{ $tvSeason->tvShow->summary }}</p>
                                     @endif

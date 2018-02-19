@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Presenters\TvSeasonPresenter;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Laracasts\Presenter\PresentableTrait;
 
 /**
  * App\Models\TVSeason.
@@ -38,6 +40,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class TVSeason extends Model
 {
+    use PresentableTrait;
+
+    protected $presenter = TvSeasonPresenter::class;
+
     /**
      * Table name.
      * @var string
