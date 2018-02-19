@@ -71,6 +71,8 @@
                                     <span>{{ $tvSeason->tvShow->imdb_score }}</span>
                                     <img src="/images/heart.svg">
                                     <span>0</span>
+                                    <img src="/images/star.svg">
+                                    <span>0</span>
                                 </div>
                             </div>
                         </div>
