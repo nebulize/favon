@@ -65,7 +65,7 @@
                                 </div>
                             </div>
                             <div class="card__footer">
-                                <span>{{ $tvSeason->first_aired->format('M d, Y') }}</span>
+                                <span>{{ \Carbon\Carbon::parse($tvSeason->season_first_aired)->format('M d, Y') }}</span>
                                 <div class="flex-group is-right">
                                     <img src="/images/imdb.svg">
                                     <span>{{ $tvSeason->tvShow->imdb_score }}</span>

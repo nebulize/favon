@@ -126,6 +126,7 @@ class SeasonRepository implements RepositoryContract
             $attributes['start_date'] = $start_date;
             $attributes['end_date'] = $end_date;
             $attributes['name'] = $name;
+            $attributes['year'] = $year;
         }
 
         return $this->season->create($attributes);

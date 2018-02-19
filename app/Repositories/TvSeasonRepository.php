@@ -99,6 +99,7 @@ class TvSeasonRepository implements RepositoryContract
 //                }])
                 ->orderBy('tv_shows.popularity', 'DESC')
                 ->with('tvShow.genres')
+                ->select(['tv_seasons.first_aired AS season_first_aired', 'tv_seasons.*', 'tv_shows.*'])
 //                ->select(['id', 'first_aired', 'name', 'first_aired', 'tv_seasons.poster', 'tv_seasons.number', 'tv_seasons.summary'])
                 ->get();
         }

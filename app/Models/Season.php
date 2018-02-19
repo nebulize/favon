@@ -34,7 +34,7 @@ class Season extends Model
      * Fields that should be mass assignable.
      * @var array
      */
-    protected $fillable = ['name', 'start_date', 'end_date'];
+    protected $fillable = ['year', 'name', 'start_date', 'end_date'];
 
     /**
      * Fields that are dates and casted to Carbon instances.
