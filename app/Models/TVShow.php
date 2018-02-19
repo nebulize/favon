@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Presenters\TvShowPresenter;
 use Illuminate\Database\Eloquent\Model;
+use Laracasts\Presenter\PresentableTrait;
 
 /**
  * App\Models\TVShow.
@@ -65,6 +67,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class TVShow extends Model
 {
+    use PresentableTrait;
+
+    protected $presenter = TvShowPresenter::class;
+
     /**
      * Table name.
      * @var string
