@@ -57,11 +57,7 @@
                                     @foreach ($tvSeason->tvShow->genres as $genre)
                                         <span class="genre-label">{{ $genre->name }}</span>
                                     @endforeach
-                                    @if ($tvSeason->summary)
-                                        <p class="description__plot">{{ $tvSeason->present()->summary }}</p>
-                                    @else
-                                        <p class="description__plot">{{ $tvSeason->tvShow->summary }}</p>
-                                    @endif
+                                    <p class="description__plot">{{ $tvSeason->tvShow->summary }}</p>
                                 </div>
                             </div>
                             <div class="card__footer">
