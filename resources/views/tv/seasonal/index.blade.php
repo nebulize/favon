@@ -6,7 +6,7 @@
         </div>
         <div class="banner__top">
             <div class="container">
-                <h2>{{ ucfirst($seasonName) }} {{ $seasonYear }}</h2>
+                <h2>{{ $season->name }} {{ $season->year }}</h2>
             </div>
         </div>
         <div class="banner__bottom"></div>
@@ -15,14 +15,17 @@
         <div class="container">
             <div class="filters__seasons">
                 <ul class="seasons__list">
-                    <li><a href="#!">Summer 2017</a></li>
-                    <li><a href="#!">Fall 2017</a></li>
-                    <li class="is-active"><a href="#!">Winter 2018</a></li>
-                    <li><a href="#!">Spring 2018</a></li>
+                    @foreach ($seasons['before'] as $seasonBefore)
+                        <li><a href="{{ route('tv.seasonal.index', [$seasonBefore->year, lcfirst($seasonBefore->name)]) }}">{{ ucfirst($seasonBefore->name) }} {{ $seasonBefore->year }}</a></li>
+                    @endforeach
+                    <li class="is-active"><a href="{{ route('tv.seasonal.index', [$season->year, lcfirst($season->name)]) }}">{{ ucfirst($season->name) }} {{ $season->year }}</a></li>
+                    @foreach ($seasons['after'] as $seasonAfter)
+                        <li><a href="{{ route('tv.seasonal.index', [$seasonAfter->year, lcfirst($seasonAfter->name)]) }}">{{ ucfirst($seasonAfter->name) }} {{ $seasonAfter->year }}</a></li>
+                    @endforeach
                 </ul>
             </div>
             <div class="filters__list is-right">
-                <div class="checkbox">
+                <div>
                     <input type="checkbox" id="checked" class="cbx hidden" checked/>
                     <label for="checked" class="lbl"></label>
                 </div>
@@ -35,26 +38,44 @@
     <main class="seasonal">
         <div class="container">
             <div class="row is-multiline">
-                <div class="column is-4">
-                    <div class="card is-seasonal is-winter">
-                        <div class="card__head">
+                @foreach ($tvSeasons as $tvSeason)
+                    <div class="column is-4">
+                        <div class="card is-seasonal is-winter">
+                            <div class="card__head">
 
-                        </div>
-                        <div class="card__body">
-                            <div class="body__poster">
-                                <img src="http://image.tmdb.org/t/p/w342">
                             </div>
-                            <div class="body__description">
-                                <h3 class="description__title">The Expanse <span>S2</span></h3>
-                                <span class="genre-label">Drama</span>
-                                <p class="description__plot">Season 2 kicks off with interplanetary tensions at an all-time high, the cold war between Earth and Mars is on the brink of an all-out battle.</p>
+                            <div class="card__body">
+                                <div class="body__poster">
+                                    @if ($tvSeason->poster)
+                                        <img src="http://image.tmdb.org/t/p/w342{{ $tvSeason->poster }}">
+                                    @elseif($tvSeason->tvShow->poster)
+                                        <img src="http://image.tmdb.org/t/p/w342{{ $tvSeason->tvShow->poster }}">
+                                    @endif
+                                </div>
+                                <div class="body__description">
+                                    <h3 class="description__title">{{ $tvSeason->tvShow->name }} <span>S{{ $tvSeason->number }}</span></h3>
+                                    @foreach ($tvSeason->tvShow->genres as $genre)
+                                        <span class="genre-label">{{ $genre->name }}</span>
+                                    @endforeach
+                                    @if ($tvSeason->summary)
+                                        <p class="description__plot">{{ $tvSeason->summary }}</p>
+                                    @else
+                                        <p class="description__plot">{{ $tvSeason->tvShow->summary }}</p>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                        <div class="card__footer">
-                            Jan 18, 2018
+                            <div class="card__footer">
+                                <span>{{ $tvSeason->first_aired->format('M d, Y') }}</span>
+                                <div class="flex-group is-right">
+                                    <img src="/images/imdb.svg">
+                                    <span>{{ $tvSeason->tvShow->imdb_score }}</span>
+                                    <img src="/images/heart.svg">
+                                    <span>0</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
             </div>
         </div>
 

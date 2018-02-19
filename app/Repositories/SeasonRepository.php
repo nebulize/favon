@@ -50,6 +50,12 @@ class SeasonRepository implements RepositoryContract
     public function find(array $parameters = []) : Season
     {
         $query = $this->season;
+        if (isset($parameters['year'])) {
+            $query = $query->where('year', $parameters['year']);
+        }
+        if (isset($parameters['name'])) {
+            $query = $query->where('name', $parameters['name']);
+        }
         // Filter by date
         if (isset($parameters['date'])) {
             $query = $query
@@ -64,11 +70,26 @@ class SeasonRepository implements RepositoryContract
      * Get a list of all Seasons.
      *
      * @param array $parameters
-     * @return Collection
+     * @return mixed
      */
-    public function index(array $parameters = []) : Collection
+    public function index(array $parameters = [])
     {
         $query = $this->season;
+        if (isset($parameters['around'])) {
+            $season = $parameters['around'];
+            $query = $query->whereBetween('year', [$season->year - 1, $season->year + 1])->orderBy('start_date', 'ASC');
+            $seasons = $query->get();
+            $before = $seasons->filter(function ($item) use ($season) {
+                return $item->start_date->lt($season->start_date);
+            });
+            $after = $seasons->filter(function ($item) use ($season) {
+                return $item->start_date->gt($season->start_date);
+            });
+            return [
+                'before' => $before->take(-2),
+                'after' => $after->take(1)
+            ];
+        }
 
         return $query->get();
     }

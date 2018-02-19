@@ -3,6 +3,7 @@
     background: #fff;
     box-shadow: 0px 10px 40px rgba(0,0,0,0.1);
     height: 305px;
+    margin-top: 30px;
 
     &.is-winter {
       .card__head {
@@ -31,6 +32,11 @@
       font-size: 1.3rem;
       height: 40px;
       padding: 10px;
+
+      img {
+        height: 16px;
+        margin-right: 10px;
+      }
     }
 
     .body__description {
@@ -48,6 +54,12 @@
       color: #70727c;
       font-size: 1.4rem;
       margin-top: 10px;
+      max-height: 150px;
+      overflow: hidden;
+
+      &:hover {
+        overflow-y: scroll;
+      }
     }
 
     .genre-label {

@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/seasonal/{year}/{season}', 'BaseController@index');
-
+Route::get('/seasonal/{year}/{season}','BaseController@index')->name('tv.seasonal.index');
 Route::any('adminer', '\Miroc\LaravelAdminer\AdminerController@index');

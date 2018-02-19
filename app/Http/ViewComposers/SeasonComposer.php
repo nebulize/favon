@@ -20,14 +20,15 @@ class SeasonComposer
     {
         $date = Carbon::now();
         $month = $date->month;
+        $year = $date->year;
         if (\in_array($month, [1, 2, 3], true)) {
-            $this->season = SeasonType::WINTER;
+            $this->season = Carbon::create($year, 1, 1);
         } elseif (\in_array($month, [4, 5, 6], true)) {
-            $this->season = SeasonType::SPRING;
+            $this->season = Carbon::create($year, 4, 1);
         } elseif (\in_array($month, [7, 8, 9], true)) {
-            $this->season = SeasonType::SUMMER;
+            $this->season = Carbon::create($year, 7, 1);
         } else {
-            $this->season = SeasonType::FALL;
+            $this->season = Carbon::create($year, 10, 1);
         }
     }
 
@@ -38,6 +39,6 @@ class SeasonComposer
      */
     public function compose(View $view): void
     {
-        $view->with('season', $this->season);
+        $view->with('currentSeason', $this->season);
     }
 }

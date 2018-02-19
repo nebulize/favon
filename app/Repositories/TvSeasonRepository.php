@@ -72,7 +72,6 @@ class TvSeasonRepository implements RepositoryContract
      *
      * @param array $parameters
      * @return \Illuminate\Database\Eloquent\Collection
-     * @throws InvalidArgumentException
      */
     public function index(array $parameters = []) : Collection
     {
@@ -80,16 +79,27 @@ class TvSeasonRepository implements RepositoryContract
 
         // Get seasonal index
         if (isset($parameters['seasonal']) && $parameters['seasonal'] === true) {
-            $query = $query->join('tv_shows', 'tv_seasons.tv_show_id', 'tv_shows.id');
+            $query = $query->join('tv_shows', 'tv_seasons.tv_show_id', '=', 'tv_shows.id');
             if (! isset($parameters['season_id'])) {
                 throw new InvalidArgumentException('Requesting seasonal index, but no season_id specified.');
             }
 
-            return $query->where('tv_seasons.season_id', '=', $parameters['season_id'])
-                ->where('tv_shows.imdb_votes', '>=', '5000')
-                ->where('tv_seasons.number', '<>', 0)
-                ->orderBy('tv_shows.imdb_score', 'DESC')
-                ->select(['tv_seasons.first_aired AS season_first_aired', 'tv_seasons.*', 'tv_shows.*'])
+            return $query
+                ->where('tv_seasons.season_id', '=', $parameters['season_id'])
+                ->where(function ($q) {
+                    $q->where('tv_shows.imdb_votes', '>=', 2000)
+                        ->orWhere('tv_shows.popularity', '>=', 20);
+                })
+//                ->whereHas('tvShow', function ($q) {
+//                    $q->where('tv_shows.imdb_votes', '>=', 2000)
+//                        ->orWhere('tv_shows.popularity', '>=', 20);
+//                })
+//                ->with(['tvShow.genres' => function ($q) {
+//                    $q->where('tv_seasons.tv_show_id', '=', 'tv_shows.id');
+//                }])
+                ->orderBy('tv_shows.popularity', 'DESC')
+                ->with('tvShow.genres')
+//                ->select(['id', 'first_aired', 'name', 'first_aired', 'tv_seasons.poster', 'tv_seasons.number', 'tv_seasons.summary'])
                 ->get();
         }
 
