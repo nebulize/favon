@@ -24,10 +24,8 @@ class FetchPersons extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $this->line('Fetching latest person export from TMDB...');
         $this->fetchFile();
@@ -38,14 +36,12 @@ class FetchPersons extends Command
         $this->fetchPersons();
         $this->deleteFiles();
         $this->info('Deleted downloaded files. The fetching of persons is queued and will take around 100 hours to complete');
-
-        return true;
     }
 
     /**
      * Fetch daily export files from TMDB.
      */
-    protected function fetchFile()
+    protected function fetchFile(): void
     {
         $date = Carbon::now();
         $url = 'http://files.tmdb.org/p/exports/person_ids_'.$date->format('m_d_Y').'.json.gz';
@@ -63,7 +59,7 @@ class FetchPersons extends Command
     /**
      * Extract the gzipped file.
      */
-    protected function extract()
+    protected function extract(): void
     {
         $sfp = gzopen(storage_path('api/person_ids.json.gz'), 'rb');
         $fp = fopen(storage_path('api/person_ids.json'), 'wb');
@@ -78,7 +74,7 @@ class FetchPersons extends Command
     /**
      * Go line by line through the extracted file and dispatch a fetch job for each entry.
      */
-    protected function fetchPersons()
+    protected function fetchPersons(): void
     {
         $handle = fopen(storage_path('api/person_ids.json'), 'rb');
         while (! feof($handle)) {
@@ -93,7 +89,7 @@ class FetchPersons extends Command
     /**
      * Delete downloaded files.
      */
-    protected function deleteFiles()
+    protected function deleteFiles(): void
     {
         unlink(storage_path('api/person_ids.json.gz'));
         unlink(storage_path('api/person_ids.json'));

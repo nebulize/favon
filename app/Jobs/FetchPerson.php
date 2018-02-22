@@ -32,7 +32,7 @@ class FetchPerson implements ShouldQueue
      * @param TMDBClient $tmdbClient
      * @param PersonRepository $personRepository
      */
-    public function handle(TMDBClient $tmdbClient, PersonRepository $personRepository)
+    public function handle(TMDBClient $tmdbClient, PersonRepository $personRepository): void
     {
         $personResponse = $tmdbClient->getPerson($this->id);
         if ($personResponse->hasBeenSuccessful() === false) {

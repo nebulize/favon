@@ -50,6 +50,10 @@ class TvShowRepository implements RepositoryContract
     {
         $query = $this->tvShow;
 
+        if (isset($parameters['imdb_id'])) {
+            $query = $query->where('imdb_id', $parameters['imdb_id']);
+        }
+
         return $query->firstOrFail();
     }
 
