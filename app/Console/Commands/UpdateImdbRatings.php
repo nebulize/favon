@@ -88,10 +88,12 @@ class UpdateImdbRatings extends Command
         fclose($fp);
     }
 
+    /**
+     * Go line by line through the extracted ratings and update them in database.
+     */
     protected function updateRatings(): void
     {
         DB::connection()->disableQueryLog();
-//        Log::info('Processing IMDB Chunk '.$this->path);
         $handle = fopen(storage_path('api/ratings.tsv'), 'rb');
         $count_matched = 0;
         $count_skipped = 0;
@@ -112,39 +114,6 @@ class UpdateImdbRatings extends Command
         }
         fclose($handle);
         Log::info('Skipped '.$count_skipped.' entries and matched '.$count_matched);
-//        unlink(storage_path('api/'.$this->path));
-    }
-
-    /**
-     * Split the large TSV files into smaller chunks (10k lines each) and dispatch job for processing each one.
-     * Need to do this since otherwise there are memory leaks with PHP when processing it all at once.
-     * Even when disabling Eloquent query log.
-     */
-    protected function splitFiles(): void
-    {
-        $handle = fopen(storage_path('api/ratings.tsv'), 'rb');
-        fgetcsv($handle, 0, "\t"); // Ignore first line
-        $rowCount = 1;
-        $fileCount = 1;
-        $out = fopen(storage_path('api/ratings-'.$fileCount++.'.tsv'), 'w+b');
-        while (feof($handle) === false) {
-            if (($rowCount % 2000) === 0) {
-                fclose($out);
-                UpdateImdbRatingsChunk::dispatch('ratings-'.($fileCount - 1).'.tsv');
-                $this->line('Dispatched '.($fileCount -1).' jobs.');
-                $out = fopen(storage_path('api/ratings-'.$fileCount++.'.tsv'), 'wb');
-            }
-            $data = fgetcsv($handle, 0, "\t");
-            if ($data) {
-                fputcsv($out, $data, "\t");
-            }
-            $rowCount++;
-        }
-        fclose($out);
-        // Last entry reached.
-        UpdateImdbRatingsChunk::dispatch('ratings-'.($fileCount - 1).'.tsv');
-        $this->line('Dispatched '.($fileCount - 1).' jobs.');
-        fclose($handle);
     }
 
     /**
