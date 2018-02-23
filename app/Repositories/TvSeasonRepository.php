@@ -91,7 +91,10 @@ class TvSeasonRepository implements RepositoryContract
                         ->orWhere('tv_shows.popularity', '>=', 20);
                 })
                 ->whereNotIn('tv_shows.id', function ($q) {
-                    $q->select('tv_show_id')->from('genre_tv_show')->whereIn('genre_id', [11, 13, 22]);
+                    $q->select('tv_show_id')->from('genre_tv_show')->whereIn('genre_id', [3, 11, 13, 22]);
+                })
+                ->whereNotIn('tv_shows,id', function ($q) {
+                    $q->select('tv_show_id')->from('language_tv_show')->where('country_code', 'in');
                 })
                 ->orderBy('tv_shows.imdb_score', 'DESC')
                 ->with('tvShow.genres')
