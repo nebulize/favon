@@ -7,6 +7,7 @@ use App\Repositories\TvShowRepository;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class UpdateImdbRatings extends Command
 {
@@ -50,7 +51,7 @@ class UpdateImdbRatings extends Command
         $this->extract();
         $this->info('Successfully extracted the ratings list.');
         $this->line('Updating ratings...');
-        $this->splitFiles();
+        $this->updateRatings();
         $this->deleteFiles();
         $this->info('All ratings have been updated and the downloaded files have been deleted.');
     }
@@ -87,6 +88,33 @@ class UpdateImdbRatings extends Command
         fclose($fp);
     }
 
+    protected function updateRatings(): void
+    {
+        DB::connection()->disableQueryLog();
+//        Log::info('Processing IMDB Chunk '.$this->path);
+        $handle = fopen(storage_path('api/ratings.tsv'), 'rb');
+        $count_matched = 0;
+        $count_skipped = 0;
+        while (feof($handle) === false) {
+            $entry = fgetcsv($handle, 0, "\t");
+            try {
+                $tvShow = $this->tvShowRepository->find([
+                    'imdb_id' => trim($entry[0])
+                ]);
+                Log::info('Matched show with id '.$tvShow->imdb_id.' as '.$entry[0]);
+                $tvShow->imdb_score = (float) trim($entry[1]);
+                $tvShow->imdb_votes = (int) trim($entry[2]);
+                $this->tvShowRepository->save($tvShow);
+                $count_matched++;
+            } catch (ModelNotFoundException $e) {
+                $count_skipped++;
+            }
+        }
+        fclose($handle);
+        Log::info('Skipped '.$count_skipped.' entries and matched '.$count_matched);
+//        unlink(storage_path('api/'.$this->path));
+    }
+
     /**
      * Split the large TSV files into smaller chunks (10k lines each) and dispatch job for processing each one.
      * Need to do this since otherwise there are memory leaks with PHP when processing it all at once.
@@ -98,7 +126,7 @@ class UpdateImdbRatings extends Command
         fgetcsv($handle, 0, "\t"); // Ignore first line
         $rowCount = 1;
         $fileCount = 1;
-        $out = fopen(storage_path('api/ratings-'.$fileCount++.'.tsv'), 'wb');
+        $out = fopen(storage_path('api/ratings-'.$fileCount++.'.tsv'), 'w+b');
         while (feof($handle) === false) {
             if (($rowCount % 2000) === 0) {
                 fclose($out);

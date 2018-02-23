@@ -53,6 +53,6 @@ class UpdateImdbRatingsChunk implements ShouldQueue
             }
         }
         fclose($handle);
-        unlink(storage_path('api/'.$this->path));
+//        unlink(storage_path('api/'.$this->path));
     }
 }
