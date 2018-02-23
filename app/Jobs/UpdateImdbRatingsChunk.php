@@ -42,14 +42,15 @@ class UpdateImdbRatingsChunk implements ShouldQueue
             $entry = fgetcsv($handle, 0, "\t");
             try {
                 $tvShow = $tvShowRepository->find([
-                    'imdb_id' => $entry[0]
+                    'imdb_id' => trim($entry[0])
                 ]);
+                Log::info('Matched show with id '.$tvShow->imdb_id.' as '.$entry[0]);
+                $tvShow->imdb_score = (float) trim($entry[1]);
+                $tvShow->imdb_votes = (int) trim($entry[2]);
+                $tvShowRepository->save($tvShow);
             } catch (ModelNotFoundException $e) {
-                continue;
+                // Nothing to do
             }
-            $tvShow->imdb_score = (float) $entry[1];
-            $tvShow->imdb_votes = (int) $entry[2];
-            $tvShowRepository->save($tvShow);
         }
         fclose($handle);
         unlink(storage_path('api/'.$this->path));
