@@ -67,6 +67,10 @@ class TvShowRepository implements RepositoryContract
     {
         $query = $this->tvShow;
 
+        if (isset($parameters['created_at_gt'])) {
+            $query = $query->where('created_at', '>=', $parameters['created_at_gt']);
+        }
+
         return $query->get();
     }
 

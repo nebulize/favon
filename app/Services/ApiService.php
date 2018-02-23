@@ -271,4 +271,28 @@ class ApiService
             $this->tvSeasonRepository->addPerson($tvSeason, $person, $result->toArray());
         }
     }
+
+    /**
+     * Update the popularity value of a tv show.
+     *
+     * @param int $id
+     */
+    public function updatePopularity(int $id): void
+    {
+        $tvShowResponse = $this->tmdbClient->getTvShow($id);
+        if ($tvShowResponse->hasBeenSuccessful() === false) {
+            return;
+        }
+        try {
+            $tvShow = $this->tvShowRepository->find([
+                'tmdb_id' => $tvShowResponse->getTmdbId()
+            ]);
+        } catch (ModelNotFoundException $e) {
+            // Nothing to do.
+            return;
+        }
+
+        $tvShow->popularity = $tvShowResponse->getPopularity();
+        $this->tvShowRepository->save($tvShow);
+    }
 }
