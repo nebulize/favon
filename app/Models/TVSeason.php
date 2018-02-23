@@ -37,6 +37,8 @@ use Laracasts\Presenter\PresentableTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVSeason wherePoster($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVSeason whereSummary($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVSeason whereTmdbId($value)
+ * @property string|null $name
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVSeason whereName($value)
  */
 class TVSeason extends Model
 {

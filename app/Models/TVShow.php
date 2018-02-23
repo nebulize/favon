@@ -64,6 +64,9 @@ use Laracasts\Presenter\PresentableTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereTvdbId($value)
  * @property string|null $homepage
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereHomepage($value)
+ * @property float|null $popularity
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Country[] $countries
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow wherePopularity($value)
  */
 class TVShow extends Model
 {

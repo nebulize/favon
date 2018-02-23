@@ -4,6 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Country
+ *
+ * @property int $code
+ * @property string $name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TVShow[] $tvShows
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Country whereCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Country whereName($value)
+ * @mixin \Eloquent
+ */
 class Country extends Model
 {
     /**

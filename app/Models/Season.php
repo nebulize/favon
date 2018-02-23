@@ -21,6 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Season whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Season whereStartDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Season whereUpdatedAt($value)
+ * @property int|null $year
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Season whereYear($value)
  */
 class Season extends Model
 {
