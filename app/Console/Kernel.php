@@ -25,6 +25,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('favon:persons:update')->daily();
+        $schedule->command('favon:tv:update')->daily();
+        $schedule->command('favon:tv:popularity')->daily();
+        $schedule->command('favon:ratings:update')->weekly();
     }
 
     /**
