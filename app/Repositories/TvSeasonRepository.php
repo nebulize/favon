@@ -97,7 +97,7 @@ class TvSeasonRepository implements RepositoryContract
             // once the season is in the past.
             if (Carbon::now()->gt($season->end_date) === false) {
                 $query = $query->whereIn('tv_shows.id', function ($q) {
-                    $q->select('tv_show_id')->from('language_tv_show')->whereIn('language_code', ['en', 'jp']);
+                    $q->select('tv_show_id')->from('language_tv_show')->whereIn('language_code', ['en', 'ja']);
                 });
             } else {
                 $query = $query->whereNotIn('tv_shows.id', function ($q) {
