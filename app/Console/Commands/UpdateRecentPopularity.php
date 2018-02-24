@@ -3,25 +3,29 @@
 namespace App\Console\Commands;
 
 use App\Jobs\UpdateTvShowPopularity;
+use App\Repositories\SeasonRepository;
+use App\Repositories\TvSeasonRepository;
 use App\Repositories\TvShowRepository;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
 
-class UpdateRecentTvShows extends Command
+class UpdateRecentPopularity extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'favon:tv:update-recent';
+    protected $signature = 'favon:tv:popularity';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Update the popularity values of all tv shows from this and future seasons';
 
     /**
      * @var TvShowRepository
@@ -29,12 +33,27 @@ class UpdateRecentTvShows extends Command
     protected $tvShowRepository;
 
     /**
-     * UpdateRecentTvShows constructor.
-     * @param TvShowRepository $tvShowRepository
+     * @var TvSeasonRepository
      */
-    public function __construct(TvShowRepository $tvShowRepository)
+    protected $tvSeasonRepository;
+
+    /**
+     * @var SeasonRepository
+     */
+    protected $seasonRepository;
+
+    /**
+     * UpdateRecentPopularity constructor.
+     * @param TvSeasonRepository $tvSeasonRepository
+     * @param TvShowRepository $tvShowRepository
+     * @param SeasonRepository $seasonRepository
+     */
+    public function __construct(TvSeasonRepository $tvSeasonRepository, TvShowRepository $tvShowRepository,
+                                SeasonRepository $seasonRepository)
     {
         $this->tvShowRepository = $tvShowRepository;
+        $this->tvSeasonRepository = $tvSeasonRepository;
+        $this->seasonRepository = $seasonRepository;
         parent::__construct();
     }
 
@@ -43,10 +62,18 @@ class UpdateRecentTvShows extends Command
      */
     public function handle(): void
     {
-        // Fetch tv shows added in the last 10 days:
+        try {
+            $currentSeason = $this->seasonRepository->find([
+                'date' => Carbon::now()
+            ]);
+        } catch (ModelNotFoundException $e) {
+            Log::warning('UpdateRecentPopularity: Could not find current season.');
+        }
+
         $tvShows = $this->tvShowRepository->index([
-            'created_at_gt' => Carbon::now()->subDays(10)
+            'season_gt' => $currentSeason
         ]);
+
         foreach ($tvShows as $tvShow) {
             UpdateTvShowPopularity::dispatch($tvShow->tmdb_id);
         }

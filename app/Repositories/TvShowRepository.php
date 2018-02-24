@@ -4,8 +4,9 @@ namespace App\Repositories;
 
 use App\Models\TVShow;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Collection;
+use \Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Query\Builder;
 
 class TvShowRepository implements RepositoryContract
 {
@@ -61,14 +62,25 @@ class TvShowRepository implements RepositoryContract
      * Get a list of all tv shows.
      *
      * @param array $parameters
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection
      */
-    public function index(array $parameters = []) : Collection
+    public function index(array $parameters = []): Collection
     {
+        /**
+         * @var Builder $query
+         */
         $query = $this->tvShow;
 
         if (isset($parameters['created_at_gt'])) {
             $query = $query->where('created_at', '>=', $parameters['created_at_gt']);
+        }
+
+        if (isset($parameters['season_gt'])) {
+            $query = $query
+                ->join('tv_seasons', 'tv_seasons.tv_show_id', '=', 'tv_shows.id')
+                ->join('seasons', 'tv_seasons.season_id', '=', 'seasons.id')
+                ->where('seasons.start_date', '>=', $parameters['season_gt']->start_date);
+            return $query->get();
         }
 
         return $query->get();
