@@ -95,9 +95,9 @@ class TvSeasonRepository implements RepositoryContract
             // For current or future seasons, only query english language shows. This filters out a few good
             // international shows (e.g. `Dark`), but overall we get rid of all the other crap. They will appear
             // once the season is in the past.
-            if (Carbon::now()->gt($season->end_date) === true) {
+            if (Carbon::now()->gt($season->end_date) === false) {
                 $query = $query->whereIn('tv_shows.id', function ($q) {
-                    $q->select('tv_show_id')->from('language_tv_show')->where('language_code', 'en');
+                    $q->select('tv_show_id')->from('language_tv_show')->whereIn('language_code', ['en', 'jp']);
                 });
             } else {
                 $query = $query->whereNotIn('tv_shows.id', function ($q) {
