@@ -110,8 +110,8 @@ class TvSeasonRepository implements RepositoryContract
                 })
                 ->orderBy('tv_shows.popularity', 'DESC')
                 ->with('tvShow.genres')
-                ->select(['tv_seasons.first_aired AS season_first_aired', 'tv_seasons.*', 'tv_shows.*'])
-                ->get();
+                ->select(['tv_seasons.first_aired AS season_first_aired', 'tv_seasons.*', 'tv_shows.*']);
+            return $query->get();
         }
 
         // Eager load relationships
