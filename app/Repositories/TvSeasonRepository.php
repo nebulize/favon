@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Exceptions\InvalidArgumentException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 
 class TvSeasonRepository implements RepositoryContract
 {
@@ -76,6 +78,9 @@ class TvSeasonRepository implements RepositoryContract
      */
     public function index(array $parameters = []) : Collection
     {
+        /**
+         * @var Builder $query
+         */
         $query = $this->tvSeason;
 
         // Get seasonal index
@@ -84,7 +89,8 @@ class TvSeasonRepository implements RepositoryContract
             $query = $query
                 ->join('tv_shows', 'tv_seasons.tv_show_id', '=', 'tv_shows.id')
                 ->where('tv_seasons.season_id', '=', $season->id)
-                ->where(function ($q) use ($season) {
+                ->where('tv_shows.is_hidden', false)
+                ->where(function (EloquentBuilder $q) use ($season) {
                     $q->where('tv_shows.imdb_votes', '>=', 2000);
                     // Only filter by popularity if it's a current or future season. That way we also get shows
                     // that have not yet premiered
@@ -96,17 +102,17 @@ class TvSeasonRepository implements RepositoryContract
             // international shows (e.g. `Dark`), but overall we get rid of all the other crap. They will appear
             // once the season is in the past.
             if (Carbon::now()->gt($season->end_date) === false) {
-                $query = $query->whereIn('tv_shows.id', function ($q) {
-                    $q->select('tv_show_id')->from('language_tv_show')->whereIn('language_code', ['en', 'ja']);
+                $query = $query->whereIn('tv_shows.id', function (QueryBuilder $q) {
+                    $q->select('tv_show_id')->from('language_tv_show')->where('language_code', 'en');
                 });
             } else {
-                $query = $query->whereNotIn('tv_shows.id', function ($q) {
+                $query = $query->whereNotIn('tv_shows.id', function (QueryBuilder $q) {
                     $q->select('tv_show_id')->from('country_tv_show')->where('country_code', 'IN');
                 });
             }
             $query = $query
-                ->whereNotIn('tv_shows.id', function ($q) {
-                    $q->select('tv_show_id')->from('genre_tv_show')->whereIn('genre_id', [3, 11, 12, 13, 22]);
+                ->whereNotIn('tv_shows.id', function (QueryBuilder $q) {
+                    $q->select('tv_show_id')->from('genre_tv_show')->whereIn('genre_id', [3, 11, 12, 13, 18, 22]);
                 })
                 ->orderBy('tv_shows.popularity', 'DESC')
                 ->with('tvShow.genres')
