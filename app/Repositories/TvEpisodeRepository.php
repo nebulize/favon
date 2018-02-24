@@ -50,6 +50,15 @@ class TvEpisodeRepository implements RepositoryContract
     {
         $query = $this->tvEpisode;
 
+        // Filter by tv show
+        if (isset($parameters['tv_season_id'])) {
+            $query = $query->where('tv_season_id', $parameters['tv_season_id']);
+        }
+        // Filter by season number
+        if (isset($parameters['number'])) {
+            $query = $query->where('number', $parameters['number']);
+        }
+
         return $query->firstOrFail();
     }
 

@@ -105,4 +105,14 @@ class VideoRepository implements RepositoryContract
 
         return $model;
     }
+
+    /**
+     * Delete all videos for a given tv season.
+     *
+     * @param int $tv_season_id
+     */
+    public function deleteForSeason(int $tv_season_id): void
+    {
+        $this->video->where('tv_season_id', $tv_season_id)->delete();
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Clients;
 
+use App\Http\Responses\TMDB\ChangedTvShowsResponse;
 use GuzzleHttp\Psr7\Request;
 use App\Http\Adapters\APIAdapter;
 use App\Http\Adapters\TMDBAdapter;
@@ -142,7 +143,7 @@ class TMDBClient
             $result->setSuccessful();
             $result->setResponse(json_decode($response->getBody()));
         } else {
-            $this->logger->error('TMDB Languages '.$response->getStatusCode().': '.$response->getBody());
+            $this->logger->error('TMDB Changed Persons '.$response->getStatusCode().': '.$response->getBody());
         }
 
         return $result;
@@ -169,6 +170,37 @@ class TMDBClient
                 break;
             default:
                 $this->logger->error('TMDB '.$response->getStatusCode().': '.$response->getBody());
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get the response object for a list of changed person entries.
+     *
+     * @param string|null $start_date
+     * @param string|null $end_date
+     * @param int $page
+     * @return ChangedTvShowsResponse
+     */
+    public function getChangedTvShows(int $page = 1, string $start_date = null, string $end_date = null): ChangedTvShowsResponse
+    {
+        $url = $this->url.'/tv/changes?api_key='.$this->key.'&language=en-US';
+        if ($start_date) {
+            $url .= '&start_date='.$start_date;
+        }
+        if ($end_date) {
+            $url .= '&end_date='.$end_date;
+        }
+        $url .= '&page='.$page;
+        $request = new Request('GET', $url);
+        $response = $this->adapter->request($request);
+        $result = new ChangedTvShowsResponse((int) $response->getStatusCode());
+        if ($result->getHttpStatusCode() === 200) {
+            $result->setSuccessful();
+            $result->setResponse(json_decode($response->getBody()));
+        } else {
+            $this->logger->error('TMDB Changed TV Shows '.$response->getStatusCode().': '.$response->getBody());
         }
 
         return $result;

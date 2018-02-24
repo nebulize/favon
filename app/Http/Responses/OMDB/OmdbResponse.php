@@ -48,9 +48,9 @@ class OmdbResponse extends BaseResponse
     }
 
     /**
-     * @return float|null
+     * @return float
      */
-    public function getImdbScore(): ?float
+    public function getImdbScore(): float
     {
         return $this->imdb_score;
     }
@@ -78,8 +78,18 @@ class OmdbResponse extends BaseResponse
     {
         $this->summary = $this->parseProperty('Plot');
         $this->parseCountries();
-        $this->imdb_score = $this->parseProperty('imdbRating', BaseResponse::TYPE_FLOAT);
-        $this->imdb_votes = $this->parseProperty('imdbVotes', BaseResponse::TYPE_INT);
+        $imdb_score = $this->parseProperty('imdbRating', BaseResponse::TYPE_FLOAT);
+        if ($imdb_score === null) {
+            $this->imdb_score = 0;
+        } else {
+            $this->imdb_score = $imdb_score;
+        }
+        $imdb_votes = $this->parseProperty('imdbVotes', BaseResponse::TYPE_INT);
+        if ($imdb_votes === null) {
+            $this->imdb_votes = 0;
+        } else  {
+            $this->imdb_votes = $imdb_votes;
+        }
         $this->parseGenres();
     }
 

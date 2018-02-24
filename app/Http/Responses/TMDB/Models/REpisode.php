@@ -110,4 +110,20 @@ class REpisode
             Log::warning('Could not parse air_date for TMDB episode.');
         }
     }
+
+    /**
+     * Get attributes as associative array.
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return  [
+            'number' => $this->getNumber(),
+            'first_aired' => $this->getFirstAired(),
+            'name' => $this->getName(),
+            'plot' => $this->getPlot(),
+            'tmdb_id' => $this->getTmdbId()
+        ];
+    }
 }

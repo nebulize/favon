@@ -40,7 +40,7 @@ class UpdatePerson implements ShouldQueue
      * @param PersonRepository $personRepository
      * @param Log $logger
      */
-    public function handle(TMDBClient $tmdbClient, PersonRepository $personRepository, Log $logger)
+    public function handle(TMDBClient $tmdbClient, PersonRepository $personRepository, Log $logger): void
     {
         $personResponse = $tmdbClient->getPerson($this->id);
         if ($personResponse->hasBeenSuccessful() === false) {

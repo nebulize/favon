@@ -145,7 +145,7 @@ abstract class BaseResponse implements MessageProvider
     protected function parseProperty(string $property, int $cast = null)
     {
         if (isset($this->getResponse()->{$property}) === false || $this->getResponse()->{$property} === '') {
-            return;
+            return null;
         }
         if ($cast === self::TYPE_INT) {
             return (int) str_replace(',', '', $this->getResponse()->{$property});

@@ -4,7 +4,7 @@ namespace App\Http\Responses\TMDB;
 
 use App\Http\Responses\BaseResponse;
 
-class ChangedPersonsResponse extends BaseResponse
+class ChangedTvShowsResponse extends BaseResponse
 {
     /**
      * @var \stdClass[]
@@ -68,4 +68,5 @@ class ChangedPersonsResponse extends BaseResponse
         $this->total_pages = (int) $this->getResponse()->total_pages;
         $this->total_results = (int) $this->getResponse()->total_results;
     }
+
 }

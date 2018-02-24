@@ -55,6 +55,10 @@ class TvShowRepository implements RepositoryContract
             $query = $query->where('imdb_id', $parameters['imdb_id']);
         }
 
+        if (isset($parameters['tmdb_id'])) {
+            $query = $query->where('tmdb_id', $parameters['tmdb_id']);
+        }
+
         return $query->firstOrFail();
     }
 
