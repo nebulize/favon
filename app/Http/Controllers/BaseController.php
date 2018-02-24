@@ -37,7 +37,7 @@ class BaseController extends Controller
             ]);
             $tvSeasons = $this->tvSeasonRepository->index([
                 'seasonal' => true,
-                'season_id' => $season->id
+                'season' => $season
             ]);
         } catch (ModelNotFoundException $e) {
             abort(404);
