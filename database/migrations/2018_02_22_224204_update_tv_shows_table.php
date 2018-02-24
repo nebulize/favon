@@ -19,6 +19,8 @@ class UpdateTvShowsTable extends Migration
             $table->index('imdb_id');
             $table->index('imdb_votes');
             $table->index('popularity');
+            $table->boolean('is_hidden')->default(false);
+            $table->index('is_hidden');
         });
     }
 
@@ -31,6 +33,10 @@ class UpdateTvShowsTable extends Migration
     {
         Schema::table('tv_shows', function (Blueprint $table) {
             $table->dropIndex(['imdb_id']);
+            $table->dropIndex(['imdb_votes']);
+            $table->dropIndex(['popularity']);
+            $table->dropColumn('is_hidden');
+            $table->dropIndex(['is_hidden']);
         });
     }
 }

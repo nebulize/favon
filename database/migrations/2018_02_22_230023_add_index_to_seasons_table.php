@@ -14,7 +14,8 @@ class AddIndexToSeasonsTable extends Migration
     public function up()
     {
         Schema::table('seasons', function (Blueprint $table) {
-            $table->index(['year', 'name']);
+            $table->index('year');
+            $table->index('name');
         });
     }
 
@@ -26,7 +27,8 @@ class AddIndexToSeasonsTable extends Migration
     public function down()
     {
         Schema::table('seasons', function (Blueprint $table) {
-            $table->dropIndex(['year', 'name']);
+            $table->dropIndex(['year']);
+            $table->dropIndex(['name']);
         });
     }
 }
