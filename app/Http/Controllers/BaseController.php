@@ -6,6 +6,7 @@ use App\Enumerators\SeasonType;
 use App\Repositories\SeasonRepository;
 use App\Repositories\TvSeasonRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 
 class BaseController extends Controller
 {
