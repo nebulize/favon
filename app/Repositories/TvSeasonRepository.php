@@ -95,7 +95,7 @@ class TvSeasonRepository implements RepositoryContract
                     // Only filter by popularity if it's a current or future season. That way we also get shows
                     // that have not yet premiered
                     if (Carbon::now()->gt($season->end_date) === false) {
-                        $q->orWhere('tv_shows.popularity', '>=', 10);
+                        $q->orWhere('tv_shows.popularity', '>=', 15);
                     }
                 });
             // For current or future seasons, only query english language shows. This filters out a few good
