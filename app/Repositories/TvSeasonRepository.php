@@ -90,7 +90,7 @@ class TvSeasonRepository implements RepositoryContract
                 ->join('tv_shows', 'tv_seasons.tv_show_id', '=', 'tv_shows.id')
                 ->where('tv_seasons.season_id', '=', $season->id)
                 ->where('tv_shows.is_hidden', false);
-            if ($parameters['sequels'] && $parameters['sequels'] === false) {
+            if (isset($parameters['sequels']) && $parameters['sequels'] === false) {
                 $query = $query->where('tv_seasons.number', '=', 1);
             } else {
                 $query = $query->where('tv_seasons.number', '>', 0);
