@@ -356,8 +356,6 @@ class ApiService
 
             if ($omdbResponse->hasBeenSuccessful()) {
                 $tvShow->summary = $omdbResponse->getSummary();
-                $tvShow->imdb_score = $omdbResponse->getImdbScore();
-                $tvShow->imdb_votes = $omdbResponse->getImdbVotes();
 
                 // Sync genres
                 $genres = [];
