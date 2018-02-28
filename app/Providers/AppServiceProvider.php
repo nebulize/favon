@@ -17,7 +17,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \Log::useDailyFiles(storage_path().'laravel.log');
     }
 
     /**
