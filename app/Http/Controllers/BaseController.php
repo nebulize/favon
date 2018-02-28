@@ -25,7 +25,7 @@ class BaseController extends Controller
         $this->seasonRepository = $seasonRepository;
     }
 
-    public function index($year, $season)
+    public function index(Request $request, $year, $season)
     {
         try {
             $season = $this->seasonRepository->find([
@@ -35,10 +35,18 @@ class BaseController extends Controller
             $seasons = $this->seasonRepository->index([
                 'around' => $season
             ]);
-            $tvSeasons = $this->tvSeasonRepository->index([
-                'seasonal' => true,
-                'season' => $season
-            ]);
+            if ($request->has('sequels') && $request->get('sequels') === 'false')  {
+                $tvSeasons = $this->tvSeasonRepository->index([
+                    'seasonal' => true,
+                    'sequels' => false,
+                    'season' => $season
+                ]);
+            } else {
+                $tvSeasons = $this->tvSeasonRepository->index([
+                    'seasonal' => true,
+                    'season' => $season
+                ]);
+            }
         } catch (ModelNotFoundException $e) {
             abort(404);
         }

@@ -79,7 +79,7 @@ class TvSeasonRepository implements RepositoryContract
     public function index(array $parameters = []) : Collection
     {
         /**
-         * @var Builder $query
+         * @var QueryBuilder $query
          */
         $query = $this->tvSeason;
 
@@ -89,7 +89,13 @@ class TvSeasonRepository implements RepositoryContract
             $query = $query
                 ->join('tv_shows', 'tv_seasons.tv_show_id', '=', 'tv_shows.id')
                 ->where('tv_seasons.season_id', '=', $season->id)
-                ->where('tv_shows.is_hidden', false)
+                ->where('tv_shows.is_hidden', false);
+            if ($parameters['sequels'] && $parameters['sequels'] === false) {
+                $query = $query->where('tv_seasons.number', '=', 1);
+            } else {
+                $query = $query->where('tv_seasons.number', '>', 0);
+            }
+            $query = $query
                 ->where(function (EloquentBuilder $q) use ($season) {
                     $q->where('tv_shows.imdb_votes', '>=', 2000);
                     // Only filter by popularity if it's a current or future season. That way we also get shows
