@@ -6,15 +6,17 @@
     margin-top: 30px;
 
     &.is-winter {
-      .card__head {
-        background: $color-winter;
-        height: 34px;
-      }
-
       .description__title span {
         color: $color-winter;
       }
     }
+
+    .card__head {
+      background: #fbfbfb;
+      box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .05);
+      height: 34px;
+    }
+
     .card__body {
       display: flex;
       height: 231px;
@@ -28,6 +30,7 @@
       align-items: center;
       display: flex;
       background: #fbfbfb;
+      box-shadow: 0 -1px 5px 0 rgba(0, 0, 0, .05);
       color: #70727c;
       font-size: 1.3rem;
       height: 40px;
