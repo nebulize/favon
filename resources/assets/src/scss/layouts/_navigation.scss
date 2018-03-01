@@ -1,5 +1,5 @@
 .nav {
-  background: #fff;
+  background: $color-white;
   height: 100px;
   padding-bottom: 0;
   padding-top: 0;
@@ -22,8 +22,9 @@
   }
 
   input {
+    // sass-lint:disable-block no-vendor-prefixes
     border: 0;
-    color: #797b80;
+    color: $nav-search-color;
     font-family: $sans-serif;
     font-size: 1.4rem;
     height: 30px;
@@ -31,28 +32,31 @@
     padding-left: 10px;
 
     &::-webkit-input-placeholder {
-      color: #c8cbd3;
+      color: $nav-search-color-placeholder;
       font-family: 'Montserrat', sans-serif;
       font-size: 1.3rem;
       font-weight: 600;
       text-transform: uppercase;
     }
+
     &::-moz-placeholder {
-      color: #c8cbd3;
+      color: $nav-search-color-placeholder;
       font-family: 'Montserrat', sans-serif;
       font-size: 1.3rem;
       font-weight: 600;
       text-transform: uppercase;
     }
+
     &:-ms-input-placeholder {
-      color: #c8cbd3;
+      color: $nav-search-color-placeholder;
       font-family: 'Montserrat', sans-serif;
       font-size: 1.3rem;
       font-weight: 600;
       text-transform: uppercase;
     }
+
     &:-moz-placeholder {
-      color: #c8cbd3;
+      color: $nav-search-color-placeholder;
       font-family: 'Montserrat', sans-serif;
       font-size: 1.3rem;
       font-weight: 600;
@@ -63,17 +67,19 @@
 
 .nav__icon {
   svg {
-    fill: #d9dce3;
+    fill: $nav-icon-color;
     height: 20px;
 
     &:hover {
-      fill: #a8abb1;
+      fill: $nav-icon-color-hover;
     }
   }
 }
 
-.icon--inbox svg {
-  height: 15px;
+.icon--inbox {
+  svg {
+    height: 15px;
+  }
 }
 
 .nav-item {
@@ -85,38 +91,39 @@
   }
 }
 
-.nav-item.is-link {
-  padding-left: 0;
-  padding-right: 0;
-  margin-left: 15px;
-  margin-right: 15px;
-
-  a {
-    color: #b3b6bc;
-    font-family: $sans-serif;
-    font-size: 1.3rem;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
-
-  &:hover,
-  &:active,
-  &:focus {
-    a {
-      color: #979aa7;
-    }
-  }
-
-  &.is-active {
-    border-bottom: 3px solid $color-winter-dark;
+.nav-item {
+  .is-link {
+    margin-left: 15px;
+    margin-right: 15px;
+    padding-left: 0;
+    padding-right: 0;
 
     a {
-      color: #70727c;
+      color: $nav-link-color;
+      font-family: $sans-serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      a {
+        color: $nav-link-color-hover;
+      }
+    }
+
+    &.is-active {
+      border-bottom: 3px solid $color-winter-dark;
+
+      a {
+        color: $nav-link-color-active;
+      }
+    }
+
+    &.has-margin-right {
+      margin-right: 50px;
     }
   }
-
-  &.has-margin-right {
-    margin-right: 50px;
-  }
-
 }

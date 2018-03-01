@@ -1,6 +1,6 @@
 @import 'abstracts/variables';
 
-@import '../vendor/luma/src/scss/main';
+@import 'vendor';
 
 @import 'base/utilities';
 
@@ -9,5 +9,6 @@
 @import 'layouts/filters';
 
 @import 'components/card';
+@import 'components/toggle';
 
 @import 'pages/seasonal';

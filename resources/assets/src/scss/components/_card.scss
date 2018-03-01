@@ -1,19 +1,21 @@
 .card {
   &.is-seasonal {
-    background: #fff;
-    box-shadow: 0px 10px 40px rgba(0,0,0,0.1);
+    background: $card-color-bg;
+    box-shadow: 0 10px 40px $card-shadow;
     height: 305px;
     margin-top: 30px;
 
     &.is-winter {
-      .description__title span {
-        color: $color-winter;
+      .description__title {
+        span {
+          color: $color-winter;
+        }
       }
     }
 
     .card__head {
-      background: #fbfbfb;
-      box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .05);
+      background: $card-color-bg-accent;
+      box-shadow: 0 1px 5px 0 $card-shadow-accent;
       height: 34px;
     }
 
@@ -21,17 +23,19 @@
       display: flex;
       height: 231px;
 
-      .body__poster img {
-        height: 231px;
+      .body__poster {
+        img {
+          height: 231px;
+        }
       }
     }
 
     .card__footer {
       align-items: center;
+      background: $card-color-bg-accent;
+      box-shadow: 0 -1px 5px 0 $card-shadow-accent;
+      color: $card-color-accent;
       display: flex;
-      background: #fbfbfb;
-      box-shadow: 0 -1px 5px 0 rgba(0, 0, 0, .05);
-      color: #70727c;
       font-size: 1.3rem;
       height: 40px;
       padding: 10px;
@@ -53,7 +57,7 @@
     }
 
     .description__title {
-      color: #7b7d85;
+      color: $card-color-title;
       font-size: 1.4rem;
       font-weight: 800;
       margin: 0;
@@ -61,19 +65,19 @@
     }
 
     .description__plot {
-      color: #70727c;
+      color: $card-color-accent;
       font-size: 1.2rem;
       margin-top: 10px;
     }
 
     .genre-label {
-      box-shadow:  0px 1px 10px 0px rgba(211, 215, 221, 0.7);
-      color: #9d9ea1;
+      box-shadow:  0 1px 10px 0 $card-shadow-genre;
+      color: $card-color-genre;
       display: inline-block;
-      padding: 3px;
       font-size: .9rem;
       font-weight: 800;
       margin-top: .5rem;
+      padding: 3px;
       text-transform: uppercase;
     }
   }

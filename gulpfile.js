@@ -12,6 +12,7 @@ const sassLint = require('gulp-sass-lint');
 const eslint = require('gulp-eslint');
 const cleanCSS = require('gulp-clean-css');
 const imagemin = require('gulp-imagemin');
+const tildeImporter = require('node-sass-tilde-importer');
 
 const paths = {
     src: './resources/assets/src',
@@ -62,7 +63,9 @@ gulp.task('watch', ['build'], () => {
  */
 gulp.task('sass', ['sass:lint'], () => {
     return gulp.src(`${paths.src}/scss/*.scss`)
-        .pipe(sass())
+        .pipe(sass({
+            importer: tildeImporter
+        }))
         .pipe(postcss([autoprefixer()]))
         .pipe(cleanCSS())
         .pipe(rename(`${config.projectName}.min.css`))

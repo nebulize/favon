@@ -6,8 +6,13 @@
 
 // Colors
 //-------------------------------------
+$color-white: #fff;
+$color-black: #000;
 $color-winter: #82d4f5;
 $color-winter-dark: #42c5d6;
+$color-icon: #9599a1;
+
+$color-shadow-1: rgba(211, 215, 221, .4);
 
 // General
 //-------------------------------------
@@ -25,3 +30,43 @@ $sans-serif: (
   'Helvetica Neue',
   sans-serif
 );
+
+// Navigation
+//-------------------------------------
+$nav-search-color: #797b80;
+$nav-search-color-placeholder: #c8cbd3;
+$nav-icon-color: #d9dce3;
+$nav-icon-color-hover: #a8abb1;
+$nav-link-color: #b3b6bc;
+$nav-link-color-hover: #979aa7;
+$nav-link-color-active: #70727c;
+
+// Cards
+//-------------------------------------
+$card-color-bg: #fff;
+$card-shadow: rgba(0, 0, 0, .1);
+$card-color-bg-accent: #fbfbfb;
+$card-color-accent: #70727c;
+$card-shadow-accent: rgba(0, 0, 0, .05);
+$card-shadow-genre: rgba(211, 215, 221, .7);
+$card-color-genre: #9d9ea1;
+$card-color-title: #7b7d85;
+
+// Banners
+//-------------------------------------
+$banner-color-text: #fff;
+$banner-winter-bg-top: #82d5f7;
+$banner-winter-bg-bottom: #f0f9fe;
+
+// Filters
+//-------------------------------------
+$filters-color-seasons: #bbbdc4;
+$filters-color-seasons-hover: #979aa7;
+$filters-color: #32394d;
+
+// Toggle Switch
+//-------------------------------------
+$toggle-color: #898989;
+$toggle-shadow: rgba(0, 0, 0, .05);
+$toggle-color-bg: #3adc92;
+$toggle-color-disabled: #d5d5d5;

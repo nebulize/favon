@@ -3,17 +3,18 @@
 
   &.is-winter {
     .banner__image {
-      position: absolute;
       height: 180px;
       left: 2rem;
+      position: absolute;
       top: 20px;
     }
+
     .banner__top {
-      background: #82d5f7;
+      background: $banner-winter-bg-top;
       height: 162px;
 
       h2 {
-        color: #fff;
+        color: $banner-color-text;
         display: inline-block;
         font-size: 4.8rem;
         font-weight: 800;
@@ -23,8 +24,9 @@
         text-transform: uppercase;
       }
     }
+
     .banner__bottom {
-      background: #f0f9fe;
+      background: $banner-winter-bg-bottom;
       height: 38px;
     }
   }
