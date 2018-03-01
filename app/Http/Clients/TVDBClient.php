@@ -7,7 +7,7 @@ use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Psr7\Request;
 use App\Http\Adapters\APIAdapter;
 use App\Http\Adapters\TVDBAdapter;
-use Illuminate\Contracts\Logging\Log;
+use Psr\Log\LoggerInterface;
 use App\Http\Responses\TVDB\TvdbResponse;
 
 class TVDBClient
@@ -30,7 +30,7 @@ class TVDBClient
     protected $token;
 
     /**
-     * @var Log
+     * @var LoggerInterface
      */
     protected $logger;
 
@@ -38,9 +38,9 @@ class TVDBClient
      * TVDBClient constructor.
      *
      * @param TVDBAdapter $adapter
-     * @param Log $logger
+     * @param LoggerInterface $logger
      */
-    public function __construct(TVDBAdapter $adapter, Log $logger)
+    public function __construct(TVDBAdapter $adapter, LoggerInterface $logger)
     {
         $this->adapter = $adapter;
         $this->url = config('media.tvdb_url');

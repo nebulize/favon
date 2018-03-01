@@ -5,7 +5,7 @@ namespace App\Http\Clients;
 use GuzzleHttp\Psr7\Request;
 use App\Http\Adapters\APIAdapter;
 use App\Http\Adapters\OMDBAdapter;
-use Illuminate\Contracts\Logging\Log;
+use Psr\Log\LoggerInterface;
 use App\Http\Responses\OMDB\OmdbResponse;
 
 class OMDBClient
@@ -28,16 +28,16 @@ class OMDBClient
     protected $url;
 
     /**
-     * @var Log
+     * @var LoggerInterface
      */
     protected $logger;
 
     /**
      * OMDBClient constructor.
      * @param OMDBAdapter $adapter
-     * @param Log $logger
+     * @param LoggerInterface $logger
      */
-    public function __construct(OMDBAdapter $adapter, Log $logger)
+    public function __construct(OMDBAdapter $adapter, LoggerInterface $logger)
     {
         $this->adapter = $adapter;
         $this->url = config('media.omdb_url').'/?apikey='.config('media.omdb_api_key');

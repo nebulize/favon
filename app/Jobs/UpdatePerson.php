@@ -4,7 +4,7 @@ namespace App\Jobs;
 
 use Illuminate\Bus\Queueable;
 use App\Http\Clients\TMDBClient;
-use Illuminate\Contracts\Logging\Log;
+use Psr\Log\LoggerInterface;
 use App\Repositories\PersonRepository;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -38,9 +38,9 @@ class UpdatePerson implements ShouldQueue
     /**
      * @param TMDBClient $tmdbClient
      * @param PersonRepository $personRepository
-     * @param Log $logger
+     * @param LoggerInterface $logger
      */
-    public function handle(TMDBClient $tmdbClient, PersonRepository $personRepository, Log $logger): void
+    public function handle(TMDBClient $tmdbClient, PersonRepository $personRepository, LoggerInterface $logger): void
     {
         $personResponse = $tmdbClient->getPerson($this->id);
         if ($personResponse->hasBeenSuccessful() === false) {

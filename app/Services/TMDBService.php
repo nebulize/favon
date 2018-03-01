@@ -4,7 +4,7 @@ namespace App\Services;
 
 use Carbon\Carbon;
 use App\Http\Clients\TMDBClient;
-use Illuminate\Contracts\Logging\Log;
+use Psr\Log\LoggerInterface;
 use Intervention\Image\Facades\Image;
 use App\Exceptions\GenericAPIException;
 use App\Exceptions\NoAPIResultsFoundException;
@@ -17,16 +17,16 @@ class TMDBService
     protected $client;
 
     /**
-     * @var Log
+     * @var LoggerInterface
      */
     protected $logger;
 
     /**
      * TMDBService constructor.
      * @param TMDBClient $client
-     * @param Log $logger
+     * @param LoggerInterface $logger
      */
-    public function __construct(TMDBClient $client, Log $logger)
+    public function __construct(TMDBClient $client, LoggerInterface $logger)
     {
         $this->client = $client;
         $this->logger = $logger;

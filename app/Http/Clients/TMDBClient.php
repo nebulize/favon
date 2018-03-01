@@ -6,7 +6,7 @@ use App\Http\Responses\TMDB\ChangedTvShowsResponse;
 use GuzzleHttp\Psr7\Request;
 use App\Http\Adapters\APIAdapter;
 use App\Http\Adapters\TMDBAdapter;
-use Illuminate\Contracts\Logging\Log;
+use Psr\Log\LoggerInterface;
 use App\Http\Responses\TMDB\PersonResponse;
 use App\Http\Responses\TMDB\TvShowResponse;
 use App\Http\Responses\TMDB\CountryResponse;
@@ -35,16 +35,16 @@ class TMDBClient
     protected $key;
 
     /**
-     * @var Log
+     * @var LoggerInterface
      */
     protected $logger;
 
     /**
      * TMDBClient constructor.
      * @param TMDBAdapter $adapter
-     * @param Log $logger
+     * @param LoggerInterface $logger
      */
-    public function __construct(TMDBAdapter $adapter, Log $logger)
+    public function __construct(TMDBAdapter $adapter, LoggerInterface $logger)
     {
         $this->adapter = $adapter;
         $this->logger = $logger;
