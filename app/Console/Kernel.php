@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('favon:persons:update')->daily();
         $schedule->command('favon:tv:update')->daily();
         $schedule->command('favon:tv:popularity')->daily();
-        $schedule->command('favon:ratings:update')->weekly();
+        $schedule->command('favon:ratings:update')->cron('0 4 * * 1,4');
     }
 
     /**
