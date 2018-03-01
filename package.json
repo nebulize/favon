@@ -45,6 +45,6 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "lumacss": "^0.2.1"
+        "lumacss": "^0.3.0"
     }
 }
