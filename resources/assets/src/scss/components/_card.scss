@@ -28,6 +28,15 @@
           height: 231px;
         }
       }
+
+      .poster__placeholder {
+        align-items: center;
+        background: $card-color-placeholder;
+        display: flex;
+        height: 231px;
+        justify-content: center;
+        width: 154px;
+      }
     }
 
     .card__footer {
