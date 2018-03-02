@@ -103,6 +103,11 @@ class ApiService
         }
         $tvShow = $this->tvShowRepository->create($tvShowResponse->toArray());
 
+        // Sync networks
+        if ($tvShowResponse->getNetworks() !== null) {
+            $this->tvShowRepository->syncNetworks($tvShow, $tvShowResponse->getNetworks());
+        }
+
         // Sync languages
         if ($tvShowResponse->getLanguages() !== null) {
             $this->tvShowRepository->syncLanguages($tvShow, $tvShowResponse->getLanguages());
@@ -332,6 +337,11 @@ class ApiService
         // It's in our database and has just been updated on TMDB. Update it on our end.
         $tvShow->fill($tvShowResponse->toArray());
         $this->tvShowRepository->save($tvShow);
+
+        // Sync networks
+        if ($tvShowResponse->getNetworks() !== null) {
+            $this->tvShowRepository->syncNetworks($tvShow, $tvShowResponse->getNetworks());
+        }
 
         // Sync languages
         if ($tvShowResponse->getLanguages() !== null) {

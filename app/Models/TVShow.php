@@ -84,7 +84,7 @@ class TVShow extends Model
      * Fields that should be mass assignable.
      * @var array
      */
-    protected $fillable = ['imdb_id', 'name', 'status', 'first_aired', 'network', 'runtime', 'rating',
+    protected $fillable = ['imdb_id', 'name', 'status', 'first_aired', 'runtime', 'rating',
         'summary', 'plot', 'country', 'poster', 'banner', 'imdb_score', 'imdb_votes', 'air_day', 'air_time',
         'tvdb_id', 'tmdb_id', 'homepage', 'popularity', ];
 

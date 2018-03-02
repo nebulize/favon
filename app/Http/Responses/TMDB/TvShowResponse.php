@@ -27,11 +27,6 @@ class TvShowResponse extends BaseResponse
     /**
      * @var string
      */
-    protected $network;
-
-    /**
-     * @var string
-     */
     protected $runtime;
 
     /**
@@ -63,6 +58,11 @@ class TvShowResponse extends BaseResponse
      * @var float
      */
     protected $popularity;
+
+    /**
+     * @var string[]
+     */
+    protected $networks = [];
 
     /**
      * @var string[]
@@ -101,14 +101,6 @@ class TvShowResponse extends BaseResponse
     public function getFirstAired(): ?Carbon
     {
         return $this->first_aired;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getNetwork(): ?string
-    {
-        return $this->network;
     }
 
     /**
@@ -170,6 +162,14 @@ class TvShowResponse extends BaseResponse
     /**
      * @return string[]
      */
+    public function getNetworks(): array
+    {
+        return $this->networks;
+    }
+
+    /**
+     * @return string[]
+     */
     public function getLanguages(): array
     {
         return $this->languages;
@@ -199,7 +199,7 @@ class TvShowResponse extends BaseResponse
         $this->parseName();
         $this->parseStatus();
         $this->parseFirstAired();
-        $this->parseNetwork();
+        $this->parseNetworks();
         $this->parseRuntime();
         $this->plot = $this->parseProperty('overview');
         $this->poster = $this->parseProperty('poster_path');
@@ -255,26 +255,19 @@ class TvShowResponse extends BaseResponse
     }
 
     /**
-     * Parse and set the network.
+     * Parse and set the networks.
      */
-    private function parseNetwork(): void
+    private function parseNetworks(): void
     {
         if (empty($this->getResponse()->networks)) {
             return;
         }
 
         if (\is_array($this->getResponse()->networks)) {
-            $network = array_reduce($this->getResponse()->networks, function ($acc, $item) {
-                $acc .= $item->name.', ';
-
-                return $acc;
-            });
-            $network = rtrim($network, ', ');
-        } else {
-            $network = (string) $this->getResponse()->networks;
+            foreach ($this->getResponse()->networks as $network) {
+                $this->networks[] = $network->name;
+            }
         }
-
-        $this->network = $network;
     }
 
     /**
@@ -343,7 +336,6 @@ class TvShowResponse extends BaseResponse
             'name' => $this->getName(),
             'status' => $this->getStatus(),
             'first_aired' => $this->getFirstAired(),
-            'network' => $this->getNetwork(),
             'runtime' => $this->getRuntime(),
             'plot' => $this->getPlot(),
             'poster' => $this->getPoster(),

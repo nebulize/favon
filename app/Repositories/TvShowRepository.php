@@ -170,6 +170,17 @@ class TvShowRepository implements RepositoryContract
     }
 
     /**
+     * Add networks to tv show.
+     *
+     * @param TVShow $show
+     * @param array $networks
+     */
+    public function syncNetworks(TVShow $show, array $networks): void
+    {
+        $show->networks()->sync($networks);
+    }
+
+    /**
      * Save a tv show object to database.
      *
      * @param TVShow $tvShow
