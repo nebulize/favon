@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\TVShow;
 use App\Repositories\NetworkRepository;
-use App\Repositories\TvShowRepository;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
@@ -28,31 +28,31 @@ class ExtractNetworks extends Command
     /**
      * Execute the command.
      *
-     * @param TvShowRepository $tvShowRepository
      * @param NetworkRepository $networkRepository
      */
-    public function handle(TvShowRepository $tvShowRepository, NetworkRepository $networkRepository): void
+    public function handle(NetworkRepository $networkRepository): void
     {
         DB::connection()->disableQueryLog();
-        $tvShows = $tvShowRepository->index();
-        foreach ($tvShows as $tvShow) {
-            $networks = explode(', ', $tvShow->network);
-            foreach ($networks as $nw) {
-                try {
-                    $network = $networkRepository->find([
-                        'name' => $nw
-                    ]);
-                } catch (ModelNotFoundException $e) {
-                    $network = $networkRepository->create([
-                        'name' => $nw
-                    ]);
+        \DB::disableQueryLog();
+        TVShow::chunk(100, function ($tvShows) use ($networkRepository) {
+            foreach ($tvShows as $tvShow) {
+                if ($tvShow->network === null) {
+                    continue;
                 }
-                try  {
-                    $tvShow->networks()->attach($network);
-                } catch (QueryException $e){
-                    // Nothing to do
+                $networks = explode(', ', $tvShow->network);
+                foreach ($networks as $nw) {
+                    try {
+                        $network = $networkRepository->find(['name' => $nw]);
+                    } catch (ModelNotFoundException $e) {
+                        $network = $networkRepository->create(['name' => $nw]);
+                    }
+                    try {
+                        $tvShow->networks()->attach($network);
+                    } catch (QueryException $e) {
+                        // Nothing to do
+                    }
                 }
             }
-        }
+        });
     }
 }
