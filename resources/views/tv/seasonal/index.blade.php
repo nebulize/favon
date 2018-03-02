@@ -72,7 +72,7 @@
                                 <span>{{ \Carbon\Carbon::parse($tvSeason->season_first_aired)->format('M d, Y') }}</span>
                                 <div class="flex-group is-right">
                                     <img src="/images/imdb.svg">
-                                    <span>{{ $tvSeason->tvShow->imdb_score === 0.00 ? 'N/A' : $tvSeason->tvShow->imdb_score }}</span>
+                                    <span>{{ $tvSeason->tvShow->imdb_score == 0 ? 'N/A' : $tvSeason->tvShow->imdb_score }}</span>
                                     <img src="/images/heart.svg">
                                     <span>0</span>
                                     <img src="/images/star.svg">
