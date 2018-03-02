@@ -102,6 +102,10 @@ class TvSeasonRepository implements RepositoryContract
                     // that have not yet premiered
                     if (Carbon::now()->gt($season->end_date) === false) {
                         $q->orWhere('tv_shows.popularity', '>=', 15);
+                        // Also include shows from a few selected networks by default (Netflix, HBO, Amazon, Hulu, SyFy, Showtime, FX, The CW, AMC)
+                        $q->orWhereIn('tv_shows.id', function (QueryBuilder $q2) {
+                            $q2->select('tv_show_id')->from('network_tv_show')->whereIn('network_id', [113, 25, 92, 39, 131, 503, 746, 27, 30]);
+                        });
                     }
                 });
             // For current or future seasons, only query english language shows. This filters out a few good
