@@ -143,4 +143,14 @@ class TVShow extends Model
     {
         return $this->hasManyThrough(TVEpisode::class, TVSeason::class, 'tv_show_id', 'tv_season_id');
     }
+
+    /**
+     * Many-to-Many: one tv show can have many networks.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function networks()
+    {
+        return $this->belongsToMany(Network::class, 'network_tv_show', 'tv_show_id', 'network_id');
+    }
 }

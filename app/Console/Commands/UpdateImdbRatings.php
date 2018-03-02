@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\UpdateImdbRatingsChunk;
 use App\Repositories\TvShowRepository;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
