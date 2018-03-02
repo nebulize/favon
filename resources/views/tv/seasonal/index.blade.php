@@ -1,15 +1,27 @@
 @extends('layouts.main')
 @section('content')
-    <div class="banner is-winter">
+    <div class="banner is-{{ lcfirst($season->name) }}">
         <div class="container">
-            <img class="banner__image" src="/images/banner-winter.svg">
+            @if ($season->name === 'Winter')
+                <img class="banner__image" src="/images/banner-winter.svg">
+            @elseif ($season->name === 'Spring')
+                <img class="banner__image" src="/images/banner-spring.svg">
+            @endif
         </div>
-        <div class="banner__top">
-            <div class="container">
-                <h2>{{ $season->name }} {{ $season->year }}</h2>
+        @if ($season->name === 'Winter')
+            <div class="banner__top">
+                <div class="container">
+                    <h2>{{ $season->name }} {{ $season->year }}</h2>
+                </div>
             </div>
-        </div>
-        <div class="banner__bottom"></div>
+            <div class="banner__bottom"></div>
+        @elseif ($season->name === 'Spring')
+            <div class="banner__bg">
+                <div class="container">
+                    <h2>{{ $season->name }} {{ $season->year }}</h2>
+                </div>
+            </div>
+        @endif
     </div>
     <div class="filters has-depth-1">
         <div class="container">
@@ -18,7 +30,7 @@
                     @foreach ($seasons['before'] as $seasonBefore)
                         <li><a href="{{ route('tv.seasonal.index', [$seasonBefore->year, lcfirst($seasonBefore->name)]) }}">{{ ucfirst($seasonBefore->name) }} {{ $seasonBefore->year }}</a></li>
                     @endforeach
-                    <li class="is-active"><a href="{{ route('tv.seasonal.index', [$season->year, lcfirst($season->name)]) }}">{{ ucfirst($season->name) }} {{ $season->year }}</a></li>
+                    <li class="is-active"><a class="text-{{ lcfirst($season->name) }}" href="{{ route('tv.seasonal.index', [$season->year, lcfirst($season->name)]) }}">{{ ucfirst($season->name) }} {{ $season->year }}</a></li>
                     @foreach ($seasons['after'] as $seasonAfter)
                         <li><a href="{{ route('tv.seasonal.index', [$seasonAfter->year, lcfirst($seasonAfter->name)]) }}">{{ ucfirst($seasonAfter->name) }} {{ $seasonAfter->year }}</a></li>
                     @endforeach
@@ -57,7 +69,7 @@
                                     @endif
                                 </div>
                                 <div class="body__description">
-                                    <h3 class="description__title">{{ $tvSeason->tvShow->name }} <span>S{{ $tvSeason->number }}</span></h3>
+                                    <h3 class="description__title">{{ $tvSeason->tvShow->name }} <span class="text-{{ lcfirst($season->name) }}">S{{ $tvSeason->number }}</span></h3>
                                     @foreach ($tvSeason->tvShow->genres as $genre)
                                         <span class="genre-label">{{ $genre->name }}</span>
                                     @endforeach

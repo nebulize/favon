@@ -1,33 +1,54 @@
 .banner {
   height: 200px;
 
+  h2 {
+    display: inline-block;
+    font-size: 4.8rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    margin-left: 350px;
+    margin-top: 60px;
+    text-transform: uppercase;
+  }
+
   &.is-winter {
-    .banner__image {
-      height: 180px;
-      left: 2rem;
-      position: absolute;
-      top: 20px;
+    h2 {
+      color: $banner-color-text-bright;
     }
 
     .banner__top {
       background: $banner-winter-bg-top;
-      height: 162px;
-
-      h2 {
-        color: $banner-color-text;
-        display: inline-block;
-        font-size: 4.8rem;
-        font-weight: 800;
-        letter-spacing: 4px;
-        margin-left: 350px;
-        margin-top: 60px;
-        text-transform: uppercase;
-      }
     }
 
     .banner__bottom {
       background: $banner-winter-bg-bottom;
-      height: 38px;
     }
   }
+
+  &.is-spring {
+    h2 {
+      color: $banner-color-text-bright;
+    }
+
+    .banner__bg {
+      background: radial-gradient(#d44771, $color-spring);
+      height: 200px;
+    }
+  }
+
+}
+
+.banner__top {
+  height: 162px;
+}
+
+.banner__image {
+  height: 180px;
+  left: 2rem;
+  position: absolute;
+  top: 20px;
+}
+
+.banner__bottom {
+  height: 38px;
 }

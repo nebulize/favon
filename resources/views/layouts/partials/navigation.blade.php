@@ -1,7 +1,7 @@
 <nav class="nav">
     <div class="container">
         <div class="nav-left">
-            <a class="nav-item nav-brand" href="#!"><img src="/images/logo-winter.svg"></a>
+            <a class="nav-item nav-brand" href="#!"><img src="/images/logo-{{ lcfirst($season->name) }}.svg"></a>
             <div class="nav-item nav__search">
                 <img src="/images/search.png" alt="Search">
                 <input placeholder="Search">
