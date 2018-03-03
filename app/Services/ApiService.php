@@ -180,6 +180,10 @@ class ApiService
             }
         }
 
+        if ($tvShow->summary === null || $tvShow->summary === '' || $tvShow->summary === 'N/A') {
+            $tvShow->summary = $tvShowResponse->getPlot();
+        }
+
         // Save updated tv show
         $this->tvShowRepository->save($tvShow);
 
@@ -418,6 +422,10 @@ class ApiService
                 $tvShow->air_time = $tvdbResponse->getAirTime();
                 $tvShow->air_day = $tvdbResponse->getAirDay();
             }
+        }
+
+        if ($tvShow->summary === null || $tvShow->summary === '' || $tvShow->summary === 'N/A') {
+            $tvShow->summary = $tvShowResponse->getPlot();
         }
 
         // Save updated tv show
