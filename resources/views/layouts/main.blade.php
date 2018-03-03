@@ -2,7 +2,10 @@
 @include('layouts.partials.head')
 <body>
 @include('layouts.partials.navigation')
-@section('content')
-@show
+<main>
+    @section('content')
+    @show
+</main>
+@include('layouts.partials.footer')
 </body>
 </html>

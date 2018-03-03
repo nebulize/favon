@@ -8,9 +8,25 @@
 .nav-brand {
   margin-right: 30px;
 
-  img {
+  svg {
     height: 25px;
     margin-bottom: 2px;
+  }
+
+  .is-winter {
+    fill: $color-winter-dark;
+  }
+
+  .is-spring {
+    fill: $color-spring;
+  }
+
+  .is-summer {
+    fill: $color-summer;
+  }
+
+  .is-fall {
+    fill: $color-fall;
   }
 }
 

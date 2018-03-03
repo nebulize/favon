@@ -1,0 +1,52 @@
+footer {
+  background: #2c2c2c;
+  min-height: 300px;
+  padding: 80px 0 30px 0;
+
+  .logo {
+    fill: #777777;
+    height: 40px;
+  }
+
+  h4 {
+    color: #9f9f9f;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  ul {
+    padding: 0;
+  }
+
+  li {
+    list-style: none;
+    padding: 5px 0;
+  }
+
+  a {
+    color: #9f9f9f;
+    font-size: 1.4rem;
+  }
+
+  .social {
+    li {
+      display: inline-block;
+      margin-top: 6px;
+    }
+  }
+
+  .social--twitter {
+    svg {
+      fill: #cfcfcf;
+      height: 15px;
+    }
+
+    &:hover {
+      svg {
+        fill: $color-link;
+      }
+    }
+  }
+
+}
