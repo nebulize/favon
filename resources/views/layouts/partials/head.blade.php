@@ -7,11 +7,12 @@
     <meta name="keywords" content="@yield ('keywords')">
     <meta name="description" content="@yield ('description')">
 
-    <title>@yield ('title')</title>
+    <title>Favon @yield ('title')</title>
 
     <!-- Stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700" rel="stylesheet">
     <link href="/css/favon.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/1.8.36/css/materialdesignicons.min.css">
 
     <!-- Favicon and Apple Touch Icons-->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">

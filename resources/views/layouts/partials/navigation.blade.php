@@ -40,3 +40,5 @@
         </div>
     </div>
 </nav>
+<div class="nav is-toggle">
+</div>
