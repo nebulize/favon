@@ -27,8 +27,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('favon:persons:update')->daily();
         $schedule->command('favon:tv:update')->daily();
         $schedule->command('favon:tv:popularity')->daily();
-        $schedule->command('favon:ratings:update')->cron('0 4 * * 1,4')
-        ->appendOutputTo(storage_path('logs/laravel-cmd-ratings-'.date('Y-m-d').'.log'));
+        $schedule->command('favon:ratings:update')->daily();
+        $schedule->command('horizon:snapshot')->everyFiveMinutes();
     }
 
     /**
