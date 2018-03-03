@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Responses\TMDB\Models\REpisode;
+use App\Repositories\NetworkRepository;
 use Carbon\Carbon;
 use App\Models\TVShow;
 use App\Models\TVSeason;
@@ -71,11 +72,16 @@ class ApiService
      */
     protected $personRepository;
 
+    /**
+     * @var NetworkRepository
+     */
+    protected $networkRepository;
+
     public function __construct(TMDBClient $tmdbClient, OMDBClient $omdbClient, TVDBClient $tvdbClient,
                                 TvShowRepository $tvShowRepository, GenreRepository $genreRepository,
                                 TvSeasonRepository $tvSeasonRepository, SeasonRepository $seasonRepository,
                                 TvEpisodeRepository $tvEpisodeRepository, VideoRepository $videoRepository,
-                                PersonRepository $personRepository)
+                                PersonRepository $personRepository, NetworkRepository $networkRepository)
     {
         $this->tmdbClient = $tmdbClient;
         $this->omdbClient = $omdbClient;
@@ -87,6 +93,7 @@ class ApiService
         $this->tvEpisodeRepository = $tvEpisodeRepository;
         $this->videoRepository = $videoRepository;
         $this->personRepository = $personRepository;
+        $this->networkRepository = $networkRepository;
     }
 
     /**
@@ -104,9 +111,16 @@ class ApiService
         $tvShow = $this->tvShowRepository->create($tvShowResponse->toArray());
 
         // Sync networks
-        if ($tvShowResponse->getNetworks() !== null) {
-            $this->tvShowRepository->syncNetworks($tvShow, $tvShowResponse->getNetworks());
+        $networks = [];
+        foreach ($tvShowResponse->getNetworks() as $name) {
+            try {
+                $network = $this->networkRepository->find(['name' => $name]);
+            } catch (ModelNotFoundException $e) {
+                $network = $this->networkRepository->create(['name' => $name]);
+            }
+            $networks[] = $network->id;
         }
+        $this->tvShowRepository->syncNetworks($tvShow, $networks);
 
         // Sync languages
         if ($tvShowResponse->getLanguages() !== null) {
@@ -339,9 +353,16 @@ class ApiService
         $this->tvShowRepository->save($tvShow);
 
         // Sync networks
-        if ($tvShowResponse->getNetworks() !== null) {
-            $this->tvShowRepository->syncNetworks($tvShow, $tvShowResponse->getNetworks());
+        $networks = [];
+        foreach ($tvShowResponse->getNetworks() as $name) {
+            try {
+                $network = $this->networkRepository->find(['name' => $name]);
+            } catch (ModelNotFoundException $e) {
+                $network = $this->networkRepository->create(['name' => $name]);
+            }
+            $networks[] = $network->id;
         }
+        $this->tvShowRepository->syncNetworks($tvShow, $networks);
 
         // Sync languages
         if ($tvShowResponse->getLanguages() !== null) {
