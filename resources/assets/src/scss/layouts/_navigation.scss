@@ -115,10 +115,24 @@
     }
 
     &.is-active {
-      border-bottom: 3px solid $color-winter-dark;
-
       a {
         color: $nav-link-color-active;
+      }
+
+      &--winter {
+        border-bottom: 3px solid $color-winter-dark;
+      }
+
+      &--spring {
+        border-bottom: 3px solid $color-spring;
+      }
+
+      &--summer {
+        border-bottom: 3px solid $color-summer;
+      }
+
+      &--fall {
+        border-bottom: 3px solid $color-fall;
       }
     }
 

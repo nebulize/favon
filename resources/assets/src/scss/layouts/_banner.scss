@@ -26,16 +26,73 @@
   }
 
   &.is-spring {
+    .banner__image {
+      height: 160px;
+    }
+
     h2 {
       color: $banner-color-text-bright;
     }
 
+    .banner__top {
+      background: #ff3f7a;
+      height: 180px;
+    }
+
+    .banner__bottom {
+      background: #d44771;
+      height: 20px;
+    }
+
     .banner__bg {
-      background: radial-gradient(#d44771, $color-spring);
+      //background: radial-gradient(#d44771, $color-spring);
+      //background: radial-gradient(#ed95af, #ff7bb9);
+      background: radial-gradient(#ffc6d7, #ffc6e1);
       height: 200px;
     }
   }
 
+  &.is-summer {
+    .banner__image {
+      height: 140px;
+      top: 40px;
+    }
+
+    h2 {
+      color: #ffb950;
+      opacity: .5;
+    }
+
+    .banner__top {
+      background: linear-gradient(#fbf1d6, #fff7df);
+    }
+
+    .banner__bottom {
+      background: #fadeb9;
+    }
+  }
+
+  &.is-fall {
+    .banner__image {
+      height: 180px;
+      top: 0;
+    }
+
+    h2 {
+      color: #7b2f1a;
+      opacity: .3;
+    }
+
+    .banner__top {
+      background: linear-gradient(#f4e7c4, #fde4a6);
+      height: 180px;
+    }
+
+    .banner__bottom {
+      background: #ffd79e;
+      height: 20px;
+    }
+  }
 }
 
 .banner__top {

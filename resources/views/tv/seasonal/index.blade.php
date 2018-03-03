@@ -2,26 +2,14 @@
 @section('content')
     <div class="banner is-{{ lcfirst($season->name) }}">
         <div class="container">
-            @if ($season->name === 'Winter')
-                <img class="banner__image" src="/images/banner-winter.svg">
-            @elseif ($season->name === 'Spring')
-                <img class="banner__image" src="/images/banner-spring.svg">
-            @endif
+            <img class="banner__image" src="/images/banner-{{ lcfirst($season->name) }}.svg">
         </div>
-        @if ($season->name === 'Winter')
             <div class="banner__top">
                 <div class="container">
                     <h2>{{ $season->name }} {{ $season->year }}</h2>
                 </div>
             </div>
             <div class="banner__bottom"></div>
-        @elseif ($season->name === 'Spring')
-            <div class="banner__bg">
-                <div class="container">
-                    <h2>{{ $season->name }} {{ $season->year }}</h2>
-                </div>
-            </div>
-        @endif
     </div>
     <div class="filters has-depth-1">
         <div class="container">

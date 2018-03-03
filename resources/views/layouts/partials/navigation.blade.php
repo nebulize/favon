@@ -11,7 +11,7 @@
             <div class="nav-item is-link">
                 <a href="#!">Home</a>
             </div>
-            <div class="nav-item is-link is-active">
+            <div class="nav-item is-link is-active is-active--{{ lcfirst($season->name) }}">
                 <a class="is-active" href="#!">Seasonal</a>
             </div>
             <div class="nav-item is-link">
