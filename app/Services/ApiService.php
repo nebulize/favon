@@ -151,6 +151,9 @@ class ApiService
                 // Sync genres
                 $genres = [];
                 foreach ($omdbResponse->getGenres() as $name) {
+                    if ($name === 'N/A' || $name === 'Adult') {
+                        continue;
+                    }
                     // Set genre to anime if it's animation from Japan
                     if ($name === 'Animation' && \in_array('JP', $tvShowResponse->getCountries(), true)) {
                         $name = 'Anime';
@@ -395,6 +398,9 @@ class ApiService
                 // Sync genres
                 $genres = [];
                 foreach ($omdbResponse->getGenres() as $name) {
+                    if ($name === 'N/A' || $name === 'Adult') {
+                        continue;
+                    }
                     // Set genre to anime if it's animation from Japan
                     if ($name === 'Animation' && \in_array('JP', $tvShowResponse->getCountries(), true)) {
                         $name = 'Anime';
