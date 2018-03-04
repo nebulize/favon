@@ -49,5 +49,16 @@
   .popup__trigger {
     align-items: center;
     display: flex;
+
+    &.is-active,
+    &:hover {
+      span {
+        color: $color-link;
+      }
+
+      svg {
+        fill: $color-link;
+      }
+    }
   }
 }
