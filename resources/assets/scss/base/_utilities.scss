@@ -1,4 +1,5 @@
 .container {
+
   @include widescreen {
     max-width: 1192px;
   }

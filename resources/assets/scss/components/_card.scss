@@ -19,24 +19,24 @@
       height: 34px;
     }
 
+    .body__poster {
+      img {
+        height: 231px;
+      }
+    }
+
     .card__body {
       display: flex;
       height: 231px;
+    }
 
-      .body__poster {
-        img {
-          height: 231px;
-        }
-      }
-
-      .poster__placeholder {
-        align-items: center;
-        background: $card-color-placeholder;
-        display: flex;
-        height: 231px;
-        justify-content: center;
-        width: 154px;
-      }
+    .poster__placeholder {
+      align-items: center;
+      background: $card-color-placeholder;
+      display: flex;
+      height: 231px;
+      justify-content: center;
+      width: 154px;
     }
 
     .card__footer {
@@ -80,7 +80,7 @@
     }
 
     .genre-label {
-      box-shadow:  0 1px 10px 0 $card-shadow-genre;
+      box-shadow: 0 1px 10px 0 $card-shadow-genre;
       color: $card-color-genre;
       display: inline-block;
       font-size: .9rem;
@@ -91,6 +91,3 @@
     }
   }
 }
-
-
-

@@ -1,3 +1,18 @@
+.banner__top {
+  height: 162px;
+}
+
+.banner__image {
+  height: 180px;
+  left: 2rem;
+  position: absolute;
+  top: 20px;
+}
+
+.banner__bottom {
+  height: 38px;
+}
+
 .banner {
   height: 200px;
 
@@ -93,19 +108,4 @@
       height: 20px;
     }
   }
-}
-
-.banner__top {
-  height: 162px;
-}
-
-.banner__image {
-  height: 180px;
-  left: 2rem;
-  position: absolute;
-  top: 20px;
-}
-
-.banner__bottom {
-  height: 38px;
 }
