@@ -67,7 +67,7 @@
   }
 
   h4 {
-    color: #bbbdc4;
+    color: $popup-color-header;
     font-size: 1.3rem;
     font-weight: 700;
     margin-bottom: .5rem;
@@ -81,8 +81,8 @@
   label,
   p,
   span {
-    color: #32394d;
-    font-size: 1.2rem;
+    color: $popup-color-font;
+    font-size: 1.3rem;
   }
 
   label {

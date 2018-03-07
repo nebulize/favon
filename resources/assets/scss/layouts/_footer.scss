@@ -1,15 +1,15 @@
 footer {
-  background: #2c2c2c;
+  background: $footer-bg;
   min-height: 300px;
   padding: 80px 0 30px;
 
   .logo {
-    fill: #777;
+    fill: $footer-color-logo;
     height: 40px;
   }
 
   h4 {
-    color: #9f9f9f;
+    color: $footer-color-text;
     font-size: 1.3rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -25,7 +25,7 @@ footer {
   }
 
   a {
-    color: #9f9f9f;
+    color: $footer-color-text;
     font-size: 1.4rem;
   }
 
@@ -38,7 +38,7 @@ footer {
 
   .social--twitter {
     svg {
-      fill: #cfcfcf;
+      fill: $footer-color-icon;
       height: 15px;
     }
 

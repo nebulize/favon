@@ -50,20 +50,13 @@
     }
 
     .banner__top {
-      background: #ff3f7a;
+      background: $banner-spring-bg-top;
       height: 180px;
     }
 
     .banner__bottom {
-      background: #d44771;
+      background: $banner-spring-bg-bottom;
       height: 20px;
-    }
-
-    .banner__bg {
-      //background: radial-gradient(#d44771, $color-spring);
-      //background: radial-gradient(#ed95af, #ff7bb9);
-      background: radial-gradient(#ffc6d7, #ffc6e1);
-      height: 200px;
     }
   }
 
@@ -74,16 +67,16 @@
     }
 
     h2 {
-      color: #ffb950;
+      color: $banner-summer-color;
       opacity: .5;
     }
 
     .banner__top {
-      background: linear-gradient(#fbf1d6, #fff7df);
+      background: linear-gradient(to bottom, $banner-summer-bg-top-from, $banner-summer-bg-top-to);
     }
 
     .banner__bottom {
-      background: #fadeb9;
+      background: $banner-summer-bg-bottom;
     }
   }
 
@@ -94,17 +87,17 @@
     }
 
     h2 {
-      color: #7b2f1a;
+      color: $banner-fall-color;
       opacity: .3;
     }
 
     .banner__top {
-      background: linear-gradient(#f4e7c4, #fde4a6);
+      background: linear-gradient(to bottom, $banner-fall-bg-top-from, $banner-fall-bg-top-to);
       height: 180px;
     }
 
     .banner__bottom {
-      background: #ffd79e;
+      background: $banner-fall-bg-bottom;
       height: 20px;
     }
   }

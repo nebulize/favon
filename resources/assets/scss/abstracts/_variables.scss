@@ -63,7 +63,16 @@ $banner-color-text-bright: #fff;
 $banner-color-text-dark: #7b7d85;
 $banner-winter-bg-top: #82d5f7;
 $banner-winter-bg-bottom: #f0f9fe;
-$banner-spring-bg: #f6cfd9;
+$banner-spring-bg-top: #ff3f7a;
+$banner-spring-bg-bottom: #d44771;
+$banner-summer-color: #ffb950;
+$banner-summer-bg-top-from: #fbf1d6;
+$banner-summer-bg-top-to: #fff7df;
+$banner-summer-bg-bottom: #fadeb9;
+$banner-fall-color: #7b2f1a;
+$banner-fall-bg-top-from: #f4e7c4;
+$banner-fall-bg-top-to: #fde4a6;
+$banner-fall-bg-bottom: #ffd79e;
 
 // Filters
 //-------------------------------------
@@ -79,3 +88,15 @@ $toggle-color-bg: #3adc92;
 $toggle-color-disabled: #d5d5d5;
 
 $color-checkbox: #3670ff;
+
+// Popup
+//-------------------------------------
+$popup-color-header: #bbbdc4;
+$popup-color-font: #32394d;
+
+// Footer
+//-------------------------------------
+$footer-bg: #2c2c2c;
+$footer-color-logo: #777;
+$footer-color-text: #9f9f9f;
+$footer-color-icon: #cfcfcf;
