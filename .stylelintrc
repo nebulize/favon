@@ -31,7 +31,12 @@
     "function-url-quotes": "always",
     "shorthand-property-no-redundant-values": true,
     "selector-max-compound-selectors": 3,
-    "selector-no-qualifying-type": true,
+    "selector-no-qualifying-type": [
+      true,
+      {
+        "ignore": ["attribute"]
+      }
+    ],
     "no-descending-specificity": null,
     "max-nesting-depth": 4,
     "declaration-property-value-blacklist": {
@@ -40,7 +45,8 @@
     "sh-waqar/declaration-use-variable": [
       [
         "background-color",
-        "color"
+        "color",
+        "fill"
       ]
     ]
   }
