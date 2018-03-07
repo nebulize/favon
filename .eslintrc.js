@@ -1,22 +1,40 @@
-{
-  "extends": "airbnb-base",
-  "env": {
-    "browser": true,
-    "node": true
+module.exports = {
+  root: true,
+  parserOptions: {
+    parser: 'babel-eslint'
   },
-  "plugins" : [
-    "import",
-    "react"
-  ],
-  "rules": {
-    "no-param-reassign": ["error", { "props": false }],
-    "linebreak-style": "off",
-    "no-unused-vars": [2, { "varsIgnorePattern": "h" }],
-    "react/jsx-uses-vars": 2
+  env: {
+    browser: true,
   },
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
+  extends: ['plugin:vue/strongly-recommended', 'airbnb-base'],
+  plugins: ['vue'],
+  settings: {
+    'import/resolver': {
+      webpack: {
+        config: 'build/webpack.base.conf.js'
+      }
     }
+  },
+  rules: {
+    // don't require .vue extension when importing
+    'import/extensions': ['error', 'always', {
+      js: 'never',
+      vue: 'never'
+    }],
+    // disallow reassignment of function parameters
+    // disallow parameter object manipulation except for specific exclusions
+    'no-param-reassign': ['error', {
+      props: true,
+      ignorePropertyModificationsFor: [
+        'state', // for vuex state
+        'acc', // for reduce accumulators
+        'e' // for e.returnvalue
+      ]
+    }],
+    // allow optionalDependencies
+    'import/no-extraneous-dependencies': ['error', {
+      optionalDependencies: ['test/unit/index.js']
+    }],
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
   }
-}
+};
