@@ -8,6 +8,6 @@
 </main>
 @include('layouts.partials.footer')
 <script src="https://unpkg.com/lumacss/dist/luma.min.js"></script>
-<script src="/js/favon.seasonal.bundle.js"></script>
+<script src="/js/favon.seasonal.js"></script>
 </body>
 </html>
