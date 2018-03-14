@@ -7,7 +7,7 @@ const baseWebpackConfig = require('./webpack.base.conf');
 const config = require('./config');
 
 const extractSass = new ExtractTextPlugin({
-  filename: `./css/${config.name}.min.css`,
+  filename: `./${config.paths.dist.css}/${config.name}.min.css`,
 });
 
 module.exports = merge(baseWebpackConfig, {
@@ -57,6 +57,7 @@ module.exports = merge(baseWebpackConfig, {
     }),
     // enable scope hoisting
     new webpack.optimize.ModuleConcatenationPlugin(),
+    new webpack.LoaderOptionsPlugin({ options: {} }),
   ],
   optimization: {
     splitChunks: {
