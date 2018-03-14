@@ -5,13 +5,13 @@ const vueLoaderConfig = require('./vue-loader.conf');
 
 module.exports = {
   entry: {
-    app: './resources/assets/js/index.js',
+    app: `${config.paths.src.entry}`,
     seasonal: './resources/assets/js/seasonal/index.js',
   },
   output: {
     path: config.paths.dist.root,
-    filename: `js/${config.name}.[name].js`,
-    chunkFilename: `js/${config.name}.[name].js`,
+    filename: `${config.paths.dist.js}/${config.name}.[name].js`,
+    chunkFilename: `${config.paths.dist.js}/${config.name}.[name].js`,
     publicPath: process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath,
@@ -55,7 +55,7 @@ module.exports = {
           loader: 'url-loader',
           options: {
             limit: 8192,
-            name: 'images/[name].[ext]'
+            name: `${config.paths.dist.images}/[name].[ext]`
           }
         }, {
           loader: 'image-webpack-loader',
@@ -78,14 +78,35 @@ module.exports = {
           }
         }]
       },
+      {
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: `${config.paths.dist.media}/[name].[ext]`
+        }
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: `${config.paths.dist.fonts}/[name].[ext]`
+        }
+      },
     ],
   },
   plugins: [
-    new StyleLintPlugin({
-      context: './resources/assets/scss',
-      syntax: 'scss',
-    }),
-    new webpack.LoaderOptionsPlugin({ options: {} }),
+    // new StyleLintPlugin({
+    //   context: './resources/assets/scss',
+    //   syntax: 'scss',
+    // }),
   ],
-  stats: 'errors-only',
+  stats: {
+    colors: true,
+    modules: false,
+    children: false,
+    chunks: false,
+    chunkModules: false
+  }
 };

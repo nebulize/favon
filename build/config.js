@@ -8,11 +8,24 @@ module.exports = {
   // Source and dist paths for assets
   paths: {
     src: {
-      root: path.resolve(__dirname, '..resources/assets'),
-      images: path.resolve(__dirname, '../resources/assets/images'),
+      root: path.resolve(__dirname, '../resources/assets'),
+      entry: path.resolve(__dirname, '../resources/assets/js/index.js'),
+
+      // Paths for asset folders, relative to the root directory
+      images: 'images',
+      media: 'media', // Audio or video files
+      js: 'js',
+      sass: 'scss',
+      fonts: 'fonts'
     },
     dist: {
       root: path.resolve(__dirname, '../public'),
+      // Paths for asset folders, relative to the root directory
+      images: 'images',
+      media: 'media', // Audio or video files
+      js: 'js',
+      css: 'css',
+      fonts: 'fonts'
     }
   },
 

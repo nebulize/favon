@@ -1,7 +1,7 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm run -s development",
+        "dev": "node build/build.dev.js && webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
         "development": "webpack --progress --config ./build/webpack.base.conf.js",
         "build": "node build/build.prod.js"
     },
@@ -22,11 +22,12 @@
         "eslint-config-airbnb-base": "^11.3.0",
         "eslint-friendly-formatter": "^3.0.0",
         "eslint-import-resolver-webpack": "^0.8.3",
-        "eslint-loader": "^1.7.1",
+        "eslint-loader": "^2.0.0",
         "eslint-plugin-import": "^2.7.0",
         "eslint-plugin-vue": "^4.0.0",
         "extract-text-webpack-plugin": "^4.0.0-beta.0",
         "file-loader": "^1.1.4",
+        "fs-extra": "^5.0.0",
         "html-webpack-plugin": "^3.0.6",
         "image-webpack-loader": "^4.1.0",
         "imagemin": "^5.3.1",
@@ -39,7 +40,7 @@
         "optimize-css-assets-webpack-plugin": "^4.0.0",
         "ora": "^2.0.0",
         "postcss-loader": "^2.1.1",
-        "rimraf": "^2.6.2",
+        "rmfr": "^2.0.0",
         "sass-lint": "^1.10.2",
         "sass-loader": "^6.0.7",
         "style-loader": "^0.20.2",
@@ -55,7 +56,9 @@
         "vue-template-compiler": "^2.5.2",
         "webpack": "^4.1.0",
         "webpack-cli": "^2.0.10",
-        "webpack-merge": "^4.1.2"
+        "webpack-dev-server": "^3.1.1",
+        "webpack-merge": "^4.1.2",
+        "webpack-serve": "^0.2.0"
     },
     "dependencies": {
         "lumacss": "^0.3.0",
