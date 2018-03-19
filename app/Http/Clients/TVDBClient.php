@@ -53,6 +53,7 @@ class TVDBClient
      */
     protected function authenticate() : void
     {
+        $this->logger->info('Authenticating TVDB');
         $client = new Client();
         $body = [
             'apikey' => config('media.tvdb_api_key'),
