@@ -4,6 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Network
+ *
+ * @property int $id
+ * @property string $name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TVShow[] $tvShows
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Network whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Network whereName($value)
+ * @mixin \Eloquent
+ */
 class Network extends Model
 {
     /**

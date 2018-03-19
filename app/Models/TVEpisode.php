@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * App\Models\TVEpisode.
  *
  * @property-read \App\Models\TVSeason $tvSeason
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
  * @mixin \Eloquent
  * @property int $id
  * @property int $number

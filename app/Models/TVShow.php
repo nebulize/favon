@@ -67,6 +67,9 @@ use Laracasts\Presenter\PresentableTrait;
  * @property float|null $popularity
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Country[] $countries
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow wherePopularity($value)
+ * @property bool $is_hidden
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Network[] $networks
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereIsHidden($value)
  */
 class TVShow extends Model
 {

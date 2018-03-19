@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Presenters\TvSeasonPresenter;
-use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Laracasts\Presenter\PresentableTrait;
 
@@ -13,7 +12,7 @@ use Laracasts\Presenter\PresentableTrait;
  * @property-read \App\Models\Season $season
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TVEpisode[] $tvEpisodes
  * @property-read \App\Models\TVShow $tvShow
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
  * @mixin \Eloquent
  * @property int $id
  * @property \Carbon\Carbon $first_aired
