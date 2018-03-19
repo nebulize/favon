@@ -102,7 +102,6 @@ class UpdateImdbRatings extends Command
                 $tvShow = $this->tvShowRepository->find([
                     'imdb_id' => trim($entry[0])
                 ]);
-                Log::info('Matched show with id '.$tvShow->imdb_id.' as '.$entry[0]);
                 $tvShow->imdb_score = (float) trim($entry[1]);
                 $tvShow->imdb_votes = (int) trim($entry[2]);
                 $this->tvShowRepository->save($tvShow);
