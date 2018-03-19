@@ -1,9 +1,8 @@
 const path = require('path');
-const pkg = require('../package');
 
 module.exports = {
   // Project name
-  name: pkg.name || 'favon',
+  name: 'favon',
 
   // Source and dist paths for assets
   paths: {
@@ -32,12 +31,11 @@ module.exports = {
   // Development config
   dev: {
     assetsPublicPath: '/',
-    eslint: true,
-    // If true, eslint errors and warnings will also be shown in the error overlay
-    // in the browser.
+    // If true, eslint errors and warnings will also be shown in the error overlay in the browser.
     showEslintErrorsInOverlay: true,
-
     cacheBusting: true,
+    hmrHost: 'localhost',
+    hmrPort: 8080,
   },
 
   // Build config

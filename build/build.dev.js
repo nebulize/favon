@@ -1,10 +1,10 @@
 process.env.NODE_ENV = 'development';
 
+const cors = require('@koa/cors');
 const ora = require('ora');
 const chalk = require('chalk');
 const serve = require('webpack-serve');
 const rmfr = require('rmfr');
-const path = require('path');
 const utils = require('./utils');
 const config = require('./config');
 const webpackConfig = require('./webpack.dev.conf');
@@ -17,22 +17,21 @@ const webpackConfig = require('./webpack.dev.conf');
   // Copy static assets (fonts, videos, audio files)
   await utils.copyAssets();
 
-  // // Start webpack build
-  // console.log(chalk.cyan('  Building for development...'));
-  // serve({
-  //   config: webpackConfig,
-  //   content: path.join(__dirname, '../public'),
-  //   host: 'localhost',
-  //   port: 8080,
-  //   hot: {
-  //     hot: true,
-  //     host: 'localhost',
-  //     port: 8080
-  //   },
-  //   on: {
-  //     listening: () => {
-  //       console.log('Watching for changes.');
-  //     }
-  //   }
-  // });
+  // Start webpack build
+  const spinner = ora('Building for development...');
+  serve({
+    add: (app, middleware, options) => {
+      app.use(cors());
+    },
+    config: webpackConfig,
+    content: config.paths.dist.root,
+    host: config.dev.hmrHost,
+    port: config.dev.hmrPort,
+    on: {
+      listening: () => {
+        spinner.stop();
+        console.log(chalk.cyan('  Watching for changes.\n'));
+      }
+    }
+  });
 })();
