@@ -103,6 +103,9 @@ class TVDBClient
                 $result->setSuccessful();
                 $result->setResponse(json_decode($response->getBody())->data);
                 break;
+            case 401:
+                $this->authenticate();
+                return $this->get($id);
             case 404:
                 $this->logger->warning('TVDB: Could not find entry with ID '.$id);
                 break;
