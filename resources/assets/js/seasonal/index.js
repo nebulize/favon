@@ -14,7 +14,8 @@ const app = new Vue({
   },
   beforeMount() {
     const request = new XMLHttpRequest();
-    request.open('GET', '/api/seasonal/2018/winter');
+    const currentSeason = document.getElementById('currentSeason').dataset.season;
+    request.open('GET', `/api/seasonal/${currentSeason}`);
     request.send();
     request.onreadystatechange = () => {
       if (request.readyState === 4) {

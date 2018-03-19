@@ -56,13 +56,10 @@ class BaseController extends Controller
 
   }
 
-  public function indexApi($year, $season)
+  public function indexApi($seasonId)
   {
     try {
-      $season = $this->seasonRepository->find([
-        'year' => (int) $year,
-        'name' => ucfirst($season)
-      ]);
+      $season = $this->seasonRepository->get($seasonId);
       $tvSeasons = $this->tvSeasonRepository->index([
         'seasonal' => true,
         'sequels' => true,

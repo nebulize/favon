@@ -19,7 +19,7 @@
             @foreach ($seasons['before'] as $seasonBefore)
               <li><a href="{{ route('tv.seasonal.index', [$seasonBefore->year, lcfirst($seasonBefore->name)]) }}">{{ ucfirst($seasonBefore->name) }} {{ $seasonBefore->year }}</a></li>
             @endforeach
-            <li class="is-active"><a class="text-{{ lcfirst($season->name) }}" href="{{ route('tv.seasonal.index', [$season->year, lcfirst($season->name)]) }}">{{ ucfirst($season->name) }} {{ $season->year }}</a></li>
+            <li class="is-active" id="currentSeason" data-season="{{ $season->id }}"><a class="text-{{ lcfirst($season->name) }}" href="{{ route('tv.seasonal.index', [$season->year, lcfirst($season->name)]) }}">{{ ucfirst($season->name) }} {{ $season->year }}</a></li>
             @foreach ($seasons['after'] as $seasonAfter)
               <li><a href="{{ route('tv.seasonal.index', [$seasonAfter->year, lcfirst($seasonAfter->name)]) }}">{{ ucfirst($seasonAfter->name) }} {{ $seasonAfter->year }}</a></li>
             @endforeach
