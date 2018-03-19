@@ -1,1 +1,3 @@
-import '../scss/main.scss';
+import luma from 'lumacss';
+
+luma.textarea('textarea');
