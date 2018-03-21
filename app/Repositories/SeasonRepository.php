@@ -5,7 +5,6 @@ namespace App\Repositories;
 use Carbon\Carbon;
 use App\Models\Season;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class SeasonRepository implements RepositoryContract
@@ -85,9 +84,10 @@ class SeasonRepository implements RepositoryContract
             $after = $seasons->filter(function ($item) use ($season) {
                 return $item->start_date->gt($season->start_date);
             });
+
             return [
                 'before' => $before->take(-2),
-                'after' => $after->take(1)
+                'after' => $after->take(1),
             ];
         }
 

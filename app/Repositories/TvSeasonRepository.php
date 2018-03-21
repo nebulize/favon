@@ -2,15 +2,14 @@
 
 namespace App\Repositories;
 
+use Carbon\Carbon;
 use App\Models\Person;
 use App\Models\TVSeason;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use App\Exceptions\InvalidArgumentException;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Query\Builder as QueryBuilder;
 
 class TvSeasonRepository implements RepositoryContract
 {
@@ -79,7 +78,7 @@ class TvSeasonRepository implements RepositoryContract
     public function index(array $parameters = []) : Collection
     {
         /**
-         * @var QueryBuilder $query
+         * @var QueryBuilder
          */
         $query = $this->tvSeason;
 
@@ -109,26 +108,26 @@ class TvSeasonRepository implements RepositoryContract
                     }
                 });
             if (isset($parameters['filtered']) === false || $parameters['filtered'] === true) {
-              // For current or future seasons, only query english language shows. This filters out a few good
-              // international shows (e.g. `Dark`), but overall we get rid of all the other crap. They will appear
-              // once the season is in the past.
-              if (Carbon::now()->gt($season->end_date) === false) {
-                $query = $query->whereIn('tv_shows.id', function (QueryBuilder $q) {
-                  $q->select('tv_show_id')->from('language_tv_show')->where('language_code', 'en');
-                });
-              } else {
-                $query = $query->whereNotIn('tv_shows.id', function (QueryBuilder $q) {
-                  $q->select('tv_show_id')->from('country_tv_show')->where('country_code', 'IN');
-                });
-              }
-              $query = $query
+                // For current or future seasons, only query english language shows. This filters out a few good
+                // international shows (e.g. `Dark`), but overall we get rid of all the other crap. They will appear
+                // once the season is in the past.
+                if (Carbon::now()->gt($season->end_date) === false) {
+                    $query = $query->whereIn('tv_shows.id', function (QueryBuilder $q) {
+                        $q->select('tv_show_id')->from('language_tv_show')->where('language_code', 'en');
+                    });
+                } else {
+                    $query = $query->whereNotIn('tv_shows.id', function (QueryBuilder $q) {
+                        $q->select('tv_show_id')->from('country_tv_show')->where('country_code', 'IN');
+                    });
+                }
+                $query = $query
                 ->whereNotIn('tv_shows.id', function (QueryBuilder $q) {
-                  $q->select('tv_show_id')->from('genre_tv_show')->whereIn('genre_id', [3, 11, 12, 13, 18, 22]);
+                    $q->select('tv_show_id')->from('genre_tv_show')->whereIn('genre_id', [3, 11, 12, 13, 18, 22]);
                 });
             } else {
-              $query = $query->whereIn('tv_shows.id', function (QueryBuilder $q) {
-                $q->select('tv_show_id')->from('language_tv_show')->whereIn('language_code', ['en', 'ja', 'de', 'fr', 'ko', 'es']);
-              });
+                $query = $query->whereIn('tv_shows.id', function (QueryBuilder $q) {
+                    $q->select('tv_show_id')->from('language_tv_show')->whereIn('language_code', ['en', 'ja', 'de', 'fr', 'ko', 'es']);
+                });
             }
 
             $query = $query
@@ -136,6 +135,7 @@ class TvSeasonRepository implements RepositoryContract
                 ->with('tvShow.genres')
                 ->with('tvShow.languages')
                 ->select(['tv_seasons.*']);
+
             return $query->get();
         }
 

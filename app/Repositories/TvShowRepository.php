@@ -3,10 +3,10 @@
 namespace App\Repositories;
 
 use App\Models\TVShow;
-use Illuminate\Database\Eloquent\Model;
-use \Illuminate\Support\Collection;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class TvShowRepository implements RepositoryContract
 {
@@ -71,7 +71,7 @@ class TvShowRepository implements RepositoryContract
     public function index(array $parameters = []): Collection
     {
         /**
-         * @var Builder $query
+         * @var Builder
          */
         $query = $this->tvShow;
 
@@ -84,6 +84,7 @@ class TvShowRepository implements RepositoryContract
                 ->join('tv_seasons', 'tv_seasons.tv_show_id', '=', 'tv_shows.id')
                 ->join('seasons', 'tv_seasons.season_id', '=', 'seasons.id')
                 ->where('seasons.start_date', '>=', $parameters['season_gt']->start_date);
+
             return $query->get();
         }
 

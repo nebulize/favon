@@ -2,14 +2,14 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\UpdateTvShowPopularity;
-use App\Repositories\SeasonRepository;
-use App\Repositories\TvSeasonRepository;
-use App\Repositories\TvShowRepository;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
+use App\Jobs\UpdateTvShowPopularity;
+use App\Repositories\SeasonRepository;
+use App\Repositories\TvShowRepository;
+use App\Repositories\TvSeasonRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UpdateRecentPopularity extends Command
 {
@@ -64,14 +64,14 @@ class UpdateRecentPopularity extends Command
     {
         try {
             $currentSeason = $this->seasonRepository->find([
-                'date' => Carbon::now()
+                'date' => Carbon::now(),
             ]);
         } catch (ModelNotFoundException $e) {
             Log::warning('UpdateRecentPopularity: Could not find current season.');
         }
 
         $tvShows = $this->tvShowRepository->index([
-            'season_gt' => $currentSeason
+            'season_gt' => $currentSeason,
         ]);
 
         foreach ($tvShows as $tvShow) {

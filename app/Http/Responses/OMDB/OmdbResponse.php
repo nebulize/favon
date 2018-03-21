@@ -87,7 +87,7 @@ class OmdbResponse extends BaseResponse
         $imdb_votes = $this->parseProperty('imdbVotes', BaseResponse::TYPE_INT);
         if ($imdb_votes === null) {
             $this->imdb_votes = 0;
-        } else  {
+        } else {
             $this->imdb_votes = $imdb_votes;
         }
         $this->parseGenres();

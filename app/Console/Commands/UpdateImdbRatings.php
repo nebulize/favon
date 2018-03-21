@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Repositories\TvShowRepository;
 use Illuminate\Console\Command;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Repositories\TvShowRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UpdateImdbRatings extends Command
 {
@@ -100,7 +100,7 @@ class UpdateImdbRatings extends Command
             $entry = fgetcsv($handle, 0, "\t");
             try {
                 $tvShow = $this->tvShowRepository->find([
-                    'imdb_id' => trim($entry[0])
+                    'imdb_id' => trim($entry[0]),
                 ]);
                 $tvShow->imdb_score = (float) trim($entry[1]);
                 $tvShow->imdb_votes = (int) trim($entry[2]);
@@ -122,6 +122,4 @@ class UpdateImdbRatings extends Command
         unlink(storage_path('api/ratings.tsv.gz'));
         unlink(storage_path('api/ratings.tsv'));
     }
-
-
 }

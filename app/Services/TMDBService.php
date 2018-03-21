@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use Carbon\Carbon;
-use App\Http\Clients\TMDBClient;
 use Psr\Log\LoggerInterface;
+use App\Http\Clients\TMDBClient;
 use Intervention\Image\Facades\Image;
 use App\Exceptions\GenericAPIException;
 use App\Exceptions\NoAPIResultsFoundException;

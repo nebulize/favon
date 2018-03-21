@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Country
+ * App\Models\Country.
  *
  * @property int $code
  * @property string $name
