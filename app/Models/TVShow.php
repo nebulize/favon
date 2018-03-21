@@ -99,7 +99,7 @@ class TVShow extends Model
 
     protected $casts = [
       'popularity' => 'float',
-      'imdb_score' => 'float'
+      'imdb_score' => 'float',
     ];
 
     /**

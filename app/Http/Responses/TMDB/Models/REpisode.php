@@ -123,7 +123,7 @@ class REpisode
             'first_aired' => $this->getFirstAired(),
             'name' => $this->getName(),
             'plot' => $this->getPlot(),
-            'tmdb_id' => $this->getTmdbId()
+            'tmdb_id' => $this->getTmdbId(),
         ];
     }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Http\ViewComposers\SeasonComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use App\Http\ViewComposers\SeasonComposer;
 
 class ComposerServiceProvider extends ServiceProvider
 {

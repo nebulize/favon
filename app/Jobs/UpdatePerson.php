@@ -2,9 +2,9 @@
 
 namespace App\Jobs;
 
+use Psr\Log\LoggerInterface;
 use Illuminate\Bus\Queueable;
 use App\Http\Clients\TMDBClient;
-use Psr\Log\LoggerInterface;
 use App\Repositories\PersonRepository;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;

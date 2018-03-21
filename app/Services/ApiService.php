@@ -2,23 +2,23 @@
 
 namespace App\Services;
 
-use App\Http\Responses\TMDB\Models\REpisode;
-use App\Repositories\NetworkRepository;
 use Carbon\Carbon;
 use App\Models\TVShow;
 use App\Models\TVSeason;
 use App\Http\Clients\OMDBClient;
 use App\Http\Clients\TMDBClient;
 use App\Http\Clients\TVDBClient;
+use Illuminate\Support\Facades\Log;
 use App\Repositories\GenreRepository;
 use App\Repositories\VideoRepository;
 use App\Repositories\PersonRepository;
 use App\Repositories\SeasonRepository;
 use App\Repositories\TvShowRepository;
+use App\Repositories\NetworkRepository;
 use App\Repositories\TvSeasonRepository;
 use App\Repositories\TvEpisodeRepository;
+use App\Http\Responses\TMDB\Models\REpisode;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Log;
 
 class ApiService
 {
@@ -313,7 +313,7 @@ class ApiService
         }
         try {
             $tvShow = $this->tvShowRepository->find([
-                'tmdb_id' => $tvShowResponse->getTmdbId()
+                'tmdb_id' => $tvShowResponse->getTmdbId(),
             ]);
         } catch (ModelNotFoundException $e) {
             // Nothing to do.
@@ -333,12 +333,13 @@ class ApiService
 
         try {
             $tvShow = $this->tvShowRepository->find([
-                'tmdb_id' => $id
+                'tmdb_id' => $id,
             ]);
         } catch (ModelNotFoundException $e) {
             // We don't have an entry with this id yet, simply create it
             $this->fetchTvShow($id);
             Log::info('Created new tv show: '.$id);
+
             return;
         }
 
@@ -348,6 +349,7 @@ class ApiService
             // Show was deleted on TMDB, delete it from our database as well.
             $this->tvShowRepository->delete($tvShow);
             Log::info('Deleted an existing tv show: '.$tvShow->name);
+
             return;
         }
 
@@ -456,7 +458,7 @@ class ApiService
         try {
             $tvSeason = $this->tvSeasonRepository->find([
                 'tv_show_id' => $tvShow->id,
-                'number' => $number
+                'number' => $number,
             ]);
         } catch (ModelNotFoundException $e) {
             Log::info('Created new season: '.$tvShow->name.' Season '.$number);
@@ -471,6 +473,7 @@ class ApiService
                 Log::info('Deleted a season: '.$tvShow->name.' Season '.$number);
                 $this->tvSeasonRepository->delete($tvSeason);
             }
+
             return null;
         }
 
@@ -508,7 +511,7 @@ class ApiService
         try {
             $tvEpisode = $this->tvEpisodeRepository->find([
                 'tv_season_id' => $tvSeason->id,
-                'number' => $episode->getNumber()
+                'number' => $episode->getNumber(),
             ]);
         } catch (ModelNotFoundException $e) {
             // We don't have this episode in our database yet!
@@ -520,6 +523,7 @@ class ApiService
                 'tmdb_id' => $episode->getTmdbId(),
                 'tv_season_id' => $tvSeason->id,
             ]);
+
             return;
         }
 

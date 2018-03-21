@@ -16,10 +16,9 @@ class LogSourceSplitter
     {
         $logger->popHandler();
         $processUser = posix_getpwuid(posix_geteuid());
-        $processName= $processUser['name'];
+        $processName = $processUser['name'];
         $filename = storage_path('logs/laravel-'.php_sapi_name().'-'.$processName.'.log');
         $handler = new RotatingFileHandler($filename);
         $logger->pushHandler($handler);
     }
-
 }

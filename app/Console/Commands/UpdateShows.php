@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Clients\TMDBClient;
 use App\Jobs\UpdateShow;
 use Illuminate\Console\Command;
+use App\Http\Clients\TMDBClient;
 
 class UpdateShows extends Command
 {

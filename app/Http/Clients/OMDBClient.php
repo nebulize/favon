@@ -3,9 +3,9 @@
 namespace App\Http\Clients;
 
 use GuzzleHttp\Psr7\Request;
+use Psr\Log\LoggerInterface;
 use App\Http\Adapters\APIAdapter;
 use App\Http\Adapters\OMDBAdapter;
-use Psr\Log\LoggerInterface;
 use App\Http\Responses\OMDB\OmdbResponse;
 
 class OMDBClient

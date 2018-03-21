@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Network
+ * App\Models\Network.
  *
  * @property int $id
  * @property string $name
