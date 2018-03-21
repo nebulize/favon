@@ -62,7 +62,9 @@
         "webpack-serve": "^0.2.0"
     },
     "dependencies": {
-        "lumacss": "^0.3.0",
+        "axios": "^0.18.0",
+        "date-fns": "^1.29.0",
+        "lumacss": "^0.4.1",
         "vue": "^2.5.13"
     }
 }
