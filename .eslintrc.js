@@ -35,6 +35,16 @@ module.exports = {
     'import/no-extraneous-dependencies': ['error', {
       optionalDependencies: ['test/unit/index.js']
     }],
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'vue/max-attributes-per-line': [2, {
+      singleline: 4,
+      multiline: {
+        max: 1,
+        allowFirstLine: false
+      }
+    }],
+    'max-len': ['error', {
+      code: 120
+    }]
   }
 };
