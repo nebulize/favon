@@ -5,7 +5,7 @@ const sourceMapEnabled = isProduction
   : config.dev.cssSourceMap;
 
 module.exports = {
-  extractCSS: true,
+  extractCSS:  false,
   cssSourceMap: sourceMapEnabled,
   cacheBusting: config.dev.cacheBusting,
   transformToRequire: {

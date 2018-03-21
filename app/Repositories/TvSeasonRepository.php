@@ -108,25 +108,34 @@ class TvSeasonRepository implements RepositoryContract
                         });
                     }
                 });
-            // For current or future seasons, only query english language shows. This filters out a few good
-            // international shows (e.g. `Dark`), but overall we get rid of all the other crap. They will appear
-            // once the season is in the past.
-            if (Carbon::now()->gt($season->end_date) === false) {
+            if (isset($parameters['filtered']) === false || $parameters['filtered'] === true) {
+              // For current or future seasons, only query english language shows. This filters out a few good
+              // international shows (e.g. `Dark`), but overall we get rid of all the other crap. They will appear
+              // once the season is in the past.
+              if (Carbon::now()->gt($season->end_date) === false) {
                 $query = $query->whereIn('tv_shows.id', function (QueryBuilder $q) {
-                    $q->select('tv_show_id')->from('language_tv_show')->where('language_code', 'en');
+                  $q->select('tv_show_id')->from('language_tv_show')->where('language_code', 'en');
+                });
+              } else {
+                $query = $query->whereNotIn('tv_shows.id', function (QueryBuilder $q) {
+                  $q->select('tv_show_id')->from('country_tv_show')->where('country_code', 'IN');
+                });
+              }
+              $query = $query
+                ->whereNotIn('tv_shows.id', function (QueryBuilder $q) {
+                  $q->select('tv_show_id')->from('genre_tv_show')->whereIn('genre_id', [3, 11, 12, 13, 18, 22]);
                 });
             } else {
-                $query = $query->whereNotIn('tv_shows.id', function (QueryBuilder $q) {
-                    $q->select('tv_show_id')->from('country_tv_show')->where('country_code', 'IN');
-                });
+              $query = $query->whereIn('tv_shows.id', function (QueryBuilder $q) {
+                $q->select('tv_show_id')->from('language_tv_show')->whereIn('language_code', ['en', 'ja', 'de', 'fr', 'ko', 'es']);
+              });
             }
+
             $query = $query
-                ->whereNotIn('tv_shows.id', function (QueryBuilder $q) {
-                    $q->select('tv_show_id')->from('genre_tv_show')->whereIn('genre_id', [3, 11, 12, 13, 18, 22]);
-                })
                 ->orderBy('tv_shows.popularity', 'DESC')
                 ->with('tvShow.genres')
-                ->select(['tv_seasons.first_aired AS season_first_aired', 'tv_seasons.*', 'tv_shows.*']);
+                ->with('tvShow.languages')
+                ->select(['tv_seasons.*']);
             return $query->get();
         }
 

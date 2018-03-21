@@ -40,7 +40,7 @@
         </div>
       </div>
       <div class="card__footer">
-        <span>{{ tv_season.season_first_aired }}</span>
+        <span>{{ tv_season.first_aired_string }}</span>
         <div class="flex-group is-right">
           <img src="/images/imdb.svg">
           <span>

@@ -97,6 +97,11 @@ class TVShow extends Model
      */
     protected $dates = ['created_at', 'updated_at', 'first_aired'];
 
+    protected $casts = [
+      'popularity' => 'float',
+      'imdb_score' => 'float'
+    ];
+
     /**
      * One-to-Many: one tv show can have many tv seasons.
      *

@@ -34,7 +34,7 @@ class BaseController extends Controller
     $this->genreRepository = $genreRepository;
   }
 
-  public function index(Request $request, $year, $season)
+  public function index($year, $season)
   {
     try {
       $season = $this->seasonRepository->find([
@@ -47,11 +47,10 @@ class BaseController extends Controller
     } catch (ModelNotFoundException $e) {
       abort(404);
     }
-    $genres = $this->genreRepository->index();
+
     return view('tv.seasonal.index', [
       'season' => $season,
       'seasons' => $seasons,
-      'genres' => $genres
     ]);
 
   }
@@ -63,6 +62,7 @@ class BaseController extends Controller
       $tvSeasons = $this->tvSeasonRepository->index([
         'seasonal' => true,
         'sequels' => true,
+        'filtered' => false,
         'season' => $season
       ]);
     } catch (ModelNotFoundException $e) {
@@ -72,5 +72,11 @@ class BaseController extends Controller
       'season' => $season,
       'tvSeasons' => $tvSeasons
     ]);
+  }
+
+  public function genres()
+  {
+    $genres = $this->genreRepository->index();
+    return response()->json($genres);
   }
 }

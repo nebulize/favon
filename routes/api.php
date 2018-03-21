@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/seasonal/{seasonId}','BaseController@indexApi')->name('api.tv.seasonal.index');
+Route::get('/genres','BaseController@genres')->name('api.tv.genres');
