@@ -57,8 +57,11 @@
 
     .body__description {
       height: 231px;
-      overflow: hidden;
       padding: 14px 17px;
+    }
+
+    .description__content {
+      overflow: hidden;
 
       &:hover {
         overflow-y: auto;

@@ -17,26 +17,28 @@
           </div>
         </div>
         <div class="body__description">
-          <h3 class="description__title">
-            {{ tv_season.tv_show.name }}
-            <span :class="`text-${season.name}`"> S{{ tv_season.number }}</span>
-          </h3>
-          <span
-            v-for="genre in tv_season.tv_show.genres"
-            :key="`${tv_season.id}${genre.id}`"
-            class="genre-label">
-            {{ genre.name }}
-          </span>
-          <p
-            v-if="tv_season.summary"
-            class="description__plot">
-            {{ tv_season.summary }}
-          </p>
-          <p
-            v-else
-            class="description__plot">
-            {{ tv_season.tv_show.summary }}
-          </p>
+          <div class="description__content">
+            <h3 class="description__title">
+              {{ tv_season.tv_show.name }}
+              <span :class="`text-${season.name}`"> S{{ tv_season.number }}</span>
+            </h3>
+            <span
+              v-for="genre in tv_season.tv_show.genres"
+              :key="`${tv_season.id}${genre.id}`"
+              class="genre-label">
+              {{ genre.name }}
+            </span>
+            <p
+              v-if="tv_season.summary"
+              class="description__plot">
+              {{ tv_season.summary }}
+            </p>
+            <p
+              v-else
+              class="description__plot">
+              {{ tv_season.tv_show.summary }}
+            </p>
+          </div>
         </div>
       </div>
       <div class="card__footer">
