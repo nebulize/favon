@@ -3,11 +3,11 @@
 namespace App\Console\Commands;
 
 use App\Models\TVShow;
-use App\Repositories\NetworkRepository;
 use Illuminate\Console\Command;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use App\Repositories\NetworkRepository;
+use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ExtractNetworks extends Command
 {

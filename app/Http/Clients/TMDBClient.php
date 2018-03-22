@@ -2,11 +2,10 @@
 
 namespace App\Http\Clients;
 
-use App\Http\Responses\TMDB\ChangedTvShowsResponse;
 use GuzzleHttp\Psr7\Request;
+use Psr\Log\LoggerInterface;
 use App\Http\Adapters\APIAdapter;
 use App\Http\Adapters\TMDBAdapter;
-use Psr\Log\LoggerInterface;
 use App\Http\Responses\TMDB\PersonResponse;
 use App\Http\Responses\TMDB\TvShowResponse;
 use App\Http\Responses\TMDB\CountryResponse;
@@ -14,6 +13,7 @@ use App\Http\Responses\TMDB\LanguageResponse;
 use App\Http\Responses\TMDB\TvSeasonResponse;
 use App\Http\Responses\TMDB\TvShowIdsResponse;
 use App\Http\Responses\TMDB\ChangedPersonsResponse;
+use App\Http\Responses\TMDB\ChangedTvShowsResponse;
 use App\Http\Responses\TMDB\TvSeasonVideosResponse;
 use App\Http\Responses\TMDB\TvSeasonCreditsResponse;
 

@@ -68,5 +68,4 @@ class ChangedTvShowsResponse extends BaseResponse
         $this->total_pages = (int) $this->getResponse()->total_pages;
         $this->total_results = (int) $this->getResponse()->total_results;
     }
-
 }

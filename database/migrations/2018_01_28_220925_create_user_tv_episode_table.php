@@ -10,7 +10,6 @@ class CreateUserTvEpisodeTable extends Migration
      *
      * @return void
      */
-
     public function up()
     {
         Schema::create('user_tv_episode', function (Blueprint $table) {
@@ -23,13 +22,11 @@ class CreateUserTvEpisodeTable extends Migration
         });
     }
 
-
     /**
      * Reverse the migrations.
      *
      * @return void
      */
-
     public function down()
     {
         Schema::dropIfExists('user_tv_episode');

@@ -44,7 +44,7 @@ abstract class APIAdapter
     }
 
     /**
-     * Request an API resource
+     * Request an API resource.
      *
      * @param Request $request
      * @param int $tries
@@ -58,8 +58,10 @@ abstract class APIAdapter
         $response = $this->client->send($request, ['http_errors' => false]);
         if ($tries < 15 && ($response->getStatusCode() === 502 || $response->getStatusCode() === 522 || $response->getStatusCode() === 408)) {
             sleep(3);
+
             return $this->request($request, $tries + 1);
         }
+
         return $response;
     }
 

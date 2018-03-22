@@ -3,9 +3,9 @@
 namespace App\Repositories;
 
 use App\Models\Network;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class NetworkRepository implements RepositoryContract
@@ -37,6 +37,7 @@ class NetworkRepository implements RepositoryContract
     public function get(int $id, array $parameters = []): Network
     {
         $query = $this->network->where('id', $id);
+
         return $query->firstOrFail();
     }
 
@@ -71,6 +72,7 @@ class NetworkRepository implements RepositoryContract
     public function index(array $parameters = []): Collection
     {
         $query = $this->network;
+
         return $query->get();
     }
 

@@ -2,7 +2,6 @@
 
 namespace App\Http\ViewComposers;
 
-use App\Enumerators\SeasonType;
 use Carbon\Carbon;
 use Illuminate\View\View;
 
