@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import axios from 'axios';
 import luma from 'lumacss';
+import Cookies from 'js-cookie';
 import { format } from 'date-fns';
 
 import '../../scss/main.scss';
@@ -28,6 +29,8 @@ const app = new Vue({
     showFilter: false,
   },
   beforeMount() {
+    const savedFilters = Cookies.getJSON('favon-filters');
+    if (savedFilters) this.store.filters = savedFilters;
     const currentSeason = document.getElementById('currentSeason').dataset.season;
     axios.get(`/api/seasonal/${currentSeason}`)
       .then((response) => {
@@ -56,6 +59,7 @@ const app = new Vue({
      * Apply the user selected (or default) filters to the tv_seasons array.
      */
     filter() {
+      Cookies.set('favon-filters', this.store.filters, { expires: 365 });
       this.store.filtered = this.store.tv_seasons.filter((season) => {
         let include;
         // Filter out sequels, depending on user configuration
