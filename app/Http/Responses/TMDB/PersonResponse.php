@@ -4,6 +4,7 @@ namespace App\Http\Responses\TMDB;
 
 use Carbon\Carbon;
 use App\Http\Responses\BaseResponse;
+use Illuminate\Support\Facades\Log;
 
 class PersonResponse extends BaseResponse
 {
