@@ -43,8 +43,9 @@
         <span>{{ tv_season.first_aired_string }}</span>
         <div class="flex-group is-right">
           <img src="/images/imdb.svg">
-          <span>
-            {{ tv_season.tv_show.imdb_score === 0 ? 'N/A' : tv_season.tv_show.imdb_score }}
+          <span v-if="tv_season.tv_show.imdb_score === 0">N/A</span>
+          <span v-else>
+            <a :href="`http://www.imdb.com/title/${tv_season.tv_show.imdb_id}/`">{{ tv_season.tv_show.imdb_score }}</a>
           </span>
           <img src="/images/heart.svg">
           <span>0</span>

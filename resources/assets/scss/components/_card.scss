@@ -49,6 +49,14 @@
       height: 40px;
       padding: 10px;
 
+      a {
+        color: $card-color-accent;
+
+        &:hover {
+          color: shade($color-link, 20%);
+        }
+      }
+
       img {
         height: 12px;
         margin: 0 5px 0 15px;
