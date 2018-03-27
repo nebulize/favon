@@ -64,7 +64,7 @@ class TVDBClient
     protected function loadToken(): void
     {
         // Parameters passed using a named array:
-        if ($this->redis->exists('tvdb-token') === false) {
+        if ((bool) $this->redis->exists('tvdb-token') === false) {
             $this->authenticate();
         }
         $this->token = $this->redis->get('tvdb-token');
