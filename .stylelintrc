@@ -1,7 +1,6 @@
 {
   "plugins": [
-    "stylelint-scss",
-    "stylelint-declaration-use-variable"
+    "stylelint-scss"
   ],
   "extends": "stylelint-config-standard",
   "rules": {
@@ -41,13 +40,6 @@
     "max-nesting-depth": 4,
     "declaration-property-value-blacklist": {
       "/^border/": ["none"]
-    },
-    "sh-waqar/declaration-use-variable": [
-      [
-        "background-color",
-        "color",
-        "fill"
-      ]
-    ]
+    }
   }
 }

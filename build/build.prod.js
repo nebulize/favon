@@ -1,21 +1,10 @@
-process.env.NODE_ENV = 'production';
-
 const ora = require('ora');
 const chalk = require('chalk');
 const webpack = require('webpack');
-const rmfr = require('rmfr');
-const utils = require('./utils');
-const config = require('./config');
 const webpackConfig = require('./webpack.prod.conf');
+const utils = require('./utils');
 
 (async() => {
-  // Clear asset directories
-  await rmfr(`${config.paths.dist.root}/{images,css,js,fonts}`);
-  // Optimize images for production
-  await utils.optimizeImages();
-  // Copy static assets (fonts, videos, audio files)
-  await utils.copyAssets();
-
   // Start webpack build
   const spinner = ora('Building for production...');
   spinner.start();
@@ -35,6 +24,10 @@ const webpackConfig = require('./webpack.prod.conf');
       process.exit(1);
     }
 
-    console.log(chalk.cyan('  Build complete.\n'));
+    // Optimize images for production
+    utils.optimizeImages()
+      .then(() => {
+        console.log(chalk.cyan('  Build complete.\n'));
+      });
   });
 })();

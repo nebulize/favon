@@ -6,16 +6,21 @@ module.exports = {
 
   // Source and dist paths for assets
   paths: {
+    root: path.resolve(__dirname, '../'),
     src: {
       root: path.resolve(__dirname, '../resources/assets'),
       entry: path.resolve(__dirname, '../resources/assets/js/index.js'),
 
-      // Paths for asset folders, relative to the root directory
-      images: 'images',
-      media: 'media', // Audio or video files
-      js: 'js',
-      sass: 'scss',
-      fonts: 'fonts'
+      // Source folder images
+      images: path.resolve(__dirname, '../resources/assets/images'),
+      // Source folder media (audio, video)
+      media: path.resolve(__dirname, '../resources/assets/images'),
+      // Source folder JS
+      js: path.resolve(__dirname, '../resources/assets/js'),
+      // Source folder SASS/SCSS
+      sass: path.resolve(__dirname, '../resources/assets/scss'),
+      // Source folder fonts
+      fonts: path.resolve(__dirname, '../resources/assets/fonts'),
     },
     dist: {
       root: path.resolve(__dirname, '../public'),
@@ -31,8 +36,6 @@ module.exports = {
   // Development config
   dev: {
     assetsPublicPath: '/',
-    // If true, eslint errors and warnings will also be shown in the error overlay in the browser.
-    showEslintErrorsInOverlay: true,
     cacheBusting: true,
     hmrHost: 'localhost',
     hmrPort: 8080,

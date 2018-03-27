@@ -1,5 +1,6 @@
-const webpack = require('webpack');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const config = require('./config');
 const vueLoaderConfig = require('./vue-loader.conf');
 
@@ -31,7 +32,7 @@ module.exports = {
         exclude: /node_modules/,
         options: {
           formatter: require('eslint-friendly-formatter'),
-          emitWarning: !config.dev.showEslintErrorsInOverlay
+          emitWarning: true
         },
       },
       {
@@ -101,6 +102,26 @@ module.exports = {
     //   context: './resources/assets/scss',
     //   syntax: 'scss',
     // }),
+    new CleanWebpackPlugin([
+      `${config.paths.dist.root}/${config.paths.dist.images}`,
+      `${config.paths.dist.root}/${config.paths.dist.js}`,
+      `${config.paths.dist.root}/${config.paths.dist.css}`,
+      `${config.paths.dist.root}/${config.paths.dist.fonts}`,
+      `${config.paths.dist.root}/${config.paths.dist.media}`,
+    ], {
+      root:     config.paths.root,
+      exclude:  [
+        // Add files that should not be removed on clean-up
+      ],
+      verbose:  false,
+      dry:      false
+    }),
+    new CopyWebpackPlugin([
+      // Update with your individual paths, we have to use context here or otherwise it will break
+      // https://github.com/webpack-contrib/copy-webpack-plugin/issues/141
+      { context: `${config.paths.src.root}/fonts/`, from: '**/*.{woff,woff2,eot,ttf,otf,svg}', to: config.paths.dist.fonts },
+      { context: `${config.paths.src.root}/media/`, from: '**/*.{mp4,webm,ogg,mp3,wav,flac,aac}', to: config.paths.dist.media },
+    ])
   ],
   stats: {
     colors: true,
