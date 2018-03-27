@@ -37,17 +37,5 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(TVDBAdapter::class, function (Application $app) {
             return new TVDBAdapter(2, Rate::SECOND);
         });
-        $tmdbClient = $this->app->make(TMDBClient::class);
-        $omdbClient = $this->app->make(OMDBClient::class);
-        $tvdbClient = $this->app->make(TVDBClient::class);
-        $this->app->singleton(TMDBClient::class, function (Application $app) use ($tmdbClient) {
-            return $tmdbClient;
-        });
-        $this->app->singleton(OMDBClient::class, function (Application $app) use ($omdbClient) {
-            return $omdbClient;
-        });
-        $this->app->singleton(TVDBClient::class, function (Application $app) use ($tvdbClient) {
-            return $tvdbClient;
-        });
     }
 }

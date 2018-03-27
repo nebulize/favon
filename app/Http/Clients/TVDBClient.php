@@ -3,6 +3,7 @@
 namespace App\Http\Clients;
 
 use GuzzleHttp\Client;
+use Predis\Client as RedisClient;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Psr7\Request;
 use Psr\Log\LoggerInterface;
@@ -35,6 +36,11 @@ class TVDBClient
     protected $logger;
 
     /**
+     * @var RedisClient
+     */
+    protected $redis;
+
+    /**
      * TVDBClient constructor.
      *
      * @param TVDBAdapter $adapter
@@ -45,7 +51,24 @@ class TVDBClient
         $this->adapter = $adapter;
         $this->url = config('media.tvdb_url');
         $this->logger = $logger;
+        $this->redis = new RedisClient([
+            'host' => config('database.redis.default.host'),
+            'port' => config('database.redis.default.port'),
+        ]);
+        $this->loadToken();
         $this->authenticate();
+    }
+
+    /**
+     * Load the TVDB from redis.
+     */
+    protected function loadToken(): void
+    {
+        // Parameters passed using a named array:
+        if ($this->redis->exists('tvdb-token') === false) {
+            $this->authenticate();
+        }
+        $this->token = $this->redis->get('tvdb-token');
     }
 
     /**
@@ -69,6 +92,9 @@ class TVDBClient
         if ($response->getStatusCode() === 200) {
             $responseBody = json_decode($response->getBody());
             $this->token = $responseBody->token;
+            $this->redis->set('tvdb-token', $this->token);
+            // Expire token after 24 hours
+            $this->redis->expire('tvdb-token', 86400);
         }
     }
 
@@ -106,7 +132,6 @@ class TVDBClient
                 break;
             case 401:
                 $this->authenticate();
-
                 return $this->get($id);
             case 404:
                 $this->logger->warning('TVDB: Could not find entry with ID '.$id);
