@@ -56,7 +56,6 @@ class TVDBClient
             'port' => config('database.redis.default.port'),
         ]);
         $this->loadToken();
-        $this->authenticate();
     }
 
     /**
