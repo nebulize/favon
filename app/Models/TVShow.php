@@ -143,16 +143,6 @@ class TVShow extends Model
     }
 
     /**
-     * Helper function: one tv show has many episodes through their respective seasons.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
-     */
-    public function episodes() : \Illuminate\Database\Eloquent\Relations\HasManyThrough
-    {
-        return $this->hasManyThrough(TVEpisode::class, TVSeason::class, 'tv_show_id', 'tv_season_id');
-    }
-
-    /**
      * Many-to-Many: one tv show can have many networks.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

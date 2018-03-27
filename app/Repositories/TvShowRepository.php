@@ -83,8 +83,8 @@ class TvShowRepository implements RepositoryContract
             $query = $query
                 ->join('tv_seasons', 'tv_seasons.tv_show_id', '=', 'tv_shows.id')
                 ->join('seasons', 'tv_seasons.season_id', '=', 'seasons.id')
-                ->where('seasons.start_date', '>=', $parameters['season_gt']->start_date);
-
+                ->where('seasons.start_date', '>=', $parameters['season_gt']->start_date)
+                ->select(['tv_shows.*']);
             return $query->get();
         }
 
