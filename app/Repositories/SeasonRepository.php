@@ -46,17 +46,30 @@ class SeasonRepository implements RepositoryContract
      * @return Season
      * @throws ModelNotFoundException
      */
-    public function find(array $parameters = []) : Season
+    public function find(array $parameters = []): Season
     {
-        $query = $this->season;
+        $query = $this->season->newQuery();
         if (isset($parameters['year'])) {
             $query = $query->where('year', $parameters['year']);
         }
         if (isset($parameters['name'])) {
             $query = $query->where('name', $parameters['name']);
         }
+
         // Filter by date
         if (isset($parameters['date'])) {
+            $date = $parameters['date'];
+            $query = $query->where('start_date', '<=', $date);
+
+            // Overflow into the next season if tv season start_date is very close to the season end_date
+            if (isset($parameters['overflow']) && $parameters['overflow'] === true) {
+                $date = $date->addDays(14);
+            }
+            $query = $query->where('end_date', '>=', $date);
+
+        }
+
+        if (isset($parameters['overflow']) && $parameters['overflow'] === true) {
             $query = $query
                 ->where('start_date', '<=', $parameters['date'])
                 ->where('end_date', '>=', $parameters['date']);
@@ -100,10 +113,16 @@ class SeasonRepository implements RepositoryContract
      * @param array $attributes
      * @return Season
      */
-    public function create(array $attributes) : Season
+    public function create(array $attributes): Season
     {
         if (isset($attributes['date'])) {
             $date = $attributes['date'];
+
+            // Overflow into the next season if tv season start_date is close to season end_date
+            if (isset($attributes['overflow']) && $attributes['overflow'] === true) {
+                $date = $date->addDays(14);
+            }
+
             $year = $date->year;
             $month = $date->month;
             if (\in_array($month, [1, 2, 3], true)) {

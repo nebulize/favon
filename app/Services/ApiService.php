@@ -223,10 +223,12 @@ class ApiService
             try {
                 $season = $this->seasonRepository->find([
                     'date' => $tvSeasonResponse->getFirstAired(),
+                    'overflow' => true,
                 ]);
             } catch (ModelNotFoundException $e) {
                 $season = $this->seasonRepository->create([
                     'date' => $tvSeasonResponse->getFirstAired(),
+                    'overflow' => true,
                 ]);
             }
             $attributes['season_id'] = $season->id;
@@ -484,10 +486,12 @@ class ApiService
             try {
                 $season = $this->seasonRepository->find([
                     'date' => $tvSeasonResponse->getFirstAired(),
+                    'overflow' => true
                 ]);
             } catch (ModelNotFoundException $e) {
                 $season = $this->seasonRepository->create([
                     'date' => $tvSeasonResponse->getFirstAired(),
+                    'overflow' => true,
                 ]);
             }
             $attributes['season_id'] = $season->id;
