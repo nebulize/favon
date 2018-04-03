@@ -45,7 +45,7 @@
             @change="filterAllGenres"
             v-model="filters.genres.all">
           <label for="filter__genres--all">All</label>
-          <div class="row is-multiline">
+          <div class="row filter__genres is-multiline">
             <div v-for="genre in store.genres" :key="genre.id" class="column is-3">
               <input
                 type="checkbox"

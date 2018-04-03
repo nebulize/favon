@@ -11,7 +11,7 @@
 
     <!-- Stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700" rel="stylesheet">
-    <link href="/css/favon.min.css" rel="stylesheet">
+    <link href="{{ asset_path('css/favon.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/1.8.36/css/materialdesignicons.min.css">
 
     <!-- Favicon and Apple Touch Icons-->

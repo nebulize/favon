@@ -1,21 +1,40 @@
 .filters {
   background: $color-white;
-  height: 60px;
+  min-height: 60px;
 
   .container {
-    align-items: center;
-    display: flex;
-    height: 100%;
+
+    @include tablet {
+      align-items: center;
+      display: flex;
+      min-height: 60px;
+    }
   }
 }
 
 .seasons__list {
+  display: flex;
+  justify-content: center;
   list-style: none;
   margin: 0;
+  padding: 1rem 0;
+
+  @include tablet {
+    display: block;
+    padding: 0;
+  }
 
   li {
     display: inline-block;
     margin-right: 15px;
+
+    &:first-child {
+      display: none;
+
+      @include tablet {
+        display: inline-block;
+      }
+    }
 
     a:not(.is-active) {
       color: $filters-color-seasons;
@@ -33,6 +52,13 @@
 .filters__list {
   align-items: center;
   display: flex;
+  justify-content: center;
+  padding: 1rem 0 2rem;
+
+  @include tablet {
+    justify-content: flex-start;
+    padding: 0;
+  }
 
   span {
     color: $filters-color;
@@ -60,5 +86,15 @@
         fill: $color-link;
       }
     }
+  }
+}
+
+.filter__genres {
+  flex-direction: row;
+
+  .column {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: .5rem 0;
   }
 }

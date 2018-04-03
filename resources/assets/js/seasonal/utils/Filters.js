@@ -45,7 +45,7 @@ export default class Filters {
    * @returns {boolean}
    */
   static filterByScore(season, min) {
-    return season.tv_show.imdb_score >= min;
+    return season.tv_show.imdb_score === 0 || season.tv_show.imdb_score >= min;
   }
 
   /**

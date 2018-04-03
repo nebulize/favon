@@ -41,9 +41,13 @@
   font-size: 1.3rem;
   padding: 20px 35px;
   position: absolute;
-  top: 0;
+  top: 10px;
   left: 0;
   width: 100%;
+
+  @include tablet {
+    top: 0;
+  }
 
   .style-select,
   .style-select * {
@@ -97,7 +101,7 @@
 
 .popup__arrow {
   position: absolute;
-  top: -6px;
+  top: 4px;
   right: 0;
   margin: 0 0 0 -6px;
   width: 12px;
@@ -107,6 +111,10 @@
   background: #fff;
   box-shadow: -3px -3px 5px rgba(82, 95, 127, .04);
   will-change: transform;
+
+  @include tablet {
+    top: -6px;
+  }
 }
 
 .popup__confirm {
