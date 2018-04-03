@@ -3,7 +3,10 @@
     background: $card-color-bg;
     box-shadow: 0 10px 40px $card-shadow;
     height: 305px;
-    margin-top: 30px;
+
+    @include tablet {
+      margin-top: 30px;
+    }
 
     &.is-winter {
       .description__title {
