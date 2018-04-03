@@ -2,7 +2,7 @@ export default {
   data: {
     filters: {
       sequels: false,
-      sort: 'popularity',
+      sort: 'score',
       score: 0,
       list: {
         all: true,
