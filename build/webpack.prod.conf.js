@@ -7,7 +7,7 @@ const baseWebpackConfig = require('./webpack.base.conf');
 const config = require('./config');
 
 const extractSass = new ExtractTextPlugin({
-  filename: `./${config.paths.dist.css}/${config.name}.min.css`,
+  filename: `./${config.paths.dist.css}/${config.name}.[name].css`,
 });
 
 module.exports = merge(baseWebpackConfig, {

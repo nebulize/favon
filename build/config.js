@@ -38,7 +38,7 @@ module.exports = {
     assetsPublicPath: '/',
     cacheBusting: true,
     hmrHost: 'localhost',
-    hmrPort: 8080,
+    hmrPort: 3000,
   },
 
   // Build config
