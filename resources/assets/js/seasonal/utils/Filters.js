@@ -109,7 +109,7 @@ export default class Filters {
     if (a.first_aired < b.first_aired) {
       return 1;
     }
-    return 0;
+    return this.compareByName(a, b);
   }
 
   /**
@@ -125,7 +125,7 @@ export default class Filters {
     if (a.created_at < b.created_at) {
       return 1;
     }
-    return 0;
+    return this.compareByName(a, b);
   }
 
   /**
@@ -141,6 +141,6 @@ export default class Filters {
     if (a.tv_show.popularity < b.tv_show.popularity) {
       return 1;
     }
-    return 0;
+    return this.compareByName(a, b);
   }
 }
