@@ -73,7 +73,7 @@ class TvShowRepository implements RepositoryContract
         /**
          * @var Builder
          */
-        $query = $this->tvShow;
+        $query = $this->tvShow->newQuery();
 
         if (isset($parameters['created_at_gt'])) {
             $query = $query->where('created_at', '>=', $parameters['created_at_gt']);
@@ -86,6 +86,16 @@ class TvShowRepository implements RepositoryContract
                 ->where('seasons.start_date', '>=', $parameters['season_gt']->start_date)
                 ->select(['tv_shows.*']);
             return $query->get();
+        }
+
+        // Order by given key
+        if (isset($parameters['orderBy']) && \is_array($parameters['orderBy'])) {
+            $query = $query->orderBy($parameters['orderBy'][0], $parameters['orderBy'][1]);
+        }
+
+        // Retrieve limited amount of rows
+        if (isset($parameters['limit'])) {
+            $query = $query->take($parameters['limit']);
         }
 
         return $query->get();

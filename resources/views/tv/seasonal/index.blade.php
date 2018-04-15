@@ -48,3 +48,8 @@
     </main>
   </div>
 @endsection
+
+@section('scripts')
+    @parent
+    <script src="{{ asset_path('js/favon.seasonal.js') }}"></script>
+@endsection

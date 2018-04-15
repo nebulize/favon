@@ -1,5 +1,26 @@
-main {
-  padding-bottom: 100px;
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+}
+
+.logo {
+  &.is-winter {
+    fill: $color-winter-dark;
+  }
+
+  &.is-spring {
+    fill: $color-spring;
+  }
+
+  &.is-summer {
+    fill: $color-summer;
+  }
+
+  &.is-fall {
+    fill: $color-fall;
+  }
 }
 
 .container {

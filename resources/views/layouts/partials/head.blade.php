@@ -22,7 +22,7 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="apple-mobile-web-app-title" content="Favon">
     <meta name="application-name" content="Favon">
-    @switch($season)
+    @switch($currentSeason)
         @case(\App\Enumerators\SeasonType::WINTER)
             <meta name="theme-color" content="#82d4f5">
             @break

@@ -1,0 +1,37 @@
+.button {
+  &.is-winter {
+    @include btn(#fff, $color-winter);
+
+    &:disabled,
+    &.is-disabled {
+      background-color: tint($color-winter, 20%);
+    }
+  }
+
+  &.is-spring {
+    @include btn(#fff, $color-spring);
+
+    &:disabled,
+    &.is-disabled {
+      background-color: tint($color-spring, 20%);
+    }
+  }
+
+  &.is-summer {
+    @include btn(#fff, $color-summer);
+
+    &:disabled,
+    &.is-disabled {
+      background-color: tint($color-summer, 20%);
+    }
+  }
+
+  &.is-fall {
+    @include btn(#fff, $color-fall);
+
+    &:disabled,
+    &.is-disabled {
+      background-color: tint($color-fall, 20%);
+    }
+  }
+}

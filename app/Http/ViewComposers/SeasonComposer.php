@@ -2,6 +2,7 @@
 
 namespace App\Http\ViewComposers;
 
+use App\Models\Season;
 use Carbon\Carbon;
 use Illuminate\View\View;
 
@@ -20,15 +21,22 @@ class SeasonComposer
         $date = Carbon::now();
         $month = $date->month;
         $year = $date->year;
+        $season = new Season();
         if (\in_array($month, [1, 2, 3], true)) {
-            $this->season = Carbon::create($year, 1, 1);
+            $season->start_date = Carbon::create($year, 1, 1);
+            $season->name = 'Winter';
         } elseif (\in_array($month, [4, 5, 6], true)) {
-            $this->season = Carbon::create($year, 4, 1);
+            $season->start_date = Carbon::create($year, 4, 1);
+            $season->name = 'Spring';
         } elseif (\in_array($month, [7, 8, 9], true)) {
-            $this->season = Carbon::create($year, 7, 1);
+            $season->start_date = Carbon::create($year, 7, 1);
+            $season->name = 'Summer';
         } else {
-            $this->season = Carbon::create($year, 10, 1);
+            $season->start_date = Carbon::create($year, 10, 1);
+            $season->name = 'Fall';
         }
+        $season->year = $year;
+        $this->season = $season;
     }
 
     /**

@@ -17,8 +17,8 @@ class CreateUserTvSeasonTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('tv_season_id')->unsigned();
-            $table->enum('status', ['Watching', 'Plan to Watch', 'Completed', 'Dropped']);
-            $table->date('completed_at');
+            $table->enum('status', ['watching', 'ptw', 'completed', 'dropped', 'hold']);
+            $table->date('completed_at')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('tv_season_id')->references('id')->on('tv_seasons')->onDelete('cascade');
             $table->timestamps();

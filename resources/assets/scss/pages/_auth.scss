@@ -1,0 +1,55 @@
+.auth {
+  align-items: center;
+  background-size: cover;
+  display: flex;
+  height: 70%;
+  justify-content: center;
+  min-height: 750px;
+
+  .card {
+    width: 450px;
+  }
+
+  .card__head {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+
+    svg {
+      height: 25px;
+    }
+
+    span {
+      display: inline-block;
+      margin-left: 10px;
+      margin-top: 2px;
+    }
+  }
+
+  .card__content {
+    padding: 2rem;
+  }
+
+  form {
+    margin-bottom: .5rem;
+  }
+
+  label[for="remember"] {
+    color: #a3a3a4;
+  }
+
+  .card-action a {
+    color: $color-link;
+  }
+}
+
+.reset-password {
+  color: rgba(34,36,38,.4);
+  font-size: 1.5rem;
+  margin-left: 2rem;
+
+  &:focus,
+  &:hover {
+    color: $color-link;
+  }
+}

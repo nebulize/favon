@@ -52,7 +52,7 @@ class TvSeasonRepository implements RepositoryContract
      */
     public function find(array $parameters = []) : TVSeason
     {
-        $query = $this->tvSeason;
+        $query = $this->tvSeason->newQuery();
         // Filter by season
         if (isset($parameters['season_id'])) {
             $query = $query->where('season_id', $parameters['season_id']);
@@ -64,6 +64,11 @@ class TvSeasonRepository implements RepositoryContract
         // Filter by season number
         if (isset($parameters['number'])) {
             $query = $query->where('number', $parameters['number']);
+        }
+
+        // Order by given key
+        if (isset($parameters['orderBy']) && \is_array($parameters['orderBy'])) {
+            $query = $query->orderBy($parameters['orderBy'][0], $parameters['orderBy'][1]);
         }
 
         return $query->firstOrFail();
