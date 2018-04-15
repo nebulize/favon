@@ -107,9 +107,9 @@ class TvSeasonRepository implements RepositoryContract
                 ->where(function (EloquentBuilder $q) {
                     $q->where('tv_shows.imdb_votes', '>=', 1000);
                     $q->orWhere('tv_shows.popularity', '>=', 15);
-                    // Also include shows from a few selected networks by default (Netflix, HBO, Amazon, Hulu, SyFy, Showtime, FX, The CW, AMC)
+                    // Also include shows from a few selected networks by default (Netflix, HBO, Amazon, Hulu, SyFy, Showtime, FX, The CW, AMC, Starz, BBC America)
                     $q->orWhereIn('tv_shows.id', function (QueryBuilder $q2) {
-                        $q2->select('tv_show_id')->from('network_tv_show')->whereIn('network_id', [113, 25, 92, 39, 131, 503, 746, 27, 30]);
+                        $q2->select('tv_show_id')->from('network_tv_show')->whereIn('network_id', [113, 25, 92, 39, 131, 503, 746, 27, 30, 303, 411]);
                     });
                 });
 
@@ -119,10 +119,12 @@ class TvSeasonRepository implements RepositoryContract
             });
 
             $query = $query
-                ->orderBy('tv_shows.popularity', 'DESC')
                 ->with('tvShow.genres')
                 ->with('tvShow.languages')
-                ->select(['tv_seasons.*']);
+                ->with('tvShow.networks')
+                ->orderBy('tv_shows.popularity', 'DESC')
+                ->select(['tv_seasons.*'])
+                ->withCount('tvEpisodes');
 
             return $query->get();
         }
