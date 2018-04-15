@@ -58,7 +58,7 @@ class SeasonRepository implements RepositoryContract
 
         // Filter by date
         if (isset($parameters['date'])) {
-            $date = $parameters['date'];
+            $date = $parameters['date']->copy();
             $query = $query->where('start_date', '<=', $date);
 
             // Overflow into the next season if tv season start_date is very close to the season end_date
@@ -116,7 +116,7 @@ class SeasonRepository implements RepositoryContract
     public function create(array $attributes): Season
     {
         if (isset($attributes['date'])) {
-            $date = $attributes['date'];
+            $date = $attributes['date']->copy();
 
             // Overflow into the next season if tv season start_date is close to season end_date
             if (isset($attributes['overflow']) && $attributes['overflow'] === true) {
