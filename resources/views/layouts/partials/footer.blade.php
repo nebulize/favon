@@ -1,4 +1,4 @@
-<footer>
+<footer class="is-dark">
     <div class="container">
         <div class="row">
             <div class="column is-4">

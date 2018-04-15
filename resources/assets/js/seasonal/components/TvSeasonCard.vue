@@ -40,8 +40,14 @@
         </div>
       </div>
       <div class="card__footer">
-        <span>{{ tv_season.first_aired_string }}</span>
-        <div class="flex-group is-right">
+        <div class="flex-left">
+          <span>{{ tv_season.first_aired_string }}</span>
+        </div>
+        <div class="flex-center">
+          <span>{{ tv_season.tv_episodes_count }} Eps</span>
+          <span class="footer__network">{{ tv_season.tv_show.networks[0].name }}</span>
+        </div>
+        <div class="flex-right">
           <img src="/images/imdb.svg">
           <span v-if="tv_season.tv_show.imdb_score === 0">N/A</span>
           <span v-else>

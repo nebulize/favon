@@ -1,15 +1,56 @@
 footer {
-  background: $footer-bg;
+  &.is-dark {
+    background: $footer-dark-bg;
+
+    .logo {
+      fill: $footer-dark-color-logo;
+    }
+
+    h4 {
+      color: $footer-dark-color-text;
+    }
+
+    a {
+      color: $footer-dark-color-text;
+    }
+
+    .social--twitter {
+      svg {
+        fill: $footer-dark-color-icon;
+      }
+    }
+  }
+
+  &.is-light {
+    background: $footer-light-bg;
+
+    .logo {
+      fill: $footer-light-color-logo;
+    }
+
+    h4 {
+      color: $footer-light-color-text;
+    }
+
+    a {
+      color: $footer-light-color-text;
+    }
+
+    .social--twitter {
+      svg {
+        fill: $footer-light-color-icon;
+      }
+    }
+  }
+
   min-height: 300px;
   padding: 80px 0 30px;
 
   .logo {
-    fill: $footer-color-logo;
     height: 40px;
   }
 
   h4 {
-    color: $footer-color-text;
     font-size: 1.3rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -25,7 +66,6 @@ footer {
   }
 
   a {
-    color: $footer-color-text;
     font-size: 1.4rem;
   }
 
@@ -38,7 +78,6 @@ footer {
 
   .social--twitter {
     svg {
-      fill: $footer-color-icon;
       height: 15px;
     }
 

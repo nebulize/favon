@@ -30,3 +30,31 @@ body {
     padding: 0;
   }
 }
+
+.flex-left,
+.flex-center,
+.flex-right {
+  align-items: center;
+  display: flex;
+}
+
+.flex-left,
+.flex-right {
+  flex-basis: 0;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.flex-left {
+  justify-content: flex-start;
+}
+
+.flex-center {
+  flex-grow: 0;
+  flex-shrink: 0;
+  justify-content: center;
+}
+
+.flex-right {
+  justify-content: flex-end;
+}
