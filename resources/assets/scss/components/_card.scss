@@ -28,6 +28,11 @@
       }
     }
 
+    .poster__placeholder img {
+      height: 80px;
+      opacity: .6;
+    }
+
     .card__body {
       display: flex;
       height: 231px;
