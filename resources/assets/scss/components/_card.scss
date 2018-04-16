@@ -8,14 +8,6 @@
       margin-top: 30px;
     }
 
-    &.is-winter {
-      .description__title {
-        span {
-          color: $color-winter;
-        }
-      }
-    }
-
     .card__head {
       background: $card-color-bg-accent;
       box-shadow: 0 1px 5px 0 $card-shadow-accent;
@@ -94,10 +86,15 @@
       text-transform: uppercase;
     }
 
+    .description__networks {
+      font-size: 1.3rem;
+      opacity: .7;
+      margin-top: 10px;
+    }
+
     .description__plot {
       color: $card-color-accent;
       font-size: 1.2rem;
-      margin-top: 10px;
     }
 
     .genre-label {

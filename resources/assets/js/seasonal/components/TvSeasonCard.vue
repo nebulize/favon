@@ -27,6 +27,7 @@
             class="genre-label">
             {{ genre.name }}
           </span>
+          <p class="description__networks">{{ tv_season.tv_show.networks.map(nw => nw.name).join(', ') }}</p>
           <p
             v-if="tv_season.summary"
             class="description__plot">
@@ -45,14 +46,6 @@
         </div>
         <div class="flex-center">
           <span>{{ tv_season.episode_count === 0 ? '?' : tv_season.episode_count }} Eps.</span>
-          <span
-            class="footer__network"
-            v-if="tv_season.tv_show.networks[0] && tv_season.tv_show.networks[0].name.length > 8">
-            {{ `${tv_season.tv_show.networks[0].name.substring(0, 8)}...` }}
-          </span>
-          <span class="footer__network" v-else>
-            {{ tv_season.tv_show.networks[0] ? tv_season.tv_show.networks[0].name : '' }}
-          </span>
         </div>
         <div class="flex-right">
           <img src="/images/imdb.svg">
