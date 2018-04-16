@@ -114,4 +114,23 @@ class TvEpisodeRepository implements RepositoryContract
 
         return $model;
     }
+
+    /**
+     * Get the episode count, filtered by parameters (e.g. the amount of episodes for a given tv season).
+     *
+     * @param array $parameters
+     *
+     * @return int
+     */
+    public function count(array $parameters = []): int
+    {
+        $query = $this->tvEpisode->newQuery();
+
+        // Filter by tv season
+        if (isset($parameters['tv_season_id'])) {
+            $query = $query->where('tv_season_id', $parameters['tv_season_id']);
+        }
+
+        return $query->count();
+    }
 }

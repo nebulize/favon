@@ -179,4 +179,17 @@ class TvSeasonRepository implements RepositoryContract
     {
         $tvSeason->persons()->attach($person->id, $attributes);
     }
+
+    /**
+     * Get a cursor to iterate over all tv seasons, optionally filtered by parameters.
+     *
+     * @param array $parameters
+     *
+     * @return \Generator
+     */
+    public function cursor(array $parameters = []): \Generator
+    {
+        $query = $this->tvSeason->newQuery();
+        return $query->cursor();
+    }
 }

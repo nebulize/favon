@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\TvSeasonUpdated;
 use Carbon\Carbon;
 use App\Models\TVShow;
 use App\Models\TVSeason;
@@ -248,6 +249,8 @@ class ApiService
                 'tv_season_id' => $tvSeason->id,
             ]);
         }
+
+        event(new TvSeasonUpdated($tvSeason));
 
         return $tvSeason;
     }
@@ -505,6 +508,8 @@ class ApiService
         foreach ($tvSeasonResponse->getEpisodes() as $episode) {
             $this->updateEpisode($tvSeason, $episode);
         }
+
+        event(new TvSeasonUpdated($tvSeason));
 
         return $tvSeason;
     }

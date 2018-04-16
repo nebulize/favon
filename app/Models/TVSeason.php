@@ -38,6 +38,8 @@ use Laracasts\Presenter\PresentableTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVSeason whereTmdbId($value)
  * @property string|null $name
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVSeason whereName($value)
+ * @property int $episode_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVSeason whereEpisodeCount($value)
  */
 class TVSeason extends Model
 {
@@ -55,7 +57,7 @@ class TVSeason extends Model
      * Fields that should be mass assignable.
      * @var array
      */
-    protected $fillable = ['first_aired', 'summary', 'poster', 'tmdb_id', 'tv_show_id', 'season_id', 'number', 'name'];
+    protected $fillable = ['first_aired', 'summary', 'poster', 'tmdb_id', 'tv_show_id', 'season_id', 'number', 'name', 'episode_count'];
 
     /**
      * Fields that are dates and casted to Carbon instances.
