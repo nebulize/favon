@@ -98,10 +98,10 @@ module.exports = {
     ],
   },
   plugins: [
-    // new StyleLintPlugin({
-    //   context: './resources/assets/scss',
-    //   syntax: 'scss',
-    // }),
+    new StyleLintPlugin({
+      context: './resources/assets/scss',
+      syntax: 'scss',
+    }),
     new CleanWebpackPlugin([
       `${config.paths.dist.root}/${config.paths.dist.images}`,
       `${config.paths.dist.root}/${config.paths.dist.js}`,
