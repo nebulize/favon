@@ -1,13 +1,22 @@
 .auth {
+
+  @include tablet {
+    height: 70%;
+    min-height: 750px;
+  }
+
   align-items: center;
   background-size: cover;
   display: flex;
-  height: 70%;
   justify-content: center;
-  min-height: 750px;
 
   .card {
+    border-radius: 0;
     width: 450px;
+
+    @include tablet {
+      border-radius: .3rem;
+    }
   }
 
   .card__head {
@@ -45,7 +54,7 @@
     margin-bottom: .5rem;
   }
 
-  label[for="remember"] {
+  label[for='remember'] {
     color: #a3a3a4;
   }
 
@@ -55,7 +64,7 @@
 }
 
 .reset-password {
-  color: rgba(34,36,38,.4);
+  color: rgba(34, 36, 38, .4);
   font-size: 1.5rem;
   margin-left: 2rem;
 
