@@ -33,7 +33,7 @@
     "selector-no-qualifying-type": [
       true,
       {
-        "ignore": ["attribute"]
+        "ignore": ["attribute", "class"]
       }
     ],
     "no-descending-specificity": null,
