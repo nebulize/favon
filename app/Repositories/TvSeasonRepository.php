@@ -121,10 +121,9 @@ class TvSeasonRepository implements RepositoryContract
             $query = $query
                 ->with('tvShow.genres')
                 ->with('tvShow.languages')
-//                ->with('tvShow.networks')
+                ->with('tvShow.networks')
                 ->orderBy('tv_shows.popularity', 'DESC')
                 ->select(['tv_seasons.*']);
-//                ->withCount('tvEpisodes');
 
             return $query->get();
         }

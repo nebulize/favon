@@ -43,9 +43,17 @@
         <div class="flex-left">
           <span>{{ tv_season.first_aired_string }}</span>
         </div>
-        <!--<div class="flex-center">-->
-        <!--<span class="footer__network">{{ tv_season.tv_show.networks[0].name }}</span>-->
-        <!--</div>-->
+        <div class="flex-center">
+          <span>{{ tv_season.episode_count === 0 ? '?' : tv_season.episode_count }} Eps.</span>
+          <span
+            class="footer__network"
+            v-if="tv_season.tv_show.networks[0] && tv_season.tv_show.networks[0].name.length > 8">
+            {{ `${tv_season.tv_show.networks[0].name.substring(0, 8)}...` }}
+          </span>
+          <span class="footer__network" v-else>
+            {{ tv_season.tv_show.networks[0] ? tv_season.tv_show.networks[0].name : '' }}
+          </span>
+        </div>
         <div class="flex-right">
           <img src="/images/imdb.svg">
           <span v-if="tv_season.tv_show.imdb_score === 0">N/A</span>
