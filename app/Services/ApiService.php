@@ -291,7 +291,6 @@ class ApiService
         }
         foreach ($tvSeasonCreditsResponse->getResults() as $result) {
             if ($result->getTmdbPersonId() === null) {
-                Log::warning($tvShow->name.' Season '.$tvSeason->number.' failed to fetch credit (IS NULL): '.json_encode($result));
                 continue;
             }
 
