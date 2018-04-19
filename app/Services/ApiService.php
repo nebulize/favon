@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Events\TvSeasonUpdated;
 use Carbon\Carbon;
 use App\Models\TVShow;
 use App\Models\TVSeason;
+use App\Events\TvSeasonUpdated;
 use App\Http\Clients\OMDBClient;
 use App\Http\Clients\TMDBClient;
 use App\Http\Clients\TVDBClient;
@@ -493,7 +493,7 @@ class ApiService
             try {
                 $season = $this->seasonRepository->find([
                     'date' => $tvSeasonResponse->getFirstAired(),
-                    'overflow' => true
+                    'overflow' => true,
                 ]);
             } catch (ModelNotFoundException $e) {
                 $season = $this->seasonRepository->create([

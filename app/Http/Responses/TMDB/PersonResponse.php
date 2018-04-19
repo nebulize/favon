@@ -3,8 +3,8 @@
 namespace App\Http\Responses\TMDB;
 
 use Carbon\Carbon;
-use App\Http\Responses\BaseResponse;
 use Illuminate\Support\Facades\Log;
+use App\Http\Responses\BaseResponse;
 
 class PersonResponse extends BaseResponse
 {

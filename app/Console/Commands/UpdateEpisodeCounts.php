@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Console\Command;
 use App\Jobs\UpdateEpisodeCount;
 use App\Repositories\TvSeasonRepository;
-use Illuminate\Console\Command;
 
 class UpdateEpisodeCounts extends Command
 {

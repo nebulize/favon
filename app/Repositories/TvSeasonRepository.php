@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use Carbon\Carbon;
 use App\Models\Person;
 use App\Models\TVSeason;
 use Illuminate\Database\Eloquent\Model;
@@ -189,6 +188,7 @@ class TvSeasonRepository implements RepositoryContract
     public function cursor(array $parameters = []): \Generator
     {
         $query = $this->tvSeason->newQuery();
+
         return $query->cursor();
     }
 }

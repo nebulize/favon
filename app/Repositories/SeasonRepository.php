@@ -66,7 +66,6 @@ class SeasonRepository implements RepositoryContract
                 $date = $date->addDays(14);
             }
             $query = $query->where('end_date', '>=', $date);
-
         }
 
         if (isset($parameters['overflow']) && $parameters['overflow'] === true) {
