@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Repositories\GenreRepository;
 use App\Repositories\SeasonRepository;
 use App\Repositories\TvSeasonRepository;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -41,9 +41,10 @@ class BaseController extends Controller
             ]);
         } catch (ModelNotFoundException $e) {
             $season = $this->seasonRepository->create([
-                'date' => Carbon::now()
+                'date' => Carbon::now(),
             ]);
         }
+
         return redirect()->route('tv.seasonal.index', ['year' => $season->year, 'season' => lcfirst($season->name)]);
     }
 

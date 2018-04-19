@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Repositories\TvSeasonRepository;
-use App\Repositories\TvShowRepository;
-use App\Repositories\UserRepository;
 use App\Http\Controllers\Controller;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Repositories\UserRepository;
+use App\Repositories\TvShowRepository;
+use App\Repositories\TvSeasonRepository;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class RegisterController extends Controller
 {
@@ -85,7 +85,7 @@ class RegisterController extends Controller
         }
 
         return view('auth.register', [
-            'banner' => $banner
+            'banner' => $banner,
         ]);
     }
 

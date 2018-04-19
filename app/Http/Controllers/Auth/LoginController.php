@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\TvSeasonRepository;
 use App\Repositories\TvShowRepository;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Repositories\TvSeasonRepository;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class LoginController extends Controller
 {
@@ -75,7 +75,7 @@ class LoginController extends Controller
         }
 
         return view('auth.login', [
-            'banner' => $banner
+            'banner' => $banner,
         ]);
     }
 }

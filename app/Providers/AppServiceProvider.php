@@ -2,9 +2,6 @@
 
 namespace App\Providers;
 
-use App\Http\Clients\OMDBClient;
-use App\Http\Clients\TMDBClient;
-use App\Http\Clients\TVDBClient;
 use App\Http\Adapters\OMDBAdapter;
 use App\Http\Adapters\TMDBAdapter;
 use App\Http\Adapters\TVDBAdapter;

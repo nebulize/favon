@@ -2,8 +2,8 @@
 
 namespace App\Http\ViewComposers;
 
-use App\Models\Season;
 use Carbon\Carbon;
+use App\Models\Season;
 use Illuminate\View\View;
 
 class SeasonComposer

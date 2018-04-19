@@ -3,11 +3,11 @@
 namespace App\Http\Clients;
 
 use GuzzleHttp\Client;
-use Predis\Client as RedisClient;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Psr7\Request;
 use Psr\Log\LoggerInterface;
 use App\Http\Adapters\APIAdapter;
+use Predis\Client as RedisClient;
 use App\Http\Adapters\TVDBAdapter;
 use App\Http\Responses\TVDB\TvdbResponse;
 
@@ -131,6 +131,7 @@ class TVDBClient
                 break;
             case 401:
                 $this->authenticate();
+
                 return $this->get($id);
             case 404:
                 $this->logger->warning('TVDB: Could not find entry with ID '.$id);
