@@ -77,9 +77,9 @@ class RCredit
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getTmdbPersonId(): int
+    public function getTmdbPersonId(): ?int
     {
         return $this->tmdb_person_id;
     }
