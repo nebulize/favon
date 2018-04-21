@@ -67,13 +67,6 @@ class SeasonRepository implements RepositoryContract
             }
             $query = $query->where('end_date', '>=', $date);
         }
-
-        if (isset($parameters['overflow']) && $parameters['overflow'] === true) {
-            $query = $query
-                ->where('start_date', '<=', $parameters['date'])
-                ->where('end_date', '>=', $parameters['date']);
-        }
-
         return $query->firstOrFail();
     }
 
