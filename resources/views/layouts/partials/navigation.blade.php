@@ -73,7 +73,12 @@
     <li><a href="#!">Home</a></li>
     <li><a class="{{ Route::currentRouteName() === 'tv.seasonal.index' ? 'is-active' : '' }}" href="{{ route('tv.seasonal') }}">Seasonal</a></li>
     <li><a href="#!">Calendar</a></li>
+    @if (Auth::check() === false)
+      <li><a href="{{ route('login') }}" class="{{ Route::currentRouteName() === 'login' ? 'is-active' : '' }}">Login</a></li>
+      <li><a href="{{ route('register') }}" class="{{ Route::currentRouteName() === 'register' ? 'is-active' : '' }}">Sign Up</a></li>
+    @endif
   </ul>
+  @if (Auth::check())
   <div class="nav__user">
     <div>
       <a href="#!" class="nav__icon icon--inbox">
@@ -87,4 +92,5 @@
       <img src="/images/avatar.png">
     </a>
   </div>
+  @endif
 </nav>
