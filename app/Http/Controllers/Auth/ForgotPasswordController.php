@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Services\TvService;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller
@@ -21,12 +22,29 @@ class ForgotPasswordController extends Controller
     use SendsPasswordResetEmails;
 
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * @var TvService
      */
-    public function __construct()
+    protected $tvService;
+
+    /**
+     * ForgotPasswordController constructor.
+     * @param TvService $tvService
+     */
+    public function __construct(TvService $tvService)
     {
+        $this->tvService = $tvService;
         $this->middleware('guest');
+    }
+
+    /**
+     * Display the form to request a password reset link.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showLinkRequestForm()
+    {
+        return view('auth.passwords.email', [
+            'banner' => $this->tvService->getBanner()
+        ]);
     }
 }

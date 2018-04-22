@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\TvSeasonUpdated;
+use App\Listeners\SendVerificationEmail;
 use App\Listeners\UpdateEpisodeCount;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -15,6 +17,9 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
+        Registered::class => [
+          SendVerificationEmail::class
+        ],
         TvSeasonUpdated::class => [
             UpdateEpisodeCount::class,
         ],

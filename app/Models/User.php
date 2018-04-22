@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use App\Jobs\SendResetPasswordEmail;
+use App\Mail\ResetPassword;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * App\User.
@@ -30,10 +34,22 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
+ * @property bool $notify_messages
+ * @property bool $notify_shows
+ * @property bool $notify_features
+ * @property bool $verified
+ * @property string|null $token
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereNotifyFeatures($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereNotifyMessages($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereNotifyShows($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereVerified($value)
+ * @property string|null $email_token
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmailToken($value)
  */
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, DispatchesJobs;
 
     /**
      * The attributes that are mass assignable.
@@ -41,7 +57,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'notify_messages', 'notify_shows', 'notify_features'
     ];
 
     /**
@@ -52,4 +68,25 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Boot the model.
+     */
+    public static function boot(): void
+    {
+        parent::boot();
+        static::creating(function (User $user) {
+            $user->email_token = str_random(30);
+        });
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     */
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->dispatch(new SendResetPasswordEmail($this, $token));
+    }
 }

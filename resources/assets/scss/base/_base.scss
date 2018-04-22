@@ -22,6 +22,10 @@ body {
   &.is-fall {
     fill: $color-fall;
   }
+
+  &.is-primary {
+    fill: $color-primary;
+  }
 }
 
 .container {

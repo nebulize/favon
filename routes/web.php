@@ -16,5 +16,7 @@ Route::get('/seasonal/{year}/{season}', 'BaseController@index')->name('tv.season
 Route::any('adminer', '\Miroc\LaravelAdminer\AdminerController@index');
 
 Auth::routes();
+Route::get('/me/confirm-email/{token}', 'Auth\AuthController@confirmEmail')->name('me.confirm-email');
+Route::post('/me/notifications', 'Auth\AuthController@notifications')->name('me.notifications');
 
 Route::get('/home', 'HomeController@index')->name('home');
