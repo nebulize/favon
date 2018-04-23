@@ -205,14 +205,8 @@ class TvShowRepository implements RepositoryContract
     public function getRandomPopularShow()
     {
         return $this->tvShow
-            ->select(['id', 'banner'])
-            ->from(function ($query) {
-                $query
-                    ->select(['id', 'banner'])
-                    ->orderBy('popularity', 'DESC')
-                    ->limit(10)
-                    ->get();
-            })
+            ->select('tv.id', 'tv.banner')
+            ->from(\DB::raw('(SELECT id, banner FROM tv_shows ORDER BY popularity DESC LIMIT 10) AS tv'))
             ->inRandomOrder()
             ->first();
     }
