@@ -25,11 +25,7 @@ class TvService
      */
     public function getBanner(): ?string
     {
-        $popularShows = $this->tvShowRepository->index([
-            'orderBy' => ['popularity', 'DESC'],
-            'limit' => 10,
-        ]);
-        $selected = $popularShows->random();
+        $selected = $this->tvShowRepository->getRandomPopularShow();
         try {
             $latestSeason = $this->tvSeasonRepository->find([
                 'tv_show_id' => $selected->id,

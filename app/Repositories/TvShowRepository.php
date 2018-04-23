@@ -201,4 +201,19 @@ class TvShowRepository implements RepositoryContract
     {
         $tvShow->save();
     }
+
+    public function getRandomPopularShow()
+    {
+        return $this->tvShow
+            ->select(['id', 'banner'])
+            ->from(function ($query) {
+                $query
+                    ->select(['id', 'banner'])
+                    ->orderBy('popularity', 'DESC')
+                    ->limit(10)
+                    ->get();
+            })
+            ->inRandomOrder()
+            ->first();
+    }
 }
