@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Repositories\TvShowRepository;
 use App\Repositories\TvSeasonRepository;
+use App\Services\TvService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -31,24 +32,17 @@ class LoginController extends Controller
     protected $redirectTo = '/tv/seasonal';
 
     /**
-     * @var TvShowRepository
+     * @var TvService
      */
-    protected $tvShowRepository;
-
-    /**
-     * @var TvSeasonRepository
-     */
-    protected $tvSeasonRepository;
+    protected $tvService;
 
     /**
      * LoginController constructor.
-     * @param TvShowRepository $tvShowRepository
-     * @param TvSeasonRepository $tvSeasonRepository
+     * @param TvService $tvService
      */
-    public function __construct(TvShowRepository $tvShowRepository, TvSeasonRepository $tvSeasonRepository)
+    public function __construct(TvService $tvService)
     {
-        $this->tvShowRepository = $tvShowRepository;
-        $this->tvSeasonRepository = $tvSeasonRepository;
+        $this->tvService = $tvService;
         $this->middleware('guest')->except('logout');
     }
 
@@ -59,23 +53,8 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        $popularShows = $this->tvShowRepository->index([
-            'orderBy' => ['popularity', 'DESC'],
-            'limit' => 10,
-        ]);
-        $selected = $popularShows->random();
-        try {
-            $latestSeason = $this->tvSeasonRepository->find([
-                'tv_show_id' => $selected->id,
-                'orderBy' => ['number', 'DESC'],
-            ]);
-            $banner = $latestSeason->banner ?? $selected->banner;
-        } catch (ModelNotFoundException $e) {
-            $banner = $selected->banner;
-        }
-
         return view('auth.login', [
-            'banner' => $banner,
+            'banner' => $this->tvService->getBanner(),
         ]);
     }
 }
