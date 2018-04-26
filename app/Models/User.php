@@ -51,6 +51,14 @@ class User extends Authenticatable
 {
     use Notifiable, DispatchesJobs;
 
+    const WATCH_STATUS = [
+        'ptw' => 'Plan to Watch',
+        'watching' => 'Watching',
+        'dropped' => 'Dropped',
+        'completed' => 'Completed',
+        'hold' => 'On Hold'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
