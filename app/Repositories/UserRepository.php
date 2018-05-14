@@ -76,6 +76,9 @@ class UserRepository
         if ($data['status'] === User::STATUS_COMPLETED) {
             $data['progress'] = $tvSeason->episode_count;
         }
+        if ($data['score'] === 0) {
+            $data['score'] = null;
+        }
         $user->tvSeasons()->attach($tvSeason->id, $data);
     }
 
@@ -83,6 +86,9 @@ class UserRepository
     {
         if ($data['status'] === User::STATUS_COMPLETED) {
             $data['progress'] = $tvSeason->episode_count;
+        }
+        if ($data['score'] === 0) {
+            $data['score'] = null;
         }
         $user->tvSeasons()->updateExistingPivot($tvSeason->id, $data);
     }

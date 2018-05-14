@@ -35,6 +35,29 @@
     .popup__arrow {
       transform: translateX(-25px) rotate(45deg);
     }
+
+    .list__buttons {
+      margin-top: 20px;
+    }
+
+    .button--list.is-narrow {
+      font-size: 1.1rem;
+    }
+
+    .popup__content {
+      font-size: 1.5rem;
+    }
+
+    .style-select,
+    .style-select * {
+      font-size: 1.5rem;
+    }
+
+    label,
+    p,
+    span {
+      font-size: 1.5rem;
+    }
   }
 
   &--filters {
@@ -45,6 +68,21 @@
     .popup__arrow {
       transform: translateX(-70px) rotate(45deg);
     }
+
+    .popup__content {
+      font-size: 1.3rem;
+    }
+
+    .style-select,
+    .style-select * {
+      font-size: 1.3rem;
+    }
+
+    label,
+    p,
+    span {
+      font-size: 1.3rem;
+    }
   }
 }
 
@@ -52,7 +90,6 @@
   background: #fff;
   border-radius: 4px;
   box-shadow: 0 1px 35px rgba(50, 50, 93, .15), 0 10px 35px rgba(50, 50, 93, .15);
-  font-size: 1.3rem;
   padding: 20px 35px;
   position: absolute;
   top: 10px;
@@ -61,11 +98,6 @@
 
   @include tablet {
     top: 0;
-  }
-
-  .style-select,
-  .style-select * {
-    font-size: 1.3rem;
   }
 
   .field {
@@ -100,7 +132,6 @@
   p,
   span {
     color: $popup-color-font;
-    font-size: 1.3rem;
   }
 
   label {

@@ -38,22 +38,47 @@
                 </select>
               </div>
             </div>
-            <div class="field is-centered row">
+            <div v-show="status !== 'completed' && status !== 'ptw'" class="field is-centered row">
               <label for="progress" class="column is-3">Progress</label>
-              <div class="column is-6">
+              <div class="column is-3">
                 <input type="text" name="progress" id="progress" v-model="progress">
               </div>
               <div class="column is-3">
                 <span> / {{ episodeCount }} Eps.</span>
               </div>
             </div>
-            <button class="button is-info is-narrow button--list" @click="submit">Save</button>
-            <button
-              v-if="inList"
-              class="button is-danger is-narrow button--list"
-              @click="remove">
-              Remove from List
-            </button>
+            <div v-show="status !== 'ptw'" class="field is-centered row">
+              <label for="score" class="column is-3">Score</label>
+              <div class="column is-9">
+                <select
+                  ref="scoreSelect"
+                  v-model="score"
+                  class="select"
+                  name="score"
+                  id="score">
+                  <option value="0">Select a score</option>
+                  <option value="10">10 - Masterpiece</option>
+                  <option value="9">9 - Outstanding</option>
+                  <option value="8">8 - Very Good</option>
+                  <option value="7">7 - Good</option>
+                  <option value="6">6 - Fine</option>
+                  <option value="5">5 - Average</option>
+                  <option value="4">4 - Underwhelming</option>
+                  <option value="3">3 - Bad</option>
+                  <option value="2">2 - Very Bad</option>
+                  <option value="1">1 - Appalling</option>
+                </select>
+              </div>
+            </div>
+            <div class="list__buttons">
+              <button class="button is-info is-narrow button--list" @click="submit">Save</button>
+              <button
+                v-if="inList"
+                class="button is-danger is-narrow button--list"
+                @click="remove">
+                Remove from List
+              </button>
+            </div>
           </div>
           <div class="popup__arrow" />
         </div>
@@ -135,6 +160,7 @@ export default {
       showPopup: false,
       status: 'ptw',
       progress: 0,
+      score: 0,
       inList: false,
       networks: ['netflix', 'hulu', 'hbo', 'syfy', 'amazon', 'showtime', 'starz'],
     };
@@ -146,13 +172,13 @@ export default {
     listStatusDescription() {
       switch (this.status) {
         case 'completed':
-          return 'Completed';
+          return `Completed ★ ${this.score}`;
         case 'watching':
-          return `Watching ${this.progress}/${this.episodeCount}`;
+          return `Watching ${this.progress}/${this.episodeCount} ★ ${this.score}`;
         case 'hold':
-          return `On Hold ${this.progress}/${this.episodeCount}`;
+          return `On Hold ${this.progress}/${this.episodeCount} ★ ${this.score}`;
         case 'dropped':
-          return 'Dropped';
+          return `Dropped ★ ${this.score}`;
         default:
           return 'Plan To Watch';
       }
@@ -175,12 +201,15 @@ export default {
     });
     if (this.tv_season.users && this.tv_season.users.length > 0) {
       this.inList = true;
-      this.progress = this.tv_season.users[0].pivot.progress;
-      this.status = this.tv_season.users[0].pivot.status;
+      const pivot = this.tv_season.users[0].pivot;
+      this.progress = pivot.progress;
+      this.status = pivot.status;
+      this.score = pivot.score ? pivot.score : 0;
     }
   },
   mounted() {
     luma.select(this.$refs.select);
+    luma.select(this.$refs.scoreSelect);
   },
   props: {
     season: {
@@ -202,6 +231,7 @@ export default {
           tv_season_id: this.tv_season.id,
           status: this.status,
           progress: this.progress,
+          score: this.score,
         }, {
           headers: { 'X-CSRF-TOKEN': document.head.querySelector('[name=csrf-token]').content },
         }).then(() => {
@@ -214,6 +244,7 @@ export default {
           tv_season_id: this.tv_season.id,
           status: this.status,
           progress: this.progress,
+          score: this.score,
         }, {
           headers: { 'X-CSRF-TOKEN': document.head.querySelector('[name=csrf-token]').content },
         }).then(() => {

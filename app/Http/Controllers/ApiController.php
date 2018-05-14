@@ -37,7 +37,8 @@ class ApiController extends Controller
         $tvSeason = $this->tvSeasonRepository->get($request->get('tv_season_id'));
         $this->userRepository->addTvSeasonToList($user, $tvSeason, [
             'status' => $request->get('status'),
-            'progress' => $request->has('progress') ? (int)$request->get('progress') : 0,
+            'progress' => (int)$request->get('progress'),
+            'score' => (int)$request->get('score'),
         ]);
         return $user;
     }
@@ -48,7 +49,8 @@ class ApiController extends Controller
         $tvSeason = $this->tvSeasonRepository->get((int)$id);
         $this->userRepository->updateTvSeasonListStatus($user, $tvSeason, [
             'status' => $request->get('status'),
-            'progress' => $request->has('progress') ? (int)$request->get('progress') : 0,
+            'progress' => (int)$request->get('progress'),
+            'score' => (int)$request->get('score'),
         ]);
         return $user;
     }
