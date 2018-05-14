@@ -34,7 +34,7 @@ const app = new Vue({
       this.showFilter = false;
     });
     EventBus.$on('close-all-popups-except', (event) => {
-      if (this.$refs.trigger !== event.target) {
+      if (event.target !== this.$refs.trigger && event.target.parentNode !== this.$refs.trigger) {
         this.showFilter = false;
       }
     });
@@ -111,6 +111,9 @@ const app = new Vue({
         // eslint-disable-next-line no-param-reassign
         season.first_aired_string = format(new Date(season.first_aired), 'MMM D, YYYY');
       });
+    },
+    toggleFilter() {
+      this.showFilter = !this.showFilter;
     },
   },
 });
