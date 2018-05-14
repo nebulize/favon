@@ -59,6 +59,12 @@ class User extends Authenticatable
         'hold' => 'On Hold'
     ];
 
+    public const STATUS_PLAN_TO_WATCH = 'ptw';
+    public const STATUS_WATCHING = 'watching';
+    public const STATUS_DROPPED = 'dropped';
+    public const STATUS_COMPLETED = 'completed';
+    public const STATUS_ON_HOLD = 'hold';
+
     /**
      * The attributes that are mass assignable.
      *

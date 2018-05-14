@@ -61,6 +61,7 @@ const app = new Vue({
     axios.get('/api/users/me')
       .then((response) => {
         this.store.user = response.data;
+        EventBus.$emit('user-received');
       })
       .catch(() => {
         this.store.user = null;

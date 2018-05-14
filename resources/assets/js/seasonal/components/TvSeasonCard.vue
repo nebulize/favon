@@ -4,43 +4,58 @@
       <div class="card__head">
         <template v-if="user">
           <a
-            v-if="listStatus === null"
+            v-if="inList"
+            ref="list"
+            :class="`popup__trigger label__status is-${status} is-right`"
+            @click="togglePopup">
+            {{ listStatusDescription }}
+          </a>
+          <a
+            v-else
             ref="trigger"
             class="popup__trigger button is-outline is-tiny is-right"
-            @click="showPopup = !showPopup">
-            Add
+            @click="togglePopup">
+            Add To List
           </a>
-          <span v-else-if="listStatus === 'ptw'" class="label__status is-ptw is-right">Plan To Watch</span>
-          <span v-else-if="listStatus === 'completed'" class="label__status is-completed is-right">Completed</span>
-          <span
-            v-else-if="listStatus === 'watching'"
-            class="label__status is-watching is-right">Currently Watching</span>
-          <span v-else-if="listStatus === 'hold'" class="label__status is-ptw is-right">On Hold</span>
-          <span v-else-if="listStatus === 'dropped'" class="label__status is-dropped is-right">Dropped</span>
-          <div :class="`popup popup--list ${ showPopup ? 'is-active' : ''}`">
-            <div class="popup__content">
-              <div class="field is-centered row">
-                <label for="status" class="column is-2">Status</label>
-                <div class="column is-6">
-                  <select
-                    ref="select"
-                    v-model="status"
-                    class="select"
-                    name="status"
-                    id="status">
-                    <option value="ptw">Plan To Watch</option>
-                    <option value="watching">Watching</option>
-                    <option value="completed">Completed</option>
-                    <option value="hold">On Hold</option>
-                    <option value="dropped">Dropped</option>
-                  </select>
-                </div>
-              </div>
-              <button class="button is-info is-narrow button--list" @click="submit">Add to list</button>
-            </div>
-            <div class="popup__arrow" />
-          </div>
         </template>
+        <div :class="`popup popup--list ${ showPopup ? 'is-active' : ''}`">
+          <div class="popup__content">
+            <div class="field is-centered row">
+              <label for="status" class="column is-3">Status</label>
+              <div class="column is-9">
+                <select
+                  ref="select"
+                  v-model="status"
+                  class="select"
+                  name="status"
+                  id="status">
+                  <option value="ptw">Plan To Watch</option>
+                  <option value="watching">Watching</option>
+                  <option value="completed">Completed</option>
+                  <option value="hold">On Hold</option>
+                  <option value="dropped">Dropped</option>
+                </select>
+              </div>
+            </div>
+            <div class="field is-centered row">
+              <label for="progress" class="column is-3">Progress</label>
+              <div class="column is-6">
+                <input type="text" name="progress" id="progress" v-model="progress">
+              </div>
+              <div class="column is-3">
+                <span> / {{ episodeCount }} Eps.</span>
+              </div>
+            </div>
+            <button class="button is-info is-narrow button--list" @click="submit">Save</button>
+            <button
+              v-if="inList"
+              class="button is-danger is-narrow button--list"
+              @click="remove">
+              Remove from List
+            </button>
+          </div>
+          <div class="popup__arrow" />
+        </div>
       </div>
       <div class="card__body">
         <div class="body__poster">
@@ -85,7 +100,7 @@
           <span>{{ tv_season.first_aired_string }}</span>
         </div>
         <div class="flex-center">
-          <span>{{ tv_season.episode_count === 0 ? '?' : tv_season.episode_count }} Eps.</span>
+          <span>{{ episodeCount }} Eps.</span>
         </div>
         <div class="flex-right">
           <img src="/images/imdb.svg">
@@ -119,18 +134,30 @@ export default {
        */
       showPopup: false,
       status: 'ptw',
-      submittedStatus: null,
+      progress: 0,
+      inList: false,
     };
   },
   computed: {
     user() {
       return this.store.user;
     },
-    listStatus() {
-      if (this.submittedStatus) {
-        return this.submittedStatus;
+    listStatusDescription() {
+      switch (this.status) {
+        case 'completed':
+          return 'Completed';
+        case 'watching':
+          return `Watching ${this.progress}/${this.episodeCount}`;
+        case 'hold':
+          return `On Hold ${this.progress}/${this.episodeCount}`;
+        case 'dropped':
+          return 'Dropped';
+        default:
+          return 'Plan To Watch';
       }
-      return this.tv_season.users.length === 0 ? null : this.tv_season.users[0].pivot.status;
+    },
+    episodeCount() {
+      return this.tv_season.episode_count === 0 ? '?' : this.tv_season.episode_count;
     },
   },
   created() {
@@ -138,10 +165,15 @@ export default {
       this.showPopup = false;
     });
     EventBus.$on('close-all-popups-except', (event) => {
-      if (this.$refs.trigger !== event.target) {
+      if (event.target !== this.$refs.trigger && event.target !== this.$refs.list) {
         this.showPopup = false;
       }
     });
+    if (this.tv_season.users.length > 0) {
+      this.inList = true;
+      this.progress = this.tv_season.users[0].pivot.progress;
+      this.status = this.tv_season.users[0].pivot.status;
+    }
   },
   mounted() {
     luma.select(this.$refs.select);
@@ -157,23 +189,39 @@ export default {
     },
   },
   methods: {
+    togglePopup() {
+      this.showPopup = !this.showPopup;
+    },
     submit() {
-      console.log('Submitting: ', {
-        tv_season_id: this.tv_season.id,
-        status: this.status,
-      });
-      axios.post('/api/users/me/seasons', {
-        tv_season_id: this.tv_season.id,
-        status: this.status,
-      }, {
-        headers: { 'X-CSRF-TOKEN': document.head.querySelector('[name=csrf-token]').content },
-      })
-        .then(() => {
-          this.submittedStatus = this.status;
+      if (this.inList) {
+        axios.patch(`/api/users/me/seasons/${this.tv_season.id}`, {
+          tv_season_id: this.tv_season.id,
+          status: this.status,
+          progress: this.progress,
+        }, {
+          headers: { 'X-CSRF-TOKEN': document.head.querySelector('[name=csrf-token]').content },
+        }).then(() => {
           this.showPopup = false;
-        })
-        .catch((error) => {
+        }).catch((error) => {
           console.error(error);
+        });
+      } else {
+        axios.post('/api/users/me/seasons', {
+          tv_season_id: this.tv_season.id,
+          status: this.status,
+          progress: this.progress,
+        }, {
+          headers: { 'X-CSRF-TOKEN': document.head.querySelector('[name=csrf-token]').content },
+        }).then(() => {
+          this.showPopup = false;
+          this.inList = true;
+        });
+      }
+    },
+    remove() {
+      axios.delete(`/api/users/me/seasons/${this.tv_season.id}`)
+        .then(() => {
+          this.inList = false;
         });
     },
   },

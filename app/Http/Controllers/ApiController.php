@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTvSeasonListEntryRequest;
 use App\Repositories\TvSeasonRepository;
 use App\Repositories\UserRepository;
+use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
@@ -36,8 +37,27 @@ class ApiController extends Controller
         $tvSeason = $this->tvSeasonRepository->get($request->get('tv_season_id'));
         $this->userRepository->addTvSeasonToList($user, $tvSeason, [
             'status' => $request->get('status'),
-            'progress' => $request->has('progress') ? $request->get('progress') : 0,
+            'progress' => $request->has('progress') ? (int)$request->get('progress') : 0,
         ]);
+        return $user;
+    }
+
+    public function updateTvSeasonListStatus(StoreTvSeasonListEntryRequest $request, string $id)
+    {
+        $user = $request->user();
+        $tvSeason = $this->tvSeasonRepository->get((int)$id);
+        $this->userRepository->updateTvSeasonListStatus($user, $tvSeason, [
+            'status' => $request->get('status'),
+            'progress' => $request->has('progress') ? (int)$request->get('progress') : 0,
+        ]);
+        return $user;
+    }
+
+    public function removeTvSeasonFromList(Request $request, string $id)
+    {
+        $user = $request->user();
+        $tvSeason = $this->tvSeasonRepository->get((int)$id);
+        $this->userRepository->removeTvSeasonFromList($user, $tvSeason);
         return $user;
     }
 }

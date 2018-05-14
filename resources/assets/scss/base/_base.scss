@@ -63,3 +63,11 @@ body {
 .flex-right {
   justify-content: flex-end;
 }
+
+select {
+  padding-right: 35px;
+}
+
+a {
+  transition: color .15s ease-in, border .15s ease-in;
+}

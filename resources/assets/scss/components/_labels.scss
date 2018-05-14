@@ -3,13 +3,14 @@
   border-radius: .3rem;
   display: inline-flex;
   font-size: 1rem;
+  font-weight: bold;
   height: 2rem;
-  padding: 0 6px;
+  padding: .1em 6px 0;
   text-transform: uppercase;
 
   &.is-ptw {
-    background: #ececec;
-    color: #797979;
+    background: #efefef;
+    color: #949494;
   }
 
   &.is-completed {

@@ -23,6 +23,7 @@ class CreateUserTvSeasonTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('tv_season_id')->references('id')->on('tv_seasons')->onDelete('cascade');
             $table->timestamps();
+            $table->unique(['user_id', 'tv_season_id']);
         });
     }
 

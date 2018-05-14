@@ -26,6 +26,8 @@ Route::group(['middleware' => 'auth', 'prefix' => '/api'], function() {
         return $request->user();
     });
     Route::post('/users/me/seasons', 'ApiController@addTvSeasonToList')->name('api.users.list.seasons.add');
+    Route::patch('/users/me/seasons/{id}', 'ApiController@updateTvSeasonListStatus')->name('api.users.list.seasons.update');
+    Route::delete('/users/me/seasons/{id}', 'ApiController@removeTvSeasonFromList')->name('api.users.list.seasons.delete');
 });
 
 Route::get('/api/seasonal/{seasonId}', 'BaseController@indexApi')->name('api.tv.seasonal.index');

@@ -73,6 +73,28 @@ class UserRepository
      */
     public function addTvSeasonToList(User $user, TVSeason $tvSeason, array $data): void
     {
+        if ($data['status'] === User::STATUS_COMPLETED) {
+            $data['progress'] = $tvSeason->episode_count;
+        }
         $user->tvSeasons()->attach($tvSeason->id, $data);
+    }
+
+    public function updateTvSeasonListStatus(User $user, TVSeason $tvSeason, array $data): void
+    {
+        if ($data['status'] === User::STATUS_COMPLETED) {
+            $data['progress'] = $tvSeason->episode_count;
+        }
+        $user->tvSeasons()->updateExistingPivot($tvSeason->id, $data);
+    }
+
+    /**
+     * Remove a tv season from a users' list.
+     *
+     * @param User $user
+     * @param TVSeason $tvSeason
+     */
+    public function removeTvSeasonFromList(User $user, TVSeason $tvSeason): void
+    {
+        $user->tvSeasons()->detach($tvSeason->id);
     }
 }
