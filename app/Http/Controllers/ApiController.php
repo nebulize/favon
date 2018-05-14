@@ -32,7 +32,7 @@ class ApiController extends Controller
 
     public function addTvSeasonToList(StoreTvSeasonListEntryRequest $request)
     {
-        $user = $this->userRepository->get(5);
+        $user = $request->user();
         $tvSeason = $this->tvSeasonRepository->get($request->get('tv_season_id'));
         $this->userRepository->addTvSeasonToList($user, $tvSeason, [
             'status' => $request->get('status'),
