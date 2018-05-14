@@ -9,6 +9,7 @@ import TvSeasonCard from './components/TvSeasonCard';
 import Filter from './components/Filters';
 import Store from './store';
 import Filters from './utils/Filters';
+import EventBus from './event-bus';
 
 Vue.component('tv_season', TvSeasonCard);
 Vue.component('filters', Filter);
@@ -27,6 +28,16 @@ const app = new Vue({
      * @type {Boolean}
      */
     showFilter: false,
+  },
+  created() {
+    EventBus.$on('close-all-popups', () => {
+      this.showFilter = false;
+    });
+    EventBus.$on('close-all-popups-except', (event) => {
+      if (this.$refs.trigger !== event.target) {
+        this.showFilter = false;
+      }
+    });
   },
   beforeMount() {
     const currentSeason = document.getElementById('currentSeason').dataset.season;
@@ -47,9 +58,19 @@ const app = new Vue({
       });
   },
   mounted() {
+    axios.get('/api/users/me')
+      .then((response) => {
+        this.store.user = response.data;
+      })
+      .catch(() => {
+        this.store.user = null;
+      });
     document.addEventListener('click', (e) => {
       if (e.target.closest('.popup, .popup__trigger') === null) {
-        this.showFilter = false;
+        EventBus.$emit('close-all-popups');
+      }
+      if (e.target.closest('.popup__trigger') !== null) {
+        EventBus.$emit('close-all-popups-except', e);
       }
     });
     luma.select('.select');

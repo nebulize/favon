@@ -11,7 +11,7 @@
               @csrf
               <div class="field">
                 <label class="text-label" for="email">E-Mail Address</label>
-                <input type="email" id="email" name="email" value="{{ old('email') }}" class="{{ $errors->has('email') ? ' is-invalid' : '' }}" required autofocus>
+                <input type="email" id="email" name="email" value="{{ old('email') }}" class="{{ $errors->has('email') ? 'is-invalid' : '' }}" required autofocus>
                 @if ($errors->has('email'))
                   <span class="invalid-feedback">
                     <strong>{{ $errors->first('email') }}</strong>
@@ -20,7 +20,7 @@
               </div>
               <div class="field">
                 <label class="text-label" for="password">Password</label>
-                <input type="password" id="password" name="password" class="{{ $errors->has('password') ? ' is-invalid' : '' }}" required>
+                <input type="password" id="password" name="password" class="{{ $errors->has('password') ? 'is-invalid' : '' }}" required>
                 @if ($errors->has('password'))
                   <span class="invalid-feedback">
                     <strong>{{ $errors->first('password') }}</strong>

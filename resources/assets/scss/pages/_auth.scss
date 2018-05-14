@@ -97,3 +97,13 @@
     }
   }
 }
+
+.is-invalid {
+  border: 1px solid $color-danger !important;
+}
+
+.invalid-feedback {
+  color: $color-danger;
+  font-size: 1.4rem;
+  margin-top: .5rem;
+}

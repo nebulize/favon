@@ -38,4 +38,16 @@
       background-color: tint($color-fall, 20%);
     }
   }
+
+  &.is-tiny {
+    font-size: 1rem;
+    height: 2rem;
+    padding: 0 6px;
+    text-transform: uppercase;
+  }
+}
+
+.button--list.is-narrow {
+  font-size: 1rem;
+  text-transform: uppercase;
 }

@@ -9,9 +9,13 @@
     }
 
     .card__head {
+      align-items: center;
       background: $card-color-bg-accent;
       box-shadow: 0 1px 5px 0 $card-shadow-accent;
+      display: flex;
       height: 34px;
+      padding: 2px 10px;
+      position: relative;
     }
 
     .body__poster {

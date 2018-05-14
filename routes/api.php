@@ -13,9 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
-Route::get('/seasonal/{seasonId}', 'BaseController@indexApi')->name('api.tv.seasonal.index');
+
+
 Route::get('/genres', 'BaseController@genres')->name('api.tv.genres');

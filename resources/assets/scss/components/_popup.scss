@@ -27,10 +27,24 @@
     visibility: visible;
   }
 
+  &--list {
+    left: 0;
+    top: 40px;
+    width: 100%;
+
+    .popup__arrow {
+      transform: translateX(-25px) rotate(45deg);
+    }
+  }
+
   &--filters {
     left: 0;
     top: 75px;
     width: 100%;
+
+    .popup__arrow {
+      transform: translateX(-70px) rotate(45deg);
+    }
   }
 }
 
@@ -106,7 +120,6 @@
   margin: 0 0 0 -6px;
   width: 12px;
   height: 12px;
-  transform: translateX(-70px) rotate(45deg);
   border-radius: 4px 0 0;
   background: #fff;
   box-shadow: -3px -3px 5px rgba(82, 95, 127, .04);

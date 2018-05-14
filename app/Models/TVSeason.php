@@ -102,7 +102,10 @@ class TVSeason extends Model
      */
     public function users() : \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'user_tv_season', 'tv_season_id', 'user_id');
+        return $this
+            ->belongsToMany(User::class, 'user_tv_season', 'tv_season_id', 'user_id')
+            ->withTimestamps()
+            ->withPivot('status', 'completed_at', 'progress');
     }
 
     /**

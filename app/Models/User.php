@@ -51,7 +51,7 @@ class User extends Authenticatable
 {
     use Notifiable, DispatchesJobs;
 
-    const WATCH_STATUS = [
+    public const WATCH_STATUS = [
         'ptw' => 'Plan to Watch',
         'watching' => 'Watching',
         'dropped' => 'Dropped',
@@ -73,8 +73,8 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
+    protected $visible = [
+        'id', 'name', 'avatar', 'pivot'
     ];
 
     /**
@@ -86,6 +86,16 @@ class User extends Authenticatable
         static::creating(function (User $user) {
             $user->email_token = str_random(30);
         });
+    }
+
+    /**
+     * Many-To-Many: List of tv seasons for this user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tvSeasons(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(TVSeason::class, 'user_tv_season', 'user_id', 'tv_season_id')->withTimestamps();
     }
 
     /**

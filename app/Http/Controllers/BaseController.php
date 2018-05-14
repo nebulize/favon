@@ -7,6 +7,8 @@ use App\Repositories\GenreRepository;
 use App\Repositories\SeasonRepository;
 use App\Repositories\TvSeasonRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BaseController extends Controller
@@ -68,14 +70,16 @@ class BaseController extends Controller
         ]);
     }
 
-    public function indexApi($seasonId)
+    public function indexApi(Request $request, $seasonId)
     {
+        $user = $request->user();
         try {
             $season = $this->seasonRepository->get($seasonId);
             $tvSeasons = $this->tvSeasonRepository->index([
                 'seasonal' => true,
                 'sequels' => true,
                 'season_id' => $season->id,
+                'user' => $user,
             ]);
         } catch (ModelNotFoundException $e) {
             throw new NotFoundHttpException('');

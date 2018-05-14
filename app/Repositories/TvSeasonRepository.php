@@ -117,6 +117,13 @@ class TvSeasonRepository implements RepositoryContract
                 $q->select('tv_show_id')->from('language_tv_show')->whereIn('language_code', ['en', 'ja', 'de', 'fr', 'ko', 'es']);
             });
 
+            if (isset($parameters['user'])) {
+                $user = $parameters['user'];
+                $query = $query->with(['users' => function($q) use ($user) {
+                    $q->where('user_id', $user->id);
+                }]);
+            }
+
             $query = $query
                 ->with('tvShow.genres')
                 ->with('tvShow.languages')

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\TVSeason;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -61,5 +62,17 @@ class UserRepository
     public function create($attributes): User
     {
         return $this->user->create($attributes);
+    }
+
+    /**
+     * Add a tv season to a users' list.
+     *
+     * @param User $user
+     * @param TVSeason $tvSeason
+     * @param array $data
+     */
+    public function addTvSeasonToList(User $user, TVSeason $tvSeason, array $data): void
+    {
+        $user->tvSeasons()->attach($tvSeason->id, $data);
     }
 }

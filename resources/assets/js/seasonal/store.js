@@ -1,5 +1,6 @@
 export default {
   data: {
+    user: null,
     filters: {
       sequels: false,
       sort: 'score',

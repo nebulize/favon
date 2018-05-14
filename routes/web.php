@@ -20,3 +20,12 @@ Route::get('/me/confirm-email/{token}', 'Auth\AuthController@confirmEmail')->nam
 Route::post('/me/notifications', 'Auth\AuthController@notifications')->name('me.notifications');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => 'auth', 'prefix' => '/api'], function() {
+    Route::get('/users/me', function (\Illuminate\Http\Request $request) {
+        return $request->user();
+    });
+    Route::post('/users/me/seasons', 'ApiController@addTvSeasonToList')->name('api.users.list.seasons.add');
+});
+
+Route::get('/api/seasonal/{seasonId}', 'BaseController@indexApi')->name('api.tv.seasonal.index');
