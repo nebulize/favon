@@ -2,6 +2,7 @@
   <div class="column is-4">
     <div class="card is-seasonal is-winter">
       <div class="card__head">
+        <img v-if="primaryNetwork && networks.includes(primaryNetwork)" :src="`/images/networks/${primaryNetwork}.png`">
         <template v-if="user">
           <a
             v-if="inList"
@@ -82,7 +83,6 @@
             class="genre-label">
             {{ genre.name }}
           </span>
-          <p class="description__networks">{{ tv_season.tv_show.networks.map(nw => nw.name).join(', ') }}</p>
           <p
             v-if="tv_season.summary"
             class="description__plot">
@@ -136,6 +136,7 @@ export default {
       status: 'ptw',
       progress: 0,
       inList: false,
+      networks: ['netflix', 'hulu', 'hbo', 'syfy', 'amazon', 'showtime', 'starz'],
     };
   },
   computed: {
@@ -159,6 +160,9 @@ export default {
     episodeCount() {
       return this.tv_season.episode_count === 0 ? '?' : this.tv_season.episode_count;
     },
+    primaryNetwork() {
+      return this.tv_season.tv_show.networks[0] ? this.tv_season.tv_show.networks[0].name.toLowerCase() : null;
+    },
   },
   created() {
     EventBus.$on('close-all-popups', () => {
@@ -169,7 +173,7 @@ export default {
         this.showPopup = false;
       }
     });
-    if (this.tv_season.users.length > 0) {
+    if (this.tv_season.users && this.tv_season.users.length > 0) {
       this.inList = true;
       this.progress = this.tv_season.users[0].pivot.progress;
       this.status = this.tv_season.users[0].pivot.status;
