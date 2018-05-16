@@ -20,3 +20,11 @@
   font-weight: 600;
   text-transform: uppercase;
 }
+
+.alert.is-danger a {
+  color: $color-white;
+
+  &:hover {
+    color: #9a174b;
+  }
+}
