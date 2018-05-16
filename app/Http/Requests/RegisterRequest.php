@@ -24,7 +24,7 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|regex:/^[a-zA-Z0-9-_]+$/|max:255|unique:users',
+            'name' => 'required|string|regex:/^[a-zA-Z0-9_]+$/|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ];
@@ -39,8 +39,8 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name.required' => 'Please specify a username.',
-            'name.string' => 'The username may only contain letters, numbers, and dashes.',
-            'name.regex' => 'The username may only contain letters, numbers, and dashes.',
+            'name.string' => 'The username may only contain letters, numbers, and underscores.',
+            'name.regex' => 'The username may only contain letters, numbers, and underscores.',
             'name.max' => 'Please choose a shorter username.',
             'name.unique' => 'This username has already been taken.',
             'email.required' => 'Please specify a valid email address.',
