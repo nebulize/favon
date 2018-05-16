@@ -40,11 +40,11 @@
             </div>
             <div v-show="status !== 'completed' && status !== 'ptw'" class="field is-centered row">
               <label for="progress" class="column is-3">Progress</label>
-              <div class="column is-3">
-                <input type="text" name="progress" id="progress" v-model="progress">
-              </div>
-              <div class="column is-3">
-                <span> / {{ episodeCount }} Eps.</span>
+              <div class="column is-9">
+                <div class="list__progress">
+                  <input type="text" name="progress" id="progress" v-model="progress">
+                  <span>of {{ episodeCount }} Eps.</span>
+                </div>
               </div>
             </div>
             <div v-show="status !== 'ptw'" class="field is-centered row">
