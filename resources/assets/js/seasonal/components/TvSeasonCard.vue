@@ -43,7 +43,7 @@
               <div class="column is-9">
                 <div class="list__progress">
                   <input type="text" name="progress" id="progress" v-model="progress">
-                  <span>of {{ episodeCount }} Eps.</span>
+                  <span>/ {{ episodeCount }} Eps.</span>
                 </div>
               </div>
             </div>
