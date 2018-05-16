@@ -14,7 +14,7 @@
           <a
             v-else
             ref="trigger"
-            class="popup__trigger button is-outline is-tiny is-right"
+            class="popup__trigger button button--list-add is-outline is-tiny is-right"
             @click="togglePopup">
             Add To List
           </a>

@@ -46,6 +46,10 @@
     padding: 0 6px;
     text-transform: uppercase;
   }
+
+  &.button--list-add {
+    padding-top: .1em;
+  }
 }
 
 .button--list.is-narrow {
