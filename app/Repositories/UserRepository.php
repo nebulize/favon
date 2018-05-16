@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\TVSeason;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserRepository
@@ -86,6 +87,7 @@ class UserRepository
     {
         if ($data['status'] === User::STATUS_COMPLETED) {
             $data['progress'] = $tvSeason->episode_count;
+            $data['completed_at'] = Carbon::now();
         }
         if ($data['score'] === 0) {
             $data['score'] = null;
