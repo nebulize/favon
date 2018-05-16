@@ -3,17 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateNotificationsRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use App\Repositories\UserRepository;
-use App\Repositories\TvShowRepository;
-use App\Repositories\TvSeasonRepository;
 use App\Services\TvService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class RegisterController extends Controller
 {
@@ -71,19 +68,19 @@ class RegisterController extends Controller
         ]);
     }
 
+
     /**
-     * Get a validator for an incoming registration request.
+     * Handle a registration request for the application.
      *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @param RegisterRequest $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    protected function validator(array $data)
+    public function register(RegisterRequest $request)
     {
-        return Validator::make($data, [
-            'name' => 'required|string|alpha_dash|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+        event(new Registered($user = $this->create($request->all())));
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user);
     }
 
     /**
