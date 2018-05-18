@@ -84,6 +84,10 @@ const app = new Vue({
       Cookies.set('favon-filters', this.store.filters, { expires: 365 });
       this.store.filtered = this.store.tv_seasons.filter((season) => {
         let include;
+
+        // Filter by list status
+        include = Filter.filterByListStatus(season);
+        if (include === true) return true;
         // Filter out sequels, depending on user configuration
         include = Filters.filterSequels(season, this.store.filters.sequels);
         if (include === false) return false;

@@ -70,6 +70,10 @@ export default class Filters {
     return season.tv_show.languages.some(language => includeLanguages.has(language.pivot.language_code));
   }
 
+  static filterByListStatus(season) {
+    return season.users && season.users.length > 0;
+  }
+
   /**
    * Compare two tv season entries by IMDB score
    * @param {object} a
