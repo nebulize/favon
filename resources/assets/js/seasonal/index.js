@@ -86,7 +86,7 @@ const app = new Vue({
         let include;
 
         // Filter by list status
-        include = Filter.filterByListStatus(season);
+        include = Filters.filterByListStatus(season);
         if (include === true) return true;
         // Filter out sequels, depending on user configuration
         include = Filters.filterSequels(season, this.store.filters.sequels);
