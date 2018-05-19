@@ -2,10 +2,10 @@
 
 namespace App\Listeners;
 
+use Illuminate\Mail\Mailer;
 use App\Mail\EmailConfirmation;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailer;
 
 class SendVerificationEmail implements ShouldQueue
 {

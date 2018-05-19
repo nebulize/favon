@@ -4,10 +4,10 @@ namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\HtmlString;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Queue\SerializesModels;
 use Symfony\Component\Process\Process;
 
 class MjmlMailable extends Mailable
@@ -23,6 +23,7 @@ class MjmlMailable extends Mailable
     {
         $html = app(Factory::class)->make($this->view, $this->viewData)->render();
         $compiled = $this->mjmlToHtml($html);
+
         return array_filter([
             'html' => new HtmlString($compiled),
             'text' => $this->textView ?? null,
@@ -42,6 +43,7 @@ class MjmlMailable extends Mailable
             $process = new Process('./node_modules/.bin/mjml --stdin --stdout');
             $process->setInput($html);
             $process->mustRun();
+
             return $process->getOutput();
         } catch (\Exception $e) {
             Log::error('Failed to compile MJML: '.$e->getMessage());
@@ -49,5 +51,4 @@ class MjmlMailable extends Mailable
 
         return null;
     }
-
 }

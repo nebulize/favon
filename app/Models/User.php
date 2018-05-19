@@ -3,11 +3,9 @@
 namespace App\Models;
 
 use App\Jobs\SendResetPasswordEmail;
-use App\Mail\ResetPassword;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\Mail;
 
 /**
  * App\User.
@@ -56,7 +54,7 @@ class User extends Authenticatable
         'watching' => 'Watching',
         'dropped' => 'Dropped',
         'completed' => 'Completed',
-        'hold' => 'On Hold'
+        'hold' => 'On Hold',
     ];
 
     public const STATUS_PLAN_TO_WATCH = 'ptw';
@@ -71,7 +69,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'notify_messages', 'notify_shows', 'notify_features'
+        'name', 'email', 'password', 'notify_messages', 'notify_shows', 'notify_features',
     ];
 
     /**
@@ -80,7 +78,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $visible = [
-        'id', 'name', 'avatar', 'pivot'
+        'id', 'name', 'avatar', 'pivot',
     ];
 
     /**

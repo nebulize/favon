@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Repositories\TvShowRepository;
-use App\Repositories\TvSeasonRepository;
 use App\Services\TvService;
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class LoginController extends Controller
 {

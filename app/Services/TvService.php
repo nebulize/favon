@@ -2,9 +2,8 @@
 
 namespace App\Services;
 
-
-use App\Repositories\TvSeasonRepository;
 use App\Repositories\TvShowRepository;
+use App\Repositories\TvSeasonRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class TvService
@@ -38,5 +37,4 @@ class TvService
 
         return $banner;
     }
-
 }

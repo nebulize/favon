@@ -29,7 +29,7 @@ class ResetPassword extends MjmlMailable
             ->subject('Favon - Reset password')
             ->view('emails.reset-password')
             ->with([
-                'token' => $this->token
+                'token' => $this->token,
             ]);
     }
 }

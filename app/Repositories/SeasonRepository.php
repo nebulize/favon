@@ -67,6 +67,7 @@ class SeasonRepository implements RepositoryContract
             }
             $query = $query->where('end_date', '>=', $date);
         }
+
         return $query->firstOrFail();
     }
 

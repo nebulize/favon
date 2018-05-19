@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\RegisterRequest;
 use App\Models\User;
-use App\Repositories\UserRepository;
 use App\Services\TvService;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
+use App\Repositories\UserRepository;
+use App\Http\Requests\RegisterRequest;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -68,7 +67,6 @@ class RegisterController extends Controller
         ]);
     }
 
-
     /**
      * Handle a registration request for the application.
      *
@@ -110,7 +108,7 @@ class RegisterController extends Controller
     {
         return view('auth.notifications', [
             'banner' => $this->tvService->getBanner(),
-            'user' => $user
+            'user' => $user,
         ]);
     }
 }

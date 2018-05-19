@@ -21,7 +21,7 @@ Route::post('/me/notifications', 'Auth\AuthController@notifications')->name('me.
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['middleware' => 'auth', 'prefix' => '/api'], function() {
+Route::group(['middleware' => 'auth', 'prefix' => '/api'], function () {
     Route::get('/users/me', function (\Illuminate\Http\Request $request) {
         return $request->user();
     });

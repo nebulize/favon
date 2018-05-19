@@ -31,7 +31,7 @@ class EmailConfirmation extends MjmlMailable
             ->subject('Welcome to Favon - Please confirm your Email')
             ->view('emails.confirm-email')
             ->with([
-            'user' => $this->user
+            'user' => $this->user,
         ]);
     }
 }

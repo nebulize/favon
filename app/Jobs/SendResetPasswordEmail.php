@@ -2,10 +2,10 @@
 
 namespace App\Jobs;
 
-use App\Mail\ResetPassword;
 use App\Models\User;
-use Illuminate\Bus\Queueable;
+use App\Mail\ResetPassword;
 use Illuminate\Mail\Mailer;
+use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
