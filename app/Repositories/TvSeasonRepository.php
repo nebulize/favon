@@ -119,7 +119,7 @@ class TvSeasonRepository implements RepositoryContract
 
             if (isset($parameters['user'])) {
                 $user = $parameters['user'];
-                $query = $query->with(['users' => function($q) use ($user) {
+                $query = $query->with(['users' => function ($q) use ($user) {
                     $q->where('user_id', $user->id);
                 }]);
             }

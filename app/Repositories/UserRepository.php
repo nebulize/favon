@@ -2,9 +2,9 @@
 
 namespace App\Repositories;
 
-use App\Models\TVSeason;
-use App\Models\User;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\TVSeason;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserRepository
@@ -24,7 +24,6 @@ class UserRepository
     }
 
     /**
-     *
      * @param $id
      *
      * @throws ModelNotFoundException
@@ -51,6 +50,7 @@ class UserRepository
         if (isset($parameters['email_token'])) {
             $query = $query->where('email_token', $parameters['email_token']);
         }
+
         return $query->firstOrFail();
     }
 

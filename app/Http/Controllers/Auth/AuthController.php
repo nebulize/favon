@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Requests\UpdateNotificationsRequest;
-use App\Repositories\UserRepository;
 use App\Services\TvService;
 use App\Http\Controllers\Controller;
+use App\Repositories\UserRepository;
+use App\Http\Requests\UpdateNotificationsRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
