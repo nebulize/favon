@@ -40,11 +40,19 @@
             </div>
             <div v-show="status !== 'completed' && status !== 'ptw'" class="field is-centered row">
               <label for="progress" class="column is-3">Progress</label>
-              <div class="column is-9">
+              <div class="column is-6">
                 <div class="list__progress">
                   <input type="text" name="progress" id="progress" v-model="progress">
                   <span>/ {{ episodeCount }} Eps.</span>
                 </div>
+              </div>
+              <div class="column is-3">
+                <button
+                  class="button is-info progress__increment"
+                  :disabled="canIncrement === false"
+                  @click="incrementProgress">
+                  + 1
+                </button>
               </div>
             </div>
             <div v-show="status !== 'ptw'" class="field is-centered row">
@@ -189,6 +197,9 @@ export default {
     primaryNetwork() {
       return this.tv_season.tv_show.networks[0] ? this.tv_season.tv_show.networks[0].name.toLowerCase() : null;
     },
+    canIncrement() {
+      return this.tv_season.episode_count !== 0 || (this.progress + 1) <= this.tv_season.episode_count;
+    },
   },
   created() {
     EventBus.$on('close-all-popups', () => {
@@ -224,6 +235,11 @@ export default {
   methods: {
     togglePopup() {
       this.showPopup = !this.showPopup;
+    },
+    incrementProgress() {
+      if (this.tv_season.episode_count !== 0 && (this.progress + 1) <= this.tv_season.episode_count) {
+        this.progress += 1;
+      }
     },
     submit() {
       if (this.inList) {
