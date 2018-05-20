@@ -40,13 +40,17 @@ class BaseController extends Controller
             $season = $this->seasonRepository->find([
                 'date' => Carbon::now(),
             ]);
-        } catch (ModelNotFoundException $e) {
-            $season = $this->seasonRepository->create([
-                'date' => Carbon::now(),
+            $seasons = $this->seasonRepository->index([
+                'around' => $season,
             ]);
+        } catch (ModelNotFoundException $e) {
+            abort(404);
         }
 
-        return redirect()->route('tv.seasonal.index', ['year' => $season->year, 'season' => lcfirst($season->name)]);
+        return view('tv.seasonal.index', [
+            'season' => $season,
+            'seasons' => $seasons,
+        ]);
     }
 
     public function index($year, $season)
