@@ -38,15 +38,15 @@
                 </select>
               </div>
             </div>
-            <div v-show="status !== 'completed' && status !== 'ptw'" class="field is-centered row">
+            <div v-show="status !== 'completed' && status !== 'ptw'" class="field is-centered row list__progress">
               <label for="progress" class="column is-3">Progress</label>
               <div class="column is-6">
-                <div class="list__progress">
+                <div class="progress__input">
                   <input type="text" name="progress" id="progress" v-model="progress">
                   <span>/ {{ episodeCount }} Eps.</span>
                 </div>
               </div>
-              <div class="column is-3">
+              <div class="column is-3 progress__column--3">
                 <button
                   class="button is-info progress__increment"
                   :disabled="canIncrement === false"

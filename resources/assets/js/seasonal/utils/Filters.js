@@ -70,8 +70,23 @@ export default class Filters {
     return season.tv_show.languages.some(language => includeLanguages.has(language.pivot.language_code));
   }
 
+  /**
+   * Include entries that are in the users' list
+   * @param season
+   * @returns {boolean}
+   */
   static filterByListStatus(season) {
     return season.users && season.users.length > 0;
+  }
+
+  /**
+   * Filter out non-rated shows
+   * @param season
+   * @param unrated
+   * @returns {boolean}
+   */
+  static filterByRated(season, unrated) {
+    return unrated ? true : season.tv_show.imdb_score !== 0;
   }
 
   /**

@@ -35,6 +35,14 @@
           <label for="filter__list--completed">Completed</label>
           <input type="checkbox" class="checkbox" id="filter__list--dropped">
           <label for="filter__list--dropped">Dropped</label>
+          <h4>Misc</h4>
+          <input
+            type="checkbox"
+            class="checkbox"
+            id="filter__unrated"
+            v-model="filters.unrated"
+            @change="filter">
+          <label for="filter__unrated">Include non-rated shows</label>
         </div>
         <div class="column is-6 is-offset-1">
           <h4>Genres</h4>

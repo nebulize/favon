@@ -88,8 +88,13 @@ const app = new Vue({
         // Filter by list status
         include = Filters.filterByListStatus(season);
         if (include === true) return true;
+
         // Filter out sequels, depending on user configuration
         include = Filters.filterSequels(season, this.store.filters.sequels);
+        if (include === false) return false;
+
+        // Filter out non-rated shows
+        include = Filters.filterByRated(season, this.store.filters.unrated);
         if (include === false) return false;
 
         // Filter by IMDB score
