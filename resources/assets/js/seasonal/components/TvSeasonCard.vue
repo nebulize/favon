@@ -198,7 +198,7 @@ export default {
       return this.tv_season.tv_show.networks[0] ? this.tv_season.tv_show.networks[0].name.toLowerCase() : null;
     },
     canIncrement() {
-      return this.tv_season.episode_count !== 0 || (this.progress + 1) <= this.tv_season.episode_count;
+      return this.tv_season.episode_count === 0 || (this.progress + 1) <= this.tv_season.episode_count;
     },
   },
   created() {
