@@ -56,7 +56,12 @@ abstract class APIAdapter
         $this->consumer->consume(1);
 
         $response = $this->client->send($request, ['http_errors' => false]);
-        if ($tries < 15 && ($response->getStatusCode() === 502 || $response->getStatusCode() === 522 || $response->getStatusCode() === 408)) {
+        if ($tries < 15 && (
+            $response->getStatusCode() === 502
+            || $response->getStatusCode() === 522
+            || $response->getStatusCode() === 408
+            || $response->getStatusCode() === 524
+            )) {
             sleep(3);
 
             return $this->request($request, $tries + 1);
