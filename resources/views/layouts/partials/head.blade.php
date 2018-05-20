@@ -19,17 +19,12 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff3f7a">
+    <meta name="msapplication-TileColor" content="#603cba">
+    <meta name="theme-color" content="#ff3f7a">
     <meta name="apple-mobile-web-app-title" content="Favon">
     <meta name="application-name" content="Favon">
-    @switch($currentSeason)
-        @case(\App\Enumerators\SeasonType::WINTER)
-            <meta name="theme-color" content="#82d4f5">
-            @break
-        @default
-            <meta name="theme-color" content="#82d4f5">
-    @endswitch
 
     <!-- Facebook OpenGraph tags -->
     <meta property="og:title" content="@yield('title')" />
