@@ -141,7 +141,8 @@
     font-weight: normal;
   }
 
-  input[type='text'] {
+  input[type='text'],
+  input[type='number'] {
     height: 3.5rem;
     padding: .6rem .7rem;
   }

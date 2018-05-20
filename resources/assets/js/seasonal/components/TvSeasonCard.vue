@@ -42,14 +42,19 @@
               <label for="progress" class="column is-3">Progress</label>
               <div class="column is-6">
                 <div class="progress__input">
-                  <input type="text" name="progress" id="progress" v-model="progress">
+                  <input
+                    type="number"
+                    name="progress"
+                    id="progress"
+                    v-model.number="progress"
+                    @change="updateProgress">
                   <span>/ {{ episodeCount }} Eps.</span>
                 </div>
               </div>
               <div class="column is-3 progress__column--3">
                 <button
                   class="button is-info progress__increment"
-                  :disabled="canIncrement === false"
+                  :disabled="!canIncrement"
                   @click="incrementProgress">
                   + 1
                 </button>
@@ -239,6 +244,13 @@ export default {
     incrementProgress() {
       if (this.tv_season.episode_count !== 0 && (this.progress + 1) <= this.tv_season.episode_count) {
         this.progress += 1;
+      }
+    },
+    updateProgress() {
+      if (this.progress > this.tv_season.episode_count) {
+        this.progress = this.tv_season.episode_count;
+      } else if (this.progress < 0) {
+        this.progress = 0;
       }
     },
     submit() {
