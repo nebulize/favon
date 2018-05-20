@@ -102,7 +102,7 @@ export default class Filters {
     if (a.tv_show.imdb_score < b.tv_show.imdb_score) {
       return 1;
     }
-    return 0;
+    return this.compareByName(a, b);
   }
 
   /**
