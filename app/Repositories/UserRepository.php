@@ -76,6 +76,7 @@ class UserRepository
     {
         if ($data['status'] === User::STATUS_COMPLETED) {
             $data['progress'] = $tvSeason->episode_count;
+            $data['completed_at'] = Carbon::now();
         }
         if ($data['score'] === 0) {
             $data['score'] = null;
