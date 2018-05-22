@@ -144,7 +144,11 @@
           <img src="/images/imdb.svg">
           <span v-if="tv_season.tv_show.imdb_score === 0">N/A</span>
           <span v-else>
-            <a :href="`http://www.imdb.com/title/${tv_season.tv_show.imdb_id}/`">{{ tv_season.tv_show.imdb_score }}</a>
+            <a
+              :href="`http://www.imdb.com/title/${tv_season.tv_show.imdb_id}/`"
+              target="_blank">
+              {{ tv_season.tv_show.imdb_score }}
+            </a>
           </span>
           <img src="/images/heart.svg">
           <span>0</span>
@@ -247,10 +251,10 @@ export default {
       }
     },
     updateProgress() {
-      if (this.progress > this.tv_season.episode_count) {
-        this.progress = this.tv_season.episode_count;
-      } else if (this.progress < 0) {
+      if (!this.progress || this.progress === '' || this.progress < 0) {
         this.progress = 0;
+      } else if (this.progress > this.tv_season.episode_count) {
+        this.progress = this.tv_season.episode_count;
       }
     },
     submit() {
