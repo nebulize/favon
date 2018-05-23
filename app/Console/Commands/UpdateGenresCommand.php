@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\UpdateGenres;
 use App\Models\TVShow;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -23,42 +24,15 @@ class UpdateGenresCommand extends Command
     protected $description = 'Completely refetch all genre information';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
+     * Execute the command
      */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
+    public function handle(): void
     {
         DB::connection()->disableQueryLog();
         \DB::disableQueryLog();
         TVShow::chunk(100, function ($tvShows) {
             foreach ($tvShows as $tvShow) {
-                if ($tvShow->network === null) {
-                    continue;
-                }
-                $networks = explode(', ', $tvShow->network);
-                foreach ($networks as $nw) {
-                    try {
-                        $network = $networkRepository->find(['name' => $nw]);
-                    } catch (ModelNotFoundException $e) {
-                        $network = $networkRepository->create(['name' => $nw]);
-                    }
-                    try {
-                        $tvShow->networks()->attach($network);
-                    } catch (QueryException $e) {
-                        // Nothing to do
-                    }
-                }
+                UpdateGenres::dispatch($tvShow->id);
             }
         });
     }
