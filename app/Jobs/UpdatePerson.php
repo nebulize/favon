@@ -22,11 +22,6 @@ class UpdatePerson implements ShouldQueue
     protected $id;
 
     /**
-     * @var
-     */
-    protected $logger;
-
-    /**
      * UpdatePerson constructor.
      * @param int $id
      */
