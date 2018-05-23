@@ -110,6 +110,7 @@ class ApiService
             return null;
         }
         $tvShow = $this->tvShowRepository->create($tvShowResponse->toArray());
+        $genres = $tvShowResponse->getGenres();
 
         // Sync networks
         $networks = [];
@@ -149,28 +150,8 @@ class ApiService
                 $tvShow->imdb_score = $omdbResponse->getImdbScore();
                 $tvShow->imdb_votes = $omdbResponse->getImdbVotes();
 
-                // Sync genres
-                $genres = [];
-                foreach ($omdbResponse->getGenres() as $name) {
-                    if ($name === 'N/A' || $name === 'Adult') {
-                        continue;
-                    }
-                    // Set genre to anime if it's animation from Japan
-                    if ($name === 'Animation' && \in_array('JP', $tvShowResponse->getCountries(), true)) {
-                        $name = 'Anime';
-                    }
-                    try {
-                        $genre = $this->genreRepository->find(['name' => $name]);
-                        $genres[] = $genre->id;
-                    } catch (ModelNotFoundException $e) {
-                        $genre = $this->genreRepository->create([
-                            'name' => $name,
-                        ]);
-                        $genres[] = $genre->id;
-                    }
-                }
-
-                $this->tvShowRepository->syncGenres($tvShow, $genres);
+                // Merge genres
+                $genres = array_merge($genres, $omdbResponse->getGenres());
             }
         }
 
@@ -181,9 +162,30 @@ class ApiService
             if ($tvdbResponse->hasBeenSuccessful()) {
                 $tvShow->air_time = $tvdbResponse->getAirTime();
                 $tvShow->air_day = $tvdbResponse->getAirDay();
+                $genres = array_merge($genres, $tvdbResponse->getGenres());
             }
         }
 
+        // Sync genres
+        $genresToSync = [];
+        foreach ($genres as $name) {
+            // Set genre to anime if it's animation from Japan
+            if ($name === 'Animation' && \in_array('JP', $tvShowResponse->getCountries(), true)) {
+                $name = 'Anime';
+            }
+            try {
+                $genre = $this->genreRepository->find(['name' => $name]);
+                $genresToSync[] = $genre->id;
+            } catch (ModelNotFoundException $e) {
+                $genre = $this->genreRepository->create([
+                    'name' => $name,
+                ]);
+                $genresToSync[] = $genre->id;
+            }
+        }
+        $this->tvShowRepository->syncGenres($tvShow, $genresToSync);
+
+        // Set summary to plot if summary is empty
         if ($tvShow->summary === null || $tvShow->summary === '' || $tvShow->summary === 'N/A') {
             $tvShow->summary = $tvShowResponse->getPlot();
         }
@@ -370,6 +372,8 @@ class ApiService
         $tvShow->fill($tvShowResponse->toArray());
         $this->tvShowRepository->save($tvShow);
 
+        $genres = $tvShowResponse->getGenres();
+
         // Sync networks
         $networks = [];
         foreach ($tvShowResponse->getNetworks() as $name) {
@@ -406,28 +410,8 @@ class ApiService
             if ($omdbResponse->hasBeenSuccessful()) {
                 $tvShow->summary = $omdbResponse->getSummary();
 
-                // Sync genres
-                $genres = [];
-                foreach ($omdbResponse->getGenres() as $name) {
-                    if ($name === 'N/A' || $name === 'Adult') {
-                        continue;
-                    }
-                    // Set genre to anime if it's animation from Japan
-                    if ($name === 'Animation' && \in_array('JP', $tvShowResponse->getCountries(), true)) {
-                        $name = 'Anime';
-                    }
-                    try {
-                        $genre = $this->genreRepository->find(['name' => $name]);
-                        $genres[] = $genre->id;
-                    } catch (ModelNotFoundException $e) {
-                        $genre = $this->genreRepository->create([
-                            'name' => $name,
-                        ]);
-                        $genres[] = $genre->id;
-                    }
-                }
-
-                $this->tvShowRepository->syncGenres($tvShow, $genres);
+                // Merge genres
+                $genres = array_merge($genres, $omdbResponse->getGenres());
             }
         }
 
@@ -438,8 +422,28 @@ class ApiService
             if ($tvdbResponse->hasBeenSuccessful()) {
                 $tvShow->air_time = $tvdbResponse->getAirTime();
                 $tvShow->air_day = $tvdbResponse->getAirDay();
+                $genres = array_merge($genres, $tvdbResponse->getGenres());
             }
         }
+
+        // Sync genres
+        $genresToSync = [];
+        foreach ($genres as $name) {
+            // Set genre to anime if it's animation from Japan
+            if ($name === 'Animation' && \in_array('JP', $tvShowResponse->getCountries(), true)) {
+                $name = 'Anime';
+            }
+            try {
+                $genre = $this->genreRepository->find(['name' => $name]);
+                $genresToSync[] = $genre->id;
+            } catch (ModelNotFoundException $e) {
+                $genre = $this->genreRepository->create([
+                    'name' => $name,
+                ]);
+                $genresToSync[] = $genre->id;
+            }
+        }
+        $this->tvShowRepository->syncGenres($tvShow, $genresToSync);
 
         if ($tvShow->summary === null || $tvShow->summary === '' || $tvShow->summary === 'N/A') {
             $tvShow->summary = $tvShowResponse->getPlot();

@@ -99,7 +99,14 @@ class OmdbResponse extends BaseResponse
     private function parseGenres(): void
     {
         if (isset($this->getResponse()->Genre) === true && $this->getResponse()->Genre !== '') {
-            $this->genres = explode(', ', $this->getResponse()->Genre);
+            $omdbGenres = config('favon.omdb_genres');
+            $genres = explode(', ', $this->getResponse()->Genre);
+            foreach ($genres as $genre) {
+                // If this genre is interesting to us, convert it to the equivalent name in our database
+                if (isset($omdbGenres[$genre])) {
+                    $this->genres[] = $omdbGenres[$genre];
+                }
+            }
         }
     }
 

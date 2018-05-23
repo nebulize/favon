@@ -80,6 +80,11 @@ class TvShowResponse extends BaseResponse
     protected $seasons = [];
 
     /**
+     * @var string[]
+     */
+    protected $genres = [];
+
+    /**
      * @return string|null
      */
     public function getName(): ?string
@@ -192,6 +197,14 @@ class TvShowResponse extends BaseResponse
     }
 
     /**
+     * @return string[]
+     */
+    public function getGenres(): array
+    {
+        return $this->genres;
+    }
+
+    /**
      * Parse the response object.
      */
     protected function parseResponse(): void
@@ -210,6 +223,7 @@ class TvShowResponse extends BaseResponse
         $this->parseLanguages();
         $this->parseCountries();
         $this->parseSeasons();
+        $this->parseGenres();
     }
 
     /**
@@ -321,6 +335,22 @@ class TvShowResponse extends BaseResponse
         if (isset($this->getResponse()->seasons) === true && \is_array($this->getResponse()->seasons)) {
             foreach ($this->getResponse()->seasons as $season) {
                 $this->seasons[] = new RSeason($season);
+            }
+        }
+    }
+
+    /**
+     * Parse and set the genres.
+     */
+    private function parseGenres(): void
+    {
+        $tmdbGenres = config('favon.tmdb_genres');
+        if (isset($this->getResponse()->genres) === true && \is_array($this->getResponse()->genres)) {
+            foreach ($this->getResponse()->genres as $genre) {
+                // If this genre is interesting to us, convert it to the equivalent name in our database
+                if ($genre->name && isset($tmdbGenres[$genre->name])) {
+                    $this->genres[] = $tmdbGenres[$genre->name];
+                }
             }
         }
     }

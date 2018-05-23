@@ -17,4 +17,101 @@ return [
     'banner_sizes' => ['w1280'],
     'profile_sizes' => ['w185'],
 
+    /*
+    |--------------------------------------------------------------------------
+    | TVDB genre mapping
+    |--------------------------------------------------------------------------
+    |
+    | List of all TVDB genres that are of interest to us, and their equivalent
+    | name in our own database.
+    |
+    */
+    'tvdb_genres' => [
+        'Action' => 'Action',
+        'Adventure' => 'Adventure',
+        'Animation' => 'Animation',
+        'Children' => 'Children',
+        'Comedy' => 'Comedy',
+        'Crime' => 'Crime',
+        'Documentary' => 'Documentary',
+        'Drama' => 'Drama',
+        'Family' => 'Family',
+        'Fantasy' => 'Fantasy',
+        'Food' => 'Food',
+        'Game Show' => 'Game-Show',
+        'Home and Garden' => 'Reality-TV',
+        'Horror' => 'Horror',
+        'News' => 'News',
+        'Reality' => 'Reality-TV',
+        'Science Fiction' => 'Sci-Fi',
+        'Sport' => 'Sport',
+        'Suspense' => 'Thriller',
+        'Talk Show' => 'Talk-Show',
+        'Thriller' => 'Thriller',
+        'Travel' => 'Documentary',
+        'Western' => 'Western',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | TMDB genre mapping
+    |--------------------------------------------------------------------------
+    |
+    | List of all TMDB TV show genres that are of interest to us, and their
+    | equivalent name in our own database. We're not including some ambiguous
+    | ones like `Sci-Fi & Fantasy` since we store those separately in our
+    | database. In those cases we'll hopefully fall back to the TVDB or OMDB
+    | genres where these genres are separated.
+    |
+    */
+    'tmdb_genres' => [
+        'Animation' => 'Animation',
+        'Comedy' => 'Comedy',
+        'Crime' => 'Crime',
+        'Documentary' => 'Documentary',
+        'Drama' => 'Drama',
+        'Family' => 'Family',
+        'Kids' => 'Children',
+        'Mystery' => 'Mystery',
+        'News' => 'News',
+        'Talk' => 'Talk-Show',
+        'Western' => 'Western'
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | OMDB genre mapping
+    |--------------------------------------------------------------------------
+    |
+    | List of all OMDB TV show genres that are of interest to us, and their
+    | equivalent name in our own database.
+    |
+    */
+    'omdb_genres' => [
+        'Action' => 'Action',
+        'Adventure' => 'Adventure',
+        'Animation' => 'Animation',
+        'Biography' => 'Biography',
+        'Comedy' => 'Comedy',
+        'Crime' => 'Crime',
+        'Documentary' => 'Documentary',
+        'Drama' => 'Drama',
+        'Family' => 'Family',
+        'Fantasy' => 'Fantasy',
+        'Game-Show' => 'Game-Show',
+        'History' => 'History',
+        'Horror' => 'Horror',
+        'Music' => 'Music',
+        'Musical' => 'Music',
+        'Mystery' => 'Mystery',
+        'News' => 'News',
+        'Reality-TV' => 'Reality-TV',
+        'Romance' => 'Romance',
+        'Sci-Fi' => 'Sci-Fi',
+        'Sport' => 'Sport',
+        'Talk-Show' => 'Talk-Show',
+        'Thriller' => 'Thriller',
+        'Western' => 'Western',
+    ],
+
 ];
