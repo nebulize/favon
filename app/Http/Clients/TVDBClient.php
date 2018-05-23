@@ -49,7 +49,7 @@ class TVDBClient
     public function __construct(TVDBAdapter $adapter, LoggerInterface $logger)
     {
         $this->adapter = $adapter;
-        $this->url = config('media.tvdb_url');
+        $this->url = config('favon.tvdb_url');
         $this->logger = $logger;
         $this->redis = new RedisClient([
             'host' => config('database.redis.default.host'),
@@ -78,9 +78,9 @@ class TVDBClient
         $this->logger->info('Authenticating TVDB');
         $client = new Client();
         $body = [
-            'apikey' => config('media.tvdb_api_key'),
-            'userkey' => config('media.tvdb_user_key'),
-            'username' => config('media.tvdb_user_name'),
+            'apikey' => config('favon.tvdb_api_key'),
+            'userkey' => config('favon.tvdb_user_key'),
+            'username' => config('favon.tvdb_user_name'),
         ];
         $response = $client->request('POST', $this->url.'/login', [
             'body' => json_encode($body),

@@ -48,8 +48,8 @@ class TMDBClient
     {
         $this->adapter = $adapter;
         $this->logger = $logger;
-        $this->url = config('media.tmdb_url');
-        $this->key = config('media.tmdb_api_key');
+        $this->url = config('favon.tmdb_url');
+        $this->key = config('favon.tmdb_api_key');
     }
 
     /**

@@ -40,7 +40,7 @@ class OMDBClient
     public function __construct(OMDBAdapter $adapter, LoggerInterface $logger)
     {
         $this->adapter = $adapter;
-        $this->url = config('media.omdb_url').'/?apikey='.config('media.omdb_api_key');
+        $this->url = config('favon.omdb_url').'/?apikey='.config('favon.omdb_api_key');
         $this->logger = $logger;
     }
 

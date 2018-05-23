@@ -128,8 +128,8 @@ class TMDBService
      */
     public function fetchImages(string $type, string $path) : void
     {
-        $sizes = config('media.'.$type.'_sizes');
-        $base_path = config('media.image_base_path');
+        $sizes = config('favon.'.$type.'_sizes');
+        $base_path = config('favon.image_base_path');
         foreach ($sizes as $size) {
             $this->fetchImage($base_path.'/'.$size.$path, public_path('images/'.$type.'/'.$size.'/'.basename($path)), 0);
         }
