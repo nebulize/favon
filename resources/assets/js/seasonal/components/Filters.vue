@@ -22,19 +22,27 @@
               <input type="text" id="filter--score" v-model.number="filters.score" @change="filter">
             </div>
           </div>
-          <h4>My List</h4>
-          <input type="checkbox" class="checkbox" id="filter__list--all" checked>
-          <label for="filter__list--all">All</label>
-          <input type="checkbox" class="checkbox" id="filter__list--not">
-          <label for="filter__list--not">Not in my list</label>
-          <input type="checkbox" class="checkbox" id="filter__list--watching">
-          <label for="filter__list--watching">Watching</label>
-          <input type="checkbox" class="checkbox" id="filter__list--ptw">
-          <label for="filter__list--ptw">Plan To Watch</label>
-          <input type="checkbox" class="checkbox" id="filter__list--completed">
-          <label for="filter__list--completed">Completed</label>
-          <input type="checkbox" class="checkbox" id="filter__list--dropped">
-          <label for="filter__list--dropped">Dropped</label>
+          <template v-if="user">
+            <h4>My List</h4>
+            <input
+              type="checkbox"
+              class="checkbox"
+              id="filter__list--all"
+              @change="filterAllList"
+              v-model="filters.list.all">
+            <label for="filter__list--all">All</label>
+            <template v-for="status in store.list_statuses">
+              <input
+                :key="`input-${status.code}`"
+                type="checkbox"
+                class="checkbox"
+                :value="status.code"
+                :id="`filter__list--${status.code}`"
+                @change="filterListStatus"
+                v-model="filters.list.values">
+              <label :for="`filter__list--${status.code}`" :key="`label-${status.code}`">{{ status.name }}</label>
+            </template>
+          </template>
           <h4>Misc</h4>
           <input
             type="checkbox"
@@ -43,6 +51,15 @@
             v-model="filters.unrated"
             @change="filter">
           <label for="filter__unrated">Include non-rated shows</label>
+          <template v-if="user">
+            <input
+              type="checkbox"
+              class="checkbox"
+              id="filter__sequels--list"
+              v-model="filters.sequelsList"
+              @change="filter">
+            <label for="filter__sequels--list">Always include sequels that are in my list</label>
+          </template>
         </div>
         <div class="column is-6 is-offset-1">
           <h4>Genres</h4>
@@ -60,7 +77,7 @@
                 class="checkbox"
                 :value="genre.id"
                 :id="`filter__genres--${genre.id}`"
-                @change="filter"
+                @change="filterGenres"
                 v-model="filters.genres.values">
               <label :for="`filter__genres--${genre.id}`">{{ genre.name }}</label>
             </div>
@@ -100,8 +117,25 @@ export default {
       required: true,
     },
   },
+  computed: {
+    user() {
+      return this.store.user;
+    },
+  },
   methods: {
     filter() {
+      this.$emit('filter');
+    },
+    filterListStatus() {
+      if (this.store.filters.list.values.length !== this.store.list_statuses.length) {
+        this.store.filters.list.all = false;
+      }
+      this.$emit('filter');
+    },
+    filterGenres() {
+      if (this.store.filters.genres.values.length !== this.store.genreIds.length) {
+        this.store.filters.genres.all = false;
+      }
       this.$emit('filter');
     },
     filterAllGenres() {
@@ -109,6 +143,14 @@ export default {
         this.store.filters.genres.values = this.store.genreIds.slice();
       } else {
         this.store.filters.genres.values = [];
+      }
+      this.$emit('filter');
+    },
+    filterAllList() {
+      if (this.filters.list.all === true) {
+        this.store.filters.list.values = ['not_in_list', 'ptw', 'completed', 'watching', 'hold', 'dropped'];
+      } else {
+        this.store.filters.list.values = [];
       }
       this.$emit('filter');
     },

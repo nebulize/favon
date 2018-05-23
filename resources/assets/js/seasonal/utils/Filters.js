@@ -51,11 +51,15 @@ export default class Filters {
   /**
    * Filter out sequels (or not, depending on user selection)
    * @param {object} season
+   * @param {boolean} sequelsList
    * @param {boolean} sequels
    * @returns {boolean}
    */
-  static filterSequels(season, sequels) {
+  static filterSequels(season, sequelsList, sequels) {
     // Filter out sequels, depending on user configuration
+    if (sequelsList === true && season.users && season.users.length > 0) {
+      return true;
+    }
     return sequels ? true : season.number === 1;
   }
 
@@ -71,12 +75,18 @@ export default class Filters {
   }
 
   /**
-   * Include entries that are in the users' list
+   * Filter by list status
    * @param season
+   * @param {array} statuses - List statuses the user wants to include
    * @returns {boolean}
    */
-  static filterByListStatus(season) {
-    return season.users && season.users.length > 0;
+  static filterByListStatus(season, statuses) {
+    const includeStatuses = new Set(statuses);
+    if (season.users && season.users.length > 0) {
+      const status = season.users[0].pivot.status;
+      return includeStatuses.has(status);
+    }
+    return includeStatuses.has('not_in_list');
   }
 
   /**

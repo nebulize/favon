@@ -85,12 +85,8 @@ const app = new Vue({
       this.store.filtered = this.store.tv_seasons.filter((season) => {
         let include;
 
-        // Filter by list status
-        include = Filters.filterByListStatus(season);
-        if (include === true) return true;
-
         // Filter out sequels, depending on user configuration
-        include = Filters.filterSequels(season, this.store.filters.sequels);
+        include = Filters.filterSequels(season, this.store.filters.sequelsList, this.store.filters.sequels);
         if (include === false) return false;
 
         // Filter out non-rated shows
@@ -106,7 +102,11 @@ const app = new Vue({
         if (include === false) return false;
 
         // Filter by language
-        return Filters.filterByLanguage(season, this.store.filters.languages);
+        include = Filters.filterByLanguage(season, this.store.filters.languages);
+        if (include === false) return false;
+
+        // Filter by list status
+        return Filters.filterByListStatus(season, this.store.filters.list.values);
       });
 
       // Lastly, sort the filtered array by the selected user criteria.
