@@ -65,7 +65,11 @@ class GenreRepository implements RepositoryContract
      */
     public function index(array $parameters = []) : Collection
     {
-        $query = $this->genre;
+        $query = $this->genre->newQuery();
+
+        if (isset($parameters['orderBy']) && \is_array($parameters['orderBy'])) {
+            $query = $query->orderBy($parameters['orderBy'][0], $parameters['orderBy'][1]);
+        }
 
         return $query->get();
     }

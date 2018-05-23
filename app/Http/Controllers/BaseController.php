@@ -96,7 +96,9 @@ class BaseController extends Controller
 
     public function genres()
     {
-        $genres = $this->genreRepository->index();
+        $genres = $this->genreRepository->index([
+            'orderBy' => ['name', 'ASC']
+        ]);
 
         return response()->json($genres);
     }
