@@ -48,7 +48,7 @@ class BaseController extends Controller
         }
 
         return view('tv.seasonal.index', [
-            'season' => $season,
+            'currentSeason' => $season,
             'seasons' => $seasons,
         ]);
     }
@@ -68,7 +68,7 @@ class BaseController extends Controller
         }
 
         return view('tv.seasonal.index', [
-            'season' => $season,
+            'currentSeason' => $season,
             'seasons' => $seasons,
         ]);
     }

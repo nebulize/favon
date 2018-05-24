@@ -2,41 +2,30 @@
 
 namespace App\Http\ViewComposers;
 
+use App\Repositories\SeasonRepository;
 use Carbon\Carbon;
 use App\Models\Season;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\View\View;
 
 class SeasonComposer
 {
     /**
-     * @var string
+     * @var Season
      */
     protected $season;
 
     /**
      * SeasonComposer constructor.
+     * @param SeasonRepository $seasonRepository
      */
-    public function __construct()
+    public function __construct(SeasonRepository $seasonRepository)
     {
-        $date = Carbon::now();
-        $month = $date->month;
-        $year = $date->year;
-        $season = new Season();
-        if (\in_array($month, [1, 2, 3], true)) {
-            $season->start_date = Carbon::create($year, 1, 1);
-            $season->name = 'Winter';
-        } elseif (\in_array($month, [4, 5, 6], true)) {
-            $season->start_date = Carbon::create($year, 4, 1);
-            $season->name = 'Spring';
-        } elseif (\in_array($month, [7, 8, 9], true)) {
-            $season->start_date = Carbon::create($year, 7, 1);
-            $season->name = 'Summer';
-        } else {
-            $season->start_date = Carbon::create($year, 10, 1);
-            $season->name = 'Fall';
+        try {
+            $this->season = $seasonRepository->find(['date' => Carbon::now()]);
+        } catch (ModelNotFoundException $e) {
+            $this->season = new Season(['name' => 'Spring']);
         }
-        $season->year = $year;
-        $this->season = $season;
     }
 
     /**
@@ -46,6 +35,8 @@ class SeasonComposer
      */
     public function compose(View $view): void
     {
-        $view->with('currentSeason', $this->season);
+        $view->with(array_merge([
+            'currentSeason' => $this->season,
+            ], $view->getData()));
     }
 }

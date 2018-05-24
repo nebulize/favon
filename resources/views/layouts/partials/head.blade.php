@@ -22,7 +22,21 @@
     <link rel="manifest" href="/site.webmanifest">
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff3f7a">
     <meta name="msapplication-TileColor" content="#603cba">
-    <meta name="theme-color" content="#ff3f7a">
+
+    @switch ($currentSeason->name)
+        @case('Winter')
+            <meta name="theme-color" content="#82d4f5">
+            @break
+        @case('Spring')
+            <meta name="theme-color" content="#ff3f7a">
+            @break
+        @case('Summer')
+            <meta name="theme-color" content="#f6b24d">
+            @break
+        @default
+            <meta name="theme-color" content="#ee913a">
+    @endswitch
+
     <meta name="apple-mobile-web-app-title" content="Favon">
     <meta name="application-name" content="Favon">
 

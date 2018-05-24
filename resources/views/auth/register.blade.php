@@ -9,9 +9,6 @@
         </div>
         <div class="card-meta">
           <p>Track your progress, find new content to watch and share it with your friends. Signing up for an account is <strong>free</strong> and easy.</p>
-          <p class="alert is-danger">Favon is still in an early alpha phase, and we may sometimes need to wipe or reset our database, resulting in your account getting deleted.
-          Feel free to sign up and explore the features that have been implemented so far, but please keep in mind that you may lose your data. To follow the project and see when
-            it enters its beta phase, check out the <strong><a href="https://github.com/chiiya/favon">Github Page</a></strong>.</p>
         </div>
         <form method="POST" action="{{ route('register') }}">
           @csrf

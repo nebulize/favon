@@ -1,12 +1,12 @@
 @extends('layouts.main')
 @section('content')
-  <div class="banner is-{{ lcfirst($season->name) }}">
+  <div class="banner is-{{ lcfirst($currentSeason->name) }}">
     <div class="container">
-      <img class="banner__image" src="/images/banner-{{ lcfirst($season->name) }}.svg">
+      <img class="banner__image" src="/images/banner-{{ lcfirst($currentSeason->name) }}.svg">
     </div>
     <div class="banner__top">
       <div class="container">
-        <h2>{{ $season->name }} {{ $season->year }}</h2>
+        <h2>{{ $currentSeason->name }} {{ $currentSeason->year }}</h2>
       </div>
     </div>
     <div class="banner__bottom"></div>
@@ -19,7 +19,7 @@
             @foreach ($seasons['before'] as $seasonBefore)
               <li><a href="{{ route('tv.seasonal.index', [$seasonBefore->year, lcfirst($seasonBefore->name)]) }}">{{ ucfirst($seasonBefore->name) }} {{ $seasonBefore->year }}</a></li>
             @endforeach
-            <li class="is-active" id="currentSeason" data-season="{{ $season->id }}"><a class="text-{{ lcfirst($season->name) }}" href="{{ route('tv.seasonal.index', [$season->year, lcfirst($season->name)]) }}">{{ ucfirst($season->name) }} {{ $season->year }}</a></li>
+            <li class="is-active" id="currentSeason" data-season="{{ $currentSeason->id }}"><a class="text-{{ lcfirst($currentSeason->name) }}" href="{{ route('tv.seasonal.index', [$currentSeason->year, lcfirst($currentSeason->name)]) }}">{{ ucfirst($currentSeason->name) }} {{ $currentSeason->year }}</a></li>
             @foreach ($seasons['after'] as $seasonAfter)
               <li><a href="{{ route('tv.seasonal.index', [$seasonAfter->year, lcfirst($seasonAfter->name)]) }}">{{ ucfirst($seasonAfter->name) }} {{ $seasonAfter->year }}</a></li>
             @endforeach
