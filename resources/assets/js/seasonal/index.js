@@ -39,23 +39,19 @@ const app = new Vue({
       }
     });
   },
-  beforeMount() {
+  async beforeMount() {
     const currentSeason = document.getElementById('currentSeason').dataset.season;
     const savedFilters = Cookies.getJSON('favon-filters');
     if (savedFilters) this.store.filters = savedFilters;
-    axios.get(`/api/seasonal/${currentSeason}`)
-      .then((response) => {
-        const data = response.data;
-        this.store.season = data.season;
-        this.store.tv_seasons = data.tvSeasons;
-        this.formatDates();
-        this.filter();
-        axios.get('/api/genres')
-          .then((responseGenres) => {
-            this.store.genres = responseGenres.data;
-            this.store.genreIds = this.store.genres.map(genre => genre.id);
-          });
-      });
+    const seasonResponse = await axios.get(`/api/seasonal/${currentSeason}`);
+    const data = seasonResponse.data;
+    this.store.season = data.season;
+    this.store.tv_seasons = data.tvSeasons;
+    this.formatDates();
+    const genreResponse = await axios.get('/api/genres');
+    this.store.genres = genreResponse.data;
+    this.store.genreIds = this.store.genres.map(genre => genre.id);
+    this.filter();
   },
   mounted() {
     axios.get('/api/users/me')
@@ -98,7 +94,6 @@ const app = new Vue({
         if (include === false) return false;
 
         // Filter by genres
-        console.log(this.store.filters);
         include = Filters.filterByGenre(season, this.store.filters.genres.values, this.store.genreIds);
         if (include === false) return false;
 

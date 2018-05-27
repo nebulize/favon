@@ -6,7 +6,7 @@ const vueLoaderConfig = require('./vue-loader.conf');
 
 module.exports = {
   entry: {
-    app: `${config.paths.src.entry}`,
+    app: ['./node_modules/regenerator-runtime/runtime.js', `${config.paths.src.entry}`],
     seasonal: './resources/assets/js/seasonal/index.js',
   },
   output: {
