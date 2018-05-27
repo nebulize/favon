@@ -57,7 +57,7 @@ const app = new Vue({
         this.store.genreIds = this.store.genres.map(genre => genre.id);
         if (!savedFilters) {
           const defaultGenres = this.store.genres.filter(
-            genre => this.store.defaultGenres.contains(genre.name),
+            genre => this.store.defaultGenres.includes(genre.name),
           );
           this.store.filters.genres = defaultGenres.map(genre => genre.id);
           this.filter();
