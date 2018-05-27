@@ -29,6 +29,7 @@ export default class Filters {
    * @returns {boolean}
    */
   static filterByGenre(season, selectedGenres, genres) {
+    console.log(season, selectedGenres, genres);
     // Filter out specific genres. The user selects the genres he wants to include,
     // but what we actually want to do is _exclude_ all seasons that have one of
     // the not selected genres, since this way the filtering makes more sense.
