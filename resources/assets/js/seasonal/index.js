@@ -49,18 +49,11 @@ const app = new Vue({
         this.store.season = data.season;
         this.store.tv_seasons = data.tvSeasons;
         this.formatDates();
-        if (savedFilters) this.filter();
+        this.filter();
         axios.get('/api/genres')
           .then((responseGenres) => {
             this.store.genres = responseGenres.data;
             this.store.genreIds = this.store.genres.map(genre => genre.id);
-            if (!savedFilters) {
-              const defaultGenres = this.store.genres.filter(
-                genre => this.store.defaultGenres.includes(genre.name),
-              );
-              this.store.filters.genres.values = defaultGenres.map(genre => genre.id);
-              this.filter();
-            }
           });
       });
   },
