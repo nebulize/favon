@@ -24,8 +24,8 @@ export default class Filters {
   /**
    * Filter out specific genres
    * @param {object} season
-   * @param {array} selectedGenres - Array of genre ids that the user has selected
-   * @param {array} genres - Array with all available genre ids
+   * @param {Array} selectedGenres - Array of genre ids that the user has selected
+   * @param {Array} genres - Array with all available genre ids
    * @returns {boolean}
    */
   static filterByGenre(season, selectedGenres, genres) {
