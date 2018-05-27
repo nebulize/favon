@@ -98,6 +98,7 @@ const app = new Vue({
         if (include === false) return false;
 
         // Filter by genres
+        console.log(this.store.filters);
         include = Filters.filterByGenre(season, this.store.filters.genres.values, this.store.genreIds);
         if (include === false) return false;
 
