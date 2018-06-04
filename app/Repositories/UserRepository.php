@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\TVShow;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\TVSeason;

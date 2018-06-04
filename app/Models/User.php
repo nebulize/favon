@@ -44,6 +44,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereVerified($value)
  * @property string|null $email_token
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmailToken($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TVSeason[] $tvSeasons
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\UserTvShow[] $userTvShows
  */
 class User extends Authenticatable
 {
@@ -100,6 +102,22 @@ class User extends Authenticatable
     public function tvSeasons(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(TVSeason::class, 'user_tv_season', 'user_id', 'tv_season_id')->withTimestamps();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function userTvSeasons(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(UserTvSeason::class, 'user_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function userTvShows(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(UserTvShow::class, 'user_id');
     }
 
     /**

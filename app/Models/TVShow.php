@@ -70,6 +70,7 @@ use Laracasts\Presenter\PresentableTrait;
  * @property bool $is_hidden
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Network[] $networks
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TVShow whereIsHidden($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\UserTvShow[] $userTvShow
  */
 class TVShow extends Model
 {
@@ -107,7 +108,7 @@ class TVShow extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function tvSeason() : \Illuminate\Database\Eloquent\Relations\HasMany
+    public function tvSeasons() : \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(TVSeason::class, 'tv_show_id');
     }
@@ -150,5 +151,13 @@ class TVShow extends Model
     public function networks()
     {
         return $this->belongsToMany(Network::class, 'network_tv_show', 'tv_show_id', 'network_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function userTvShows(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(UserTvShow::class, 'tv_show_id');
     }
 }

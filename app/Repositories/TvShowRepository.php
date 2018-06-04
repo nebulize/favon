@@ -30,12 +30,19 @@ class TvShowRepository implements RepositoryContract
      *
      * @param int $id
      * @param array $parameters
-     * @return TVShow
+     *
      * @throws ModelNotFoundException
+     *
+     * @return TVShow
      */
-    public function get(int $id, array $parameters = []) : TVShow
+    public function get(int $id, array $parameters = []): TVShow
     {
-        $query = $this->tvShow->where('id', $id);
+        $query = $this->tvShow->newQuery()->where('id', $id);
+        if (isset($parameters['withCount']) && \is_array($parameters['withCount'])) {
+            foreach ($parameters['withCount'] as $relationship) {
+                $query = $query->withCount($relationship);
+            }
+        }
 
         return $query->firstOrFail();
     }

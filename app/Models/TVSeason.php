@@ -125,4 +125,12 @@ class TVSeason extends Model
     {
         return $this->belongsToMany(Person::class, 'person_tv_season', 'tv_season_id', 'person_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function userTvSeasons(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(UserTvSeason::class, 'tv_season_id');
+    }
 }

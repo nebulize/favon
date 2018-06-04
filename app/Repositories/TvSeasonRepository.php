@@ -32,12 +32,20 @@ class TvSeasonRepository implements RepositoryContract
      *
      * @param int $id
      * @param array $parameters
-     * @return TVSeason
+     *
      * @throws ModelNotFoundException
+     *
+     * @return TVSeason
      */
     public function get(int $id, array $parameters = []) : TVSeason
     {
-        $query = $this->tvSeason->where('id', $id);
+        $query = $this->tvSeason->newQuery()->where('id', $id);
+
+        if (isset($parameters['with']) && \is_array($parameters['with'])) {
+            foreach ($parameters['with'] as $relationship) {
+                $query = $query->with($relationship);
+            }
+        }
 
         return $query->firstOrFail();
     }
@@ -119,7 +127,10 @@ class TvSeasonRepository implements RepositoryContract
 
             if (isset($parameters['user'])) {
                 $user = $parameters['user'];
-                $query = $query->with(['users' => function ($q) use ($user) {
+                $query = $query->with(['userTvSeasons' => function ($q) use ($user) {
+                    $q->where('user_id', $user->id);
+                }]);
+                $query = $query->with(['tvShow.userTvShows' => function ($q) use ($user) {
                     $q->where('user_id', $user->id);
                 }]);
             }

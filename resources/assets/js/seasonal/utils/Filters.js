@@ -57,7 +57,11 @@ export default class Filters {
    */
   static filterSequels(season, sequelsList, sequels) {
     // Filter out sequels, depending on user configuration
-    if (sequelsList === true && season.users && season.users.length > 0) {
+    if (sequelsList === true
+      && (
+        (season.user_tv_seasons && season.user_tv_seasons.length > 0)
+        || (season.tv_show.user_tv_shows && season.tv_show.user_tv_shows.length > 0)
+      )) {
       return true;
     }
     return sequels ? true : season.number === 1;
@@ -82,8 +86,8 @@ export default class Filters {
    */
   static filterByListStatus(season, statuses) {
     const includeStatuses = new Set(statuses);
-    if (season.users && season.users.length > 0) {
-      const status = season.users[0].pivot.status;
+    if (season.user_tv_seasons && season.user_tv_seasons.length > 0) {
+      const status = season.user_tv_seasons[0].status;
       return includeStatuses.has(status);
     }
     return includeStatuses.has('not_in_list');

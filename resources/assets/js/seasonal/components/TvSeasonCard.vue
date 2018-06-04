@@ -219,9 +219,9 @@ export default {
         this.showPopup = false;
       }
     });
-    if (this.tv_season.users && this.tv_season.users.length > 0) {
+    if (this.tv_season.user_tv_seasons && this.tv_season.user_tv_seasons.length > 0) {
       this.inList = true;
-      const pivot = this.tv_season.users[0].pivot;
+      const pivot = this.tv_season.user_tv_seasons[0];
       this.progress = pivot.progress;
       this.status = pivot.status;
       this.score = pivot.score ? pivot.score : 0;
