@@ -151,9 +151,9 @@
             </a>
           </span>
           <img src="/images/heart.svg">
-          <span>0</span>
+          <span>{{ tv_season.members_count }}</span>
           <img src="/images/star.svg">
-          <span>0</span>
+          <span>{{ tv_season.rating ? tv_season.rating : 'N/A' }}</span>
         </div>
       </div>
     </div>

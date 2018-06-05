@@ -29,6 +29,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('favon:tv:popularity')->daily();
         $schedule->command('favon:ratings:update')->daily();
         $schedule->command('horizon:snapshot')->everyFiveMinutes();
+        $schedule->command('favon:tv:ratings')->twiceDaily();
     }
 
     /**

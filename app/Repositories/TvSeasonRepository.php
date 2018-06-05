@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Support\Facades\DB;
 
 class TvSeasonRepository implements RepositoryContract
 {
@@ -208,5 +209,35 @@ class TvSeasonRepository implements RepositoryContract
         $query = $this->tvSeason->newQuery();
 
         return $query->cursor();
+    }
+
+    /**
+     * Sync user ratings for each tv season (for faster querying).
+     */
+    public function syncRatings(): void
+    {
+        DB::update('
+          UPDATE tv_seasons
+          SET rating = 
+          (
+            SELECT AVG(score) FROM user_tv_season
+            WHERE user_tv_season.tv_season_id = tv_seasons.id
+          )
+        ');
+    }
+
+    /**
+     * Sync user counts for each tv season (for faster querying).
+     */
+    public function syncMembersCount(): void
+    {
+        DB::update('
+          UPDATE tv_seasons
+          SET members_count = 
+          (
+            SELECT COUNT(*) FROM user_tv_season
+            WHERE user_tv_season.tv_season_id = tv_seasons.id
+          )
+        ');
     }
 }
