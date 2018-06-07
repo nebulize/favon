@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Initialize;
 
 use Carbon\Carbon;
 use App\Jobs\FetchPerson;
@@ -13,7 +13,7 @@ class FetchPersons extends Command
      *
      * @var string
      */
-    protected $signature = 'favon:persons:fetch';
+    protected $signature = 'favon:fetch:persons';
 
     /**
      * The console command description.

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Cronjobs;
 
 use Illuminate\Console\Command;
 use App\Repositories\TvSeasonRepository;
@@ -12,7 +12,7 @@ class SyncRatingsAndMembersCount extends Command
      *
      * @var string
      */
-    protected $signature = 'favon:tv:ratings';
+    protected $signature = 'favon:update:tv:ratings';
 
     /**
      * The console command description.
