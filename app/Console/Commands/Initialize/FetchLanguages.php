@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Initialize;
 
 use Illuminate\Console\Command;
 use App\Http\Clients\TMDBClient;
@@ -13,7 +13,7 @@ class FetchLanguages extends Command
      *
      * @var string
      */
-    protected $signature = 'favon:languages';
+    protected $signature = 'favon:fetch:languages';
 
     /**
      * The console command description.
@@ -28,7 +28,7 @@ class FetchLanguages extends Command
      * @param TMDBClient $tmdbClient
      * @param LanguageRepository $languageRepository
      */
-    public function handle(TMDBClient $tmdbClient, LanguageRepository $languageRepository)
+    public function handle(TMDBClient $tmdbClient, LanguageRepository $languageRepository): void
     {
         $this->line('Fetching languages from TMDB...');
         $languageResponse = $tmdbClient->getLanguages();
