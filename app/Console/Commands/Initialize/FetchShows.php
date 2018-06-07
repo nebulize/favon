@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Initialize;
 
 use Carbon\Carbon;
 use App\Jobs\FetchShow;
@@ -13,7 +13,7 @@ class FetchShows extends Command
      *
      * @var string
      */
-    protected $signature = 'favon:tv:fetch';
+    protected $signature = 'favon:fetch:shows';
 
     /**
      * The console command description.
@@ -25,7 +25,7 @@ class FetchShows extends Command
     /**
      * Execute the command.
      */
-    public function handle()
+    public function handle(): void
     {
         $this->line('Fetching latest tv shows export from TMDB...');
         $this->fetchFile();
@@ -41,7 +41,7 @@ class FetchShows extends Command
     /**
      * Fetch the daily export file for TV shows from TMDB and store it locally.
      */
-    protected function fetchFile() : void
+    protected function fetchFile(): void
     {
         $date = Carbon::now();
         $url = 'http://files.tmdb.org/p/exports/tv_series_ids_'.$date->format('m_d_Y').'.json.gz';
@@ -59,7 +59,7 @@ class FetchShows extends Command
     /**
      * Extract the downloaded export file.
      */
-    protected function extract() : void
+    protected function extract(): void
     {
         $sfp = gzopen(storage_path('api/tv_series_ids.json.gz'), 'rb');
         $fp = fopen(storage_path('api/tv_series_ids.json'), 'wb');
@@ -74,7 +74,7 @@ class FetchShows extends Command
     /**
      * Go through the extracted list line by line and dispatch a job for each entry.
      */
-    protected function fetchShows() : void
+    protected function fetchShows(): void
     {
         $handle = fopen(storage_path('api/tv_series_ids.json'), 'rb');
         while (! feof($handle)) {
@@ -89,7 +89,7 @@ class FetchShows extends Command
     /**
      * Delete the downloaded files since we don't need them anymore.
      */
-    protected function deleteFiles() : void
+    protected function deleteFiles(): void
     {
         unlink(storage_path('api/tv_series_ids.json.gz'));
         unlink(storage_path('api/tv_series_ids.json'));

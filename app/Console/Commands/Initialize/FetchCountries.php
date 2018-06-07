@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Initialize;
 
 use Illuminate\Console\Command;
 use App\Http\Clients\TMDBClient;
@@ -13,7 +13,7 @@ class FetchCountries extends Command
      *
      * @var string
      */
-    protected $signature = 'favon:countries';
+    protected $signature = 'favon:fetch:countries';
 
     /**
      * The console command description.

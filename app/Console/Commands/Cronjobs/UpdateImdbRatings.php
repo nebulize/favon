@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Cronjobs;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Repositories\TvShowRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Psr\Log\LoggerInterface;
 
 class UpdateImdbRatings extends Command
 {
@@ -15,7 +16,7 @@ class UpdateImdbRatings extends Command
      *
      * @var string
      */
-    protected $signature = 'favon:ratings:update';
+    protected $signature = 'favon:update:tv:imdb';
 
     /**
      * The console command description.
@@ -30,12 +31,19 @@ class UpdateImdbRatings extends Command
     protected $tvShowRepository;
 
     /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * UpdateImdbRatings constructor.
      * @param TvShowRepository $tvShowRepository
+     * @param LoggerInterface $logger
      */
-    public function __construct(TvShowRepository $tvShowRepository)
+    public function __construct(TvShowRepository $tvShowRepository, LoggerInterface $logger)
     {
         $this->tvShowRepository = $tvShowRepository;
+        $this->logger = $logger;
         parent::__construct();
     }
 
@@ -111,7 +119,7 @@ class UpdateImdbRatings extends Command
             }
         }
         fclose($handle);
-        Log::info('Skipped '.$count_skipped.' entries and matched '.$count_matched);
+        $this->logger->info('Skipped '.$count_skipped.' entries and matched '.$count_matched);
     }
 
     /**

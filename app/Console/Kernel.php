@@ -8,38 +8,29 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 class Kernel extends ConsoleKernel
 {
     /**
-     * The Artisan commands provided by your application.
-     *
-     * @var array
-     */
-    protected $commands = [
-        //
-    ];
-
-    /**
      * Define the application's command schedule.
      *
      * @param \Illuminate\Console\Scheduling\Schedule $schedule
-     * @return void
      */
-    protected function schedule(Schedule $schedule)
+    protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('favon:persons:update')->daily();
-        $schedule->command('favon:tv:update')->daily();
-        $schedule->command('favon:tv:popularity')->daily();
-        $schedule->command('favon:ratings:update')->daily();
+        $schedule->command('favon:update:persons')->daily();
+        $schedule->command('favon:update:shows')->daily();
+        $schedule->command('favon:update:tv:popularity')->daily();
+        $schedule->command('favon:update:tv:imdb')->daily();
+        $schedule->command('favon:update:tv:counts')->daily();
+        $schedule->command('favon:update:tv:ratings')->twiceDaily(0, 12);
         $schedule->command('horizon:snapshot')->everyFiveMinutes();
-        $schedule->command('favon:tv:ratings')->twiceDaily();
     }
 
     /**
      * Register the commands for the application.
-     *
-     * @return void
      */
-    protected function commands()
+    protected function commands(): void
     {
         $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__.'/Commands/Cronjobs');
+        $this->load(__DIR__.'/Commands/Initialize');
 
         require base_path('routes/console.php');
     }

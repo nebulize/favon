@@ -12,7 +12,7 @@ class ScrapeIMDB extends Command
      *
      * @var string
      */
-    protected $signature = 'favon:scrape {url}';
+    protected $signature = 'favon:imdb:scrape {url}';
 
     /**
      * The console command description.
@@ -40,7 +40,7 @@ class ScrapeIMDB extends Command
     /**
      * Execute the console command.
      */
-    public function handle() : void
+    public function handle(): void
     {
         $ids = $this->imdbScraper->scrape($this->argument('url'));
         $this->info('Scraping IMDB IDs...');

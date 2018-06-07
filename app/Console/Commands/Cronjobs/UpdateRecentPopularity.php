@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Cronjobs;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -10,6 +10,7 @@ use App\Repositories\SeasonRepository;
 use App\Repositories\TvShowRepository;
 use App\Repositories\TvSeasonRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Psr\Log\LoggerInterface;
 
 class UpdateRecentPopularity extends Command
 {
@@ -18,7 +19,7 @@ class UpdateRecentPopularity extends Command
      *
      * @var string
      */
-    protected $signature = 'favon:tv:popularity';
+    protected $signature = 'favon:update:tv:popularity';
 
     /**
      * The console command description.
@@ -42,18 +43,22 @@ class UpdateRecentPopularity extends Command
      */
     protected $seasonRepository;
 
+    protected $logger;
+
     /**
      * UpdateRecentPopularity constructor.
      * @param TvSeasonRepository $tvSeasonRepository
      * @param TvShowRepository $tvShowRepository
      * @param SeasonRepository $seasonRepository
+     * @param LoggerInterface $logger
      */
     public function __construct(TvSeasonRepository $tvSeasonRepository, TvShowRepository $tvShowRepository,
-                                SeasonRepository $seasonRepository)
+                                SeasonRepository $seasonRepository, LoggerInterface $logger)
     {
         $this->tvShowRepository = $tvShowRepository;
         $this->tvSeasonRepository = $tvSeasonRepository;
         $this->seasonRepository = $seasonRepository;
+        $this->logger = $logger;
         parent::__construct();
     }
 
@@ -67,7 +72,8 @@ class UpdateRecentPopularity extends Command
                 'date' => Carbon::now(),
             ]);
         } catch (ModelNotFoundException $e) {
-            Log::warning('UpdateRecentPopularity: Could not find current season.');
+            $this->logger->warning('UpdateRecentPopularity: Could not find current season.');
+            return;
         }
 
         $tvShows = $this->tvShowRepository->index([
