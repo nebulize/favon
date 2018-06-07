@@ -31,7 +31,5 @@ class Kernel extends ConsoleKernel
         $this->load(__DIR__.'/Commands');
         $this->load(__DIR__.'/Commands/Cronjobs');
         $this->load(__DIR__.'/Commands/Initialize');
-
-        require base_path('routes/console.php');
     }
 }
