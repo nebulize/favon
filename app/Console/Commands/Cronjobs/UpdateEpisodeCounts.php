@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Cronjobs;
 
 use Illuminate\Console\Command;
 use App\Jobs\UpdateEpisodeCount;
@@ -13,7 +13,7 @@ class UpdateEpisodeCounts extends Command
      *
      * @var string
      */
-    protected $signature = 'favon:tv:counts';
+    protected $signature = 'favon:update:tv:counts';
 
     /**
      * The console command description.

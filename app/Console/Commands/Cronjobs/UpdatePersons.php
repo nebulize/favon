@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Cronjobs;
 
-use App\Jobs\UpdateShow;
+use App\Jobs\UpdatePerson;
 use Illuminate\Console\Command;
 use App\Http\Clients\TMDBClient;
 
-class UpdateShows extends Command
+class UpdatePersons extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'favon:tv:update {start?} {end?}';
+    protected $signature = 'favon:update:persons {start?} {end?}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Fetch and store information for all tv shows changed in the last 24 hours (or time period - max 14 days - defined by start and end date)';
+    protected $description = 'Fetch and store information for all persons changed in the last 24 hours (or time period - max 14 days - defined by start and end date)';
 
     /**
      * @var TMDBClient
@@ -28,7 +28,7 @@ class UpdateShows extends Command
     protected $tmdbClient;
 
     /**
-     * UpdateShows constructor.
+     * UpdatePersons constructor.
      * @param TMDBClient $tmdbClient
      */
     public function __construct(TMDBClient $tmdbClient)
@@ -38,7 +38,7 @@ class UpdateShows extends Command
     }
 
     /**
-     * Execute the console command.
+     * Execute the command.
      */
     public function handle(): void
     {
@@ -57,7 +57,7 @@ class UpdateShows extends Command
      */
     public function displayStatus($start, $end): void
     {
-        $line = 'Fetching changed tv shows from TMDB ';
+        $line = 'Fetching changed persons from TMDB ';
         if ($start && $start !== '') {
             if ($end && $end !== '') {
                 $line .= 'between '.$start.' and '.$end;
@@ -78,27 +78,27 @@ class UpdateShows extends Command
      */
     public function fetch(int $page = 1): void
     {
-        $changedTvShowsResponse = $this->tmdbClient->getChangedTvShows($page, $this->argument('start'), $this->argument('end'));
-        if ($changedTvShowsResponse->hasBeenSuccessful() === false) {
+        $changedPersonsResponse = $this->tmdbClient->getChangedPersons($page, $this->argument('start'), $this->argument('end'));
+        if ($changedPersonsResponse->hasBeenSuccessful() === false) {
             return;
         }
-        $this->line('Fetched '.$page.'/'.$changedTvShowsResponse->getTotalPages().' pages of updated tv shows. Dispatching jobs...');
-        $this->updateBatch($changedTvShowsResponse->getResults());
-        if ($changedTvShowsResponse->getPage() < $changedTvShowsResponse->getTotalPages()) {
+        $this->line('Fetched '.$page.'/'.$changedPersonsResponse->getTotalPages().' pages of updated persons. Dispatching jobs...');
+        $this->updateBatch($changedPersonsResponse->getResults());
+        if ($changedPersonsResponse->getPage() < $changedPersonsResponse->getTotalPages()) {
             $this->fetch($page + 1);
         }
     }
 
     /**
-     * Update an array of tv shows.
+     * Update an array of persons.
      *
-     * @param array $tvShows
+     * @param array $persons
      */
-    public function updateBatch(array $tvShows): void
+    public function updateBatch(array $persons): void
     {
-        foreach ($tvShows as $tvShow) {
-            if (\is_object($tvShow) && property_exists($tvShow, 'id') && $tvShow->id !== null) {
-                UpdateShow::dispatch($tvShow->id);
+        foreach ($persons as $person) {
+            if (\is_object($person) && property_exists($person, 'id')) {
+                UpdatePerson::dispatch($person->id);
             }
         }
     }
