@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class UserTvSeason
- * Pivot Model
+ * Pivot Model.
  *
- * @package App\Models
  * @property int $id
  * @property int $user_id
  * @property int $tv_season_id
@@ -63,7 +62,6 @@ class UserTvSeason extends Model
     ];
 
     /**
-     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo

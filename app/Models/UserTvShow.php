@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class UserTvShow
- * Pivot Model
+ * Pivot Model.
  *
- * @package App\Models
  * @property int $user_id
  * @property int $tv_show_id
  * @property string $status
@@ -66,7 +65,6 @@ class UserTvShow extends Model
     ];
 
     /**
-     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo

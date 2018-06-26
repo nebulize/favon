@@ -75,7 +75,7 @@ return [
         'Mystery' => 'Mystery',
         'News' => 'News',
         'Talk' => 'Talk-Show',
-        'Western' => 'Western'
+        'Western' => 'Western',
     ],
 
     /*
