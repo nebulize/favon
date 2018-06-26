@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
-use App\Models\TVShow;
 use App\Models\User;
+use App\Models\TVShow;
 use App\Models\UserTvSeason;
 use App\Repositories\UserRepository;
-use App\Repositories\UserTvSeasonRepository;
 use App\Repositories\UserTvShowRepository;
+use App\Repositories\UserTvSeasonRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserService
@@ -47,6 +47,7 @@ class UserService
         $userTvSeasons = $this->userTvSeasonRepository->index(['user_id' => $user->id, 'tv_show_id' => $tvShow->id]);
         if ($userTvSeasons->count() === 0) {
             $this->userTvShowRepository->delete($user->id, $tvShow->id);
+
             return;
         }
         $completedSeasons = $userTvSeasons->filter(function (UserTvSeason $userTvSeason) {
@@ -85,5 +86,4 @@ class UserService
             ]);
         }
     }
-
 }
