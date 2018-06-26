@@ -42,10 +42,9 @@ class UserTvSeasonRepository
         if (isset($parameters['tv_show_id'])) {
             $query = $query
                 ->join('tv_seasons', 'user_tv_season.tv_season_id', '=', 'tv_seasons.id')
-                ->join('tv_shows', 'tv_seasons.tv_show_id', '=', 'tv_shows.id')
-                ->where('tv_shows.id', '=', $parameters['tv_show_id']);
+                ->where('tv_show_id', '=', $parameters['tv_show_id']);
         }
-        return $query->select('user_tv_season.*')->get();
+        return $query->get();
     }
 
     public function count(array $parameters = [])

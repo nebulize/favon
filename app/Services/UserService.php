@@ -52,10 +52,13 @@ class UserService
         $completedSeasons = $userTvSeasons->filter(function (UserTvSeason $userTvSeason) {
             return $userTvSeason->status === User::STATUS_COMPLETED;
         });
+        $ratedSeasons = $userTvSeasons->filter(function (UserTvSeason $userTvSeason) {
+            return $userTvSeason->score !== 0;
+        });
         $totalScore = $userTvSeasons->reduce(function (?int $carry, UserTvSeason $item) {
             return $carry + $item->score;
         });
-        $score = $totalScore / $userTvSeasons->count();
+        $score = $totalScore / $ratedSeasons->count();
         // If a user completed a tv season he won't necessarily have completed the tv show since
         // there might still be future seasons. Only set to completed if the tv show is completed or cancelled
         // AND the user has set ALL tv seasons as completed.
