@@ -54,7 +54,7 @@ class UserService
             return $userTvSeason->status === User::STATUS_COMPLETED;
         });
         $ratedSeasons = $userTvSeasons->filter(function (UserTvSeason $userTvSeason) {
-            return $userTvSeason->score !== 0;
+            return $userTvSeason->score !== null;
         });
         $totalScore = $userTvSeasons->reduce(function (?int $carry, UserTvSeason $item) {
             return $carry + $item->score;
