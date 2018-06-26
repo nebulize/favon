@@ -44,7 +44,7 @@ class UserTvSeasonRepository
                 ->join('tv_seasons', 'user_tv_season.tv_season_id', '=', 'tv_seasons.id')
                 ->where('tv_show_id', '=', $parameters['tv_show_id']);
         }
-        
+
         return $query->select('user_tv_season.*')->get();
     }
 
