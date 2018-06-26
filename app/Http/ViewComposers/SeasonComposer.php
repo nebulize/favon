@@ -2,11 +2,11 @@
 
 namespace App\Http\ViewComposers;
 
-use App\Repositories\SeasonRepository;
 use Carbon\Carbon;
 use App\Models\Season;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\View\View;
+use App\Repositories\SeasonRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class SeasonComposer
 {

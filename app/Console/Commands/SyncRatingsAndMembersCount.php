@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Repositories\TvSeasonRepository;
 use Illuminate\Console\Command;
+use App\Repositories\TvSeasonRepository;
 
 class SyncRatingsAndMembersCount extends Command
 {

@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Exceptions\InvalidArgumentException;
 use App\Models\UserTvShow;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -56,6 +55,7 @@ class UserTvShowRepository
         if (isset($parameters['tv_show_id'])) {
             $query = $query->where('tv_show_id', $parameters['tv_show_id']);
         }
+
         return $query->get();
     }
 
@@ -82,6 +82,7 @@ class UserTvShowRepository
     {
         $model->fill($attributes);
         $model->save();
+
         return $model;
     }
 }

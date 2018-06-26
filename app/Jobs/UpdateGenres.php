@@ -2,17 +2,17 @@
 
 namespace App\Jobs;
 
+use Illuminate\Bus\Queueable;
 use App\Http\Clients\OMDBClient;
 use App\Http\Clients\TMDBClient;
 use App\Http\Clients\TVDBClient;
 use App\Repositories\GenreRepository;
 use App\Repositories\TvShowRepository;
-use Illuminate\Bus\Queueable;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UpdateGenres implements ShouldQueue
 {

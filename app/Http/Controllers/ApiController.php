@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\TvShowRepository;
-use App\Repositories\UserTvShowRepository;
-use App\Services\UserService;
 use Illuminate\Http\Request;
+use App\Services\UserService;
 use App\Repositories\UserRepository;
+use App\Repositories\TvShowRepository;
 use App\Repositories\TvSeasonRepository;
+use App\Repositories\UserTvShowRepository;
 use App\Http\Requests\StoreTvSeasonListEntryRequest;
 
 class ApiController extends Controller
@@ -64,8 +64,8 @@ class ApiController extends Controller
         $tvShow = $this->tvShowRepository->get($tvSeason->tv_show_id, ['withCount' => ['tvSeasons']]);
         $this->userRepository->addTvSeasonToList($user, $tvSeason, [
             'status' => $request->get('status'),
-            'progress' => (int)$request->get('progress'),
-            'score' => (int)$request->get('score'),
+            'progress' => (int) $request->get('progress'),
+            'score' => (int) $request->get('score'),
         ]);
         $this->userService->updateTvShowListStatus($user, $tvShow, $request->get('status'));
 
@@ -75,7 +75,7 @@ class ApiController extends Controller
     public function updateTvSeasonListStatus(StoreTvSeasonListEntryRequest $request, string $id)
     {
         $user = $request->user();
-        $tvSeason = $this->tvSeasonRepository->get((int)$id);
+        $tvSeason = $this->tvSeasonRepository->get((int) $id);
         $tvShow = $this->tvShowRepository->get($tvSeason->tv_show_id, ['withCount' => ['tvSeasons']]);
         $this->userRepository->updateTvSeasonListStatus($user, $tvSeason, [
             'status' => $request->get('status'),

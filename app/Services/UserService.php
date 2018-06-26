@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
-use App\Models\TVShow;
 use App\Models\User;
+use App\Models\TVShow;
 use App\Models\UserTvSeason;
 use App\Repositories\UserRepository;
-use App\Repositories\UserTvSeasonRepository;
 use App\Repositories\UserTvShowRepository;
+use App\Repositories\UserTvSeasonRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserService
@@ -47,15 +47,19 @@ class UserService
         $userTvSeasons = $this->userTvSeasonRepository->index(['user_id' => $user->id, 'tv_show_id' => $tvShow->id]);
         if ($userTvSeasons->count() === 0) {
             $this->userTvShowRepository->delete($user->id, $tvShow->id);
+
             return;
         }
         $completedSeasons = $userTvSeasons->filter(function (UserTvSeason $userTvSeason) {
             return $userTvSeason->status === User::STATUS_COMPLETED;
         });
+        $ratedSeasons = $userTvSeasons->filter(function (UserTvSeason $userTvSeason) {
+            return $userTvSeason->score !== 0;
+        });
         $totalScore = $userTvSeasons->reduce(function (?int $carry, UserTvSeason $item) {
             return $carry + $item->score;
         });
-        $score = $totalScore / $userTvSeasons->count();
+        $score = $totalScore / $ratedSeasons->count();
         // If a user completed a tv season he won't necessarily have completed the tv show since
         // there might still be future seasons. Only set to completed if the tv show is completed or cancelled
         // AND the user has set ALL tv seasons as completed.
@@ -82,5 +86,4 @@ class UserService
             ]);
         }
     }
-
 }
