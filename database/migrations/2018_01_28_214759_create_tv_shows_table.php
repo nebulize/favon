@@ -8,43 +8,47 @@ class CreateTvShowsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('tv_shows', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('imdb_id', 9)->nullable();
             $table->string('name');
-            $table->enum('status', ['Continuing', 'Planned', 'In Production', 'Ended', 'Canceled', 'Pilot']);
             $table->date('first_aired')->nullable();
-            $table->string('network')->nullable();
             $table->string('runtime')->nullable();
-            $table->enum('rating', ['TV-MA', 'TV-14', 'TV-PG', 'TV-G', 'TV-Y', 'TV-Y7'])->nullable();
             $table->text('summary')->nullable();
             $table->text('plot')->nullable();
-            $table->string('country')->nullable();
             $table->string('poster')->nullable();
             $table->string('banner')->nullable();
-            $table->float('imdb_score')->nullable();
-            $table->bigInteger('imdb_votes')->unsigned()->nullable();
-            $table->enum('air_day', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Daily'])->nullable();
+            $table->string('homepage')->nullable();
+            $table->integer('tv_status_id')->unsigned()->nullable();
+            $table->integer('tv_rating_id')->unsigned()->nullable();
+            $table->integer('tv_air_day_id')->unsigned()->nullable();
             $table->string('air_time')->nullable();
             $table->float('popularity')->nullable();
+            $table->decimal('imdb_score', 9, 2)->default(0);
+            $table->bigInteger('imdb_votes')->unsigned()->default(0);
+            $table->string('imdb_id', 9)->nullable();
             $table->bigInteger('tvdb_id')->unsigned()->nullable();
             $table->bigInteger('tmdb_id')->unsigned()->unique();
-            $table->string('homepage')->nullable();
+            $table->boolean('is_hidden')->default(false);
             $table->timestamps();
+
+            $table->foreign('tv_status_id')->references('id')->on('tv_statuses')->onDelete('cascade');
+            $table->foreign('tv_rating_id')->references('id')->on('tv_ratings')->onDelete('cascade');
+            $table->foreign('tv_air_day_id')->references('id')->on('tv_air_days')->onDelete('cascade');
+
+            $table->index('imdb_id');
+            $table->index('imdb_votes');
+            $table->index('popularity');
+            $table->index('is_hidden');
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('tv_shows');
     }

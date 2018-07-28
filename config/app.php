@@ -137,7 +137,6 @@ return [
     */
 
     'providers' => [
-
         /*
          * Laravel Framework Service Providers...
          */
@@ -171,13 +170,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-        App\Providers\ComposerServiceProvider::class,
-
+        Favon\Application\Providers\AppServiceProvider::class,
+        Favon\Application\Providers\AuthServiceProvider::class,
+        Favon\Application\Providers\EventServiceProvider::class,
+        Favon\Application\Providers\RouteServiceProvider::class,
+        Favon\Application\Providers\ComposerServiceProvider::class,
     ],
 
     /*
@@ -192,7 +189,6 @@ return [
     */
 
     'aliases' => [
-
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,

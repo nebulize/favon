@@ -28,7 +28,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'tap' => [\App\Logging\LogSourceSplitter::class],
+            'tap' => [\Favon\Application\Logging\LogSourceSplitter::class],
             'channels' => ['single'],
         ],
         'single' => [
@@ -38,7 +38,7 @@ return [
         ],
         'daily' => [
             'driver' => 'daily',
-            'tap' => [\App\Logging\LogSourceSplitter::class],
+            'tap' => [\Favon\Application\Logging\LogSourceSplitter::class],
             'path' => storage_path('logs/laravel.log'),
             'level' => 'debug',
             'days' => 7,

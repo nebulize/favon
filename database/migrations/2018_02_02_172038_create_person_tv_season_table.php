@@ -8,10 +8,8 @@ class CreatePersonTvSeasonTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('person_tv_season', function (Blueprint $table) {
             $table->increments('id');
@@ -21,18 +19,17 @@ class CreatePersonTvSeasonTable extends Migration
             $table->string('character')->nullable();
             $table->string('job')->nullable();
             $table->integer('order')->nullable();
+            $table->timestamps();
+
             $table->foreign('person_id')->references('id')->on('persons')->onDelete('cascade');
             $table->foreign('tv_season_id')->references('id')->on('tv_seasons')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('person_tv_season');
     }
