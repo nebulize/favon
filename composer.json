@@ -34,10 +34,10 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "Favon\\": "app/"
         },
         "files": [
-            "app/Support/helpers.php"
+            "app/Application/Support/helpers.php"
         ]
     },
     "autoload-dev": {
