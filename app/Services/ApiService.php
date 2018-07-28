@@ -1,35 +1,35 @@
 <?php
 
-namespace App\Services;
+namespace Favon\Services;
 
 use Carbon\Carbon;
-use App\Models\TVShow;
-use App\Models\TVSeason;
-use App\Events\TvSeasonUpdated;
-use App\Http\Clients\OMDBClient;
-use App\Http\Clients\TMDBClient;
-use App\Http\Clients\TVDBClient;
+use Favon\Models\TvShow;
+use Favon\Models\TvSeason;
+use Favon\Events\TvSeasonUpdated;
+use Favon\Http\Clients\OmdbTvClient;
+use Favon\Http\Clients\TmdbClient;
+use Favon\Http\Clients\TVDBClient;
 use Illuminate\Support\Facades\Log;
-use App\Repositories\GenreRepository;
-use App\Repositories\VideoRepository;
-use App\Repositories\PersonRepository;
-use App\Repositories\SeasonRepository;
-use App\Repositories\TvShowRepository;
-use App\Repositories\NetworkRepository;
-use App\Repositories\TvSeasonRepository;
-use App\Repositories\TvEpisodeRepository;
-use App\Http\Responses\TMDB\Models\REpisode;
+use Favon\Repositories\GenreRepository;
+use Favon\Repositories\TvVideoRepository;
+use Favon\Repositories\PersonRepository;
+use Favon\Repositories\SeasonRepository;
+use Favon\Repositories\TvShowRepository;
+use Favon\Repositories\NetworkRepository;
+use Favon\Repositories\TvSeasonRepository;
+use Favon\Repositories\TvEpisodeRepository;
+use Favon\Http\Responses\TMDB\Models\REpisode;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ApiService
 {
     /**
-     * @var TMDBClient
+     * @var TmdbClient
      */
     protected $tmdbClient;
 
     /**
-     * @var OMDBClient
+     * @var OmdbTvClient
      */
     protected $omdbClient;
 
@@ -64,7 +64,7 @@ class ApiService
     protected $tvEpisodeRepository;
 
     /**
-     * @var VideoRepository
+     * @var TvVideoRepository
      */
     protected $videoRepository;
 
@@ -78,10 +78,10 @@ class ApiService
      */
     protected $networkRepository;
 
-    public function __construct(TMDBClient $tmdbClient, OMDBClient $omdbClient, TVDBClient $tvdbClient,
+    public function __construct(TmdbClient $tmdbClient, OmdbTvClient $omdbClient, TVDBClient $tvdbClient,
                                 TvShowRepository $tvShowRepository, GenreRepository $genreRepository,
                                 TvSeasonRepository $tvSeasonRepository, SeasonRepository $seasonRepository,
-                                TvEpisodeRepository $tvEpisodeRepository, VideoRepository $videoRepository,
+                                TvEpisodeRepository $tvEpisodeRepository, TvVideoRepository $videoRepository,
                                 PersonRepository $personRepository, NetworkRepository $networkRepository)
     {
         $this->tmdbClient = $tmdbClient;
@@ -101,9 +101,9 @@ class ApiService
      * Fetch and store all data for a TV Show.
      *
      * @param int $id TMDB id
-     * @return TVShow|null
+     * @return TvShow|null
      */
-    public function fetchTvShow(int $id): ?TVShow
+    public function fetchTvShow(int $id): ?TvShow
     {
         $tvShowResponse = $this->tmdbClient->getTvShow($id);
         if ($tvShowResponse->hasBeenSuccessful() === false || $tvShowResponse->getName() === null) {
@@ -208,11 +208,11 @@ class ApiService
     /**
      * Fetch and store all data for a TV Season.
      *
-     * @param TVShow $tvShow
+     * @param TvShow $tvShow
      * @param int $number
-     * @return TVSeason|null
+     * @return TvSeason|null
      */
-    public function fetchTvSeason(TVShow $tvShow, int $number): ?TVSeason
+    public function fetchTvSeason(TvShow $tvShow, int $number): ?TvSeason
     {
         // Fetch TV Season
         $tvSeasonResponse = $this->tmdbClient->getTvSeason($tvShow->tmdb_id, $number);
@@ -260,10 +260,10 @@ class ApiService
     /**
      * Fetch and store all videos for a tv season.
      *
-     * @param TVShow $tvShow
-     * @param TVSeason $tvSeason
+     * @param TvShow $tvShow
+     * @param TvSeason $tvSeason
      */
-    public function fetchTvSeasonVideos(TVShow $tvShow, TVSeason $tvSeason): void
+    public function fetchTvSeasonVideos(TvShow $tvShow, TvSeason $tvSeason): void
     {
         $tvSeasonVideosResponse = $this->tmdbClient->getTvSeasonVideos($tvShow->tmdb_id, $tvSeason->number);
         if ($tvSeasonVideosResponse->hasBeenSuccessful() === false) {
@@ -282,10 +282,10 @@ class ApiService
     /**
      * Fetch and store all credits for a tv season.
      *
-     * @param TVShow $tvShow
-     * @param TVSeason $tvSeason
+     * @param TvShow $tvShow
+     * @param TvSeason $tvSeason
      */
-    public function fetchTvSeasonCredits(TVShow $tvShow, TVSeason $tvSeason): void
+    public function fetchTvSeasonCredits(TvShow $tvShow, TvSeason $tvSeason): void
     {
         $tvSeasonCreditsResponse = $this->tmdbClient->getTvSeasonCredits($tvShow->tmdb_id, $tvSeason->number);
         if ($tvSeasonCreditsResponse->hasBeenSuccessful() === false) {
@@ -465,7 +465,7 @@ class ApiService
         Log::info('Updated an existing tv show: '.$tvShow->name);
     }
 
-    protected function updateTvSeason(TVShow $tvShow, int $number): ?TVSeason
+    protected function updateTvSeason(TvShow $tvShow, int $number): ?TvSeason
     {
         // Grab the existing season from our database
         try {
@@ -522,7 +522,7 @@ class ApiService
         return $tvSeason;
     }
 
-    private function updateEpisode(TVSeason $tvSeason, REpisode $episode): void
+    private function updateEpisode(TvSeason $tvSeason, REpisode $episode): void
     {
         // Grab the existing episode from our database
         try {

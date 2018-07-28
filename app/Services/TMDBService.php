@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Services;
+namespace Favon\Services;
 
 use Carbon\Carbon;
 use Psr\Log\LoggerInterface;
-use App\Http\Clients\TMDBClient;
+use Favon\Http\Clients\TmdbClient;
 use Intervention\Image\Facades\Image;
-use App\Exceptions\GenericAPIException;
-use App\Exceptions\NoAPIResultsFoundException;
+use Favon\Exceptions\GenericAPIException;
+use Favon\Exceptions\NoAPIResultsFoundException;
 
 class TMDBService
 {
     /**
-     * @var TMDBClient
+     * @var TmdbClient
      */
     protected $client;
 
@@ -23,10 +23,10 @@ class TMDBService
 
     /**
      * TMDBService constructor.
-     * @param TMDBClient $client
+     * @param TmdbClient $client
      * @param LoggerInterface $logger
      */
-    public function __construct(TMDBClient $client, LoggerInterface $logger)
+    public function __construct(TmdbClient $client, LoggerInterface $logger)
     {
         $this->client = $client;
         $this->logger = $logger;

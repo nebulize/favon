@@ -1,5 +1,6 @@
 <?php
-use Illuminate\Support\Facades\Schema;
+
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -7,29 +8,26 @@ class CreateVideosTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('videos', function (Blueprint $table) {
+        Schema::create('tv_videos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('key');
             $table->string('type')->nullable();
             $table->integer('tv_season_id')->unsigned();
-            $table->foreign('tv_season_id')->references('id')->on('tv_seasons')->onDelete('cascade');
             $table->timestamps();
+
+            $table->foreign('tv_season_id')->references('id')->on('tv_seasons')->onDelete('cascade');
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('videos');
+        Schema::dropIfExists('tv_videos');
     }
 }
