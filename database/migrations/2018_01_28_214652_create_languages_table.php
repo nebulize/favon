@@ -8,24 +8,21 @@ class CreateLanguagesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('languages', function (Blueprint $table) {
             $table->string('name');
             $table->char('code', 2);
+
             $table->primary('code');
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('languages');
     }

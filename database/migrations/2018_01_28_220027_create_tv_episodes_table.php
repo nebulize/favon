@@ -8,10 +8,8 @@ class CreateTvEpisodesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('tv_episodes', function (Blueprint $table) {
             $table->increments('id');
@@ -21,17 +19,16 @@ class CreateTvEpisodesTable extends Migration
             $table->text('plot')->nullable();
             $table->bigInteger('tmdb_id')->unsigned();
             $table->integer('tv_season_id')->unsigned();
-            $table->foreign('tv_season_id')->references('id')->on('tv_seasons')->onDelete('cascade');
             $table->timestamps();
+
+            $table->foreign('tv_season_id')->references('id')->on('tv_seasons')->onDelete('cascade');
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('tv_episodes');
     }
