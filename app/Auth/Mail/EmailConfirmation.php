@@ -26,7 +26,7 @@ class EmailConfirmation extends MjmlMailable
      *
      * @return $this
      */
-    public function build()
+    public function build(): self
     {
         return $this
             ->subject('Welcome to Favon - Please confirm your Email')

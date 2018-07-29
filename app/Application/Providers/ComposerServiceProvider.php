@@ -2,9 +2,7 @@
 
 namespace Favon\Application\Providers;
 
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use Favon\Http\ViewComposers\SeasonComposer;
 
 class ComposerServiceProvider extends ServiceProvider
 {

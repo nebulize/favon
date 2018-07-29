@@ -130,8 +130,6 @@ class TvShowRepository implements RepositoryContract
      * Delete an existing tv show.
      *
      * @param Model $model
-     *
-     * @throws \Exception
      */
     public function delete(Model $model): void
     {
@@ -226,5 +224,15 @@ class TvShowRepository implements RepositoryContract
             ->from(\DB::raw('(SELECT id, banner FROM tv_shows ORDER BY popularity DESC LIMIT 10) AS tv'))
             ->inRandomOrder()
             ->first();
+    }
+
+    /**
+     * Delete a tv show from database by its TMDB id.
+     *
+     * @param int $id
+     */
+    public function deleteByTmdbId(int $id): void
+    {
+        $this->tvShow->newQuery()->where('tmdb_id', $id)->delete();
     }
 }

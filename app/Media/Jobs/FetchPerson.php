@@ -40,7 +40,7 @@ class FetchPerson implements ShouldQueue
         }
         $personRepository->create($personResponse->toArray());
 //        if (!empty($person['photo'])) {
-//            $tmdbService->fetchImages('profile', $person['photo']);
+//            $apiService->fetchImages('profile', $person['photo']);
 //        }
     }
 }

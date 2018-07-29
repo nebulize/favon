@@ -2,7 +2,7 @@
 
 namespace Favon\Tv\Http\Responses\Tmdb;
 
-use Favon\Application\Abstracts\BaseResponse;
+use Favon\Application\Http\BaseResponse;
 
 class TvShowIdsResponse extends BaseResponse
 {

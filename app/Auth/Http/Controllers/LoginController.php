@@ -2,8 +2,8 @@
 
 namespace Favon\Http\Controllers\Auth;
 
-use Favon\Services\TvService;
-use Favon\Application\Abstracts\Controller;
+use Favon\Tv\Services\TvService;
+use Favon\Application\Http\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller

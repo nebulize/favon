@@ -2,8 +2,8 @@
 
 namespace Favon\Auth\Http\Controllers;
 
-use Favon\Services\TvService;
-use Favon\Application\Abstracts\Controller;
+use Favon\Tv\Services\TvService;
+use Favon\Application\Http\Controller;
 use Favon\Auth\Repositories\UserRepository;
 use Favon\Auth\Http\Requests\UpdateNotificationsRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
