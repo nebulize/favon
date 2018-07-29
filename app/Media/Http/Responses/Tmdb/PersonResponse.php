@@ -4,7 +4,7 @@ namespace Favon\Media\Http\Responses\Tmdb;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
-use Favon\Application\Abstracts\BaseResponse;
+use Favon\Application\Http\BaseResponse;
 
 class PersonResponse extends BaseResponse
 {

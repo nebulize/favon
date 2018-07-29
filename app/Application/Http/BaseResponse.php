@@ -1,6 +1,6 @@
 <?php
 
-namespace Favon\Application\Abstracts;
+namespace Favon\Application\Http;
 
 use Illuminate\Support\MessageBag;
 use Illuminate\Contracts\Support\MessageProvider;

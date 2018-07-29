@@ -2,7 +2,7 @@
 
 namespace Favon\Tv\Http\Controllers\Api;
 
-use Favon\Application\Abstracts\Controller;
+use Favon\Application\Http\Controller;
 use Favon\Tv\Http\Requests\StoreTvSeasonListEntryRequest;
 use Favon\Tv\Repositories\TvSeasonRepository;
 use Favon\Tv\Services\ListService;

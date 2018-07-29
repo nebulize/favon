@@ -2,7 +2,6 @@
 
 namespace Favon\Auth\Http\Requests;
 
-use Favon\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateNotificationsRequest extends FormRequest

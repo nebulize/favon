@@ -55,7 +55,7 @@ class UpdatePerson implements ShouldQueue
             $logger->info('Created new person: '.$this->id);
         }
 //        if (!empty($newPerson['photo'])) {
-//            $tmdbService->fetchImages('profile', $newPerson['photo']);
+//            $apiService->fetchImages('profile', $newPerson['photo']);
 //        }
     }
 }

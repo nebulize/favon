@@ -3,11 +3,12 @@
 namespace Favon\Tv\Http\Controllers;
 
 use Carbon\Carbon;
+use Favon\Application\Http\Controller;
 use Favon\Media\Repositories\SeasonRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class SeasonalController
+class SeasonalController extends Controller
 {
     /**
      * @var SeasonRepository

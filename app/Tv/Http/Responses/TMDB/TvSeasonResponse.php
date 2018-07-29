@@ -3,7 +3,7 @@
 namespace Favon\Tv\Http\Responses\Tmdb;
 
 use Carbon\Carbon;
-use Favon\Application\Abstracts\BaseResponse;
+use Favon\Application\Http\BaseResponse;
 use Favon\Tv\Http\Responses\TMDB\Models\REpisode;
 
 class TvSeasonResponse extends BaseResponse
