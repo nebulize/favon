@@ -2,7 +2,7 @@
 
 namespace Favon\Media\Http\Responses\Tmdb;
 
-use Favon\Application\Abstracts\BaseResponse;
+use Favon\Application\Http\BaseResponse;
 
 class ChangedPersonsResponse extends BaseResponse
 {

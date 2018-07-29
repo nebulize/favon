@@ -2,7 +2,7 @@
 
 namespace Favon\Tv\Http\Responses\OMDB;
 
-use Favon\Application\Abstracts\BaseResponse;
+use Favon\Application\Http\BaseResponse;
 
 class OmdbResponse extends BaseResponse
 {

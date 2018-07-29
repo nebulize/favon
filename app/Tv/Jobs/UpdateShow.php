@@ -2,7 +2,7 @@
 
 namespace Favon\Tv\Jobs;
 
-use Favon\Services\ApiService;
+use Favon\Tv\Services\Api\ApiService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;

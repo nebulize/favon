@@ -178,8 +178,6 @@ class TvSeasonRepository implements RepositoryContract
      * Delete an existing tv season.
      *
      * @param Model $model
-     *
-     * @throws \Exception
      */
     public function delete(Model $model): void
     {
