@@ -2,7 +2,7 @@
 
 namespace Favon\Tv\Jobs;
 
-use Favon\Services\ApiService;
+use Favon\Tv\Services\Api\PopularityUpdatingService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -28,10 +28,12 @@ class UpdateTvShowPopularity implements ShouldQueue
     }
 
     /**
-     * @param ApiService $apiService
+     * Execute the job.
+     *
+     * @param PopularityUpdatingService $service
      */
-    public function handle(ApiService $apiService): void
+    public function handle(PopularityUpdatingService $service): void
     {
-        $apiService->updatePopularity($this->id);
+        $service->execute($this->id);
     }
 }

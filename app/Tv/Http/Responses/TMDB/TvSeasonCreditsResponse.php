@@ -2,7 +2,7 @@
 
 namespace Favon\Tv\Http\Responses\Tmdb;
 
-use Favon\Application\Abstracts\BaseResponse;
+use Favon\Application\Http\BaseResponse;
 use Favon\Tv\Http\Responses\TMDB\Models\RCredit;
 
 class TvSeasonCreditsResponse extends BaseResponse

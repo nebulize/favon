@@ -2,7 +2,7 @@
 
 namespace Favon\Tv\Http\Controllers\Api;
 
-use Favon\Application\Abstracts\Controller;
+use Favon\Application\Http\Controller;
 use Favon\Media\Repositories\SeasonRepository;
 use Favon\Tv\Repositories\TvSeasonRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;

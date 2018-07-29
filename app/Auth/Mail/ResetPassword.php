@@ -25,7 +25,7 @@ class ResetPassword extends MjmlMailable
      *
      * @return $this
      */
-    public function build()
+    public function build(): self
     {
         return $this
             ->subject('Favon - Reset password')

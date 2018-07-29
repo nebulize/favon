@@ -2,7 +2,7 @@
 
 namespace Favon\Media\Http\Gateways;
 
-use Favon\Application\Abstracts\Gateway;
+use Favon\Application\Http\Gateway;
 
 class OmdbGateway extends Gateway
 {

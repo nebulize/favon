@@ -1,6 +1,6 @@
 <?php
 
-namespace Favon\Application\Abstracts;
+namespace Favon\Application\Http;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;

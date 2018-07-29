@@ -3,9 +3,9 @@
 namespace Favon\Http\Controllers\Auth;
 
 use Favon\Auth\Models\User;
-use Favon\Services\TvService;
+use Favon\Tv\Services\TvService;
 use Illuminate\Http\Request;
-use Favon\Application\Abstracts\Controller;
+use Favon\Application\Http\Controller;
 use Favon\Auth\Repositories\UserRepository;
 use Favon\Auth\Http\Requests\RegisterRequest;
 use Illuminate\Auth\Events\Registered;
@@ -99,12 +99,11 @@ class RegisterController extends Controller
     /**
      * The user has been registered.
      *
-     * @param Request $request
      * @param User $user
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    protected function registered(Request $request, User $user)
+    protected function registered(User $user)
     {
         return view('auth.notifications', [
             'banner' => $this->tvService->getBanner(),

@@ -1,6 +1,6 @@
 <?php
 
-namespace Favon\Application\Abstracts;
+namespace Favon\Application\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;

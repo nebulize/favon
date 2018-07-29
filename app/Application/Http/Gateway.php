@@ -1,6 +1,6 @@
 <?php
 
-namespace Favon\Application\Abstracts;
+namespace Favon\Application\Http;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;

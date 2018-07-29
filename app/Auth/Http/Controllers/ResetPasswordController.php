@@ -2,9 +2,9 @@
 
 namespace Favon\Http\Controllers\Auth;
 
-use Favon\Services\TvService;
+use Favon\Tv\Services\TvService;
 use Illuminate\Http\Request;
-use Favon\Application\Abstracts\Controller;
+use Favon\Application\Http\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller

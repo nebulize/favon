@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
         $this->load(app_path('Media/Commands'));
         $this->load(app_path('Media/Commands/Cronjobs'));
         $this->load(app_path('Media/Commands/Initialize'));
-        $this->load(app_path('Tv/Commands/Initialize'));
+        $this->load(app_path('Tv/Commands/Cronjobs'));
         $this->load(app_path('Tv/Commands/Initialize'));
     }
 }

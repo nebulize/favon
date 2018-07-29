@@ -2,7 +2,7 @@
 
 namespace Favon\Media\Http\Responses\TMDB;
 
-use Favon\Application\Abstracts\BaseResponse;
+use Favon\Application\Http\BaseResponse;
 use Favon\Media\Http\Responses\Tmdb\Models\RCountry;
 
 class CountryResponse extends BaseResponse
