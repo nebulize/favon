@@ -6,6 +6,23 @@ use Favon\Television\Models\UserTvSeason;
 use Favon\Television\Models\UserTvShow;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Favon\Media\Models\ListStatus
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property string|null $created_at
+ * @property string|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Television\Models\UserTvSeason[] $userTvSeasons
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Television\Models\UserTvShow[] $userTvShows
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Media\Models\ListStatus whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Media\Models\ListStatus whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Media\Models\ListStatus whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Media\Models\ListStatus whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Media\Models\ListStatus whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class ListStatus extends Model
 {
     /**

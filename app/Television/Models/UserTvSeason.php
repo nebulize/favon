@@ -6,6 +6,32 @@ use Favon\Media\Models\ListStatus;
 use Favon\Auth\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Favon\Television\Models\UserTvSeason
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $tv_season_id
+ * @property \Carbon\Carbon|null $completed_at
+ * @property int $progress
+ * @property int|null $score
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property int|null $list_status_id
+ * @property-read \Favon\Media\Models\ListStatus|null $status
+ * @property-read \Favon\Television\Models\TvSeason $tvSeason
+ * @property-read \Favon\Auth\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\UserTvSeason whereCompletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\UserTvSeason whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\UserTvSeason whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\UserTvSeason whereListStatusId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\UserTvSeason whereProgress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\UserTvSeason whereScore($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\UserTvSeason whereTvSeasonId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\UserTvSeason whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\UserTvSeason whereUserId($value)
+ * @mixin \Eloquent
+ */
 class UserTvSeason extends Model
 {
     /**
