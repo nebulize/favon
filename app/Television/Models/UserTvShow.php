@@ -69,11 +69,8 @@ class UserTvShow extends Model
     ];
 
     /**
-<<<<<<< HEAD:app/Models/UserTvShow.php
-=======
      * One-to-Many (Many-to-Many with pivot table model): one user tv show entry belongs to one user.
      *
->>>>>>> 175f359... Refactor backend into DDD structure:app/Tv/Models/UserTvShow.php
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
