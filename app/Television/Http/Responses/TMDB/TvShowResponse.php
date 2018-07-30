@@ -245,10 +245,10 @@ class TvShowResponse extends BaseResponse
     private function parseStatus(): void
     {
         $status = $this->parseProperty('status');
+        $this->status = $status;
+
         if ($status === 'Returning Series') {
             $this->status = 'Continuing';
-        } elseif (\in_array($status, ['Planned', 'In Production', 'Ended', 'Canceled', 'Pilot'], true)) {
-            $this->status = $status;
         }
     }
 
