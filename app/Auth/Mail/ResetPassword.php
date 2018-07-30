@@ -1,6 +1,6 @@
 <?php
 
-namespace Favon\Mail;
+namespace Favon\Auth\Mail;
 
 use Favon\Application\Mail\MjmlMailable;
 

@@ -38,7 +38,7 @@ $app->singleton(
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
-    Favon\Exceptions\Handler::class
+    Favon\Application\Exceptions\Handler::class
 );
 
 /*

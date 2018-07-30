@@ -2,7 +2,7 @@
 
 namespace Favon\Media\Models;
 
-use Favon\Tv\Models\TvShow;
+use Favon\Television\Models\TvShow;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property string $name
  * @property int $code
- * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Tv\Models\TvShow[] $tvShows
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Television\Models\TvShow[] $tvShows
  * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Media\Models\Language whereCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Media\Models\Language whereName($value)
  * @mixin \Eloquent

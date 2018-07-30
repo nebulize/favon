@@ -2,7 +2,7 @@
 
 namespace Favon\Auth\Http\Controllers;
 
-use Favon\Tv\Services\TvService;
+use Favon\Television\Services\TvService;
 use Favon\Application\Http\Controller;
 use Favon\Auth\Repositories\UserRepository;
 use Favon\Auth\Http\Requests\UpdateNotificationsRequest;
