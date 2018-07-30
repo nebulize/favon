@@ -33,6 +33,9 @@
             "database/seeds",
             "database/factories"
         ],
+        "psr-0": {
+          "Seeds\\": "database/seeds/"
+        },
         "psr-4": {
             "Favon\\": "app/"
         },
