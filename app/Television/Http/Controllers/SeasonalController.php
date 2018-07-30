@@ -25,46 +25,28 @@ class SeasonalController extends Controller
     }
 
     /**
-     * Display the current season.
-     *
-     * @throws NotFoundHttpException
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function index()
-    {
-        try {
-            $season = $this->seasonRepository->find([
-                'date' => Carbon::now(),
-            ]);
-            $seasons = $this->seasonRepository->indexAround($season);
-        } catch (ModelNotFoundException $exception) {
-            throw new NotFoundHttpException();
-        }
-
-        return view('tv.seasonal.index', [
-            'currentSeason' => $season,
-            'seasons' => $seasons,
-        ]);
-    }
-
-    /**
      * Display a specific season (by year and name).
      *
-     * @param int $year
-     * @param string $name
+     * @param int|null $year
+     * @param string|null $name
      *
      * @throws NotFoundHttpException
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(int $year, string $name)
+    public function show(int $year = null, string $name = null)
     {
         try {
-            $season = $this->seasonRepository->find([
-                'year' => $year,
-                'name' => ucfirst($name),
-            ]);
+            if ($year === null || $name === null) {
+                $season = $this->seasonRepository->find([
+                    'date' => Carbon::now(),
+                ]);
+            } else {
+                $season = $this->seasonRepository->find([
+                    'year' => $year,
+                    'name' => ucfirst($name),
+                ]);
+            }
             $seasons = $this->seasonRepository->indexAround($season);
         } catch (ModelNotFoundException $exception) {
             throw new NotFoundHttpException();

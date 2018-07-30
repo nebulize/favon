@@ -1,6 +1,6 @@
 <?php
 
-namespace Favon\Television\Http\Controllers\Api;
+namespace Favon\Media\Http\Controllers\Api;
 
 use Favon\Application\Http\Controller;
 use Favon\Media\Repositories\GenreRepository;
