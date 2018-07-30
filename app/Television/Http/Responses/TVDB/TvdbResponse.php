@@ -22,6 +22,11 @@ class TvdbResponse extends BaseResponse
     protected $genres = [];
 
     /**
+     * @var string|null
+     */
+    protected $rating;
+
+    /**
      * @return null|string
      */
     public function getAirDay(): ?string
@@ -46,12 +51,21 @@ class TvdbResponse extends BaseResponse
     }
 
     /**
+     * @return null|string
+     */
+    public function getRating(): ?string
+    {
+        return $this->rating;
+    }
+
+    /**
      * Parse the response object.
      */
     public function parseResponse(): void
     {
         $this->air_day = $this->parseProperty('airsDayOfWeek');
         $this->air_time = $this->parseProperty('airsTime');
+        $this->rating = $this->parseProperty('rating');
         $this->parseGenres();
     }
 
@@ -81,6 +95,7 @@ class TvdbResponse extends BaseResponse
         return [
             'air_day' => $this->getAirDay(),
             'air_time' => $this->getAirTime(),
+            'rating' => $this->getRating(),
         ];
     }
 }

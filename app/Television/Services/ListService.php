@@ -158,14 +158,14 @@ class ListService
         try {
             $userTvShow = $this->userTvShowRepository->get($user->id, $tvShow->id);
             $this->userTvShowRepository->update($userTvShow, [
-                'status' => $status,
+                'list_status_id' => $status,
                 'score' => $score,
             ]);
         } catch (ModelNotFoundException $exception) {
             $this->userTvShowRepository->create([
                 'user_id' =>  $user->id,
                 'tv_show_id' => $tvShow->id,
-                'status' => $status,
+                'list_status_id' => $status,
                 'score' => $score,
             ]);
         }
