@@ -10,6 +10,41 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Favon\Auth\Models\User
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $password
+ * @property string|null $avatar
+ * @property bool $notify_messages
+ * @property bool $notify_shows
+ * @property bool $notify_features
+ * @property bool $verified
+ * @property string|null $email_token
+ * @property string|null $remember_token
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Television\Models\TvSeason[] $tvSeasons
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Television\Models\UserTvSeason[] $userTvSeasons
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Television\Models\UserTvShow[] $userTvShows
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Auth\Models\User whereAvatar($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Auth\Models\User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Auth\Models\User whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Auth\Models\User whereEmailToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Auth\Models\User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Auth\Models\User whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Auth\Models\User whereNotifyFeatures($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Auth\Models\User whereNotifyMessages($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Auth\Models\User whereNotifyShows($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Auth\Models\User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Auth\Models\User whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Auth\Models\User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Auth\Models\User whereVerified($value)
+ * @mixin \Eloquent
+ */
 class User extends Authenticatable
 {
     use Notifiable, DispatchesJobs;

@@ -4,6 +4,16 @@ namespace Favon\Television\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Favon\Television\Models\Network
+ *
+ * @property int $id
+ * @property string $name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Television\Models\TvShow[] $tvShows
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\Network whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\Network whereName($value)
+ * @mixin \Eloquent
+ */
 class Network extends Model
 {
     /**
