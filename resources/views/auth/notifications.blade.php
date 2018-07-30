@@ -13,7 +13,7 @@
           <p>You can review your notification settings now, or change them in your profile settings later:</p>
         </div>
         <div class="content__notifications--options card-meta">
-          <form method="POST" action="{{ route('me.notifications') }}">
+          <form method="POST" action="{{ route('users.settings.notifications') }}">
             @csrf
             <div class="row">
               <div class="column">
