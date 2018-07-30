@@ -54,6 +54,11 @@ class ProductionStatusRepository implements RepositoryContract
     {
         $query = $this->productionStatus->newQuery();
 
+        // Filter by name
+        if (isset($parameters['name'])) {
+            $query = $query->where('name', $parameters['name']);
+        }
+
         return $query->firstOrFail();
     }
 
