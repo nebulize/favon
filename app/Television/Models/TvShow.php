@@ -9,6 +9,64 @@ use Favon\Television\Presenters\TvShowPresenter;
 use Illuminate\Database\Eloquent\Model;
 use Laracasts\Presenter\PresentableTrait;
 
+/**
+ * Favon\Television\Models\TvShow
+ *
+ * @property int $id
+ * @property string|null $imdb_id
+ * @property string $name
+ * @property \Carbon\Carbon|null $first_aired
+ * @property string|null $runtime
+ * @property string|null $summary
+ * @property string|null $plot
+ * @property string|null $poster
+ * @property string|null $banner
+ * @property float $imdb_score
+ * @property int $imdb_votes
+ * @property string|null $air_time
+ * @property float $popularity
+ * @property int|null $tvdb_id
+ * @property int $tmdb_id
+ * @property string|null $homepage
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property bool $is_hidden
+ * @property int|null $production_status_id
+ * @property int|null $tv_rating_id
+ * @property int|null $tv_air_day_id
+ * @property-read \Favon\Television\Models\AirDay|null $airDay
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Media\Models\Country[] $countries
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Media\Models\Genre[] $genres
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Media\Models\Language[] $languages
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Television\Models\Network[] $networks
+ * @property-read \Favon\Television\Models\Rating|null $rating
+ * @property-read \Favon\Television\Models\ProductionStatus|null $status
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Television\Models\TvSeason[] $tvSeasons
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Television\Models\UserTvShow[] $userTvShows
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow whereAirTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow whereBanner($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow whereFirstAired($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow whereHomepage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow whereImdbId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow whereImdbScore($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow whereImdbVotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow whereIsHidden($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow wherePlot($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow wherePopularity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow wherePoster($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow whereProductionStatusId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow whereRuntime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow whereSummary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow whereTmdbId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow whereTvAirDayId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow whereTvRatingId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow whereTvdbId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvShow whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class TvShow extends Model
 {
     use PresentableTrait;
@@ -131,13 +189,13 @@ class TvShow extends Model
     }
 
     /**
-     * One-to-Many: one tv show belongs to one tv status.
+     * One-to-Many: one tv show belongs to one production status.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function status(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(ProductionStatus::class, 'tv_status_id');
+        return $this->belongsTo(ProductionStatus::class, 'production_status_id');
     }
 
     /**
