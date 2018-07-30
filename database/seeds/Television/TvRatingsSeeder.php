@@ -1,5 +1,7 @@
 <?php
 
+namespace Seeds\Television;
+
 use Illuminate\Database\Seeder;
 
 class TvRatingsSeeder extends Seeder
@@ -19,7 +21,7 @@ class TvRatingsSeeder extends Seeder
     public function run(): void
     {
         foreach (self::RATINGS as $rating) {
-            \Favon\Tv\Models\TvRating::create([
+            \Favon\Television\Models\Rating::create([
                 'name' => $rating,
             ]);
         }
