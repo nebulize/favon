@@ -2,7 +2,7 @@
 
 namespace Favon\Media\Models;
 
-use Favon\Tv\Models\TvSeason;
+use Favon\Television\Models\TvSeason;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
  * @property int|null $year
- * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Tv\Models\TvSeason[] $tvSeasons
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Television\Models\TvSeason[] $tvSeasons
  * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Media\Models\Season whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Media\Models\Season whereEndDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Media\Models\Season whereId($value)

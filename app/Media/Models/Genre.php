@@ -2,7 +2,7 @@
 
 namespace Favon\Media\Models;
 
-use Favon\Tv\Models\TvShow;
+use Favon\Television\Models\TvShow;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  *
  * @property int $id
  * @property string $name
- * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Tv\Models\TvShow[] $tvShows
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Television\Models\TvShow[] $tvShows
  * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Media\Models\Genre whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Media\Models\Genre whereName($value)
  * @mixin \Eloquent

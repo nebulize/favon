@@ -1,10 +1,9 @@
 <?php
 
-namespace Favon\Http\Controllers\Auth;
+namespace Favon\Auth\Http\Controllers;
 
 use Favon\Auth\Models\User;
-use Favon\Tv\Services\TvService;
-use Illuminate\Http\Request;
+use Favon\Television\Services\TvService;
 use Favon\Application\Http\Controller;
 use Favon\Auth\Repositories\UserRepository;
 use Favon\Auth\Http\Requests\RegisterRequest;
