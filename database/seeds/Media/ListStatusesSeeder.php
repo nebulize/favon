@@ -1,5 +1,7 @@
 <?php
 
+namespace Seeds\Media;
+
 use Illuminate\Database\Seeder;
 
 class ListStatusesSeeder extends Seeder

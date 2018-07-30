@@ -1,5 +1,7 @@
 <?php
 
+namespace Seeds\Television;
+
 use Illuminate\Database\Seeder;
 
 class TvStatusesSeeder extends Seeder
@@ -19,7 +21,7 @@ class TvStatusesSeeder extends Seeder
     public function run(): void
     {
         foreach (self::STATUSES as $status) {
-            \Favon\Tv\Models\TvStatus::create([
+            \Favon\Television\Models\ProductionStatus::create([
                 'name' => $status,
             ]);
         }
