@@ -1,5 +1,7 @@
 <?php
 
+namespace Seeds\Television;
+
 use Illuminate\Database\Seeder;
 
 class TvAirDaysSeeder extends Seeder
@@ -21,7 +23,7 @@ class TvAirDaysSeeder extends Seeder
     public function run(): void
     {
         foreach (self::AIR_DAYS as $airDay) {
-            \Favon\Tv\Models\TvAirDay::create([
+            \Favon\Television\Models\AirDay::create([
                 'name' => $airDay
             ]);
         }
