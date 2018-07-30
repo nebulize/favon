@@ -2,10 +2,10 @@
 
 namespace Favon\Television\Repositories;
 
-use Favon\Application\Interfaces\RepositoryContract;
 use Favon\Television\Models\Episode;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Favon\Application\Interfaces\RepositoryContract;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class EpisodeRepository implements RepositoryContract
@@ -115,7 +115,6 @@ class EpisodeRepository implements RepositoryContract
      *
      * @param Model $model
      * @param array $attributes
-     *
      */
     public function update(Model $model, array $attributes): void
     {

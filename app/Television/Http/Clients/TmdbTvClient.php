@@ -2,9 +2,9 @@
 
 namespace Favon\Television\Http\Clients;
 
-use Favon\Media\Http\Gateways\TmdbGateway;
 use GuzzleHttp\Psr7\Request;
 use Psr\Log\LoggerInterface;
+use Favon\Media\Http\Gateways\TmdbGateway;
 use Favon\Television\Http\Responses\Tmdb\TvShowResponse;
 use Favon\Television\Http\Responses\Tmdb\TvSeasonResponse;
 use Favon\Television\Http\Responses\Tmdb\TvShowIdsResponse;

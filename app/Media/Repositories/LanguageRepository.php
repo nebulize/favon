@@ -2,10 +2,10 @@
 
 namespace Favon\Media\Repositories;
 
-use Favon\Application\Interfaces\RepositoryContract;
 use Favon\Media\Models\Language;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Favon\Application\Interfaces\RepositoryContract;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class LanguageRepository implements RepositoryContract

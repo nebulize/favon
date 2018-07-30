@@ -2,10 +2,10 @@
 
 namespace Favon\Television\Repositories;
 
-use Favon\Application\Interfaces\RepositoryContract;
 use Favon\Television\Models\UserTvShow;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
+use Favon\Application\Interfaces\RepositoryContract;
 
 class UserTvShowRepository implements RepositoryContract
 {
@@ -78,6 +78,7 @@ class UserTvShowRepository implements RepositoryContract
         if (isset($parameters['tv_show_id'])) {
             $query = $query->where('tv_show_id', $parameters['tv_show_id']);
         }
+
         return $query->get();
     }
 

@@ -2,10 +2,10 @@
 
 namespace Favon\Television\Repositories;
 
-use Favon\Application\Interfaces\RepositoryContract;
 use Favon\Television\Models\Network;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Favon\Application\Interfaces\RepositoryContract;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class NetworkRepository implements RepositoryContract

@@ -5,7 +5,7 @@ namespace Favon\Television\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Favon\Television\Models\Rating
+ * Favon\Television\Models\Rating.
  *
  * @property int $id
  * @property string $name

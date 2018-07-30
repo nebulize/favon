@@ -3,13 +3,13 @@
 namespace Favon\Television\Commands\Cronjobs;
 
 use Carbon\Carbon;
+use Psr\Log\LoggerInterface;
 use Illuminate\Console\Command;
-use Favon\Television\Jobs\UpdateTvShowPopularity;
 use Favon\Media\Repositories\SeasonRepository;
+use Favon\Television\Jobs\UpdateTvShowPopularity;
 use Favon\Television\Repositories\TvShowRepository;
 use Favon\Television\Repositories\TvSeasonRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Psr\Log\LoggerInterface;
 
 class UpdateRecentPopularity extends Command
 {
@@ -72,6 +72,7 @@ class UpdateRecentPopularity extends Command
             ]);
         } catch (ModelNotFoundException $e) {
             $this->logger->warning('UpdateRecentPopularity: Could not find current season.');
+
             return;
         }
 

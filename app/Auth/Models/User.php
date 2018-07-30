@@ -2,16 +2,16 @@
 
 namespace Favon\Auth\Models;
 
-use Favon\Auth\Jobs\SendResetPasswordEmail;
 use Favon\Television\Models\TvSeason;
-use Favon\Television\Models\UserTvSeason;
 use Favon\Television\Models\UserTvShow;
 use Illuminate\Notifications\Notifiable;
+use Favon\Television\Models\UserTvSeason;
+use Favon\Auth\Jobs\SendResetPasswordEmail;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
- * Favon\Auth\Models\User
+ * Favon\Auth\Models\User.
  *
  * @property int $id
  * @property string $name

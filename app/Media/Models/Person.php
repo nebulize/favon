@@ -6,7 +6,7 @@ use Favon\Television\Models\TvSeason;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Favon\Media\Models\Person
+ * Favon\Media\Models\Person.
  *
  * @property int $id
  * @property \Carbon\Carbon|null $birthday

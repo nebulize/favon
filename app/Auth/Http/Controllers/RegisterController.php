@@ -3,11 +3,11 @@
 namespace Favon\Auth\Http\Controllers;
 
 use Favon\Auth\Models\User;
-use Favon\Television\Services\TvService;
 use Favon\Application\Http\Controller;
+use Illuminate\Auth\Events\Registered;
+use Favon\Television\Services\TvService;
 use Favon\Auth\Repositories\UserRepository;
 use Favon\Auth\Http\Requests\RegisterRequest;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
