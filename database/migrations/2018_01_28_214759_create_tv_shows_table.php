@@ -21,7 +21,7 @@ class CreateTvShowsTable extends Migration
             $table->string('poster')->nullable();
             $table->string('banner')->nullable();
             $table->string('homepage')->nullable();
-            $table->integer('tv_status_id')->unsigned()->nullable();
+            $table->integer('production_status_id')->unsigned()->nullable();
             $table->integer('tv_rating_id')->unsigned()->nullable();
             $table->integer('tv_air_day_id')->unsigned()->nullable();
             $table->string('air_time')->nullable();
@@ -34,7 +34,7 @@ class CreateTvShowsTable extends Migration
             $table->boolean('is_hidden')->default(false);
             $table->timestamps();
 
-            $table->foreign('tv_status_id')->references('id')->on('tv_statuses')->onDelete('cascade');
+            $table->foreign('production_status_id')->references('id')->on('production_statuses')->onDelete('cascade');
             $table->foreign('tv_rating_id')->references('id')->on('tv_ratings')->onDelete('cascade');
             $table->foreign('tv_air_day_id')->references('id')->on('tv_air_days')->onDelete('cascade');
 
