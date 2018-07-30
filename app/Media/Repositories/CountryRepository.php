@@ -2,10 +2,10 @@
 
 namespace Favon\Media\Repositories;
 
-use Favon\Application\Interfaces\RepositoryContract;
 use Favon\Media\Models\Country;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Favon\Application\Interfaces\RepositoryContract;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CountryRepository implements RepositoryContract

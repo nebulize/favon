@@ -2,13 +2,13 @@
 
 namespace Favon\Television\Jobs;
 
-use Favon\Television\Models\TvSeason;
 use Illuminate\Bus\Queueable;
+use Favon\Television\Models\TvSeason;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
-use Favon\Television\Repositories\EpisodeRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Favon\Television\Repositories\EpisodeRepository;
 
 class UpdateEpisodeCount implements ShouldQueue
 {

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * Favon\Application\Models\Genre
+ * Favon\Application\Models\Genre.
  *
  * @property int $id
  * @property string $name

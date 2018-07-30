@@ -3,9 +3,9 @@
 namespace Favon\Auth\Jobs;
 
 use Favon\Auth\Models\User;
-use Favon\Auth\Mail\ResetPassword;
 use Illuminate\Mail\Mailer;
 use Illuminate\Bus\Queueable;
+use Favon\Auth\Mail\ResetPassword;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;

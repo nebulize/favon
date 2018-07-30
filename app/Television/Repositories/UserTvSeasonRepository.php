@@ -3,13 +3,13 @@
 namespace Favon\Television\Repositories;
 
 use Carbon\Carbon;
-use Favon\Application\Interfaces\RepositoryContract;
 use Favon\Auth\Models\User;
-use Favon\Media\Enumerators\ListStatus;
 use Favon\Television\Models\TvSeason;
+use Favon\Media\Enumerators\ListStatus;
+use Illuminate\Database\Eloquent\Model;
 use Favon\Television\Models\UserTvSeason;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
+use Favon\Application\Interfaces\RepositoryContract;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserTvSeasonRepository implements RepositoryContract

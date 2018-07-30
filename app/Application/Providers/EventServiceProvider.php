@@ -2,10 +2,10 @@
 
 namespace Favon\Application\Providers;
 
-use Favon\Television\Events\TvSeasonUpdated;
-use Favon\Television\Listeners\UpdateEpisodeCount;
 use Illuminate\Auth\Events\Registered;
+use Favon\Television\Events\TvSeasonUpdated;
 use Favon\Auth\Listeners\SendVerificationEmail;
+use Favon\Television\Listeners\UpdateEpisodeCount;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider

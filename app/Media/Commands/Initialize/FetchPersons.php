@@ -3,8 +3,8 @@
 namespace Favon\Media\Commands\Initialize;
 
 use Carbon\Carbon;
-use Favon\Media\Jobs\FetchPerson;
 use Illuminate\Console\Command;
+use Favon\Media\Jobs\FetchPerson;
 
 class FetchPersons extends Command
 {

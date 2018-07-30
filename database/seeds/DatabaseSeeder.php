@@ -15,9 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-         $this->call(TvStatusesSeeder::class);
-         $this->call(TvRatingsSeeder::class);
-         $this->call(TvAirDaysSeeder::class);
-         $this->call(ListStatusesSeeder::class);
+        $this->call(TvStatusesSeeder::class);
+        $this->call(TvRatingsSeeder::class);
+        $this->call(TvAirDaysSeeder::class);
+        $this->call(ListStatusesSeeder::class);
     }
 }

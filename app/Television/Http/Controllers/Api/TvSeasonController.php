@@ -2,11 +2,11 @@
 
 namespace Favon\Television\Http\Controllers\Api;
 
+use Illuminate\Http\Request;
 use Favon\Application\Http\Controller;
 use Favon\Media\Repositories\SeasonRepository;
 use Favon\Television\Repositories\TvSeasonRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TvSeasonController extends Controller

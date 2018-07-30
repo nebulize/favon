@@ -2,12 +2,12 @@
 
 namespace Favon\Television\Http\Clients;
 
-use Favon\Media\Http\Gateways\TvdbGateway;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Psr7\Request;
 use Psr\Log\LoggerInterface;
 use Predis\Client as RedisClient;
+use Favon\Media\Http\Gateways\TvdbGateway;
 use Favon\Television\Http\Responses\TVDB\TvdbResponse;
 
 class TvdbTvClient

@@ -2,8 +2,8 @@
 
 namespace Favon\Auth\Mail;
 
-use Favon\Application\Mail\MjmlMailable;
 use Favon\Auth\Models\User;
+use Favon\Application\Mail\MjmlMailable;
 
 class EmailConfirmation extends MjmlMailable
 {

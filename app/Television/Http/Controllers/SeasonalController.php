@@ -57,5 +57,4 @@ class SeasonalController extends Controller
             'seasons' => $seasons,
         ]);
     }
-
 }

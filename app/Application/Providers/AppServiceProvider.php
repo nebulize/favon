@@ -2,12 +2,12 @@
 
 namespace Favon\Application\Providers;
 
-use Favon\Media\Http\Gateways\OmdbGateway;
-use Favon\Media\Http\Gateways\TmdbGateway;
-use Favon\Media\Http\Gateways\TvdbGateway;
 use Illuminate\Foundation\Application;
 use bandwidthThrottle\tokenBucket\Rate;
 use Illuminate\Support\ServiceProvider;
+use Favon\Media\Http\Gateways\OmdbGateway;
+use Favon\Media\Http\Gateways\TmdbGateway;
+use Favon\Media\Http\Gateways\TvdbGateway;
 
 class AppServiceProvider extends ServiceProvider
 {

@@ -2,15 +2,15 @@
 
 namespace Favon\Television\Models;
 
-use Favon\Media\Models\Country;
 use Favon\Media\Models\Genre;
+use Favon\Media\Models\Country;
 use Favon\Media\Models\Language;
-use Favon\Television\Presenters\TvShowPresenter;
 use Illuminate\Database\Eloquent\Model;
 use Laracasts\Presenter\PresentableTrait;
+use Favon\Television\Presenters\TvShowPresenter;
 
 /**
- * Favon\Television\Models\TvShow
+ * Favon\Television\Models\TvShow.
  *
  * @property int $id
  * @property string|null $imdb_id
@@ -115,7 +115,7 @@ class TvShow extends Model
     protected $dates = [
         'created_at',
         'updated_at',
-        'first_aired'
+        'first_aired',
     ];
 
     /**

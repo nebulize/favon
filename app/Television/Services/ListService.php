@@ -3,16 +3,16 @@
 namespace Favon\Television\Services;
 
 use Favon\Auth\Models\User;
-use Favon\Auth\Repositories\UserRepository;
-use Favon\Media\Enumerators\ListStatus;
-use Favon\Television\Repositories\UserTvSeasonRepository;
-use Favon\Television\Enumerators\ProductionStatus;
 use Favon\Television\Models\TvSeason;
+use Favon\Media\Enumerators\ListStatus;
 use Favon\Television\Models\UserTvSeason;
-use Favon\Television\Repositories\TvSeasonRepository;
+use Favon\Auth\Repositories\UserRepository;
+use Favon\Television\Enumerators\ProductionStatus;
 use Favon\Television\Repositories\TvShowRepository;
+use Favon\Television\Repositories\TvSeasonRepository;
 use Favon\Television\Repositories\UserTvShowRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Favon\Television\Repositories\UserTvSeasonRepository;
 
 class ListService
 {
@@ -114,6 +114,7 @@ class ListService
                 return;
             }
             $this->userTvShowRepository->delete($userTvShow);
+
             return;
         }
         $completedSeasons = $userTvSeasons->filter(function (UserTvSeason $userTvSeason) {
@@ -130,7 +131,7 @@ class ListService
         });
         $score = $ratedSeasons->count() === 0 ? $totalScore : $totalScore / $ratedSeasons->count();
 
-        $status = $values['list_status_id'] ?? $userTvSeasons->last()->list_status_id;;
+        $status = $values['list_status_id'] ?? $userTvSeasons->last()->list_status_id;
 
         // If a user completed a tv season he won't necessarily have completed the tv show since
         // there might still be future seasons. Only set to completed if the tv show is completed or cancelled
@@ -170,5 +171,4 @@ class ListService
             ]);
         }
     }
-
 }

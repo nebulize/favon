@@ -52,9 +52,9 @@ class StoreTvSeasonListEntryRequest extends FormRequest
     public function values(): array
     {
         return [
-            'list_status_id' => (int)$this->get('list_status_id'),
-            'progress' => (int)$this->get('progress'),
-            'score' => $this->has('score') ? (int)$this->get('score') : null,
+            'list_status_id' => (int) $this->get('list_status_id'),
+            'progress' => (int) $this->get('progress'),
+            'score' => $this->has('score') ? (int) $this->get('score') : null,
         ];
     }
 }
