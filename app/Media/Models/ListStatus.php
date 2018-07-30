@@ -2,8 +2,8 @@
 
 namespace Favon\Media\Models;
 
-use Favon\Tv\Models\UserTvSeason;
-use Favon\Tv\Models\UserTvShow;
+use Favon\Television\Models\UserTvSeason;
+use Favon\Television\Models\UserTvShow;
 use Illuminate\Database\Eloquent\Model;
 
 class ListStatus extends Model
