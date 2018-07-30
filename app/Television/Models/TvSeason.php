@@ -9,6 +9,46 @@ use Favon\Television\Presenters\TvSeasonPresenter;
 use Illuminate\Database\Eloquent\Model;
 use Laracasts\Presenter\PresentableTrait;
 
+/**
+ * Favon\Television\Models\TvSeason
+ *
+ * @property int $id
+ * @property int $number
+ * @property string|null $name
+ * @property \Carbon\Carbon|null $first_aired
+ * @property string|null $summary
+ * @property string|null $poster
+ * @property int $tmdb_id
+ * @property int $tv_show_id
+ * @property int|null $season_id
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property int $episode_count
+ * @property float $rating
+ * @property int $members_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Television\Models\Episode[] $episodes
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Media\Models\Person[] $persons
+ * @property-read \Favon\Media\Models\Season|null $season
+ * @property-read \Favon\Television\Models\TvShow $tvShow
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Television\Models\UserTvSeason[] $userTvSeasons
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Auth\Models\User[] $users
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Favon\Television\Models\Video[] $videos
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvSeason whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvSeason whereEpisodeCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvSeason whereFirstAired($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvSeason whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvSeason whereMembersCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvSeason whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvSeason whereNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvSeason wherePoster($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvSeason whereRating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvSeason whereSeasonId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvSeason whereSummary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvSeason whereTmdbId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvSeason whereTvShowId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Favon\Television\Models\TvSeason whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class TvSeason extends Model
 {
     use PresentableTrait;
@@ -99,7 +139,7 @@ class TvSeason extends Model
         return $this
             ->belongsToMany(User::class, 'user_tv_season', 'tv_season_id', 'user_id')
             ->withTimestamps()
-            ->withPivot('status', 'completed_at', 'progress', 'score');
+            ->withPivot('list_status_id', 'completed_at', 'progress', 'score');
     }
 
     /**
