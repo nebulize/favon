@@ -30,7 +30,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map(): void
     {
-        $this->mapApiRoutes();
+        $this->mapInternalApiRoutes();
         $this->mapWebRoutes();
         //
     }
@@ -51,9 +51,9 @@ class RouteServiceProvider extends ServiceProvider
      *
      * These routes are typically stateless.
      */
-    protected function mapApiRoutes(): void
+    protected function mapInternalApiRoutes(): void
     {
-        Route::middleware('api')
-             ->group(base_path('routes/api.php'));
+        Route::middleware('api.internal')
+             ->group(base_path('routes/api.internal.php'));
     }
 }
