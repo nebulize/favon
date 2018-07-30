@@ -2,10 +2,10 @@
 
 namespace Favon\Television\Services\Api;
 
+use Psr\Log\LoggerInterface;
 use Favon\Television\Http\Clients\TmdbTvClient;
 use Favon\Television\Repositories\TvShowRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Psr\Log\LoggerInterface;
 
 class PopularityUpdatingService
 {
@@ -54,11 +54,11 @@ class PopularityUpdatingService
             ]);
         } catch (ModelNotFoundException $exception) {
             $this->logger->warning(__CLASS__.': Could not find TV show with TMDB id '.$tvShowResponse->getTmdbId());
+
             return;
         }
 
         $tvShow->popularity = $tvShowResponse->getPopularity();
         $this->tvShowRepository->save($tvShow);
     }
-
 }

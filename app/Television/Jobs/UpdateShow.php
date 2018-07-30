@@ -2,12 +2,12 @@
 
 namespace Favon\Television\Jobs;
 
-use Favon\Television\Services\Api\ApiService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Favon\Television\Services\Api\ApiService;
 
 class UpdateShow implements ShouldQueue
 {

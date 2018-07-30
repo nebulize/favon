@@ -29,10 +29,9 @@ class GenreController extends Controller
     public function index(): \Illuminate\Http\JsonResponse
     {
         $genres = $this->genreRepository->index([
-            'orderBy' => ['name', 'ASC']
+            'orderBy' => ['name', 'ASC'],
         ]);
 
         return response()->json($genres);
     }
-
 }

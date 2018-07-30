@@ -2,8 +2,8 @@
 
 namespace Favon\Media\Commands\Cronjobs;
 
-use Favon\Media\Jobs\UpdatePerson;
 use Illuminate\Console\Command;
+use Favon\Media\Jobs\UpdatePerson;
 use Favon\Media\Http\Clients\TmdbClient;
 
 class UpdatePersons extends Command

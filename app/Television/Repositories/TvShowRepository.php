@@ -2,10 +2,10 @@
 
 namespace Favon\Television\Repositories;
 
-use Favon\Application\Interfaces\RepositoryContract;
-use Favon\Television\Models\TvShow;
 use Illuminate\Support\Collection;
+use Favon\Television\Models\TvShow;
 use Illuminate\Database\Eloquent\Model;
+use Favon\Application\Interfaces\RepositoryContract;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class TvShowRepository implements RepositoryContract

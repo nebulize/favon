@@ -9,6 +9,6 @@
 |
 */
 
-Route::namespace('Favon\Media\Http\Controllers\Api')->prefix('api')->group(function() {
+Route::namespace('Favon\Media\Http\Controllers\Api')->prefix('api')->group(function () {
     Route::get('/genres', 'GenreController@index')->name('media.api.genres.index');
 });

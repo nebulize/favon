@@ -2,15 +2,15 @@
 
 namespace Favon\Television\Services\Api;
 
+use Psr\Log\LoggerInterface;
+use Favon\Television\Models\TvShow;
+use Favon\Television\Models\TvSeason;
+use Intervention\Image\Facades\Image;
+use Favon\Television\Repositories\TvShowRepository;
+use Favon\Television\Http\Responses\TMDB\Models\RSeason;
+use Favon\Application\Exceptions\TvShowWasDeletedException;
 use Favon\Application\Exceptions\NoAPIResultsFoundException;
 use Favon\Application\Exceptions\TvSeasonWasDeletedException;
-use Favon\Application\Exceptions\TvShowWasDeletedException;
-use Favon\Television\Http\Responses\TMDB\Models\RSeason;
-use Favon\Television\Models\TvSeason;
-use Favon\Television\Models\TvShow;
-use Favon\Television\Repositories\TvShowRepository;
-use Intervention\Image\Facades\Image;
-use Psr\Log\LoggerInterface;
 
 class ApiService
 {
@@ -48,6 +48,7 @@ class ApiService
             $tvSeasons = $this->tvShowFetchingService->fetch($id);
         } catch (NoAPIResultsFoundException $exception) {
             $this->logger->warning($exception->getMessage());
+
             return;
         }
         $tvShow = $this->tvShowRepository->find(['tmdb_id' => $id]);
@@ -60,11 +61,13 @@ class ApiService
             $tvSeasons = $this->tvShowFetchingService->update($id);
         } catch (NoAPIResultsFoundException $exception) {
             $this->logger->warning($exception->getMessage());
+
             return;
         } catch (TvShowWasDeletedException $exception) {
             // Show was deleted on TMDB, delete it from our database as well.
             $this->tvShowRepository->deleteByTmdbId($id);
             $this->logger->warning($exception->getMessage());
+
             return;
         }
         $tvShow = $this->tvShowRepository->find(['tmdb_id' => $id]);
@@ -184,5 +187,4 @@ class ApiService
 
         return true;
     }
-
 }

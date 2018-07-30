@@ -2,13 +2,13 @@
 
 namespace Favon\Television\Services\Api;
 
-use Favon\Application\Exceptions\NoAPIResultsFoundException;
+use Favon\Television\Models\TvSeason;
 use Favon\Media\Http\Clients\TmdbClient;
 use Favon\Media\Repositories\PersonRepository;
 use Favon\Television\Http\Clients\TmdbTvClient;
-use Favon\Television\Models\TvSeason;
 use Favon\Television\Repositories\TvSeasonRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Favon\Application\Exceptions\NoAPIResultsFoundException;
 
 class TvSeasonCreditFetchingService
 {
@@ -83,5 +83,4 @@ class TvSeasonCreditFetchingService
             $this->tvSeasonRepository->addPerson($tvSeason, $person, $result->toArray());
         }
     }
-
 }

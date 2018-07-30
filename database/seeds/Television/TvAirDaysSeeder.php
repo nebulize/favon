@@ -24,7 +24,7 @@ class TvAirDaysSeeder extends Seeder
     {
         foreach (self::AIR_DAYS as $airDay) {
             \Favon\Television\Models\AirDay::create([
-                'name' => $airDay
+                'name' => $airDay,
             ]);
         }
     }

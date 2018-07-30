@@ -2,15 +2,15 @@
 
 namespace Favon\Television\Models;
 
+use Favon\Auth\Models\User;
 use Favon\Media\Models\Person;
 use Favon\Media\Models\Season;
-use Favon\Auth\Models\User;
-use Favon\Television\Presenters\TvSeasonPresenter;
 use Illuminate\Database\Eloquent\Model;
 use Laracasts\Presenter\PresentableTrait;
+use Favon\Television\Presenters\TvSeasonPresenter;
 
 /**
- * Favon\Television\Models\TvSeason
+ * Favon\Television\Models\TvSeason.
  *
  * @property int $id
  * @property int $number

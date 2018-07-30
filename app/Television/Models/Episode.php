@@ -6,7 +6,7 @@ use Favon\Auth\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Favon\Television\Models\Episode
+ * Favon\Television\Models\Episode.
  *
  * @property int $id
  * @property int $number

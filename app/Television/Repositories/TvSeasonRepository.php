@@ -2,11 +2,11 @@
 
 namespace Favon\Television\Repositories;
 
-use Favon\Application\Interfaces\RepositoryContract;
 use Favon\Media\Models\Person;
 use Favon\Television\Models\TvSeason;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Favon\Application\Interfaces\RepositoryContract;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;

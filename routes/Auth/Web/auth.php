@@ -9,7 +9,7 @@
 |
 */
 
-Route::namespace('Favon\Auth\Http\Controllers')->group(function() {
+Route::namespace('Favon\Auth\Http\Controllers')->group(function () {
     // Authentication Routes...
     Route::get('login', 'LoginController@showLoginForm')->name('login');
     Route::post('login', 'LoginController@login');

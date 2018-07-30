@@ -3,12 +3,12 @@
 namespace Favon\Media\Jobs;
 
 use Illuminate\Bus\Queueable;
-use Favon\Media\Http\Clients\TmdbClient;
-use Favon\Media\Repositories\PersonRepository;
 use Illuminate\Queue\SerializesModels;
+use Favon\Media\Http\Clients\TmdbClient;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Favon\Media\Repositories\PersonRepository;
 
 class FetchPerson implements ShouldQueue
 {
