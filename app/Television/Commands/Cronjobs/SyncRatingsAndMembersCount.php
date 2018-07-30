@@ -2,8 +2,8 @@
 
 namespace Favon\Television\Commands\Cronjobs;
 
-use Favon\Television\Repositories\TvSeasonRepository;
 use Illuminate\Console\Command;
+use Favon\Television\Repositories\TvSeasonRepository;
 
 class SyncRatingsAndMembersCount extends Command
 {

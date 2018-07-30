@@ -3,18 +3,18 @@
 namespace Favon\Television\Services\Api;
 
 use Carbon\Carbon;
-use Favon\Application\Exceptions\NoAPIResultsFoundException;
-use Favon\Application\Exceptions\TvSeasonWasDeletedException;
-use Favon\Media\Repositories\SeasonRepository;
-use Favon\Television\Events\TvSeasonUpdated;
-use Favon\Television\Http\Clients\TmdbTvClient;
-use Favon\Television\Http\Responses\TMDB\Models\REpisode;
-use Favon\Television\Models\TvSeason;
+use Psr\Log\LoggerInterface;
 use Favon\Television\Models\TvShow;
+use Favon\Television\Models\TvSeason;
+use Favon\Television\Events\TvSeasonUpdated;
+use Favon\Media\Repositories\SeasonRepository;
+use Favon\Television\Http\Clients\TmdbTvClient;
 use Favon\Television\Repositories\EpisodeRepository;
 use Favon\Television\Repositories\TvSeasonRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Psr\Log\LoggerInterface;
+use Favon\Television\Http\Responses\TMDB\Models\REpisode;
+use Favon\Application\Exceptions\NoAPIResultsFoundException;
+use Favon\Application\Exceptions\TvSeasonWasDeletedException;
 
 class TvSeasonFetchingService
 {
@@ -57,8 +57,7 @@ class TvSeasonFetchingService
         TvSeasonRepository $tvSeasonRepository,
         EpisodeRepository $episodeRepository,
         LoggerInterface $logger
-    )
-    {
+    ) {
         $this->tmdbClient = $tmdbTvClient;
         $this->seasonRepository = $seasonRepository;
         $this->tvSeasonRepository = $tvSeasonRepository;
@@ -81,7 +80,7 @@ class TvSeasonFetchingService
         // Fetch TV Season
         $tvSeasonResponse = $this->tmdbClient->getTvSeason($tvShow->tmdb_id, $number);
         if ($tvSeasonResponse->hasBeenSuccessful() === false) {
-            throw new NoAPIResultsFoundException(__CLASS__.': No results found for id '.$tvShow->tmdb_id. ' S#'.$number);
+            throw new NoAPIResultsFoundException(__CLASS__.': No results found for id '.$tvShow->tmdb_id.' S#'.$number);
         }
         $attributes = $tvSeasonResponse->toArray();
         $attributes['season_id'] = $this->getSeason($tvSeasonResponse->getFirstAired());
@@ -224,5 +223,4 @@ class TvSeasonFetchingService
         $episode->fill($episode->toArray());
         $episode->save();
     }
-
 }

@@ -2,12 +2,12 @@
 
 namespace Favon\Television\Models;
 
-use Favon\Media\Models\ListStatus;
 use Favon\Auth\Models\User;
+use Favon\Media\Models\ListStatus;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Favon\Television\Models\UserTvSeason
+ * Favon\Television\Models\UserTvSeason.
  *
  * @property int $id
  * @property int $user_id

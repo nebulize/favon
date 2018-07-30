@@ -2,8 +2,8 @@
 
 namespace Favon\Television\Services;
 
-use Favon\Television\Repositories\TvSeasonRepository;
 use Favon\Television\Repositories\TvShowRepository;
+use Favon\Television\Repositories\TvSeasonRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class TvService

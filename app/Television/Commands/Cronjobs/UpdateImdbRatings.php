@@ -2,11 +2,11 @@
 
 namespace Favon\Television\Commands\Cronjobs;
 
+use Psr\Log\LoggerInterface;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Favon\Television\Repositories\TvShowRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Psr\Log\LoggerInterface;
 
 class UpdateImdbRatings extends Command
 {

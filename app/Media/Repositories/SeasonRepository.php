@@ -3,10 +3,10 @@
 namespace Favon\Media\Repositories;
 
 use Carbon\Carbon;
-use Favon\Application\Interfaces\RepositoryContract;
 use Favon\Media\Models\Season;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
+use Favon\Application\Interfaces\RepositoryContract;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class SeasonRepository implements RepositoryContract

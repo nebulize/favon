@@ -6,7 +6,7 @@ use Favon\Television\Models\TvShow;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Favon\Application\Models\Language
+ * Favon\Application\Models\Language.
  *
  * @property string $name
  * @property int $code

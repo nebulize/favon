@@ -2,21 +2,21 @@
 
 namespace Favon\Television\Services\Api;
 
-use Favon\Application\Exceptions\NoAPIResultsFoundException;
-use Favon\Application\Exceptions\TvShowWasDeletedException;
+use Psr\Log\LoggerInterface;
+use Favon\Television\Models\TvShow;
 use Favon\Media\Repositories\GenreRepository;
 use Favon\Television\Http\Clients\OmdbTvClient;
 use Favon\Television\Http\Clients\TmdbTvClient;
 use Favon\Television\Http\Clients\TvdbTvClient;
-use Favon\Television\Http\Responses\TMDB\Models\RSeason;
-use Favon\Television\Models\TvShow;
 use Favon\Television\Repositories\AirDayRepository;
-use Favon\Television\Repositories\NetworkRepository;
-use Favon\Television\Repositories\ProductionStatusRepository;
 use Favon\Television\Repositories\RatingRepository;
 use Favon\Television\Repositories\TvShowRepository;
+use Favon\Television\Repositories\NetworkRepository;
+use Favon\Television\Http\Responses\TMDB\Models\RSeason;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Psr\Log\LoggerInterface;
+use Favon\Application\Exceptions\TvShowWasDeletedException;
+use Favon\Application\Exceptions\NoAPIResultsFoundException;
+use Favon\Television\Repositories\ProductionStatusRepository;
 
 class TvShowFetchingService
 {
@@ -94,8 +94,7 @@ class TvShowFetchingService
         RatingRepository $ratingRepository,
         ProductionStatusRepository $productionStatusRepository,
         LoggerInterface $logger
-    )
-    {
+    ) {
         $this->tmdbClient = $tmdbTvClient;
         $this->omdbClient = $omdbTvClient;
         $this->tvdbClient = $tvdbTvClient;
@@ -167,6 +166,7 @@ class TvShowFetchingService
         } catch (ModelNotFoundException $exception) {
             // Scenario 1
             $this->logger->warning('Tv show with id '.$id.' not found, fetching it.');
+
             return $this->fetch($id);
         }
 
@@ -392,5 +392,4 @@ class TvShowFetchingService
             $tvShow->summary = $plot;
         }
     }
-
 }

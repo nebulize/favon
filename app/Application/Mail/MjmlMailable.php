@@ -43,6 +43,7 @@ abstract class MjmlMailable extends Mailable
             $process = new Process('./node_modules/.bin/mjml --stdin --stdout');
             $process->setInput($html);
             $process->mustRun();
+
             return $process->getOutput();
         } catch (\Exception $e) {
             Log::error('Failed to compile MJML: '.$e->getMessage());

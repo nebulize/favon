@@ -3,8 +3,8 @@
 namespace Favon\Television\Commands\Initialize;
 
 use Carbon\Carbon;
-use Favon\Television\Jobs\FetchShow;
 use Illuminate\Console\Command;
+use Favon\Television\Jobs\FetchShow;
 
 class FetchShows extends Command
 {

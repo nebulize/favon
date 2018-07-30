@@ -41,7 +41,7 @@ if (function_exists('include_route_files') === false) {
             $rdi = new \recursiveDirectoryIterator($folder);
             $it = new \recursiveIteratorIterator($rdi);
             while ($it->valid()) {
-                if (!$it->isDot() && $it->isFile() && $it->isReadable() && $it->current()->getExtension() === 'php') {
+                if (! $it->isDot() && $it->isFile() && $it->isReadable() && $it->current()->getExtension() === 'php') {
                     require $it->key();
                 }
                 $it->next();
@@ -65,10 +65,10 @@ if (function_exists('glob_recursive') === false) {
     function glob_recursive($pattern, $flags = 0)
     {
         $files = glob($pattern, $flags);
-        foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR|GLOB_NOSORT) as $dir)
-        {
+        foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR | GLOB_NOSORT) as $dir) {
             $files = array_merge($files, glob_recursive($dir.'/'.basename($pattern), $flags));
         }
+
         return $files;
     }
 }
@@ -82,7 +82,8 @@ if (function_exists('delete_directory') === false) {
      *
      * @return bool
      */
-    function delete_directory(string $dir) {
+    function delete_directory(string $dir)
+    {
         if (file_exists($dir) === false) {
             return true;
         }
@@ -103,4 +104,3 @@ if (function_exists('delete_directory') === false) {
         return rmdir($dir);
     }
 }
-

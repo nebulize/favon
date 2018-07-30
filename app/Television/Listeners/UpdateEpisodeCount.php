@@ -3,8 +3,8 @@
 namespace Favon\Television\Listeners;
 
 use Favon\Television\Events\TvSeasonUpdated;
-use Favon\Television\Jobs\UpdateEpisodeCount as UpdateEpisodeCountJob;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Favon\Television\Jobs\UpdateEpisodeCount as UpdateEpisodeCountJob;
 
 class UpdateEpisodeCount
 {
