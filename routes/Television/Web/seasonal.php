@@ -9,6 +9,6 @@
 |
 */
 
-Route::namespace('Favon\Television\Http\Controllers')->prefix('tv')->group(function() {
-  Route::get('/seasonal/{year?}/{season?}', 'SeasonalController@show')->name('television.seasonal.show');
+Route::namespace('Favon\Television\Http\Controllers')->prefix('tv')->group(function () {
+    Route::get('/seasonal/{year?}/{season?}', 'SeasonalController@show')->name('television.seasonal.show');
 });

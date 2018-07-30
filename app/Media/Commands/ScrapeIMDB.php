@@ -2,8 +2,8 @@
 
 namespace Favon\Media\Commands;
 
-use Favon\Media\Services\IMDBScraper;
 use Illuminate\Console\Command;
+use Favon\Media\Services\IMDBScraper;
 
 class ScrapeIMDB extends Command
 {

@@ -25,6 +25,5 @@ class TvStatusesSeeder extends Seeder
                 'name' => $status,
             ]);
         }
-
     }
 }

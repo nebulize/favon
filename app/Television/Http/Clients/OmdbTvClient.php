@@ -2,9 +2,9 @@
 
 namespace Favon\Television\Http\Clients;
 
-use Favon\Media\Http\Gateways\OmdbGateway;
 use GuzzleHttp\Psr7\Request;
 use Psr\Log\LoggerInterface;
+use Favon\Media\Http\Gateways\OmdbGateway;
 use Favon\Television\Http\Responses\OMDB\OmdbResponse;
 
 class OmdbTvClient

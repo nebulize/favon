@@ -2,10 +2,10 @@
 
 namespace Favon\Television\Services\Api;
 
-use Favon\Application\Exceptions\NoAPIResultsFoundException;
-use Favon\Television\Repositories\VideoRepository;
-use Favon\Television\Http\Clients\TmdbTvClient;
 use Favon\Television\Models\TvSeason;
+use Favon\Television\Http\Clients\TmdbTvClient;
+use Favon\Television\Repositories\VideoRepository;
+use Favon\Application\Exceptions\NoAPIResultsFoundException;
 
 class TvSeasonVideoFetchingService
 {
@@ -55,5 +55,4 @@ class TvSeasonVideoFetchingService
             ]);
         }
     }
-
 }

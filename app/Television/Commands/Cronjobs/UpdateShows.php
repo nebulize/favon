@@ -2,8 +2,8 @@
 
 namespace Favon\Television\Commands\Cronjobs;
 
-use Favon\Television\Jobs\UpdateShow;
 use Illuminate\Console\Command;
+use Favon\Television\Jobs\UpdateShow;
 use Favon\Television\Http\Clients\TmdbTvClient;
 
 class UpdateShows extends Command

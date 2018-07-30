@@ -2,11 +2,11 @@
 
 namespace Favon\Television\Http\Controllers\Api;
 
-use Favon\Application\Http\Controller;
-use Favon\Television\Http\Requests\StoreTvSeasonListEntryRequest;
-use Favon\Television\Repositories\TvSeasonRepository;
-use Favon\Television\Services\ListService;
 use Illuminate\Http\Request;
+use Favon\Application\Http\Controller;
+use Favon\Television\Services\ListService;
+use Favon\Television\Repositories\TvSeasonRepository;
+use Favon\Television\Http\Requests\StoreTvSeasonListEntryRequest;
 
 class ListController extends Controller
 {
@@ -41,9 +41,10 @@ class ListController extends Controller
     public function store(StoreTvSeasonListEntryRequest $request): \Illuminate\Http\JsonResponse
     {
         $user = $request->user();
-        $tvSeason = $this->tvSeasonRepository->get((int)$request->get('tv_season_id'));
+        $tvSeason = $this->tvSeasonRepository->get((int) $request->get('tv_season_id'));
         $this->listService->addTvSeasonToList($user, $tvSeason, $request->values());
         $this->listService->updateTvShowListStatus($user, $tvSeason, $request->values());
+
         return response()->json($user);
     }
 
@@ -59,8 +60,9 @@ class ListController extends Controller
     {
         $user = $request->user();
         $tvSeason = $this->tvSeasonRepository->get($id);
-        $this->listService->updateTvSeasonListStatus($user,$tvSeason, $request->values());
+        $this->listService->updateTvSeasonListStatus($user, $tvSeason, $request->values());
         $this->listService->updateTvShowListStatus($user, $tvSeason, $request->values());
+
         return response()->json($user);
     }
 
@@ -78,6 +80,7 @@ class ListController extends Controller
         $tvSeason = $this->tvSeasonRepository->get($id);
         $this->listService->removeTvSeasonFromList($user, $tvSeason);
         $this->listService->updateTvShowListStatus($user, $tvSeason, null);
+
         return response()->json($user);
     }
 }

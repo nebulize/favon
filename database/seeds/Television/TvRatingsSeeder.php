@@ -12,7 +12,7 @@ class TvRatingsSeeder extends Seeder
         'TV-PG',
         'TV-G',
         'TV-Y',
-        'TV-Y7'
+        'TV-Y7',
     ];
 
     /**

@@ -6,7 +6,7 @@ use Favon\Television\Models\TvSeason;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Favon\Application\Models\Season
+ * Favon\Application\Models\Season.
  *
  * @property int $id
  * @property string $name

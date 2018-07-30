@@ -2,9 +2,9 @@
 
 namespace Favon\Media\Http\Clients;
 
-use Favon\Media\Http\Gateways\TmdbGateway;
 use GuzzleHttp\Psr7\Request;
 use Psr\Log\LoggerInterface;
+use Favon\Media\Http\Gateways\TmdbGateway;
 use Favon\Media\Http\Responses\TMDB\PersonResponse;
 use Favon\Media\Http\Responses\TMDB\CountryResponse;
 use Favon\Media\Http\Responses\TMDB\LanguageResponse;
