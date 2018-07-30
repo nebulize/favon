@@ -3,7 +3,7 @@
 namespace Favon\Media\Jobs;
 
 use Illuminate\Bus\Queueable;
-use Favon\Http\Clients\TmdbClient;
+use Favon\Media\Http\Clients\TmdbClient;
 use Favon\Media\Repositories\PersonRepository;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;

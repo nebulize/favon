@@ -2,7 +2,7 @@
 
 namespace Favon\Media\Models;
 
-use Favon\Tv\Models\TvSeason;
+use Favon\Television\Models\TvSeason;
 use Illuminate\Database\Eloquent\Model;
 
 class Person extends Model

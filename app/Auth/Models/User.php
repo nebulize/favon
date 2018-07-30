@@ -3,9 +3,9 @@
 namespace Favon\Auth\Models;
 
 use Favon\Auth\Jobs\SendResetPasswordEmail;
-use Favon\Tv\Models\TvSeason;
-use Favon\Tv\Models\UserTvSeason;
-use Favon\Tv\Models\UserTvShow;
+use Favon\Television\Models\TvSeason;
+use Favon\Television\Models\UserTvSeason;
+use Favon\Television\Models\UserTvShow;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Auth\User as Authenticatable;

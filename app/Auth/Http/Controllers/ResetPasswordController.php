@@ -1,8 +1,8 @@
 <?php
 
-namespace Favon\Http\Controllers\Auth;
+namespace Favon\Auth\Http\Controllers;
 
-use Favon\Tv\Services\TvService;
+use Favon\Television\Services\TvService;
 use Illuminate\Http\Request;
 use Favon\Application\Http\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
