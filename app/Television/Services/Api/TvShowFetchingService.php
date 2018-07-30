@@ -10,7 +10,10 @@ use Favon\Television\Http\Clients\TmdbTvClient;
 use Favon\Television\Http\Clients\TvdbTvClient;
 use Favon\Television\Http\Responses\TMDB\Models\RSeason;
 use Favon\Television\Models\TvShow;
+use Favon\Television\Repositories\AirDayRepository;
 use Favon\Television\Repositories\NetworkRepository;
+use Favon\Television\Repositories\ProductionStatusRepository;
+use Favon\Television\Repositories\RatingRepository;
 use Favon\Television\Repositories\TvShowRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Psr\Log\LoggerInterface;
@@ -48,6 +51,21 @@ class TvShowFetchingService
     protected $genreRepository;
 
     /**
+     * @var AirDayRepository
+     */
+    protected $airDayRepository;
+
+    /**
+     * @var RatingRepository
+     */
+    protected $ratingRepository;
+
+    /**
+     * @var ProductionStatusRepository
+     */
+    protected $productionStatusRepository;
+
+    /**
      * @var LoggerInterface
      */
     protected $logger;
@@ -60,6 +78,9 @@ class TvShowFetchingService
      * @param TvShowRepository $tvShowRepository
      * @param NetworkRepository $networkRepository
      * @param GenreRepository $genreRepository
+     * @param AirDayRepository $airDayRepository
+     * @param RatingRepository $ratingRepository
+     * @param ProductionStatusRepository $productionStatusRepository
      * @param LoggerInterface $logger
      */
     public function __construct(
@@ -69,6 +90,9 @@ class TvShowFetchingService
         TvShowRepository $tvShowRepository,
         NetworkRepository $networkRepository,
         GenreRepository $genreRepository,
+        AirDayRepository $airDayRepository,
+        RatingRepository $ratingRepository,
+        ProductionStatusRepository $productionStatusRepository,
         LoggerInterface $logger
     )
     {
@@ -78,6 +102,9 @@ class TvShowFetchingService
         $this->tvShowRepository = $tvShowRepository;
         $this->networkRepository = $networkRepository;
         $this->genreRepository = $genreRepository;
+        $this->airDayRepository = $airDayRepository;
+        $this->ratingRepository = $ratingRepository;
+        $this->productionStatusRepository = $productionStatusRepository;
         $this->logger = $logger;
     }
 
@@ -99,7 +126,7 @@ class TvShowFetchingService
         }
         $tvShow = $this->tvShowRepository->create($tvShowResponse->toArray());
 
-
+        $this->setProductionStatus($tvShow, $tvShowResponse->getStatus());
         $this->syncNetworks($tvShow, $tvShowResponse->getNetworks());
         $this->syncLanguages($tvShow, $tvShowResponse->getLanguages());
         $this->syncCountries($tvShow, $tvShowResponse->getCountries());
@@ -172,6 +199,27 @@ class TvShowFetchingService
         $this->tvShowRepository->save($tvShow);
 
         return $tvShowResponse->getSeasons();
+    }
+
+    /**
+     * Set the production status for a tv show.
+     *
+     * @param TvShow $tvShow
+     * @param null|string $status
+     */
+    protected function setProductionStatus(TvShow $tvShow, ?string $status): void
+    {
+        if ($status === null) {
+            return;
+        }
+
+        try {
+            $productionStatus = $this->productionStatusRepository->find(['name' => $status]);
+        } catch (ModelNotFoundException $exception) {
+            $productionStatus = $this->productionStatusRepository->create(['name' => $status]);
+        }
+
+        $tvShow->production_status_id = $productionStatus->id;
     }
 
     /**
@@ -279,7 +327,25 @@ class TvShowFetchingService
 
             if ($tvdbResponse->hasBeenSuccessful()) {
                 $tvShow->air_time = $tvdbResponse->getAirTime();
-                $tvShow->air_day = $tvdbResponse->getAirDay();
+
+                if ($tvdbResponse->getAirDay() !== null) {
+                    try {
+                        $airDay = $this->airDayRepository->find(['name' => $tvdbResponse->getAirDay()]);
+                    } catch (ModelNotFoundException $exception) {
+                        $airDay = $this->airDayRepository->create(['name' => $tvdbResponse->getAirDay()]);
+                    }
+                    $tvShow->tv_air_day_id = $airDay->id;
+                }
+
+                if ($tvdbResponse->getRating() !== null) {
+                    try {
+                        $rating = $this->ratingRepository->find(['name' => $tvdbResponse->getRating()]);
+                    } catch (ModelNotFoundException $exception) {
+                        $rating = $this->ratingRepository->create(['name' => $tvdbResponse->getRating()]);
+                    }
+                    $tvShow->tv_rating_id = $rating->id;
+                }
+
                 $genres = array_merge($genres, $tvdbResponse->getGenres());
             }
         }
@@ -304,13 +370,12 @@ class TvShowFetchingService
             }
             try {
                 $genre = $this->genreRepository->find(['name' => $name]);
-                $genresToSync[] = $genre->id;
             } catch (ModelNotFoundException $exception) {
                 $genre = $this->genreRepository->create([
                     'name' => $name,
                 ]);
-                $genresToSync[] = $genre->id;
             }
+            $genresToSync[] = $genre->id;
         }
         $this->tvShowRepository->syncGenres($tvShow, $genresToSync);
     }
