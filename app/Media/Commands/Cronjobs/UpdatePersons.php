@@ -4,7 +4,7 @@ namespace Favon\Media\Commands\Cronjobs;
 
 use Illuminate\Console\Command;
 use Favon\Media\Jobs\UpdatePerson;
-use Favon\Media\Http\Clients\TmdbClient;
+use Favon\Media\Http\Clients\TmdbMediaClient;
 
 class UpdatePersons extends Command
 {
@@ -23,15 +23,15 @@ class UpdatePersons extends Command
     protected $description = 'Fetch and store information for all persons changed in the last 24 hours (or time period - max 14 days - defined by start and end date)';
 
     /**
-     * @var TmdbClient
+     * @var TmdbMediaClient
      */
     protected $tmdbClient;
 
     /**
      * UpdatePersons constructor.
-     * @param TmdbClient $tmdbClient
+     * @param TmdbMediaClient $tmdbClient
      */
-    public function __construct(TmdbClient $tmdbClient)
+    public function __construct(TmdbMediaClient $tmdbClient)
     {
         $this->tmdbClient = $tmdbClient;
         parent::__construct();

@@ -3,7 +3,7 @@
 namespace Favon\Television\Services\Api;
 
 use Favon\Television\Models\TvSeason;
-use Favon\Media\Http\Clients\TmdbClient;
+use Favon\Media\Http\Clients\TmdbMediaClient;
 use Favon\Media\Repositories\PersonRepository;
 use Favon\Television\Http\Clients\TmdbTvClient;
 use Favon\Television\Repositories\TvSeasonRepository;
@@ -18,7 +18,7 @@ class TvSeasonCreditFetchingService
     protected $tmdbTvClient;
 
     /**
-     * @var TmdbClient
+     * @var TmdbMediaClient
      */
     protected $tmdbClient;
 
@@ -35,11 +35,11 @@ class TvSeasonCreditFetchingService
     /**
      * TvSeasonCreditFetchingService constructor.
      * @param TmdbTvClient $tmdbTvClient
-     * @param TmdbClient $tmdbClient
+     * @param TmdbMediaClient $tmdbClient
      * @param PersonRepository $personRepository
      * @param TvSeasonRepository $tvSeasonRepository
      */
-    public function __construct(TmdbTvClient $tmdbTvClient, TmdbClient $tmdbClient, PersonRepository $personRepository,
+    public function __construct(TmdbTvClient $tmdbTvClient, TmdbMediaClient $tmdbClient, PersonRepository $personRepository,
                                 TvSeasonRepository $tvSeasonRepository)
     {
         $this->tmdbTvClient = $tmdbTvClient;

@@ -3,7 +3,7 @@
 namespace Favon\Media\Commands\Initialize;
 
 use Illuminate\Console\Command;
-use Favon\Media\Http\Clients\TmdbClient;
+use Favon\Media\Http\Clients\TmdbMediaClient;
 use Favon\Media\Repositories\LanguageRepository;
 
 class FetchLanguages extends Command
@@ -25,10 +25,10 @@ class FetchLanguages extends Command
     /**
      * Execute the command.
      *
-     * @param TmdbClient $tmdbClient
+     * @param TmdbMediaClient $tmdbClient
      * @param LanguageRepository $languageRepository
      */
-    public function handle(TmdbClient $tmdbClient, LanguageRepository $languageRepository): void
+    public function handle(TmdbMediaClient $tmdbClient, LanguageRepository $languageRepository): void
     {
         $this->line('Fetching languages from TMDB...');
         $languageResponse = $tmdbClient->getLanguages();
