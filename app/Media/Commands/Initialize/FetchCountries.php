@@ -3,7 +3,7 @@
 namespace Favon\Media\Commands\Initialize;
 
 use Illuminate\Console\Command;
-use Favon\Media\Http\Clients\TmdbClient;
+use Favon\Media\Http\Clients\TmdbMediaClient;
 use Favon\Media\Repositories\CountryRepository;
 
 class FetchCountries extends Command
@@ -25,10 +25,10 @@ class FetchCountries extends Command
     /**
      * Execute the console command.
      *
-     * @param TmdbClient $tmdbClient
+     * @param TmdbMediaClient $tmdbClient
      * @param CountryRepository $countryRepository
      */
-    public function handle(TmdbClient $tmdbClient, CountryRepository $countryRepository): void
+    public function handle(TmdbMediaClient $tmdbClient, CountryRepository $countryRepository): void
     {
         $this->line('Fetching countries from TMDB...');
         $countryResponse = $tmdbClient->getCountries();
