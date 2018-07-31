@@ -4,7 +4,7 @@ namespace Favon\Media\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
-use Favon\Media\Http\Clients\TmdbClient;
+use Favon\Media\Http\Clients\TmdbMediaClient;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -29,10 +29,10 @@ class FetchPerson implements ShouldQueue
     }
 
     /**
-     * @param TmdbClient $tmdbClient
+     * @param TmdbMediaClient $tmdbClient
      * @param PersonRepository $personRepository
      */
-    public function handle(TmdbClient $tmdbClient, PersonRepository $personRepository): void
+    public function handle(TmdbMediaClient $tmdbClient, PersonRepository $personRepository): void
     {
         $personResponse = $tmdbClient->getPerson($this->id);
         if ($personResponse->hasBeenSuccessful() === false) {
