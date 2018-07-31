@@ -74,5 +74,4 @@ class FetchingService
         unlink(storage_path('api/'.$type.'_ids.json.gz'));
         unlink(storage_path('api/'.$type.'_ids.json'));
     }
-
 }

@@ -2,8 +2,8 @@
 
 namespace Favon\Television\Http\Clients;
 
-use Favon\Media\Http\Clients\TmdbClient;
 use GuzzleHttp\Psr7\Request;
+use Favon\Media\Http\Clients\TmdbClient;
 use Favon\Television\Http\Responses\Tmdb\TvShowResponse;
 use Favon\Television\Http\Responses\Tmdb\TvSeasonResponse;
 use Favon\Television\Http\Responses\Tmdb\TvShowIdsResponse;

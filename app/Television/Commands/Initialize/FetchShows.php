@@ -2,9 +2,9 @@
 
 namespace Favon\Television\Commands\Initialize;
 
-use Favon\Media\Services\FetchingService;
 use Illuminate\Console\Command;
 use Favon\Television\Jobs\FetchShow;
+use Favon\Media\Services\FetchingService;
 
 class FetchShows extends Command
 {
