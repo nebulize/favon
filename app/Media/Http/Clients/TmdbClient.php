@@ -2,7 +2,9 @@
 
 namespace Favon\Media\Http\Clients;
 
+use Favon\Application\Http\BaseResponse;
 use GuzzleHttp\Psr7\Request;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Favon\Media\Http\Gateways\TmdbGateway;
 use Favon\Media\Http\Responses\TMDB\PersonResponse;
@@ -52,15 +54,11 @@ class TmdbClient
      */
     public function getLanguages(): LanguageResponse
     {
-        $request = new Request('GET', $this->url.'/configuration/languages'.'?api_key='.$this->key);
+        $url = $this->url.'/configuration/languages'.'?api_key='.$this->key;
+        $request = new Request('GET', $url);
         $response = $this->gateway->request($request);
         $result = new LanguageResponse((int) $response->getStatusCode());
-        if ($result->getHttpStatusCode() === 200) {
-            $result->setSuccessful();
-            $result->setResponse(json_decode($response->getBody()));
-        } else {
-            $this->logger->error('TMDB '.$response->getStatusCode().': '.$response->getBody());
-        }
+        $this->setResponse($result, $response, $url);
 
         return $result;
     }
@@ -72,15 +70,11 @@ class TmdbClient
      */
     public function getCountries(): CountryResponse
     {
-        $request = new Request('GET', $this->url.'/configuration/countries'.'?api_key='.$this->key);
+        $url = $this->url.'/configuration/countries'.'?api_key='.$this->key;
+        $request = new Request('GET', $url);
         $response = $this->gateway->request($request);
         $result = new CountryResponse((int) $response->getStatusCode());
-        if ($result->getHttpStatusCode() === 200) {
-            $result->setSuccessful();
-            $result->setResponse(json_decode($response->getBody()));
-        } else {
-            $this->logger->error('TMDB '.$response->getStatusCode().': '.$response->getBody());
-        }
+        $this->setResponse($result, $response, $url);
 
         return $result;
     }
@@ -94,20 +88,11 @@ class TmdbClient
      */
     public function getPerson(int $id) : PersonResponse
     {
-        $request = new Request('GET', $this->url.'/person/'.$id.'?api_key='.$this->key.'&language=en-US');
+        $url = $this->url.'/person/'.$id.'?api_key='.$this->key.'&language=en-US';
+        $request = new Request('GET', $url);
         $response = $this->gateway->request($request);
         $result = new PersonResponse((int) $response->getStatusCode());
-        switch ($result->getHttpStatusCode()) {
-            case 200:
-                $result->setSuccessful();
-                $result->setResponse(json_decode($response->getBody()));
-                break;
-            case 404:
-                $this->logger->warning('TMDB - Person: Could not find entry with ID '.$id);
-                break;
-            default:
-                $this->logger->error('TMDB '.$response->getStatusCode().': '.$response->getBody());
-        }
+        $this->setResponse($result, $response, $url);
 
         return $result;
     }
@@ -133,13 +118,30 @@ class TmdbClient
         $request = new Request('GET', $url);
         $response = $this->gateway->request($request);
         $result = new ChangedPersonsResponse((int) $response->getStatusCode());
-        if ($result->getHttpStatusCode() === 200) {
-            $result->setSuccessful();
-            $result->setResponse(json_decode($response->getBody()));
-        } else {
-            $this->logger->error('TMDB Changed Persons '.$response->getStatusCode().': '.$response->getBody());
-        }
+        $this->setResponse($result, $response, $url);
 
         return $result;
+    }
+
+    /**
+     * Set API response and log errors.
+     *
+     * @param BaseResponse $response
+     * @param ResponseInterface $httpResponse
+     * @param string $url
+     */
+    protected function setResponse(BaseResponse $response, ResponseInterface $httpResponse, string $url): void
+    {
+        switch ($response->getHttpStatusCode()) {
+            case 200:
+                $response->setSuccessful();
+                $response->setResponse(json_decode($httpResponse->getBody()));
+                break;
+            case 404:
+                $this->logger->warning('404 - No results: '.$url);
+                break;
+            default:
+                $this->logger->error('TMDB '.$httpResponse->getStatusCode().': '.$httpResponse->getBody());
+        }
     }
 }
