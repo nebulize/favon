@@ -2,10 +2,9 @@
 
 namespace Favon\Media\Commands\Initialize;
 
-use Carbon\Carbon;
-use Favon\Media\Services\FetchingService;
 use Illuminate\Console\Command;
 use Favon\Media\Jobs\FetchPerson;
+use Favon\Media\Services\FetchingService;
 
 class FetchPersons extends Command
 {
