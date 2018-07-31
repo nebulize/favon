@@ -5,7 +5,7 @@ namespace Favon\Media\Jobs;
 use Psr\Log\LoggerInterface;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
-use Favon\Media\Http\Clients\TmdbClient;
+use Favon\Media\Http\Clients\TmdbMediaClient;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -31,11 +31,11 @@ class UpdatePerson implements ShouldQueue
     }
 
     /**
-     * @param TmdbClient $tmdbClient
+     * @param TmdbMediaClient $tmdbClient
      * @param PersonRepository $personRepository
      * @param LoggerInterface $logger
      */
-    public function handle(TmdbClient $tmdbClient, PersonRepository $personRepository, LoggerInterface $logger): void
+    public function handle(TmdbMediaClient $tmdbClient, PersonRepository $personRepository, LoggerInterface $logger): void
     {
         $personResponse = $tmdbClient->getPerson($this->id);
         if ($personResponse->hasBeenSuccessful() === false) {
