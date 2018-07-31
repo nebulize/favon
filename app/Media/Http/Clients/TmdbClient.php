@@ -2,10 +2,10 @@
 
 namespace Favon\Media\Http\Clients;
 
+use Psr\Log\LoggerInterface;
+use Psr\Http\Message\ResponseInterface;
 use Favon\Application\Http\BaseResponse;
 use Favon\Media\Http\Gateways\TmdbGateway;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Log\LoggerInterface;
 
 abstract class TmdbClient
 {
