@@ -5,10 +5,10 @@ namespace Favon\Media\Jobs;
 use Psr\Log\LoggerInterface;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
-use Favon\Media\Http\Clients\TmdbMediaClient;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Favon\Media\Http\Clients\TmdbMediaClient;
 use Favon\Media\Repositories\PersonRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
