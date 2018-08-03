@@ -11,6 +11,4 @@
 |
 */
 
-include_route_files(__DIR__.'/Application/Web/');
-include_route_files(__DIR__.'/Auth/Web/');
-include_route_files(__DIR__.'/Television/Web/');
+include_route_files(__DIR__.'/Web/');

@@ -12,6 +12,4 @@
 |
 */
 
-include_route_files(__DIR__.'/Auth/Api/');
-include_route_files(__DIR__.'/Media/Api/');
-include_route_files(__DIR__.'/Television/Api/');
+include_route_files(__DIR__.'/InternalApi/');
