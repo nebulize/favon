@@ -6,6 +6,7 @@ use Favon\Media\Models\Person;
 use Favon\Television\Models\TvSeason;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Favon\Application\Interfaces\RepositoryContract;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -134,10 +135,10 @@ class TvSeasonRepository implements RepositoryContract
             // Eager load user list data
             if (isset($parameters['user'])) {
                 $user = $parameters['user'];
-                $query = $query->with(['userTvSeasons' => function (QueryBuilder $q) use ($user) {
+                $query = $query->with(['userTvSeasons' => function (HasMany $q) use ($user) {
                     $q->where('user_id', $user->id);
                 }]);
-                $query = $query->with(['tvShow.userTvShows' => function (QueryBuilder $q) use ($user) {
+                $query = $query->with(['tvShow.userTvShows' => function (HasMany $q) use ($user) {
                     $q->where('user_id', $user->id);
                 }]);
             }
