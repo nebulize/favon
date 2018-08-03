@@ -6,28 +6,6 @@ body {
   min-height: 100%;
 }
 
-.logo {
-  &.is-winter {
-    fill: $color-winter-dark;
-  }
-
-  &.is-spring {
-    fill: $color-spring;
-  }
-
-  &.is-summer {
-    fill: $color-summer;
-  }
-
-  &.is-fall {
-    fill: $color-fall;
-  }
-
-  &.is-primary {
-    fill: $color-primary;
-  }
-}
-
 .container {
   padding: 0 1rem;
 
