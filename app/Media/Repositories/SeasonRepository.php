@@ -145,23 +145,28 @@ class SeasonRepository implements RepositoryContract
                 $start_date = Carbon::create($year, 1, 1);
                 $end_date = $start_date->copy()->addMonth(2)->endOfMonth();
                 $name = 'Winter';
+                $slug = 'winter';
             } elseif (\in_array($month, [4, 5, 6], true)) {
                 $start_date = Carbon::create($year, 4, 1);
                 $end_date = $start_date->copy()->addMonth(2)->endOfMonth();
                 $name = 'Spring';
+                $slug = 'spring';
             } elseif (\in_array($month, [7, 8, 9], true)) {
                 $start_date = Carbon::create($year, 7, 1);
                 $end_date = $start_date->copy()->addMonth(2)->endOfMonth();
                 $name = 'Summer';
+                $slug = 'summer';
             } else {
                 $start_date = Carbon::create($year, 10, 1);
                 $end_date = $start_date->copy()->addMonth(2)->endOfMonth();
                 $name = 'Fall';
+                $slug = 'slug';
             }
             $attributes['start_date'] = $start_date;
             $attributes['end_date'] = $end_date;
             $attributes['name'] = $name;
             $attributes['year'] = $year;
+            $attributes['slug'] = $slug;
         }
 
         return $this->season->newQuery()->create($attributes);
