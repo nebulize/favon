@@ -87,7 +87,7 @@ export default class Filters {
   static filterByListStatus(season, statuses) {
     const includeStatuses = new Set(statuses);
     if (season.user_tv_seasons && season.user_tv_seasons.length > 0) {
-      const status = season.user_tv_seasons[0].status;
+      const status = season.user_tv_seasons[0].list_status_id;
       return includeStatuses.has(status);
     }
     return includeStatuses.has('not_in_list');
