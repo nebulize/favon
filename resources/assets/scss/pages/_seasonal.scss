@@ -1,5 +1,9 @@
 .seasonal {
-  padding-bottom: 80px;
+  font-family: $favon-font-text;
+
+  &__grid {
+    padding-bottom: 80px;
+  }
 }
 
 .progress__input {

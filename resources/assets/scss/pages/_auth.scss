@@ -8,18 +8,10 @@
   align-items: center;
   background-size: cover;
   display: flex;
+  font-family: $favon-font-text;
   justify-content: center;
 
-  .card {
-    border-radius: 0;
-    width: 450px;
-
-    @include tablet {
-      border-radius: .3rem;
-    }
-  }
-
-  .card__head {
+  &__head {
     display: flex;
     justify-content: center;
     margin-bottom: 3rem;
@@ -33,12 +25,52 @@
       margin-left: 10px;
       margin-top: 2px;
     }
+
+    .head__title {
+      &::before {
+        content: '-';
+        padding: 0 10px 0 0;
+      }
+    }
   }
 
-  .head__page {
-    &::before {
-      content: '-';
-      padding: 0 10px 0 0;
+  &__reset {
+    font-size: 1.5rem;
+    margin-left: 2rem;
+  }
+
+  &__notifications--options {
+    label {
+      letter-spacing: .01rem;
+      line-height: 1.6;
+    }
+
+    .checkbox + label {
+      font-size: 1.4rem;
+
+      &::before {
+        top: 3px;
+      }
+
+      &::after {
+        top: 3px;
+      }
+    }
+  }
+
+  &__notifications--text {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+  }
+
+  // Overwriting Luma styles
+
+  .card {
+    border-radius: 0;
+    width: 450px;
+
+    @include tablet {
+      border-radius: .3rem;
     }
   }
 
@@ -50,60 +82,19 @@
     padding: 1rem 2rem;
   }
 
+  .card-action a {
+    color: $color-link;
+
+    &:hover {
+      color: shade($color-link, 20%);
+    }
+  }
+
+  .card-meta {
+    color: $color-text;
+  }
+
   form {
     margin-bottom: .5rem;
   }
-
-  label[for='remember'] {
-    color: #a3a3a4;
-  }
-
-  .card-action a {
-    color: $color-link;
-  }
-}
-
-.reset-password {
-  color: rgba(34, 36, 38, .4);
-  font-size: 1.5rem;
-  margin-left: 2rem;
-
-  &:focus,
-  &:hover {
-    color: $color-link;
-  }
-}
-
-.content__notifications--text {
-  font-size: 1.4rem;
-  margin-bottom: 2rem;
-}
-
-.content__notifications--options {
-  label {
-    letter-spacing: .01rem;
-    line-height: 1.6;
-  }
-
-  .checkbox + label {
-    font-size: 1.4rem;
-
-    &::before {
-      top: 3px;
-    }
-
-    &::after {
-      top: 3px;
-    }
-  }
-}
-
-.is-invalid {
-  border: 1px solid $color-danger !important;
-}
-
-.invalid-feedback {
-  color: $color-danger;
-  font-size: 1.4rem;
-  margin-top: .5rem;
 }

@@ -102,7 +102,11 @@ const app = new Vue({
         if (include === false) return false;
 
         // Filter by list status
-        return Filters.filterByListStatus(season, this.store.filters.list.values);
+        if (this.store.user) {
+          return Filters.filterByListStatus(season, this.store.filters.list.values);
+        }
+
+        return true;
       });
 
       // Lastly, sort the filtered array by the selected user criteria.
