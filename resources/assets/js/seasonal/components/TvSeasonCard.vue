@@ -7,7 +7,7 @@
           <a
             v-if="inList"
             ref="list"
-            :class="`popup__trigger label__status is-${status} is-right`"
+            :class="`popup__trigger label__status is-${listStatus} is-right`"
             @click="togglePopup">
             {{ listStatusDescription }}
           </a>
@@ -26,19 +26,19 @@
               <div class="column is-9">
                 <select
                   ref="select"
-                  v-model="status"
+                  v-model.number="status"
                   class="select"
                   name="status"
                   id="status">
-                  <option value="ptw">Plan To Watch</option>
-                  <option value="watching">Watching</option>
-                  <option value="completed">Completed</option>
-                  <option value="hold">On Hold</option>
-                  <option value="dropped">Dropped</option>
+                  <option value="2">Plan To Watch</option>
+                  <option value="1">Watching</option>
+                  <option value="3">Completed</option>
+                  <option value="5">On Hold</option>
+                  <option value="4">Dropped</option>
                 </select>
               </div>
             </div>
-            <div v-show="status !== 'completed' && status !== 'ptw'" class="field is-centered row list__progress">
+            <div v-show="status !== 3 && status !== 2" class="field is-centered row list__progress">
               <label for="progress" class="column is-3">Progress</label>
               <div class="column is-6">
                 <div class="progress__input">
@@ -60,7 +60,7 @@
                 </button>
               </div>
             </div>
-            <div v-show="status !== 'ptw'" class="field is-centered row">
+            <div v-show="status !== 2" class="field is-centered row">
               <label for="score" class="column is-3">Score</label>
               <div class="column is-9">
                 <select
@@ -175,7 +175,7 @@ export default {
        * @type {Boolean}
        */
       showPopup: false,
-      status: 'ptw',
+      status: 2,
       progress: 0,
       score: 0,
       inList: false,
@@ -186,18 +186,32 @@ export default {
     user() {
       return this.store.user;
     },
+    listStatus() {
+      switch (this.status) {
+        case 1:
+          return 'watching';
+        case 2:
+          return 'ptw';
+        case 3:
+          return 'completed';
+        case 4:
+          return 'dropped';
+        default:
+          return 'hold';
+      }
+    },
     listStatusDescription() {
       switch (this.status) {
-        case 'completed':
+        case 3:
           return `Completed ★ ${this.score}`;
-        case 'watching':
+        case 1:
           return `Watching ${this.progress}/${this.episodeCount} ★ ${this.score}`;
-        case 'hold':
+        case 5:
           return `On Hold ${this.progress}/${this.episodeCount} ★ ${this.score}`;
-        case 'dropped':
+        case 4:
           return `Dropped ★ ${this.score}`;
         default:
-          return 'Plan To Watch';
+          return 2;
       }
     },
     episodeCount() {
@@ -223,7 +237,7 @@ export default {
       this.inList = true;
       const pivot = this.tv_season.user_tv_seasons[0];
       this.progress = pivot.progress;
-      this.status = pivot.status;
+      this.status = pivot.list_status_id;
       this.score = pivot.score ? pivot.score : 0;
     }
   },
@@ -261,7 +275,7 @@ export default {
       if (this.inList) {
         axios.patch(`/api/users/me/seasons/${this.tv_season.id}`, {
           tv_season_id: this.tv_season.id,
-          status: this.status,
+          list_status_id: this.status,
           progress: this.progress,
           score: this.score,
         }, {
@@ -274,7 +288,7 @@ export default {
       } else {
         axios.post('/api/users/me/seasons', {
           tv_season_id: this.tv_season.id,
-          status: this.status,
+          list_status_id: this.status,
           progress: this.progress,
           score: this.score,
         }, {
