@@ -9,8 +9,7 @@
 |
 */
 
-
-Route::get('/', function() {
+Route::get('/', function () {
     return redirect()->route('television.seasonal.show');
 });
 Route::any('adminer', '\Miroc\LaravelAdminer\AdminerController@index');
