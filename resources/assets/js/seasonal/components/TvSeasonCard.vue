@@ -211,7 +211,7 @@ export default {
         case 4:
           return `Dropped ★ ${this.score}`;
         default:
-          return 2;
+          return 'Plan To Watch';
       }
     },
     episodeCount() {

@@ -157,7 +157,7 @@ class ListService
         }
 
         try {
-            $userTvShow = $this->userTvShowRepository->get($user->id, $tvShow->id);
+            $userTvShow = $this->userTvShowRepository->find(['user_id' => $user->id, 'tv_show_id' => $tvShow->id]);
             $this->userTvShowRepository->update($userTvShow, [
                 'list_status_id' => $status,
                 'score' => $score,
