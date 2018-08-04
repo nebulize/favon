@@ -12,7 +12,7 @@
           <p><strong class="text-success">Your account has been created!</strong> To unlock all features, please visit the verification link we've sent you.</p>
           <p>You can review your notification settings now, or change them in your profile settings later:</p>
         </div>
-        <div class="auth__notifications--options card-meta">
+        <div class="auth__notifications--options card-meta">>>>>>>> develop
           <form method="POST" action="{{ route('users.settings.notifications') }}">
             @csrf
             <div class="row">
