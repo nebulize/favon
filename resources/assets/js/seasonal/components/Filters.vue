@@ -148,7 +148,7 @@ export default {
     },
     filterAllList() {
       if (this.filters.list.all === true) {
-        this.store.filters.list.values = ['not_in_list', 'ptw', 'completed', 'watching', 'hold', 'dropped'];
+        this.store.filters.list.values = ['not_in_list', 2, 3, 1, 5, 4];
       } else {
         this.store.filters.list.values = [];
       }
