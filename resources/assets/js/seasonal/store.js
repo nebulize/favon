@@ -8,7 +8,7 @@ export default {
       score: 0,
       list: {
         all: true,
-        values: ['not_in_list', 'ptw', 'completed', 'watching', 'hold', 'dropped'],
+        values: ['not_in_list', 2, 3, 1, 5, 4],
       },
       unrated: true,
       genres: {
@@ -26,19 +26,19 @@ export default {
       code: 'not_in_list',
       name: 'Not in my list',
     }, {
-      code: 'ptw',
+      code: 2,
       name: 'Plan to Watch',
     }, {
-      code: 'watching',
+      code: 1,
       name: 'Watching',
     }, {
-      code: 'completed',
+      code: 3,
       name: 'Completed',
     }, {
-      code: 'hold',
+      code: 5,
       name: 'On Hold',
     }, {
-      code: 'dropped',
+      code: 4,
       name: 'Dropped',
     }],
     languages: [{
