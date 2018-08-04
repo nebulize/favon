@@ -1,50 +1,51 @@
-footer {
+.footer {
   background: $footer-dark-bg;
+  font-family: $favon-font-text;
   min-height: 300px;
   padding: 80px 0 30px;
 
-  .column {
+  &__column {
     text-align: center;
 
     @include tablet {
       text-align: left;
     }
+
+    h4 {
+      color: $footer-dark-color-text;
+      font-size: 1.3rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    ul {
+      padding: 0;
+    }
+
+    li {
+      list-style: none;
+      padding: 5px 0;
+    }
+
+    a {
+      color: $footer-dark-color-text;
+      font-size: 1.4rem;
+    }
   }
 
-  .logo {
+  &__logo {
     fill: $footer-dark-color-logo;
     height: 40px;
   }
 
-  h4 {
-    color: $footer-dark-color-text;
-    font-size: 1.3rem;
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-
-  ul {
-    padding: 0;
-  }
-
-  li {
-    list-style: none;
-    padding: 5px 0;
-  }
-
-  a {
-    color: $footer-dark-color-text;
-    font-size: 1.4rem;
-  }
-
-  .social {
+  &__social {
     li {
       display: inline-block;
       margin-top: 6px;
     }
   }
 
-  .social--twitter {
+  &__social--twitter {
     svg {
       fill: $footer-dark-color-icon;
       height: 15px;
