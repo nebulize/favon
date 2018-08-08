@@ -28,11 +28,11 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'tap' => [\Favon\Application\Logging\LogSourceSplitter::class],
             'channels' => ['single'],
         ],
         'single' => [
             'driver' => 'single',
+            'tap' => [\Favon\Application\Logging\LogSourceSplitter::class],
             'path' => storage_path('logs/laravel.log'),
             'level' => 'debug',
         ],
@@ -46,9 +46,9 @@ return [
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),
-            'username' => 'Laravel Log',
+            'username' => 'Favon Log',
             'emoji' => ':boom:',
-            'level' => 'critical',
+            'level' => 'error',
         ],
         'syslog' => [
             'driver' => 'syslog',

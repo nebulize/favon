@@ -135,7 +135,7 @@ class TvdbTvClient
                 $this->logger->warning('TVDB: Could not find entry with ID '.$id);
                 break;
             default:
-                $this->logger->error('TVDB '.$response->getStatusCode().': '.$response->getBody());
+                $this->logger->warning('TVDB '.$response->getStatusCode().': '.$response->getBody());
         }
 
         return $result;

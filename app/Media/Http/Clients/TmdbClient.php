@@ -60,7 +60,7 @@ abstract class TmdbClient
                 $this->logger->warning('404 - No results: '.$url);
                 break;
             default:
-                $this->logger->error('TMDB '.$httpResponse->getStatusCode().': '.$httpResponse->getBody());
+                $this->logger->warning('TMDB '.$httpResponse->getStatusCode().': '.$httpResponse->getBody());
         }
     }
 }

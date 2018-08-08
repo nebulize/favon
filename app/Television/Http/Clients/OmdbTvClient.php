@@ -64,7 +64,7 @@ class OmdbTvClient
                 $this->logger->warning('OMDB: No results found for  '.$imdbId);
                 break;
             default:
-                $this->logger->error($response->getStatusCode().': '.$response->getBody());
+                $this->logger->warning($response->getStatusCode().': '.$response->getBody());
         }
 
         return $result;
