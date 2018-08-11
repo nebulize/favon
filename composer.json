@@ -18,7 +18,7 @@
         "laravel/framework": "5.6.*",
         "laravel/horizon": "^1.1",
         "laravel/tinker": "~1.0",
-        "miroc/laravel-adminer": "^4.3"
+        "miroc/laravel-adminer": "^4.6"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",
