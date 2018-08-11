@@ -28,7 +28,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['single', 'slack'],
         ],
         'single' => [
             'driver' => 'single',
