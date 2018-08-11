@@ -3,10 +3,10 @@
 namespace Favon\Media\Http\Clients;
 
 use GuzzleHttp\Psr7\Request;
-use Favon\Media\Http\Responses\TMDB\PersonResponse;
-use Favon\Media\Http\Responses\TMDB\CountryResponse;
-use Favon\Media\Http\Responses\TMDB\LanguageResponse;
-use Favon\Media\Http\Responses\TMDB\ChangedPersonsResponse;
+use Favon\Media\Http\Responses\Tmdb\PersonResponse;
+use Favon\Media\Http\Responses\Tmdb\CountryResponse;
+use Favon\Media\Http\Responses\Tmdb\LanguageResponse;
+use Favon\Media\Http\Responses\Tmdb\ChangedPersonsResponse;
 
 class TmdbMediaClient extends TmdbClient
 {
