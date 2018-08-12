@@ -166,9 +166,9 @@ class PersonResponse extends BaseResponse
     {
         $gender = $this->parseProperty('gender', BaseResponse::TYPE_INT);
         if ($gender === 1) {
-            $this->gender = 'Female';
+            $this->gender = 'female';
         } elseif ($gender === 2) {
-            $this->gender = 'Male';
+            $this->gender = 'male';
         }
     }
 
