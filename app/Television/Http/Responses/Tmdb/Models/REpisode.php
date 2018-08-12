@@ -1,6 +1,6 @@
 <?php
 
-namespace Favon\Television\Http\Responses\TMDB\Models;
+namespace Favon\Television\Http\Responses\Tmdb\Models;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;

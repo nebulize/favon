@@ -5,7 +5,7 @@ namespace Favon\Television\Http\Responses\Tmdb;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Favon\Application\Http\BaseResponse;
-use Favon\Television\Http\Responses\TMDB\Models\RSeason;
+use Favon\Television\Http\Responses\Tmdb\Models\RSeason;
 
 class TvShowResponse extends BaseResponse
 {
