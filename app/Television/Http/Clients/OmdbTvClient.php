@@ -5,7 +5,7 @@ namespace Favon\Television\Http\Clients;
 use GuzzleHttp\Psr7\Request;
 use Psr\Log\LoggerInterface;
 use Favon\Media\Http\Gateways\OmdbGateway;
-use Favon\Television\Http\Responses\OMDB\OmdbResponse;
+use Favon\Television\Http\Responses\Omdb\OmdbResponse;
 
 class OmdbTvClient
 {

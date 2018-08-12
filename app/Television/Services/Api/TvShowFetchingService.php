@@ -386,7 +386,7 @@ class TvShowFetchingService
      * @param TvShow $tvShow
      * @param string $plot
      */
-    protected function setSummary(TvShow $tvShow, string $plot): void
+    protected function setSummary(TvShow $tvShow, ?string $plot): void
     {
         if ($tvShow->summary === null || $tvShow->summary === '' || $tvShow->summary === 'N/A') {
             $tvShow->summary = $plot;

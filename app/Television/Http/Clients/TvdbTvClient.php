@@ -8,7 +8,7 @@ use GuzzleHttp\Psr7\Request;
 use Psr\Log\LoggerInterface;
 use Predis\Client as RedisClient;
 use Favon\Media\Http\Gateways\TvdbGateway;
-use Favon\Television\Http\Responses\TVDB\TvdbResponse;
+use Favon\Television\Http\Responses\Tvdb\TvdbResponse;
 
 class TvdbTvClient
 {

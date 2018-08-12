@@ -1,6 +1,6 @@
 <?php
 
-namespace Favon\Television\Http\Responses\TVDB;
+namespace Favon\Television\Http\Responses\Tvdb;
 
 use Favon\Application\Http\BaseResponse;
 

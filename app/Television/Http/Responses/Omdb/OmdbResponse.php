@@ -1,6 +1,6 @@
 <?php
 
-namespace Favon\Television\Http\Responses\OMDB;
+namespace Favon\Television\Http\Responses\Omdb;
 
 use Favon\Application\Http\BaseResponse;
 
