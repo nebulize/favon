@@ -11,6 +11,7 @@ use Favon\Application\Interfaces\RepositoryContract;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Support\Facades\DB;
 
 class TvSeasonRepository implements RepositoryContract
 {
