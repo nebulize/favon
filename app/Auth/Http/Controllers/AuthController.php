@@ -37,9 +37,9 @@ class AuthController extends Controller
      *
      * @param UpdateNotificationsRequest $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function notifications(UpdateNotificationsRequest $request): \Illuminate\Http\RedirectResponse
+    public function notifications(UpdateNotificationsRequest $request)
     {
         $user = $request->user();
         $user->fill($request->getNotificationSettings());
