@@ -100,10 +100,10 @@
         <div class="body__poster">
           <img
             v-if="tv_season.poster"
-            :src="`https://image.tmdb.org/t/p/w342${tv_season.poster}`">
+            :src="`https://image.tmdb.org/t/p/w154${tv_season.poster}`">
           <img
             v-else-if="tv_season.tv_show.poster"
-            :src="`https://image.tmdb.org/t/p/w342${tv_season.tv_show.poster}`">
+            :src="`https://image.tmdb.org/t/p/w154${tv_season.tv_show.poster}`">
           <div
             v-else
             class="poster__placeholder">
