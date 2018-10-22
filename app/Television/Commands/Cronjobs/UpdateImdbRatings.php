@@ -109,8 +109,14 @@ class UpdateImdbRatings extends Command
                 $tvShow = $this->tvShowRepository->find([
                     'imdb_id' => trim($entry[0]),
                 ]);
-                $tvShow->imdb_score = (float) trim($entry[1]);
-                $tvShow->imdb_votes = (int) trim($entry[2]);
+                $score = trim($entry[1]);
+                $votes = trim($entry[2]);
+                if ($score) {
+                    $tvShow->imdb_score = (float) $score;
+                }
+                if ($votes) {
+                    $tvShow->imdb_votes = (int) $votes;
+                }
                 $this->tvShowRepository->save($tvShow);
                 $count_matched++;
             } catch (ModelNotFoundException $e) {
