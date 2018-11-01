@@ -299,10 +299,6 @@ class TvShowFetchingService
 
             if ($omdbResponse->hasBeenSuccessful()) {
                 $tvShow->summary = $omdbResponse->getSummary();
-                if ($withScore === true) {
-                    $tvShow->imdb_score = $omdbResponse->getImdbScore();
-                    $tvShow->imdb_votes = $omdbResponse->getImdbVotes();
-                }
 
                 // Merge genres
                 $genres = array_merge($genres, $omdbResponse->getGenres());
