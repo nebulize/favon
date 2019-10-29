@@ -63,7 +63,7 @@
         "write-file-webpack-plugin": "^4.2.0"
     },
     "dependencies": {
-        "axios": "^0.18.0",
+        "axios": "^0.18.1",
         "date-fns": "^1.29.0",
         "js-cookie": "^2.2.0",
         "lumacss": "^0.4.7",
