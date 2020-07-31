@@ -1,7 +1,7 @@
 <br />
 <div align="center">
   <p align="center">
-    <a href="https://php.net/" target="_blank"><img src="https://img.shields.io/badge/php-%3E%3D%207.1-8892BF.svg"></a>
+    <a href="https://php.net/" target="_blank"><img src="https://img.shields.io/badge/php-%3E%3D%207.2-8892BF.svg"></a>
     <a href="#quality-assurance" target="_blank"><img src="https://img.shields.io/badge/qa--level-high-success"></a>
   </p>
 
@@ -18,8 +18,6 @@
     <a href="#index">index</a>
     &nbsp; &middot; &nbsp;
     <a href="documentation/README.md">documentation</a>
-    &nbsp; &middot; &nbsp;
-    <a href="documentation/FILTERS.md">filters</a>
     </strong>
   </p>
 
@@ -32,10 +30,6 @@
     &nbsp;
     <a href="https://www.typescriptlang.org/">
       <img src="https://www.vectorlogo.zone/logos/typescriptlang/typescriptlang-icon.svg" height="45" />
-    </a>
-    &nbsp;
-    <a href="https://vuejs.org/">
-      <img src="https://commons.wikimedia.org/wiki/File:Vue.js_Logo_2.svg" height="45" />
     </a>
     &nbsp;
     <a href="https://postcss.org/">
