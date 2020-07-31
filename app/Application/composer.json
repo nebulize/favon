@@ -1,0 +1,21 @@
+{
+    "name": "favon/application",
+    "description": "",
+    "authors": [
+        {
+            "name": "Elisha Witte",
+            "email": "elishawitte@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Favon\\Application\\": ""
+        }
+    }
+}
