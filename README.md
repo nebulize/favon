@@ -119,8 +119,8 @@ brew install just
 ## Compiling Frontend Assets
 
 ```bash
-just assets
-just assets prod
+just assets # For development (or use `yarn watch`)
+just assets prod # For production
 ```
 
 ## Seeding
@@ -140,6 +140,7 @@ This project is based on a DDD structure, using
 app/
 ├── Account # Everything regarding users and their accounts (including authentication)
 ├── Application # Application bootstrapping
+├── Common # Common interfaces and classes used by multiple modules
 ├── Television # Application and presentation logic for television shows 
 ```
 
