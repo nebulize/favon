@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,4 +13,6 @@
 |
 */
 
-include_route_files(__DIR__.'/Web/');
+Route::get('/', function () {
+    return view('welcome');
+});

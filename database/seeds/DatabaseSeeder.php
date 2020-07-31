@@ -1,23 +1,16 @@
 <?php
 
-namespace Seeds;
-
 use Illuminate\Database\Seeder;
-use Seeds\Media\ListStatusesSeeder;
-use Seeds\Television\TvAirDaysSeeder;
-use Seeds\Television\TvRatingsSeeder;
-use Seeds\Television\TvStatusesSeeder;
 
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Seed the application's database.
+     *
+     * @return void
      */
-    public function run(): void
+    public function run()
     {
-        $this->call(TvStatusesSeeder::class);
-        $this->call(TvRatingsSeeder::class);
-        $this->call(TvAirDaysSeeder::class);
-        $this->call(ListStatusesSeeder::class);
+        // $this->call(UserSeeder::class);
     }
 }

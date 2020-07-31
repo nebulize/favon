@@ -1,31 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false">
-    <testsuites>
-        <testsuite name="Feature">
-            <directory suffix="Test.php">./tests/Feature</directory>
-        </testsuite>
-
-        <testsuite name="Unit">
-            <directory suffix="Test.php">./tests/Unit</directory>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./app</directory>
-        </whitelist>
-    </filter>
-    <php>
-        <env name="APP_ENV" value="testing"/>
-        <env name="CACHE_DRIVER" value="array"/>
-        <env name="SESSION_DRIVER" value="array"/>
-        <env name="QUEUE_DRIVER" value="sync"/>
-    </php>
+>
+  <testsuites>
+    <testsuite name="Unit">
+      <directory suffix="Test.php">./app/**/Tests/Unit/</directory>
+    </testsuite>
+    <testsuite name="Feature">
+      <directory suffix="Test.php">./app/**/Tests/Feature/</directory>
+    </testsuite>
+  </testsuites>
+  <filter>
+    <whitelist processUncoveredFilesFromWhitelist="true">
+      <directory suffix=".php">./app</directory>
+      <exclude>
+        <directory suffix="blade.php">./app</directory>
+        <directory suffix=".php">./app/**/Routes</directory>
+        <directory suffix=".php">./app/**/Resources</directory>
+        <directory suffix=".php">./app/**/Tests</directory>
+        <directory suffix=".php">./app/**/Config</directory>
+        <directory suffix=".php">./app/**/Database</directory>
+      </exclude>
+    </whitelist>
+  </filter>
+  <php>
+    <env name="APP_ENV" value="testing" force="true"/>
+    <env name="BCRYPT_ROUNDS" value="4" force="true"/>
+    <env name="CACHE_DRIVER" value="array" force="true"/>
+    <env name="MAIL_DRIVER" value="array" force="true"/>
+    <env name="QUEUE_CONNECTION" value="sync" force="true"/>
+    <env name="SESSION_DRIVER" value="array" force="true"/>
+    <env name="TELESCOPE_ENABLED" value="false" force="true"/>
+<!--    <env name="DB_CONNECTION" value="sqlite" force="true"/>-->
+<!--    <env name="DB_DATABASE" value=":memory:" force="true"/>-->
+  </php>
 </phpunit>

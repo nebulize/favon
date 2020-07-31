@@ -1,0 +1,16 @@
+includes:
+  - vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+  excludes_analyse:
+    - %rootDir%/../../../*/Factories/*.php
+    - %rootDir%/../../../*/factories/*.php
+    - %rootDir%/../../../*/Migrations/*.php
+    - %rootDir%/../../../*/migrations/*.php
+  ignoreErrors:
+    - '#Method [a-zA-Z0-9\\_]+Repository::[a-zA-Z]+\(\) should return [a-zA-Z0-9\\\&_<>]+ but returns Illuminate\\Database\\Eloquent\\Collection&iterable<Illuminate\\Database\\Eloquent\\Builder>\.#'
+    - '#Method [a-zA-Z0-9\\_]+Repository::[a-zA-Z]+\(\) should return [a-zA-Z0-9\\\&_<>]+ but returns [a-zA-Z0-9\\\&_<>\(\)\|]+\.#'
+    - '#Method [a-zA-Z0-9\\_]+Repository::[a-zA-Z]+\(\) should return [a-zA-Z0-9\\\&_<>]+ but returns Illuminate\\Database\\Eloquent\\Builder\|Illuminate\\Database\\Eloquent\\Model.#'
+    - '#Method [a-zA-Z0-9\\_]+Repository::[a-zA-Z]+\(\) should return [a-zA-Z0-9\\\&_<>]+ but returns Illuminate\\Database\\Eloquent\\Collection&iterable<int, Illuminate\\Database\\Eloquent\\Model>\.#'
+    - '#Method [a-zA-Z0-9\\_]+Repository::[a-zA-Z]+\(\) should return [a-zA-Z0-9\\\&_<>]+ but returns Illuminate\\Database\\Eloquent\\Collection&iterable<int, Illuminate\\Database\\Eloquent\\Builder>\.#'
+    - '#Call to an undefined method Illuminate\\Database\\Query\\Builder::firstOrFail\(\)\.#'
