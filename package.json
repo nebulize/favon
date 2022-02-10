@@ -39,7 +39,7 @@
         "imagemin-svgo": "^6.0.0",
         "imagemin-webp": "^4.1.0",
         "imagemin-webpack-plugin": "^2.0.0",
-        "node-sass": "^4.7.2",
+        "node-sass": "^7.0.0",
         "optimize-css-assets-webpack-plugin": "^4.0.0",
         "ora": "^2.0.0",
         "postcss-loader": "^2.1.1",
